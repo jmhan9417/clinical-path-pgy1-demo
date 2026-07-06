@@ -206,7 +206,7 @@
   .duty{display:grid;grid-template-columns:1fr 1fr;gap:5px 14px;margin:7px 0}
   @media(max-width:560px){.duty{grid-template-columns:1fr}}
   .duty div{font-size:12.5px;padding-left:16px;position:relative}
-  .duty div:before{content:"🩷";position:absolute;left:0;font-size:9px}
+  .duty div:before{content:"";position:absolute;left:0;font-size:9px}
 
   .hosp{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.92;pointer-events:none}
   .char-glow{z-index:2}
@@ -232,7 +232,7 @@
 
 <script>
 /* ==================================================================
-   CHARACTER — hand-drawn SVG "Dr. Harlin" with swappable expressions
+   CHARACTER — hand-drawn SVG"Dr. Harlin" with swappable expressions
    ================================================================== */
 const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053906_9c5e2aac-da01-4f96-9775-12df64c5ddd0.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053847_72f7598c-c336-4a95-b8d9-9ab50597c522.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053915_0f71b42e-fc48-43a5-a1bb-836afb7792ee.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053922_483a2e6e-a12d-439f-8c32-e3c8294c5258.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053934_7b42370a-fc62-4ebd-8412-bf5a039ed757.png","wink":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053858_42cf4308-bd4a-4bf0-bb26-b0d058614aad.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055305_48d0dd62-95fb-4c48-bbd7-bc2445b21a7d.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055320_7278a0d4-7fd7-4abc-b602-d36fb58b29ba.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png"}};
 const BG_URLS={"core":"https://images.unsplash.com/photo-1551076805-e1869033e561?w=1600&q=80","R1":"https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1600&q=80","R2":"https://images.unsplash.com/photo-1551076805-e1869033e561?w=1600&q=80","R3":"https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1600&q=80","R4":"https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1600&q=80"};
@@ -373,7 +373,7 @@ function bgFor(area){ return BG_URLS[area]||BG_URLS.core; }
 
 const MODULES = [
  {
-  id:"orient", icon:"📋", area:"core", title:"The Clinical Pharmacist Role",
+  id:"orient", icon:"01", area:"core", title:"The Clinical Pharmacist Role",
   blurb:"What a hospital clinical pharmacist actually does, per real job descriptions.",
   brief:`
    <p class="lead">Before any rotation, know the job. A hospital <b>clinical pharmacist</b> is
@@ -438,7 +438,7 @@ const MODULES = [
   ]
  },
  {
-  id:"jcpp", icon:"🔄", area:"R1", title:"Patient Care Process & SOAP",
+  id:"jcpp", icon:"02", area:"R1", title:"Patient Care Process & SOAP",
   blurb:"The consistent 5-step process (JCPP) and how to document a SOAP note.",
   brief:`
    <p class="lead">ASHP R1 requires you to deliver care using a <b>consistent patient-care process</b>. The
@@ -490,26 +490,26 @@ const MODULES = [
   ]
  },
  {
-  id:"rounds", icon:"🩺", area:"R1", title:"Rounds, Interventions & SBAR",
+  id:"rounds", icon:"03", area:"R1", title:"Rounds, Interventions & SBAR",
   blurb:"How to round with the team and make a recommendation that gets accepted.",
   brief:`
    <p class="lead">On rounds you turn your assessment into an <b>accepted intervention</b>. R1 grades you on
-   interactions that are "cooperative, collaborative, communicative, and respectful" and on advocacy for the patient.</p>
+   interactions that are"cooperative, collaborative, communicative, and respectful" and on advocacy for the patient.</p>
    <h3>Make it easy to say yes: SBAR</h3>
    <div class="rolegrid">
-     <div class="rolebox"><div class="num">S</div><div class="rt">Situation</div><div class="rd">One line: who &amp; the issue. "Mr. K in bed 4 is on IV vanco with a rising creatinine."</div></div>
+     <div class="rolebox"><div class="num">S</div><div class="rt">Situation</div><div class="rd">One line: who &amp; the issue."Mr. K in bed 4 is on IV vanco with a rising creatinine."</div></div>
      <div class="rolebox"><div class="num">B</div><div class="rt">Background</div><div class="rd">Relevant context: trough 26, SCr 0.9→1.6, on day 4 for MRSA cellulitis.</div></div>
      <div class="rolebox"><div class="num">A</div><div class="rt">Assessment</div><div class="rd">Your read: supratherapeutic, AKI risk likely drug-related.</div></div>
-     <div class="rolebox"><div class="num">R</div><div class="rt">Recommendation</div><div class="rd">Specific ask: "Hold next dose, redraw a level, transition to AUC dosing."</div></div>
+     <div class="rolebox"><div class="num">R</div><div class="rt">Recommendation</div><div class="rd">Specific ask:"Hold next dose, redraw a level, transition to AUC dosing."</div></div>
    </div>
    <div class="callout info"><b>Be specific or be ignored</b>
-     "You might want to look at the vanco" gets nowhere. Name the <b>drug, dose, route, frequency, and monitoring</b>.
+"You might want to look at the vanco" gets nowhere. Name the <b>drug, dose, route, frequency, and monitoring</b>.
      A concrete recommendation is far more likely to be accepted.</div>
    <h3>Rounding habits that build trust</h3>
    <ul>
      <li>Pre-round: know your patients' meds, labs, and overnight events before the team gathers.</li>
      <li>Lead with the highest-risk issue (anticoagulation, antibiotics, renal dosing, high-alert meds).</li>
-     <li>Frame around the patient's goal, not "the guideline says."</li>
+     <li>Frame around the patient's goal, not"the guideline says."</li>
      <li>Negotiate and build consensus; document the intervention and the outcome.</li>
    </ul>
   `,
@@ -541,7 +541,7 @@ const MODULES = [
   ]
  },
  {
-  id:"pk", icon:"🧮", area:"R1", title:"Pharmacokinetics & TDM",
+  id:"pk", icon:"04", area:"R1", title:"Pharmacokinetics & TDM",
   blurb:"Dosing math and monitoring for vancomycin, aminoglycosides, DOACs and more.",
   brief:`
    <p class="lead">Therapeutic drug monitoring is a signature clinical-pharmacist service. You individualize
@@ -597,12 +597,12 @@ const MODULES = [
   ]
  },
  {
-  id:"safety", icon:"⚠️", area:"R1", title:"Medication Safety & Stewardship",
+  id:"safety", icon:"05", area:"R1", title:"Medication Safety & Stewardship",
   blurb:"ADRs, interactions, error prevention, and antimicrobial stewardship.",
   brief:`
    <p class="lead">You are the safety net of the medication-use system: detect, mitigate, and prevent adverse
    drug events, and steward antimicrobials to protect patients and the community.</p>
-   <h3>Beyond the "5 rights"</h3>
+   <h3>Beyond the"5 rights"</h3>
    <p>Right patient, drug, dose, route, time — plus verify <b>indication, duration, and monitoring</b>. Most
    errors hide in the last three.</p>
    <h4>High-alert med vigilance</h4>
@@ -657,7 +657,7 @@ const MODULES = [
   ]
  },
  {
-  id:"code", icon:"🚨", area:"R1", title:"Code Blue & Emergencies",
+  id:"code", icon:"06", area:"R1", title:"Code Blue & Emergencies",
   blurb:"ACLS pharmacology, hyperkalemia, and anaphylaxis — the pharmacist at the bedside.",
   brief:`
    <p class="lead">Clinical pharmacists respond to codes: preparing/verifying emergency drugs, advising on doses,
@@ -713,7 +713,7 @@ const MODULES = [
   ]
  },
  {
-  id:"jclub", icon:"📊", area:"R2", title:"Journal Club & Critical Appraisal",
+  id:"jclub", icon:"07", area:"R2", title:"Journal Club & Critical Appraisal",
   blurb:"How to run a journal club and appraise a trial (PICO, validity, NNT).",
   brief:`
    <p class="lead">Evidence-based practice is a core R2 skill. Running a journal club means picking a relevant,
@@ -783,7 +783,7 @@ const MODULES = [
   ]
  },
  {
-  id:"project", icon:"📈", area:"R2", title:"Practice Advancement & MUE",
+  id:"project", icon:"08", area:"R2", title:"Practice Advancement & MUE",
   blurb:"Run a residency project / medication-use evaluation that improves the system.",
   brief:`
    <p class="lead">R2 asks you to <b>advance practice</b>: identify a gap, design a project (often a Medication-Use
@@ -832,7 +832,7 @@ const MODULES = [
   ]
  },
  {
-  id:"lead", icon:"🧭", area:"R3", title:"Leadership & Management",
+  id:"lead", icon:"09", area:"R3", title:"Leadership & Management",
   blurb:"Prioritize workload, work within formulary/P&T, and act professionally.",
   brief:`
    <p class="lead">R3 is about running the practice well: managing your time and the medication-use system,
@@ -890,7 +890,7 @@ const MODULES = [
   ]
  },
  {
-  id:"precept", icon:"👩‍🏫", area:"R4", title:"Teaching & Precepting: The 4 Roles",
+  id:"precept", icon:"10", area:"R4", title:"Teaching & Precepting: The 4 Roles",
   blurb:"How to precept students/residents using the four sequential preceptor roles.",
   brief:`
    <p class="lead">R4 requires you to teach — and as a resident you'll precept APPE students in a
@@ -954,7 +954,7 @@ const MODULES = [
   ]
  },
  {
-  id:"present", icon:"🎤", area:"R4", title:"Presentations & In-services",
+  id:"present", icon:"11", area:"R4", title:"Presentations & In-services",
   blurb:"Design and deliver an effective educational presentation to your team.",
   brief:`
    <p class="lead">Whether it's a CE in-service, a case presentation, or a nursing education session, R4 wants
@@ -962,7 +962,7 @@ const MODULES = [
    <h3>Plan before you design slides</h3>
    <ol>
      <li><b>Know your audience &amp; level</b> — pharmacists vs nurses vs patients need different depth.</li>
-     <li><b>Write measurable objectives</b> — "By the end, participants will be able to <i>select</i> appropriate DOAC dosing…" (use action verbs: select, apply, evaluate — not "understand").</li>
+     <li><b>Write measurable objectives</b> —"By the end, participants will be able to <i>select</i> appropriate DOAC dosing…" (use action verbs: select, apply, evaluate — not"understand").</li>
      <li><b>Choose active learning</b> — cases, polling, questions beat pure lecture.</li>
      <li><b>Use evidence-based, current content</b> with accurate citations and respect for copyright.</li>
    </ol>
@@ -1014,19 +1014,19 @@ const AREA_TOTALS={};
 MODULES.forEach(m=>AREA_TOTALS[m.area]=(AREA_TOTALS[m.area]||0)+m.cases.length);
 
 /* praise / consolation pools */
-const PRAISE=["Exactly right — I knew I could count on you ✨","Perfect. A patient would be safe with that call 😊","Yes! You're really becoming a clinical pharmacist.","Correct! ...okay, I'm a little impressed.","That's it — I'd feel confident rounding with you 💗"];
+const PRAISE=["Exactly right — I knew I could count on you","Perfect. A patient would be safe with that call","Yes! You're really becoming a clinical pharmacist.","Correct! ...okay, I'm a little impressed.","That's it — I'd feel confident rounding with you"];
 const CONSOLE=["Hmm, so close. Let's look again.","It's okay — this is how we learn. Here's the key.","In real life that'd sting. Good thing you know now!","A little off — the reasoning makes it click."];
 
 /* ==================================================================
    STATE + engine
    ================================================================== */
-let G=null, pickedAv="🧑‍⚕️";
-const AVS=["🧑‍⚕️","👩‍⚕️","👨‍⚕️","🧑🏻‍⚕️","🧑🏽‍⚕️","🧑🏿‍⚕️"];
+let G=null, pickedAv="";
+const AVS=["","","","","",""];
 
 const stage=document.getElementById("stage");
 const fx=document.getElementById("fx");
 
-function setBG(area){ stage.className="stage "+(AREA[area]?AREA[area].bg:"bg-title"); }
+function setBG(area){ stage.className="stage"+(AREA[area]?AREA[area].bg:"bg-title"); }
 function bokehHTML(){let s="";for(let i=0;i<7;i++){const sz=20+Math.random()*60,x=Math.random()*100,y=Math.random()*100,d=Math.random()*4;s+=`<div class="bokeh" style="width:${sz}px;height:${sz}px;left:${x}%;top:${y}%;animation-delay:${d}s;opacity:${.25+Math.random()*.35}"></div>`;}return s;}
 
 function bond(){ let c=0; MODULES.forEach(m=>G.results[m.id].forEach(r=>{if(r===true)c++;})); return c; }
@@ -1038,7 +1038,7 @@ function modCorrect(m){return G.results[m.id].filter(r=>r===true).length;}
 
 /* particles */
 function burst(kind){
-  const ic = kind==="good"?["✨","💗","⭐","🌸"]:["💧","💦"];
+  const ic = [];
   for(let i=0;i<10;i++){
     const p=document.createElement("div");p.className="p";
     p.textContent=ic[Math.floor(Math.random()*ic.length)];
@@ -1054,15 +1054,15 @@ function hudHTML(area){
   return `<div class="hud">
     <div class="area-pill" style="color:${AREA[area]?AREA[area].c:'#ff7fa8'}">${AREA[area]?AREA[area].name:'Title'}</div>
     <div class="spacer"></div>
-    <div class="bond"><span class="lbl">💗 Bond</span><div class="hbar"><i style="width:${bm?Math.round(b/bm*100):0}%"></i></div></div>
-    <button class="menu-btn" onclick="goHub()">☰</button>
+    <div class="bond"><span class="lbl">Bond</span><div class="hbar"><i style="width:${bm?Math.round(b/bm*100):0}%"></i></div></div>
+    <button class="menu-btn" onclick="goHub()"></button>
   </div>`;
 }
 
 /* ---- character + dialogue frame ---- */
 function drawScene(area, expr, name, textHTML, opts={}){
   const showChar = opts.char!==false;
-  const nameTab = name? `<div class="vn-name">💗 ${name}</div>`:"";
+  const nameTab = name? `<div class="vn-name">${name}</div>`:"";
   const note = opts.note? `<div class="vn-note">${opts.note}</div>`:"";
   const adv = opts.advance? `<span class="adv">▼</span>`:"";
   const ctrl = `<div class="vn-ctrl"><span>AUTO</span><span>SKIP</span><span>LOG</span></div>`;
@@ -1182,7 +1182,7 @@ function showTitle(){
    ================================================================== */
 function showIntro(){
   drawScene("core","neutral","Dr. Belle Deans",
-    "<b>Welcome to St. Aurelia Medical Center.</b><br>I'm <b>Dr. Belle Deans</b>, your PGY-1 Residency Program Director.<br>Before your first rotation — what should we call you?",
+"<b>Welcome to St. Aurelia Medical Center.</b><br>I'm <b>Dr. Belle Deans</b>, your PGY-1 Residency Program Director.<br>Before your first rotation — what should we call you?",
     {advance:false, hud:false, who:'belle'});
   const wrap=document.querySelector(".vn-wrap");
   const inp=document.createElement("div");
@@ -1193,7 +1193,7 @@ function showIntro(){
     </div>
     <input id="nm" placeholder="Enter your name" maxlength="16" value="Joey Han"
       style="font-family:'Nunito';font-weight:700;padding:12px 16px;border:2.5px solid #ffd0e0;border-radius:16px;font-size:16px;text-align:center;outline:none"/>
-    <button class="btn mint" id="goBtn">Start 💗</button>`;
+    <button class="btn mint" id="goBtn">Start</button>`;
   document.getElementById("choiceLayer").appendChild(inp);
   document.querySelectorAll("#avRow .av").forEach(el=>el.onclick=()=>{
     document.querySelectorAll("#avRow .av").forEach(x=>x.classList.remove("sel"));
@@ -1206,7 +1206,7 @@ function beginGame(){
   G={name:nm,avatar:pickedAv,results:{}};
   MODULES.forEach(m=>G.results[m.id]=m.cases.map(()=>null));
   drawScene("core","happy","Joey Han (you)",
-    `<b>I'm ${nm}, PGY-1.</b><br>A little nervous — but ready to learn. 💪`,
+    `<b>I'm ${nm}, PGY-1.</b><br>A little nervous, but ready to learn.`,
     {advance:true, hud:false, who:'joey', pop:true, onBox:"introHarlin()"});
   burst("good");
 }
@@ -1229,7 +1229,7 @@ function goHub(){
     ${hudHTML("core")}
     <div class="center-layer" style="justify-content:flex-start;padding-top:64px">
       <div class="hub-panel">
-        <h2>📋 Choose your rotation</h2>
+        <h2>Choose your rotation</h2>
         <div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with Dr. Harlin</div>
         <div class="comp-row">
           ${dashAreas.map(a=>{const s=areaScore(a),m=AREA[a];return `<div class="compb">
@@ -1240,14 +1240,14 @@ function goHub(){
         <div class="mcards">
           ${MODULES.map(m=>{const meta=AREA[m.area],done=modDone(m),nc=modCorrect(m);
             return `<div class="mc ${done?'done':''}" onclick="openModule('${m.id}')">
-              <span class="heart">💗</span>
+              <span class="heart"></span>
               <div class="top" style="background:${meta.bg==='bg-core'?'#ffe5ef':meta.c+'22'}">${m.icon}</div>
               <div class="bd"><div class="t">${m.title}</div><div class="bl">${m.blurb}</div>
               <div class="f"><span class="cpill" style="background:${meta.c}">${m.area==='core'?'ORIENT':m.area}</span>
-              <span class="prog">${done?nc+'/'+m.cases.length+' 💗':m.cases.length+' cases'}</span></div></div></div>`;}).join("")}
+              <span class="prog">${done?nc+'/'+m.cases.length+' done':m.cases.length+' cases'}</span></div></div></div>`;}).join("")}
         </div>
         <div style="text-align:center;margin-top:18px">
-          <button class="btn" onclick="graduate()">🎓 Final Evaluation</button>
+          <button class="btn" onclick="graduate()">Final Evaluation</button>
         </div>
       </div>
     </div>`;
@@ -1264,10 +1264,10 @@ function runLearn(){
   const lines=TEACH[m.id]||[];
   const last=learnIdx>=lines.length-1;
   const expr = learnIdx===0?"smile":(learnIdx%2?"think":"smile");
-  drawScene(m.area, expr, "Dr. Harlin", lines[learnIdx], {
+  drawScene(m.area, expr,"Dr. Harlin", lines[learnIdx], {
     advance:true, onBox:"learnNext()",
     below:`<div style="position:absolute;top:60px;right:18px;z-index:18">
-      <button class="btn ghost sm" onclick="openNotes()">📖 Notes</button></div>`
+      <button class="btn ghost sm" onclick="openNotes()">Notes</button></div>`
   });
   if(last){
     const wrap=document.querySelector(".vn-wrap");
@@ -1285,7 +1285,7 @@ function openNotes(){
   ov.innerHTML=`<div class="notes-card">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3 style="margin:0">${m.icon} ${m.title} — Notes</h3>
-      <button class="btn ghost sm" onclick="closeNotes()">Close ✕</button></div>
+      <button class="btn ghost sm" onclick="closeNotes()">Close </button></div>
     <div class="brief" style="margin-top:10px">${m.brief}</div></div>`;
   document.getElementById("app").appendChild(ov);
   ov.onclick=e=>{if(e.target===ov)closeNotes();};
@@ -1298,7 +1298,7 @@ function runCase(){
   const m=curM, c=m.cases[caseIdx];
   const already=G.results[m.id][caseIdx];
   // dialogue = mentor ask, then question emphasized + choices
-  drawScene(m.area, "think", "Dr. Harlin",
+  drawScene(m.area,"think","Dr. Harlin",
     `Alright, clinical scenario — <b>${c.kick}</b>.`,
     { advance:false,
       note:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`,
@@ -1324,7 +1324,7 @@ function caseProgress(){
   const m=curM;
   const dots=m.cases.map((_,i)=>{const r=G.results[m.id][i];
     const col=i===caseIdx?AREA[m.area].c:(r===true?'#3fd0bf':r===false?'#ff8fa8':'#f0d8e4');
-    return `<span style="width:26px;height:7px;border-radius:6px;background:${col};display:inline-block"></span>`;}).join(" ");
+    return `<span style="width:26px;height:7px;border-radius:6px;background:${col};display:inline-block"></span>`;}).join("");
   return `<div style="position:absolute;top:58px;left:0;right:0;text-align:center;z-index:18">${dots}</div>`;
 }
 
@@ -1356,7 +1356,7 @@ function checkOrder(){
   const m=curM,c=m.cases[caseIdx];if(G.results[m.id][caseIdx]!==null)return;
   const ok=JSON.stringify(ordSeq)===JSON.stringify(c.correct);
   G.results[m.id][caseIdx]=ok;
-  const fbtext= ok? c.note : "Not quite. The correct order is "+c.correct.map((s,i)=>`${i+1}.${s}`).join(" → ")+". "+c.note;
+  const fbtext= ok? c.note :"Not quite. The correct order is"+c.correct.map((s,i)=>`${i+1}.${s}`).join(" →")+"."+c.note;
   feedback(ok,fbtext);
 }
 
@@ -1367,12 +1367,12 @@ function feedback(ok, expl){
   const cleanExpl = String(expl || '').replace(/^(Correct\.|Not quite\.)\s*/i, '');
   const line = ok? PRAISE[Math.floor(Math.random()*PRAISE.length)] : CONSOLE[Math.floor(Math.random()*CONSOLE.length)];
   const last = caseIdx===m.cases.length-1;
-  drawScene(m.area, ok?"happy":"worry", "Dr. Harlin", line, {
-    advance:false, note:`<b>${ok?'✅ Correct':'❌ Not quite'}</b> · ${cleanExpl}` });
+  drawScene(m.area, ok?"happy":"worry","Dr. Harlin", line, {
+    advance:false, note:`<b>${ok?'Correct':'Not quite'}</b> · ${cleanExpl}` });
   burst(ok?"good":"bad");
   const wrap=document.querySelector(".vn-wrap");
   const c=document.createElement("div");c.className="choices";
-  c.innerHTML=`<button class="btn mint" onclick="nextCase()">${last?'Finish rotation ✓':'Next case ▶'}</button>`;
+  c.innerHTML=`<button class="btn mint" onclick="nextCase()">${last?'Finish rotation ':'Next case ▶'}</button>`;
   document.getElementById("choiceLayer").appendChild(c);
 }
 function nextCase(){
@@ -1383,12 +1383,12 @@ function nextCase(){
 function moduleComplete(){
   const m=curM,nc=modCorrect(m),meta=AREA[m.area];
   const perfect=nc===m.cases.length;
-  drawScene(m.area, perfect?"wink":"smile", "Dr. Harlin",
-    perfect? `Amazing, Dr. ${G.name}! You got all ${m.cases.length} right 🌟<br>You are really good at this — I am proud 💗`
-           : `Rotation complete! You got ${nc} of ${m.cases.length}. Nice work 😊<br>Review the notes and retry anytime.`,
+  drawScene(m.area, perfect?"wink":"smile","Dr. Harlin",
+    perfect? `Amazing, Dr. ${G.name}! You got all ${m.cases.length} right.<br>You are really good at this — I am proud `
+           : `Rotation complete! You got ${nc} of ${m.cases.length}. Nice work.<br>Review the notes and retry anytime.`,
     {advance:true, onBox:"goHub()", pop:true,
      below:`<div style="position:absolute;top:66px;left:0;right:0;text-align:center;z-index:18">
-       <span class="area-pill" style="color:${meta.c};font-size:15px">${m.title} · ${nc}/${m.cases.length} 💗</span></div>`});
+       <span class="area-pill" style="color:${meta.c};font-size:15px">${m.title} · ${nc}/${m.cases.length}</span></div>`});
   if(perfect)burst("good");
 }
 
@@ -1399,15 +1399,15 @@ function graduate(){
   const ov=overall(),r1=areaScore("R1"),r2=areaScore("R2"),r3=areaScore("R3"),r4=areaScore("R4"),core=areaScore("core");
   const done=MODULES.filter(m=>modDone(m)).length;
   let medal,title,rk,expr;
-  if(done<MODULES.length){medal="📌";title="Still in Training";expr="think";
+  if(done<MODULES.length){medal="";title="Still in Training";expr="think";
     rk=`You have finished ${done}/${MODULES.length} rotations (${ov.pct}% of all cases). Finish every rotation to sit for your final evaluation!`;}
-  else if(ov.pct>=90 && Math.min(r1.pct,r2.pct,r3.pct,r4.pct)>=75){medal="🏆";title="PGY-1 Graduate — Ready for BCPS / PGY-2";expr="wink";
-    rk="Outstanding across all four competencies! You practice safely and independently, teach the next learner, and improve the system. The gold standard 💗";}
-  else if(ov.pct>=75){medal="🎓";title="PGY-1 Graduate — Clinical Pharmacist";expr="happy";
+  else if(ov.pct>=90 && Math.min(r1.pct,r2.pct,r3.pct,r4.pct)>=75){medal="";title="PGY-1 Graduate — Ready for BCPS / PGY-2";expr="wink";
+    rk="Outstanding across all four competencies! You practice safely and independently, teach the next learner, and improve the system. The gold standard";}
+  else if(ov.pct>=75){medal="";title="PGY-1 Graduate — Clinical Pharmacist";expr="happy";
     rk="A solid, floor-ready clinical pharmacist. Shore up your weaker competencies and you can branch into a specialty.";}
-  else if(ov.pct>=55){medal="📗";title="Residency Continued — Developing";expr="smile";
+  else if(ov.pct>=55){medal="";title="Residency Continued — Developing";expr="smile";
     rk="Your competencies are growing. Revisit the notes for weaker areas and retry the cases.";}
-  else{medal="📙";title="Needs Development";expr="worry";
+  else{medal="";title="Needs Development";expr="worry";
     rk="Build the fundamentals. Read each rotation note and retry the cases to raise your bond!";}
   setBG("core");
   document.getElementById("app").innerHTML=`
@@ -1420,12 +1420,12 @@ function graduate(){
         <h2>${title}</h2>
         <div class="rk">Dr. ${G.name} — ${rk}</div>
         <div class="sgrid">
-          <div><span>📋 Orientation</span><b>${core.c}/${core.t}</b></div>
-          <div><span>🩺 R1 Patient Care</span><b>${r1.c}/${r1.t}</b></div>
-          <div><span>📊 R2 Practice Adv.</span><b>${r2.c}/${r2.t}</b></div>
-          <div><span>🧭 R3 Leadership</span><b>${r3.c}/${r3.t}</b></div>
-          <div><span>🎤 R4 Teaching</span><b>${r4.c}/${r4.t}</b></div>
-          <div><span>💗 Total Bond</span><b>${ov.c}/${ov.t} (${ov.pct}%)</b></div>
+          <div><span>Orientation</span><b>${core.c}/${core.t}</b></div>
+          <div><span>R1 Patient Care</span><b>${r1.c}/${r1.t}</b></div>
+          <div><span>R2 Practice Adv.</span><b>${r2.c}/${r2.t}</b></div>
+          <div><span>R3 Leadership</span><b>${r3.c}/${r3.t}</b></div>
+          <div><span>R4 Teaching</span><b>${r4.c}/${r4.t}</b></div>
+          <div><span>Total Score</span><b>${ov.c}/${ov.t} (${ov.pct}%)</b></div>
         </div>
         <div style="font-size:11.5px;color:#9a8393;margin-top:6px">Rotations done ${done}/${MODULES.length}</div>
         <div style="margin-top:14px;display:flex;gap:9px;justify-content:center;flex-wrap:wrap">
