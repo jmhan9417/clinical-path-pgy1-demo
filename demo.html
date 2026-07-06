@@ -234,12 +234,12 @@
 /* ==================================================================
    CHARACTER — hand-drawn SVG"Dr. Harlin" with swappable expressions
    ================================================================== */
-const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053906_9c5e2aac-da01-4f96-9775-12df64c5ddd0.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053847_72f7598c-c336-4a95-b8d9-9ab50597c522.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053915_0f71b42e-fc48-43a5-a1bb-836afb7792ee.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053922_483a2e6e-a12d-439f-8c32-e3c8294c5258.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053934_7b42370a-fc62-4ebd-8412-bf5a039ed757.png","wink":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053858_42cf4308-bd4a-4bf0-bb26-b0d058614aad.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055305_48d0dd62-95fb-4c48-bbd7-bc2445b21a7d.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055320_7278a0d4-7fd7-4abc-b602-d36fb58b29ba.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png"}};
-const BG_URLS={"core":"https://images.unsplash.com/photo-1551076805-e1869033e561?w=1600&q=80","R1":"https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1600&q=80","R2":"https://images.unsplash.com/photo-1551076805-e1869033e561?w=1600&q=80","R3":"https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1600&q=80","R4":"https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1600&q=80"};
+const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064549_2db7df05-8adb-4513-b376-d8fbf55b8252.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064630_7f17c76d-9931-4830-b923-fcb206958254.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064644_8ebe04b9-71c7-4e4b-8d52-06f46b4aadcc.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064654_40b050a1-2c3b-4718-a04c-53ccccf8d798.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064705_c9c8e658-dbef-4940-af13-a0349791a9fa.png","laugh":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064716_425a8704-d2a1-4b8f-bf1f-a9a11e543c3b.png","encourage":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064727_0447f1ef-7361-4d24-820a-91cd859e95d1.png","alarmed":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064738_bf27a5a3-2d27-48e3-9907-ae44a53d08b0.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064851_6e4f850a-dafa-4f93-917f-f361593b4753.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064901_c3bf8edd-8794-441b-ad49-5fbf1837ff35.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png"}};
+const BG_URLS={core:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R1:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80', R2:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R3:'https://images.unsplash.com/photo-1584451049700-ec9b394f3805?w=1600&q=80', R4:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80'};
 function faceImg(expr, who){
   who = who||'harlin';
   var SETS={
-    harlin:{dir:'assets/harlin/harlin_', has:['neutral','happy','think','worry','proud','wink'], alias:{smile:'neutral'}},
+    harlin:{dir:'assets/harlin/harlin_', has:['neutral','happy','think','worry','proud','laugh','encourage','alarmed'], alias:{smile:'neutral',wink:'happy',surprised:'happy',sad:'worry',stern:'worry'}},
     belle:{dir:'assets/belle/belle_', has:['neutral','proud'], alias:{happy:'proud',smile:'neutral',think:'neutral',worry:'neutral',wink:'proud'}},
     joey:{dir:'assets/joey/joey_', has:['neutral','happy'], alias:{proud:'happy',smile:'neutral',think:'neutral',worry:'neutral',wink:'happy'}}
   };
@@ -1014,8 +1014,19 @@ const AREA_TOTALS={};
 MODULES.forEach(m=>AREA_TOTALS[m.area]=(AREA_TOTALS[m.area]||0)+m.cases.length);
 
 /* praise / consolation pools */
-const PRAISE=["Exactly right — I knew I could count on you","Perfect. A patient would be safe with that call","Yes! You're really becoming a clinical pharmacist.","Correct! ...okay, I'm a little impressed.","That's it — I'd feel confident rounding with you"];
-const CONSOLE=["Hmm, so close. Let's look again.","It's okay — this is how we learn. Here's the key.","In real life that'd sting. Good thing you know now!","A little off — the reasoning makes it click."];
+// Bond-tiered tone: 0 = new/polite mentor, 1 = warming up, 2 = close/playful senior
+const PRAISE_T=[
+  ["Nice — that's the right call.","Yep, exactly right. Well reasoned.","Good. That's how we keep patients safe.","That's correct — solid thinking."],
+  ["There you go! You're getting the hang of this.","Love it — that's exactly what I'd have done.","Yes! See, you've got good instincts.","Nice work. I'm starting to trust your gut."],
+  ["Okay, showoff — that was perfect. ","Ha! Nailed it. You're making me look good out here.","Honestly? I'd let you round solo on that one.","That's my resident. Chef's kiss."]
+];
+const CONSOLE_T=[
+  ["Not quite — let's walk through it together.","Close. Here's the piece that flips it.","No worries, this one trips a lot of people up.","Almost — let me show you the reasoning."],
+  ["Ah, so close! Look here with me for a sec.","Eh, not this time — but I see how you got there.","That's alright, we learn these by tripping on them.","Hmm, off by a bit. Let's fix the logic."],
+  ["Okay okay, even I mix that one up — here's the trick.","Nope, but don't sweat it. You'll never forget it now.","Ha, gotcha — this is exactly the kind we learn the hard way.","Missed it, but hey, that's what I'm here for. Look."]
+];
+function bondTier(){ const c=bond(); return c>=10?2 : c>=4?1 : 0; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 
 /* ==================================================================
    STATE + engine
@@ -1298,8 +1309,15 @@ function runCase(){
   const m=curM, c=m.cases[caseIdx];
   const already=G.results[m.id][caseIdx];
   // dialogue = mentor ask, then question emphasized + choices
-  drawScene(m.area,"think","Dr. Harlin",
-    `Alright, clinical scenario — <b>${c.kick}</b>.`,
+  const it=bondTier();
+  const introLine=[
+    `Okay, let's think through this one — <b>${c.kick}</b>.`,
+    `Here's a good one for you. <b>${c.kick}</b>.`,
+    `Ooh, I like this one. <b>${c.kick}</b> — show me what you've got.`
+  ][it];
+  const introExpr=["neutral","think","encourage"][it];
+  drawScene(m.area,introExpr,"Dr. Harlin",
+    introLine,
     { advance:false,
       note:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`,
       below: caseProgress() });
@@ -1365,9 +1383,13 @@ function feedback(ok, expl){
   ordSeq=[];
   const m=curM;
   const cleanExpl = String(expl || '').replace(/^(Correct\.|Not quite\.)\s*/i, '');
-  const line = ok? PRAISE[Math.floor(Math.random()*PRAISE.length)] : CONSOLE[Math.floor(Math.random()*CONSOLE.length)];
+  const t = bondTier();
+  const line = ok? pick(PRAISE_T[t]) : pick(CONSOLE_T[t]);
+  // expression varies by correctness + how close you and Harlin are
+  const okExpr =   ["proud","happy","laugh"][t];
+  const badExpr =  ["think","worry","encourage"][t];
   const last = caseIdx===m.cases.length-1;
-  drawScene(m.area, ok?"happy":"worry","Dr. Harlin", line, {
+  drawScene(m.area, ok?okExpr:badExpr,"Dr. Harlin", line, {
     advance:false, note:`<b>${ok?'Correct':'Not quite'}</b> · ${cleanExpl}` });
   burst(ok?"good":"bad");
   const wrap=document.querySelector(".vn-wrap");
