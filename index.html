@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Clinical Path — PGY-1 Residency Onboarding, Reinvented</title>
+<meta name="description" content="A visual-novel onboarding platform that turns pharmacy residency orientation into measurable ASHP competency evidence." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b2233; --navy2:#123147; --teal:#0d9488; --teal2:#14b8a6; --teal-soft:#e6fbf7;
+    --ink:#0f1e2b; --muted:#5b7183; --line:#e2ebf0; --bg:#f6fafb; --white:#fff;
+    --amber:#f59e0b; --violet:#7c3aed; --blue:#2563eb; --r1:#0d9488; --r2:#2563eb; --r3:#7c3aed; --r4:#f59e0b;
+    --shadow:0 20px 50px rgba(11,34,51,.10); --shadow-sm:0 8px 24px rgba(11,34,51,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,sans-serif;color:var(--ink);
+    background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;border-radius:12px;
+    padding:13px 22px;cursor:pointer;border:none;transition:.16s;white-space:nowrap}
+  .btn.primary{background:var(--teal);color:#fff;box-shadow:0 10px 24px rgba(13,148,136,.28)}
+  .btn.primary:hover{background:var(--teal2);transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line)}
+  .btn.ghost:hover{border-color:var(--teal);color:var(--teal)}
+  .btn.white{background:#fff;color:var(--navy)}
+  .btn.white:hover{transform:translateY(-2px)}
+  .eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+  h1,h2,h3{line-height:1.15;letter-spacing:-.02em;font-weight:800;color:var(--navy)}
+  section{padding:88px 0}
+  .center{text-align:center}
+  .lead{font-size:19px;color:var(--muted);max-width:660px}
+  .center .lead{margin-left:auto;margin-right:auto}
+
+  /* ---------- NAV ---------- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--navy)}
+  .brand .mk{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--teal2));
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+  nav .links{display:flex;gap:26px;margin-left:8px;font-size:14.5px;font-weight:600;color:var(--muted)}
+  nav .links a:hover{color:var(--teal)}
+  nav .spacer{flex:1}
+  @media(max-width:860px){nav .links{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{background:radial-gradient(1100px 500px at 80% -10%,rgba(20,184,166,.12),transparent 60%),
+    linear-gradient(180deg,#fff,var(--bg));padding:70px 0 40px}
+  .hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+  @media(max-width:920px){.hero .grid{grid-template-columns:1fr;gap:36px}}
+  .hero h1{font-size:clamp(34px,5vw,52px)}
+  .hero h1 .hl{background:linear-gradient(120deg,var(--teal),var(--teal2));-webkit-background-clip:text;
+    background-clip:text;color:transparent}
+  .hero p.sub{font-size:19px;color:var(--muted);margin:20px 0 28px;max-width:560px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .note{margin-top:16px;font-size:13.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+  .hero .note span{display:flex;align-items:center;gap:6px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+
+  /* VN preview mockup */
+  .mock{background:var(--navy);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;
+    aspect-ratio:16/11;position:relative;border:1px solid rgba(255,255,255,.08)}
+  .mock .scene{position:absolute;inset:0;background:
+    radial-gradient(400px 300px at 20% 20%,rgba(255,255,255,.10),transparent),
+    linear-gradient(160deg,#0e3a3f,#0b2233)}
+  .mock .win{position:absolute;left:7%;top:12%;width:120px;height:88px;border-radius:8px;
+    background:linear-gradient(160deg,rgba(180,220,255,.35),rgba(120,180,255,.2));border:4px solid rgba(255,255,255,.35)}
+  .mock .cross{position:absolute;right:8%;top:12%;width:44px;height:44px;border-radius:50%;
+    background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}
+  .mock .cross:before{content:"";position:absolute;width:20px;height:6px;border-radius:3px;background:var(--teal2)}
+  .mock .cross:after{content:"";position:absolute;width:6px;height:20px;border-radius:3px;background:var(--teal2)}
+  .mock .sprite{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:150px;height:74%;
+    background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.06));
+    border-radius:80px 80px 0 0}
+  .mock .sprite:before{content:"👩‍⚕️";position:absolute;top:16%;left:50%;transform:translateX(-50%);font-size:52px;opacity:.9}
+  .mock .box{position:absolute;left:5%;right:5%;bottom:6%;background:rgba(255,255,255,.96);
+    border-radius:14px;padding:14px 16px 16px;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+  .mock .name{position:absolute;top:-13px;left:16px;background:var(--teal);color:#fff;font-size:12px;
+    font-weight:700;padding:4px 14px;border-radius:10px}
+  .mock .box p{font-size:13.5px;color:var(--ink);font-weight:600}
+  .mock .choices{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+  .mock .ch{background:#f3f8f9;border:1.5px solid var(--line);border-radius:9px;padding:8px 11px;font-size:12px;font-weight:600}
+  .mock .ch.correct{border-color:var(--teal);background:var(--teal-soft)}
+  .mock .tag{position:absolute;top:14px;left:5%;background:rgba(255,255,255,.9);border-radius:8px;
+    font-size:10.5px;font-weight:800;padding:4px 9px;color:var(--teal)}
+
+  /* ---------- trust strip ---------- */
+  .trust{background:var(--navy);color:#cfe6e2}
+  .trust .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;align-items:center;justify-content:center;padding:22px 24px}
+  .trust b{color:#fff}
+  .trust .pill{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600}
+  .trust .ic{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center;font-size:14px}
+
+  /* ---------- generic section head ---------- */
+  .shead{max-width:680px;margin:0 auto 46px}
+  .shead h2{font-size:clamp(28px,4vw,40px);margin:12px 0}
+
+  /* problem cards */
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:840px){.cards3{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow-sm)}
+  .card .emo{font-size:26px;width:52px;height:52px;border-radius:13px;background:var(--teal-soft);
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .card h3{font-size:19px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* how it works */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+  @media(max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+  .step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;position:relative}
+  .step .n{width:34px;height:34px;border-radius:10px;background:var(--navy);color:#fff;font-weight:800;
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .step h3{font-size:17px;margin-bottom:6px}
+  .step p{font-size:14px;color:var(--muted)}
+
+  /* reporting split */
+  .split{display:grid;grid-template-columns:1fr 1.05fr;gap:52px;align-items:center}
+  @media(max-width:920px){.split{grid-template-columns:1fr}}
+  .feat-list{margin-top:22px;display:flex;flex-direction:column;gap:14px}
+  .feat-list li{list-style:none;display:flex;gap:12px;font-size:15.5px}
+  .feat-list .ck{flex:none;width:24px;height:24px;border-radius:7px;background:var(--teal-soft);color:var(--teal);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+  .feat-list b{color:var(--navy)}
+
+  /* dashboard mock */
+  .dash{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px}
+  .dash .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .dash .top h4{font-size:16px;color:var(--navy)}
+  .dash .top .exp{font-size:12px;font-weight:700;color:var(--teal);border:1.5px solid var(--teal);
+    border-radius:8px;padding:5px 11px}
+  .dash .row{display:grid;grid-template-columns:130px 1fr 42px;gap:12px;align-items:center;margin-bottom:11px}
+  .dash .row .lab{font-size:13px;font-weight:700;color:var(--navy)}
+  .dash .bar{height:9px;border-radius:9px;background:#eef3f5;overflow:hidden}
+  .dash .bar i{display:block;height:100%;border-radius:9px}
+  .dash .row .pc{font-size:13px;font-weight:800;text-align:right}
+  .dash .foot{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:18px;font-size:12.5px;color:var(--muted)}
+  .dash .foot b{color:var(--navy)}
+  .flag{display:inline-block;font-size:11px;font-weight:800;color:var(--amber);background:#fef3c7;border-radius:6px;padding:2px 7px}
+
+  /* curriculum */
+  .chapters{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:760px){.chapters{grid-template-columns:1fr}}
+  .chap{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .chap .no{flex:none;width:40px;height:40px;border-radius:11px;font-weight:800;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:15px}
+  .chap h4{font-size:15.5px;color:var(--navy)}
+  .chap p{font-size:13px;color:var(--muted)}
+  .chap .ar{font-size:11px;font-weight:800;margin-top:5px;display:inline-block;padding:2px 8px;border-radius:20px}
+
+  /* engines */
+  .engines{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:840px){.engines{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.engines{grid-template-columns:1fr}}
+  .eng{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+  .eng .e{font-size:22px;margin-bottom:8px}
+  .eng h4{font-size:15.5px;color:var(--navy);margin-bottom:4px}
+  .eng p{font-size:13.5px;color:var(--muted)}
+
+  /* compliance band */
+  .band{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#dff0ec;border-radius:24px;
+    padding:48px;margin:0 24px}
+  .band .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  @media(max-width:860px){.band{padding:34px 24px}.band .grid{grid-template-columns:1fr 1fr}}
+  .band h2{color:#fff}
+  .band .it .big{font-size:15px;font-weight:800;color:#fff;display:flex;gap:9px;align-items:center;margin-bottom:6px}
+  .band .it p{font-size:13.5px;color:#a8c7c0}
+  .band .ic2{width:30px;height:30px;border-radius:8px;background:rgba(20,184,166,.22);color:#5eead4;
+    display:flex;align-items:center;justify-content:center;font-size:15px}
+
+  /* pricing */
+  .price{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+  @media(max-width:860px){.price{grid-template-columns:1fr}}
+  .tier{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;display:flex;flex-direction:column}
+  .tier.pop{border:2px solid var(--teal);box-shadow:var(--shadow);position:relative}
+  .tier.pop .rib{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--teal);
+    color:#fff;font-size:12px;font-weight:800;padding:5px 14px;border-radius:20px}
+  .tier h3{font-size:20px}
+  .tier .amt{font-size:34px;font-weight:800;color:var(--navy);margin:10px 0 2px}
+  .tier .amt small{font-size:15px;font-weight:600;color:var(--muted)}
+  .tier .desc{font-size:14px;color:var(--muted);margin-bottom:16px}
+  .tier ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:6px 0 22px;flex:1}
+  .tier ul li{font-size:14.5px;display:flex;gap:10px}
+  .tier ul .ck{color:var(--teal);font-weight:800}
+
+  /* faq */
+  .faq{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 20px}
+  summary{cursor:pointer;font-weight:700;color:var(--navy);padding:14px 0;font-size:16px;list-style:none;
+    display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary:after{content:"+";font-size:22px;color:var(--teal);font-weight:400}
+  details[open] summary:after{content:"−"}
+  details p{color:var(--muted);font-size:15px;padding:0 0 16px}
+
+  /* final cta */
+  .final{background:linear-gradient(120deg,var(--teal),var(--teal2));color:#fff;border-radius:26px;
+    margin:0 24px;padding:56px 40px;text-align:center}
+  .final h2{color:#fff;font-size:clamp(26px,4vw,38px)}
+  .final p{color:#e6fffb;max-width:560px;margin:14px auto 26px;font-size:17px}
+
+  footer{background:var(--navy);color:#93b0b0;padding:44px 0 30px;font-size:13.5px}
+  footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;margin-bottom:26px}
+  @media(max-width:760px){footer .cols{grid-template-columns:1fr}}
+  footer .brand{color:#fff}
+  footer a{color:#93b0b0}footer a:hover{color:#fff}
+  footer h5{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+  footer .fl{display:flex;flex-direction:column;gap:8px}
+  .disc{border-top:1px solid rgba(255,255,255,.1);padding-top:18px;font-size:12px;color:#6f9090;line-height:1.6}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mk">✚</span> The Clinical Path</a>
+    <div class="links">
+      <a href="#problem">Why</a>
+      <a href="#how">How it works</a>
+      <a href="#demo">Demo</a>
+      <a href="#reporting">Reporting</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="spacer"></div>
+    <a class="btn ghost" href="#pricing">Pricing</a>
+    <a class="btn primary" href="demo.html">Play demo →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap grid">
+    <div>
+      <span class="eyebrow">PGY-1 Pharmacy Residency Onboarding</span>
+      <h1>Turn orientation into <span class="hl">measurable competency evidence.</span></h1>
+      <p class="sub">The Clinical Path is a hospital-grade <b>visual-novel onboarding platform</b> for
+        pharmacy residents. Trainees learn the job through story and real clinical cases — and every
+        decision is logged as ASHP-aligned competency evidence your program can actually use.</p>
+      <div class="cta">
+        <a class="btn primary" href="demo.html">Play the PGY-1 demo</a>
+        <a class="btn ghost" href="#demo">Preview demo</a>
+      </div>
+      <div class="note">
+        <span><span class="dot"></span> Mapped to ASHP PGY-1 R1–R4</span>
+        <span><span class="dot"></span> No PHI · WCAG 2.1 AA</span>
+        <span><span class="dot"></span> SCORM-ready for your LMS</span>
+      </div>
+    </div>
+    <div>
+      <div class="mock">
+        <div class="scene"></div>
+        <div class="win"></div><div class="cross"></div>
+        <div class="sprite"></div>
+        <div class="tag">R1 · PATIENT CARE</div>
+        <div class="box">
+          <span class="name">Dr. Harin</span>
+          <p>Septic patient on vancomycin: trough 26 mg/L, SCr rose 0.9 → 1.6. Your recommendation?</p>
+          <div class="choices">
+            <div class="ch correct">Hold the next dose, redraw a level, move to AUC-guided dosing ✓</div>
+            <div class="ch">Continue the same dose; the trough is fine</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="wrap">
+    <div class="pill"><span class="ic">🎯</span> <b>44</b>&nbsp;validated clinical cases</div>
+    <div class="pill"><span class="ic">📚</span> <b>10</b>&nbsp;rotation chapters</div>
+    <div class="pill"><span class="ic">🧩</span> <b>9</b>&nbsp;interactive case engines</div>
+    <div class="pill"><span class="ic">📊</span> ASHP <b>R1–R4</b>&nbsp;competency tagging</div>
+    <div class="pill"><span class="ic">🔒</span> Zero&nbsp;<b>PHI</b></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="shead center">
+      <span class="eyebrow">The problem</span>
+      <h2>Residency orientation is a checkbox. It shouldn't be.</h2>
+      <p class="lead">New residents are overwhelmed, slide-based modules don't stick, and preceptors are
+        left with no objective evidence of where each learner actually stands.</p>
+    </div>
+    <div class="cards3">
+      <div class="card"><div class="emo">😵‍💫</div><h3>Onboarding overwhelm</h3>
+        <p>Day one drops residents into the medication-use system with a firehose of policies. Confidence — and safety habits — take months to form.</p></div>
+      <div class="card"><div class="emo">💤</div><h3>Modules nobody remembers</h3>
+        <p>Static CBT slides get clicked through, not learned. Completion ≠ competence, and everyone knows it.</p></div>
+      <div class="card"><div class="emo">📉</div><h3>No competency evidence</h3>
+        <p>Preceptors start rotations blind. There's no early signal of which R1–R4 goals a resident is ready for and which need coaching.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION / HOW -->
+<section id="how" style="background:#fff">
+  <div class="wrap">
+    <div class="shead center">
+      <span class="eyebrow">The solution</span>
+      <h2>A story-driven first year that produces data.</h2>
+      <p class="lead">Residents learn the way preceptors actually teach — through cases, in context, with
+        immediate feedback — inside an engaging visual novel. The platform quietly records the evidence.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Live the rotation</h3><p>Story scenes place each skill in real clinical drama with your preceptor cast — from Badge Day to the ICU.</p></div>
+      <div class="step"><div class="n">2</div><h3>Decide on cases</h3><p>Chart review, SBAR, verification queues, dosing math, code blue, journal club — real decisions, instant rationale.</p></div>
+      <div class="step"><div class="n">3</div><h3>Build competency</h3><p>Every correct decision fills an ASHP R1–R4 goal. Fail safely on fictional patients, not real ones.</p></div>
+      <div class="step"><div class="n">4</div><h3>Prove readiness</h3><p>Export a per-resident evidence report your RPD attaches to residency documentation.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PLAYABLE DEMO -->
+<section id="demo" style="padding-top:72px;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="center" style="margin-bottom:28px">
+      <div class="eyebrow">Playable demo</div>
+      <h2 style="font-size:clamp(30px,4vw,44px);margin-top:10px">Try a PGY-1 clinical pharmacy rotation scene.</h2>
+      <p class="lead">A short visual-novel prototype shows the interaction feel: preceptor dialogue, clinical choices, feedback, and competency-style progress. The full product uses the 44-case content pack in the implementation handoff.</p>
+    </div>
+    <div style="background:var(--navy);border-radius:22px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08)">
+      <iframe src="demo.html" title="The Clinical Path PGY-1 playable demo" style="width:100%;height:min(78vh,760px);border:0;border-radius:14px;background:#0b2233"></iframe>
+    </div>
+    <div class="center" style="margin-top:22px">
+      <a class="btn primary" href="demo.html">Open full-screen demo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- REPORTING (killer feature) -->
+<section id="reporting">
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">The difference</span>
+      <h2 style="font-size:clamp(26px,4vw,38px);margin:12px 0">Orientation that hands you competency evidence.</h2>
+      <p class="lead" style="margin:0">This is what makes it worth buying. Every case is tagged to an
+        ASHP PGY-1 competency goal, so the platform turns a fun first week into documentation your
+        program can defend.</p>
+      <ul class="feat-list">
+        <li><span class="ck">✓</span><span><b>Per-resident evidence report (PDF)</b> — cases attempted, first-attempt accuracy, and goals below threshold, ready for PharmAcademic-style records.</span></li>
+        <li><span class="ck">✓</span><span><b>Cohort dashboard for RPDs</b> — see the whole class, spot the R1–R4 gaps before rotations start.</span></li>
+        <li><span class="ck">✓</span><span><b>Formative framing</b> — evidence generated in simulation, honestly labeled; not a certification claim.</span></li>
+        <li><span class="ck">✓</span><span><b>SCORM 1.2 / xAPI</b> — completion and scores flow into the LMS you already run.</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="dash">
+        <div class="top"><h4>Resident: A. Okonkwo — Competency Evidence</h4><span class="exp">⬇ Export PDF</span></div>
+        <div class="row"><span class="lab">R1 Patient Care</span><div class="bar"><i style="width:86%;background:var(--r1)"></i></div><span class="pc" style="color:var(--r1)">86%</span></div>
+        <div class="row"><span class="lab">R2 Practice Adv.</span><div class="bar"><i style="width:72%;background:var(--r2)"></i></div><span class="pc" style="color:var(--r2)">72%</span></div>
+        <div class="row"><span class="lab">R3 Leadership</span><div class="bar"><i style="width:64%;background:var(--r3)"></i></div><span class="pc" style="color:var(--r3)">64%</span></div>
+        <div class="row"><span class="lab">R4 Teaching</span><div class="bar"><i style="width:91%;background:var(--r4)"></i></div><span class="pc" style="color:var(--r4)">91%</span></div>
+        <div class="foot">
+          <span><b>Follow-up flags:</b> <span class="flag">R3.2 &lt; 70%</span></span>
+          <span><b>First-attempt accuracy:</b> 79%</span>
+          <span><b>Time on task:</b> 3h 12m</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE ENGINES -->
+<section id="engines" style="background:#fff">
+  <div class="wrap">
+    <div class="shead center">
+      <span class="eyebrow">Not a quiz app</span>
+      <h2>Nine interactive case engines.</h2>
+      <p class="lead">Each mirrors how residents really work — and each produces tagged competency evidence.</p>
+    </div>
+    <div class="engines">
+      <div class="eng"><div class="e">🗂️</div><h4>Chart Hunt</h4><p>Find drug-therapy problems in a mock EHR — renal-dose mismatches, IV-to-PO, QT stacking.</p></div>
+      <div class="eng"><div class="e">🗣️</div><h4>SBAR Builder</h4><p>Construct a recommendation scored on specificity. Vague builds get rejected on rounds.</p></div>
+      <div class="eng"><div class="e">⏱️</div><h4>Verification Queue</h4><p>Verify safe orders and flag the dangerous ones against the clock.</p></div>
+      <div class="eng"><div class="e">🧮</div><h4>Dose Calc</h4><p>Cockcroft-Gault, infusion rates, vancomycin — with formula hints and tolerance ranges.</p></div>
+      <div class="eng"><div class="e">💬</div><h4>Counseling Tree</h4><p>Patient education with teach-back — insulin starts, hypoglycemia, site rotation.</p></div>
+      <div class="eng"><div class="e">🚨</div><h4>Code Blue</h4><p>Timed ACLS pharmacology: epinephrine, amiodarone, hyperkalemia sequencing.</p></div>
+      <div class="eng"><div class="e">📊</div><h4>Journal Club</h4><p>Appraise a trial — spot bias, then compute ARR and NNT.</p></div>
+      <div class="eng"><div class="e">✅</div><h4>Case Decisions</h4><p>Multiple-choice clinical scenarios with a rationale for every option.</p></div>
+      <div class="eng"><div class="e">🔀</div><h4>Sequencing</h4><p>Order the JCPP, SBAR, preceptor roles, and hyperkalemia protocol correctly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum">
+  <div class="wrap">
+    <div class="shead center">
+      <span class="eyebrow">The curriculum</span>
+      <h2>Ten chapters that mirror the real PGY-1 year.</h2>
+      <p class="lead">Badge Day in July through precepting a student in June — the game calendar is your
+        onboarding calendar.</p>
+    </div>
+    <div class="chapters">
+      <div class="chap"><div class="no" style="background:var(--r1)">1</div><div><h4>Badge Day</h4><p>HR, EHR access, the tour, baseline self-assessment.</p><span class="ar" style="background:#eef3f5;color:var(--muted)">ORIENTATION</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r1)">2</div><div><h4>The Process</h4><p>Verification checkoff · JCPP · SOAP notes.</p><span class="ar" style="background:var(--teal-soft);color:var(--r1)">R1 · PATIENT CARE</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r1)">3</div><div><h4>First Rounds</h4><p>SBAR recommendations · medication reconciliation.</p><span class="ar" style="background:var(--teal-soft);color:var(--r1)">R1 · PATIENT CARE</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r1)">4</div><div><h4>Kinetics Service</h4><p>TDM: vancomycin AUC, DOAC renal dosing, CrCl.</p><span class="ar" style="background:var(--teal-soft);color:var(--r1)">R1 · PATIENT CARE</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r1)">5</div><div><h4>Guardrails</h4><p>High-alert meds · USP 797/800 · antimicrobial stewardship.</p><span class="ar" style="background:var(--teal-soft);color:var(--r1)">R1 · PATIENT CARE</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r1)">6</div><div><h4>Code Blue</h4><p>ACLS pharmacology · hyperkalemia · anaphylaxis.</p><span class="ar" style="background:var(--teal-soft);color:var(--r1)">R1 · PATIENT CARE</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r2)">7</div><div><h4>Midyear</h4><p>Journal club · MUE poster · critical appraisal.</p><span class="ar" style="background:#e7effe;color:var(--r2)">R2 · PRACTICE ADV.</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r3)">8</div><div><h4>The Error</h4><p>Just culture · disclosure · root-cause — the crisis chapter.</p><span class="ar" style="background:#f0eafe;color:var(--r3)">R3 · LEADERSHIP</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r2)">9</div><div><h4>The Project</h4><p>MUE completion · P&amp;T monograph.</p><span class="ar" style="background:#e7effe;color:var(--r2)">R2 · PRACTICE ADV.</span></div></div>
+      <div class="chap"><div class="no" style="background:var(--r4)">10</div><div><h4>Now You Teach</h4><p>Precept a student · the four preceptor roles · in-service.</p><span class="ar" style="background:#fef3c7;color:#b45309">R4 · TEACHING</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE BAND -->
+<section style="padding:40px 0">
+  <div class="band">
+    <div class="center" style="max-width:640px;margin:0 auto 34px">
+      <span class="eyebrow" style="color:#5eead4">Built for procurement</span>
+      <h2 style="font-size:clamp(24px,4vw,34px);margin-top:10px">Enterprise-ready from day one.</h2>
+    </div>
+    <div class="grid">
+      <div class="it"><div class="big"><span class="ic2">🔒</span> No PHI</div><p>Fictional patients only. No protected health information is collected or stored.</p></div>
+      <div class="it"><div class="big"><span class="ic2">♿</span> WCAG 2.1 AA</div><p>Keyboard navigation, captions, colorblind-safe palettes, reduced-motion, scalable text.</p></div>
+      <div class="it"><div class="big"><span class="ic2">🎓</span> SCORM / xAPI</div><p>Drop it into your existing LMS; completion and scores report automatically.</p></div>
+      <div class="it"><div class="big"><span class="ic2">🎨</span> White-labeled</div><p>Your hospital name, logo, brand color, and EAP contact — plus optional local-policy content.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:#fff">
+  <div class="wrap">
+    <div class="shead center">
+      <span class="eyebrow">Pricing</span>
+      <h2>Start with a free pilot cohort.</h2>
+      <p class="lead">Prove the value with one class of residents before you commit. No procurement hurdles to try it.</p>
+    </div>
+    <div class="price">
+      <div class="tier">
+        <h3>Pilot</h3>
+        <div class="amt">Free</div>
+        <div class="desc">One resident cohort, one onboarding cycle.</div>
+        <ul>
+          <li><span class="ck">✓</span> Full 10-chapter program</li>
+          <li><span class="ck">✓</span> Per-resident evidence reports</li>
+          <li><span class="ck">✓</span> Feedback partnership</li>
+        </ul>
+        <a class="btn ghost" href="#pricing" style="width:100%;justify-content:center">Request a pilot</a>
+      </div>
+      <div class="tier pop">
+        <div class="rib">Most popular</div>
+        <h3>Program License</h3>
+        <div class="amt">Per resident <small>/ year</small></div>
+        <div class="desc">For a single residency program.</div>
+        <ul>
+          <li><span class="ck">✓</span> Everything in Pilot</li>
+          <li><span class="ck">✓</span> RPD cohort dashboard</li>
+          <li><span class="ck">✓</span> SCORM/LMS integration</li>
+          <li><span class="ck">✓</span> White-label branding</li>
+        </ul>
+        <a class="btn primary" href="#pricing" style="width:100%;justify-content:center">Talk to us</a>
+      </div>
+      <div class="tier">
+        <h3>Health System</h3>
+        <div class="amt">Custom</div>
+        <div class="desc">Multi-program / enterprise, incl. custom content packs.</div>
+        <ul>
+          <li><span class="ck">✓</span> Everything in Program</li>
+          <li><span class="ck">✓</span> Custom local-policy chapters</li>
+          <li><span class="ck">✓</span> SSO &amp; enterprise support</li>
+          <li><span class="ck">✓</span> Formulary customization</li>
+        </ul>
+        <a class="btn ghost" href="#pricing" style="width:100%;justify-content:center">Contact sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="shead center"><span class="eyebrow">FAQ</span><h2>Questions from program directors.</h2></div>
+    <div class="faq">
+      <details open><summary>Is the clinical content reviewed?</summary><p>Yes. Every case carries guideline references and a review field. A licensed pharmacist SME reviews and signs off the content before any customer release, and the content version is shown in the report.</p></details>
+      <details><summary>How does it map to ASHP competencies?</summary><p>Each of the 44 cases is tagged to a PGY-1 competency area and goal (R1 Patient Care, R2 Practice Advancement, R3 Leadership &amp; Management, R4 Teaching &amp; Education). The evidence report aggregates by goal and flags any below threshold for preceptor follow-up. It is framed as formative simulation evidence, not certification.</p></details>
+      <details><summary>Does it store patient data?</summary><p>No. All patients are fictional. No PHI is collected. Version 1 stores progress locally; the enterprise tier adds SSO with minimal PII (name/email) only.</p></details>
+      <details><summary>Will it run in our LMS?</summary><p>Yes — it ships as a SCORM 1.2 package that reports completion and score, with xAPI on the roadmap. It also runs as a standalone web app.</p></details>
+      <details><summary>Can we customize it for our hospital?</summary><p>Program tier includes your name, logo, brand color, and EAP/wellness contact. Health-System tier adds custom local-policy chapters and formulary swaps.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="contact" style="padding:40px 0 88px">
+  <div class="final">
+    <h2>Give your next cohort a first year they'll remember.</h2>
+    <p>Book a free pilot and see the competency evidence for yourself — before your residents even start rounds.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn white" href="demo.html">Play demo</a>
+      <a class="btn white" href="#how" style="background:rgba(255,255,255,.16);color:#fff">See how it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="brand" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px">
+          <span style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--teal),var(--teal2));display:inline-flex;align-items:center;justify-content:center;color:#fff">✚</span>
+          The Clinical Path</div>
+        <p style="margin-top:12px;max-width:320px">Hospital pharmacy residency onboarding, reimagined as an engaging visual novel that produces real competency evidence.</p>
+      </div>
+      <div><h5>Product</h5><div class="fl"><a href="#how">How it works</a><a href="#reporting">Reporting</a><a href="#curriculum">Curriculum</a><a href="#pricing">Pricing</a></div></div>
+      <div><h5>Get started</h5><div class="fl"><a href="#pricing">Book a pilot</a><a href="#faq">FAQ</a><a href="#pricing">Contact</a></div></div>
+    </div>
+    <div class="disc">
+      Educational simulation. All patients are fictional. Not medical advice — follow your institution's
+      policies. “ASHP” and “PGY-1” refer to competency frameworks for alignment purposes; this product is
+      independent and not endorsed by ASHP. © The Clinical Path.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
