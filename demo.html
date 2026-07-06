@@ -53,6 +53,11 @@
     filter:drop-shadow(0 22px 30px rgba(90,50,90,.3));pointer-events:none}
   @keyframes breathe{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
   .char-layer svg{height:100%}
+  .char-layer img{height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 20px 26px rgba(15,25,40,.55))}
+  .stage.scene-photo{background-size:cover;background-position:center;background-repeat:no-repeat}
+  .scene-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,22,40,.30),rgba(10,22,40,.10) 42%,rgba(10,20,38,.42))}
+  .scene-vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 240px rgba(6,14,26,.6)}
+  .scene-dim{position:absolute;left:0;right:0;bottom:0;height:46%;pointer-events:none;background:linear-gradient(180deg,rgba(6,14,26,0),rgba(6,14,26,.6))}
   .char-pop{animation:pop .5s cubic-bezier(.3,1.4,.5,1)}
   @keyframes pop{0%{transform:translateX(-50%) scale(.8);opacity:0}100%{transform:translateX(-50%) scale(1);opacity:1}}
 
@@ -228,7 +233,20 @@
 /* ==================================================================
    CHARACTER — hand-drawn SVG "Dr. Harlin" with swappable expressions
    ================================================================== */
-function face(expr){
+const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053906_9c5e2aac-da01-4f96-9775-12df64c5ddd0.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053847_72f7598c-c336-4a95-b8d9-9ab50597c522.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053915_0f71b42e-fc48-43a5-a1bb-836afb7792ee.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053922_483a2e6e-a12d-439f-8c32-e3c8294c5258.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053934_7b42370a-fc62-4ebd-8412-bf5a039ed757.png","wink":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_053858_42cf4308-bd4a-4bf0-bb26-b0d058614aad.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055305_48d0dd62-95fb-4c48-bbd7-bc2445b21a7d.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055320_7278a0d4-7fd7-4abc-b602-d36fb58b29ba.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png"}};
+const BG_URLS={"core":"https://images.unsplash.com/photo-1551076805-e1869033e561?w=1600&q=80","R1":"https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1600&q=80","R2":"https://images.unsplash.com/photo-1551076805-e1869033e561?w=1600&q=80","R3":"https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1600&q=80","R4":"https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1600&q=80"};
+function faceImg(expr, who){
+  who = who||'harlin';
+  var SETS={
+    harlin:{dir:'assets/harlin/harlin_', has:['neutral','happy','think','worry','proud','wink'], alias:{smile:'neutral'}},
+    belle:{dir:'assets/belle/belle_', has:['neutral','proud'], alias:{happy:'proud',smile:'neutral',think:'neutral',worry:'neutral',wink:'proud'}},
+    joey:{dir:'assets/joey/joey_', has:['neutral','happy'], alias:{proud:'happy',smile:'neutral',think:'neutral',worry:'neutral',wink:'happy'}}
+  };
+  var s=SETS[who]||SETS.harlin; var e=expr; if(s.alias&&s.alias[e])e=s.alias[e]; if(s.has.indexOf(e)<0)e='neutral';
+  var url=(SPRITE_URLS[who]&&SPRITE_URLS[who][e])||SPRITE_URLS.harlin.neutral;
+  return '<img src="'+url+'" alt="'+who+'" draggable="false">';
+}
+function face(expr, who){ return faceImg(expr, who);
   const P={
     smile:{L:"open",R:"open",m:"smile",b:"soft",bl:0},
     happy:{L:"happy",R:"happy",m:"grin",b:"soft",bl:1},
@@ -350,6 +368,7 @@ const AREA={
   R3:{name:"R3 · Leadership", c:"#b28bff", bg:"bg-R3"},
   R4:{name:"R4 · Teaching", c:"#ffb36b", bg:"bg-R4"},
 };
+function bgFor(area){ return BG_URLS[area]||BG_URLS.core; }
 
 const MODULES = [
  {
@@ -1048,10 +1067,10 @@ function drawScene(area, expr, name, textHTML, opts={}){
   const ctrl = `<div class="vn-ctrl"><span>AUTO</span><span>SKIP</span><span>LOG</span></div>`;
   let below = opts.below||"";
   document.getElementById("app").innerHTML=`
-    <div class="stage ${AREA[area]?AREA[area].bg:'bg-title'}" id="stage">${sceneDeco()}</div>
+    <div class="stage scene-photo ${AREA[area]?AREA[area].bg:'bg-title'}" id="stage" style="background-image:url('${bgFor(area)}')">${sceneDeco()}</div>
     <div class="fx" id="fx2"></div>
     ${opts.hud!==false? hudHTML(area):""}
-    ${showChar? `<div class="char-glow"></div><div class="char-layer ${opts.pop?'char-pop':''}">${face(expr)}</div>`:""}
+    ${showChar? `<div class="char-glow"></div><div class="char-layer ${opts.pop?'char-pop':''}">${face(expr, opts.who)}</div>`:""}
     ${below}
     <div class="vn-wrap">
       <div class="vn-choices" id="choiceLayer"></div>
@@ -1066,7 +1085,7 @@ function drawScene(area, expr, name, textHTML, opts={}){
   typeHTML(document.getElementById("vnText"), textHTML);
 }
 
-function sceneDeco(){
+function sceneDeco(){ return '<div class="scene-tint"></div><div class="scene-vig"></div><div class="scene-dim"></div>';
   const svg = `<svg class="hosp" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
    <defs>
      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdeafe"/><stop offset="1" stop-color="#eaf6ff"/></linearGradient>
@@ -1161,9 +1180,9 @@ function showTitle(){
    INTRO / name + avatar
    ================================================================== */
 function showIntro(){
-  drawScene("core","smile","Dr. Harlin",
-    "Hi! I am your preceptor, <b>Dr. Harlin</b>.<br>Over the next year, we will make you a great clinical pharmacist.<br>First, tell me your name.",
-    {advance:false, hud:false});
+  drawScene("core","neutral","Dr. Belle Deans",
+    "<b>Welcome to St. Aurelia Medical Center.</b><br>I'm <b>Dr. Belle Deans</b>, your PGY-1 Residency Program Director.<br>Before your first rotation — what should we call you?",
+    {advance:false, hud:false, who:'belle'});
   const wrap=document.querySelector(".vn-wrap");
   const inp=document.createElement("div");
   inp.className="choices";
@@ -1171,7 +1190,7 @@ function showIntro(){
     <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap" id="avRow">
       ${AVS.map((a,i)=>`<div class="av ${i===0?'sel':''}" data-a="${a}">${a}</div>`).join("")}
     </div>
-    <input id="nm" placeholder="Enter your name" maxlength="16"
+    <input id="nm" placeholder="Enter your name" maxlength="16" value="Joey Han"
       style="font-family:'Nunito';font-weight:700;padding:12px 16px;border:2.5px solid #ffd0e0;border-radius:16px;font-size:16px;text-align:center;outline:none"/>
     <button class="btn mint" id="goBtn">Start 💗</button>`;
   document.getElementById("choiceLayer").appendChild(inp);
@@ -1182,12 +1201,18 @@ function showIntro(){
   document.getElementById("nm").addEventListener("keydown",e=>{if(e.key==="Enter")beginGame();});
 }
 function beginGame(){
-  const nm=(document.getElementById("nm").value||"Resident").trim().slice(0,16);
+  const nm=(document.getElementById("nm").value||"Joey Han").trim().slice(0,16);
   G={name:nm,avatar:pickedAv,results:{}};
   MODULES.forEach(m=>G.results[m.id]=m.cases.map(()=>null));
+  drawScene("core","happy","Joey Han (you)",
+    `<b>I'm ${nm}, PGY-1.</b><br>A little nervous — but ready to learn. 💪`,
+    {advance:true, hud:false, who:'joey', pop:true, onBox:"introHarlin()"});
+  burst("good");
+}
+function introHarlin(){
   drawScene("core","happy","Dr. Harlin",
-    `<b>${nm}</b>, great to meet you! 🌸<br>Ready? Pick a rotation and we will learn it step by step.`,
-    {advance:true, onBox:"goHub()", pop:true});
+    `Great to meet you, <b>${G.name}</b>! I'm <b>Dr. Harlin</b>, your preceptor.<br>Pick a rotation and we'll learn it step by step.`,
+    {advance:true, who:'harlin', pop:true, onBox:"goHub()"});
   burst("good");
 }
 
@@ -1387,7 +1412,7 @@ function graduate(){
   document.getElementById("app").innerHTML=`
     <div class="stage bg-title" id="stage">${bokehHTML()}</div>
     <div class="fx" id="fx2"></div>
-    <div class="char-layer" style="bottom:auto;top:6vh;height:44vh">${face(expr)}</div>
+    <div class="char-layer" style="bottom:auto;top:6vh;height:44vh">${face(done===MODULES.length?'proud':'neutral','belle')}</div>
     <div class="center-layer" style="justify-content:flex-end;padding-bottom:32px">
       <div class="ending-card">
         <div class="medal">${medal}</div>
