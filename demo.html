@@ -266,12 +266,21 @@
    ================================================================== */
 const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064549_2db7df05-8adb-4513-b376-d8fbf55b8252.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064630_7f17c76d-9931-4830-b923-fcb206958254.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064644_8ebe04b9-71c7-4e4b-8d52-06f46b4aadcc.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064654_40b050a1-2c3b-4718-a04c-53ccccf8d798.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064705_c9c8e658-dbef-4940-af13-a0349791a9fa.png","laugh":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064716_425a8704-d2a1-4b8f-bf1f-a9a11e543c3b.png","encourage":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064727_0447f1ef-7361-4d24-820a-91cd859e95d1.png","alarmed":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064738_bf27a5a3-2d27-48e3-9907-ae44a53d08b0.png","wink":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073136_8d32b6ba-d7e3-468a-97b2-92b8ab9e62db.png","surprised":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073144_23d5d2c7-1edb-4537-94cb-f03bfe2f9d23.png","sad":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073151_17572a6f-2a9c-4a92-b80f-2925dec83185.png","stern":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073216_5e029e41-3351-4109-8c94-d274de85c32d.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064851_6e4f850a-dafa-4f93-917f-f361593b4753.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064901_c3bf8edd-8794-441b-ad49-5fbf1837ff35.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073240_b828f88d-acdf-4711-87eb-1c17dd09c13f.png","warm":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073308_65a806d3-39ee-4b24-b1b2-595fcc019a9c.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073315_54ee7db9-0169-44ae-ab09-58ec5225280b.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073325_a1f2feea-4d3e-48eb-90d3-d6bb7ff2a2b9.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073332_1539b31c-c65d-42e0-823e-d6adb90f5aa7.png"}};
 const BG_URLS={core:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R1:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80', R2:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R3:'https://images.unsplash.com/photo-1584451049700-ec9b394f3805?w=1600&q=80', R4:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80'};
+Object.assign(SPRITE_URLS,{
+  patient:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044454_bceef426-09d9-4a26-b13e-96a4ad6b66b2.png"},
+  nurse:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044505_f592aeb4-2e72-481c-909a-d6b73ed818ea.png"},
+  attending:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044519_de99d4b1-9c84-4bf9-8cae-8289e81f6c38.png"}
+});
+
 function faceImg(expr, who){
   who = who||'harlin';
   var SETS={
     harlin:{dir:'assets/harlin/harlin_', has:['neutral','happy','think','worry','proud','laugh','encourage','alarmed','wink','surprised','sad','stern'], alias:{smile:'neutral'}},
     belle:{dir:'assets/belle/belle_', has:['neutral','proud','think','warm'], alias:{happy:'warm',smile:'neutral',encourage:'warm',laugh:'warm',wink:'warm',surprised:'neutral',worry:'think',sad:'think',stern:'neutral',alarmed:'think'}},
-    joey:{dir:'assets/joey/joey_', has:['neutral','happy'], alias:{proud:'happy',smile:'neutral',think:'neutral',worry:'neutral',wink:'happy'}}
+    joey:{dir:'assets/joey/joey_', has:['neutral','happy','think','worry','proud'], alias:{smile:'neutral',wink:'happy'}},
+    patient:{dir:'assets/cameo/patient_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
+    nurse:{dir:'assets/cameo/nurse_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
+    attending:{dir:'assets/cameo/attending_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}}
   };
   var s=SETS[who]||SETS.harlin; var e=expr; if(s.alias&&s.alias[e])e=s.alias[e]; if(s.has.indexOf(e)<0)e='neutral';
   var url=(SPRITE_URLS[who]&&SPRITE_URLS[who][e])||SPRITE_URLS.harlin.neutral;
@@ -1342,6 +1351,16 @@ function closeNotes(){const o=document.getElementById("notesOv");if(o)o.remove()
 
 function startCases(){ caseIdx=0; runCase(); }
 
+
+function caseGuide(m,c,introLine,introExpr){
+  if(c.type==='chartHunt' || m.id==='chart') return {who:'nurse',name:'Nurse Vance',expr:'neutral',text:`Nurse Vance slides the MAR over. <b>${c.kick}</b> — catch the medication problems before rounds.`};
+  if(c.type==='code' || m.id==='seizure') return {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',text:`Dr. Chen looks up from the monitor. <b>${c.kick}</b>. Make the call quickly and safely.`};
+  if(c.type==='journal' || m.id==='id') return {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',text:`Dr. Chen hands you the paper. <b>${c.kick}</b> — don't let the abstract do the thinking for you.`};
+  if(c.type==='sbar' || m.id==='pain') return {who:'nurse',name:'Nurse Vance',expr:'neutral',text:`Nurse Vance catches you after rounds. <b>${c.kick}</b>. Turn the concern into a clean recommendation.`};
+  if(['preg','immun','peds'].includes(m.id)) return {who:'patient',name:'Patient Case',expr:'neutral',text:`Your patient has a question. <b>${c.kick}</b> — answer clearly and safely.`};
+  return {who:'harlin',name:'Dr. Harlin',expr:introExpr,text:introLine};
+}
+
 function runCase(){
   const m=curM, c=m.cases[caseIdx];
   const already=G.results[m.id][caseIdx];
@@ -1353,9 +1372,10 @@ function runCase(){
     `Ooh, I like this one. <b>${c.kick}</b> — show me what you've got.`
   ][it];
   const introExpr=["neutral","think","encourage"][it];
-  drawScene(m.area,introExpr,"Dr. Harlin",
-    introLine,
-    { advance:false,
+  const guide=caseGuide(m,c,introLine,introExpr);
+  drawScene(m.area,guide.expr,guide.name,
+    guide.text,
+    { advance:false, who:guide.who,
       note:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`,
       below: caseProgress() });
   const wrap=document.querySelector(".vn-wrap");
