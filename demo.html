@@ -1751,6 +1751,2457 @@ function exportQuizletTXT(){
   a.click();
   setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},500);
 }
+
+/* --- advanced exception coverage expansion v3: TDM, labs, code cart, insulin, opioids, stewardship --- */
+(function(){
+  const ADVANCED_MODULES = [
+  {
+    "id": "vanc_deep",
+    "icon": "43",
+    "area": "R1",
+    "title": "Vancomycin AUC and Monitoring Exceptions",
+    "blurb": "AUC 400-600, level timing, AKI, obesity, dialysis, red-man infusion reaction, and MRSA de-escalation traps.",
+    "brief": "<p class=\"lead\">Vancomycin is not a trough-only drug anymore. The advanced skill is knowing when a level is usable and when the patient changed underneath it.</p>\n      <table class=\"ref\"><tr><th>Scenario</th><th>Move</th></tr>\n      <tr><td>Serious MRSA</td><td>Target AUC/MIC 400-600 when MIC assumed 1</td></tr>\n      <tr><td>Critical illness or obesity</td><td>Use an appropriate loading dose, then adjust maintenance to clearance and levels</td></tr>\n      <tr><td>Unstable renal function</td><td>Do not blindly schedule doses. Hold, re-level, and reassess clearance</td></tr>\n      <tr><td>Infusion reaction</td><td>Slow infusion and premedicate if appropriate. Do not mislabel as IgE allergy</td></tr></table>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "AUC target",
+        "q": "Serious MRSA bacteremia, MIC assumed 1. What vancomycin exposure target should the pharmacist use?",
+        "opts": [
+          {
+            "t": "AUC/MIC 400-600, balancing efficacy and nephrotoxicity",
+            "ok": true,
+            "fb": "Correct. The current target for serious MRSA infection is AUC/MIC 400-600 when MIC is assumed 1."
+          },
+          {
+            "t": "Trough 25-30 for everyone",
+            "ok": false,
+            "fb": "High trough-only targeting increases nephrotoxicity and is not the modern target."
+          },
+          {
+            "t": "No monitoring if the dose is weight-based",
+            "ok": false,
+            "fb": "Vancomycin requires monitoring in serious infection and changing renal function."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Early Bayesian level",
+        "q": "A critically ill patient needs early AUC assessment before steady state. Which method is acceptable if your institution supports it?",
+        "opts": [
+          {
+            "t": "Bayesian AUC software using 1-2 measured concentrations and patient covariates",
+            "ok": true,
+            "fb": "Correct. Bayesian AUC can estimate exposure before classic steady state, depending on local validation and sampling plan."
+          },
+          {
+            "t": "Wait 7 days without levels",
+            "ok": false,
+            "fb": "Delaying levels in critical illness is unsafe."
+          },
+          {
+            "t": "Use the same fixed dose for every patient",
+            "ok": false,
+            "fb": "Vancomycin PK is variable and needs individualized monitoring."
+          }
+        ]
+      },
+      {
+        "type": "calc",
+        "kick": "Loading dose cap",
+        "q": "A 128 kg critically ill patient needs a 25 mg/kg vancomycin loading dose, capped at 3000 mg. What dose should be ordered?",
+        "given": [
+          {
+            "label": "Weight",
+            "value": "128 kg"
+          },
+          {
+            "label": "Dose",
+            "value": "25 mg/kg"
+          },
+          {
+            "label": "Cap",
+            "value": "3000 mg"
+          }
+        ],
+        "answer": {
+          "value": 3000,
+          "tolerance": 50,
+          "unit": "mg"
+        },
+        "hint": "25 x 128 = 3200 mg, but apply the cap.",
+        "note": "The calculated dose is 3200 mg, so the capped loading dose is 3000 mg. Maintenance still needs renal clearance and AUC follow-up."
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Unusable vancomycin levels",
+        "q": "Tap every level or situation that should not be used blindly for dose adjustment.",
+        "rows": [
+          {
+            "text": "Trough drawn 3 hours after the dose instead of before the dose",
+            "problem": true,
+            "why": "A post-dose sample mislabeled as a trough will falsely look high and can lead to underdosing."
+          },
+          {
+            "text": "Level drawn from the same line while vancomycin is infusing",
+            "problem": true,
+            "why": "Line contamination can produce a falsely high level."
+          },
+          {
+            "text": "Creatinine doubled overnight after contrast and pressors",
+            "problem": true,
+            "why": "Renal clearance changed. Old scheduled dosing no longer applies."
+          },
+          {
+            "text": "Two timed levels documented accurately with dose start and stop times",
+            "problem": false
+          },
+          {
+            "text": "MRSA nares negative and pneumonia cultures show MSSA",
+            "problem": true,
+            "why": "This is a stewardship reassessment point. Continuing MRSA vancomycin may no longer be needed."
+          }
+        ],
+        "note": "A level is only as good as its timing, sampling site, and renal context."
+      },
+      {
+        "type": "mcq",
+        "kick": "AKI hold and re-level",
+        "q": "Vancomycin level is 23 mcg/mL, SCr rising quickly, next dose due now. Best advanced action?",
+        "opts": [
+          {
+            "t": "Hold the scheduled dose, reassess renal function, obtain a follow-up level, and re-dose when exposure is appropriate",
+            "ok": true,
+            "fb": "Correct. In AKI, the schedule is less important than measured clearance and safe re-dosing."
+          },
+          {
+            "t": "Give the next dose because the MAR says due",
+            "ok": false,
+            "fb": "The MAR does not override acute PK change."
+          },
+          {
+            "t": "Permanently stop all MRSA coverage without discussing indication",
+            "ok": false,
+            "fb": "You may need MRSA coverage, but dose safely and reassess."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Infusion reaction vs allergy",
+        "q": "During vancomycin infusion, the patient develops flushing and itching without airway symptoms or hypotension. Best interpretation?",
+        "opts": [
+          {
+            "t": "Vancomycin infusion reaction. Stop or slow infusion, treat symptoms, and avoid labeling as true IgE allergy unless features support it",
+            "ok": true,
+            "fb": "Correct. This rate-related reaction is managed with slower infusion and sometimes antihistamine."
+          },
+          {
+            "t": "Permanent anaphylaxis label for all future glycopeptides",
+            "ok": false,
+            "fb": "Flushing alone during infusion is not automatically IgE anaphylaxis."
+          },
+          {
+            "t": "Ignore and speed up infusion",
+            "ok": false,
+            "fb": "Speeding up worsens histamine-mediated infusion reactions."
+          }
+        ]
+      },
+      {
+        "type": "sbar",
+        "kick": "MRSA de-escalation",
+        "q": "Build a recommendation when cultures return MSSA in a patient on vancomycin.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "Blood cultures now show MSSA while the patient remains on vancomycin.",
+                "score": 2
+              },
+              {
+                "t": "The antibiotic exists.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Renal function is worsening and no MRSA is isolated.",
+                "score": 2
+              },
+              {
+                "t": "They are in the hospital.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "For MSSA bacteremia, a beta-lactam such as cefazolin or nafcillin is preferred over vancomycin if tolerated.",
+                "score": 2
+              },
+              {
+                "t": "Vancomycin is always best for every gram-positive infection.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Switch to targeted anti-MSSA beta-lactam, repeat cultures per protocol, and define source control and duration.",
+                "score": 2
+              },
+              {
+                "t": "Continue vancomycin indefinitely.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "De-escalation is not less care. It is better targeted care."
+      },
+      {
+        "type": "mcq",
+        "kick": "Pip-tazo nephrotoxicity signal",
+        "q": "A patient on vancomycin plus piperacillin-tazobactam develops rising creatinine. What should the pharmacist recognize?",
+        "opts": [
+          {
+            "t": "The combination is associated with higher AKI risk. Reassess spectrum, source, and alternatives",
+            "ok": true,
+            "fb": "Correct. Do not reflexively continue both when cultures and indication allow narrowing or substitution."
+          },
+          {
+            "t": "This combination prevents AKI",
+            "ok": false,
+            "fb": "The AKI signal is the opposite."
+          },
+          {
+            "t": "Creatinine never matters for vancomycin",
+            "ok": false,
+            "fb": "Renal function is central to vancomycin safety."
+          }
+        ]
+      },
+      {
+        "type": "order",
+        "kick": "AUC workflow",
+        "q": "Order a safe AUC-monitoring workflow:",
+        "correct": [
+          "Confirm indication and target exposure",
+          "Verify exact dose times, infusion end times, and sample times",
+          "Use Bayesian or 2-level PK method per protocol",
+          "Adjust dose and interval to AUC 400-600",
+          "Document plan for repeat levels after renal or clinical change"
+        ],
+        "note": "AUC monitoring is a workflow, not just a number."
+      }
+    ]
+  },
+  {
+    "id": "tdm_nti",
+    "icon": "44",
+    "area": "R1",
+    "title": "TDM Mastery: Narrow Therapeutic Index Drugs",
+    "blurb": "Aminoglycosides, digoxin, lithium, phenytoin, valproate, carbamazepine, theophylline, tacrolimus, and sirolimus edge cases.",
+    "brief": "<p class=\"lead\">TDM questions are really timing questions: when was the dose, when was the sample, what changed, and what form of the level matters?</p>\n      <table class=\"ref\"><tr><th>Drug</th><th>Trap</th></tr><tr><td>Aminoglycosides</td><td>Peak for efficacy, trough for toxicity; renal change breaks schedules</td></tr><tr><td>Digoxin</td><td>Draw at least 6 hours after dose; toxicity worsens with low K/Mg</td></tr><tr><td>Lithium</td><td>12-hour trough; NSAID, ACE/ARB, thiazide, dehydration raise levels</td></tr><tr><td>Phenytoin/valproate</td><td>Total level misleads in low albumin; free level may be needed</td></tr></table>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "Aminoglycoside random level",
+        "q": "Extended-interval gentamicin is given at 10:00. Protocol asks for a random level 6-14 hours after dose. A level at 10:45 means what?",
+        "opts": [
+          {
+            "t": "It is not the protocol random level. Re-time the level within the correct post-dose window",
+            "ok": true,
+            "fb": "Correct. A too-early level reflects distribution and cannot be used on the nomogram."
+          },
+          {
+            "t": "Use it as a trough",
+            "ok": false,
+            "fb": "It is neither a trough nor a valid random level."
+          },
+          {
+            "t": "Stop all antibiotics forever",
+            "ok": false,
+            "fb": "The issue is sampling timing, not automatic antibiotic discontinuation."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Aminoglycoside synergy",
+        "q": "Gentamicin is used for gram-positive synergy. Which monitoring concept is most important?",
+        "opts": [
+          {
+            "t": "Keep trough very low, often <1 mcg/mL, because toxicity is the main concern",
+            "ok": true,
+            "fb": "Correct. Synergy dosing is not high-peak gram-negative dosing; avoid accumulation."
+          },
+          {
+            "t": "Target huge peaks every day",
+            "ok": false,
+            "fb": "That is not synergy monitoring and increases toxicity."
+          },
+          {
+            "t": "No levels are needed because dose is small",
+            "ok": false,
+            "fb": "Even small aminoglycoside doses can accumulate in renal dysfunction."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Digoxin timing",
+        "q": "Digoxin level drawn 1 hour after a dose is high. What is the best interpretation?",
+        "opts": [
+          {
+            "t": "It may reflect distribution phase. Repeat a properly timed level at least 6 hours after dose, usually as a trough context",
+            "ok": true,
+            "fb": "Correct. Early digoxin levels overestimate tissue-equilibrated concentration."
+          },
+          {
+            "t": "Automatically give DigiFab for any high number",
+            "ok": false,
+            "fb": "DigiFab depends on severe toxicity, arrhythmia, hyperkalemia, or massive ingestion, not just a mistimed level."
+          },
+          {
+            "t": "The patient must be underdosed",
+            "ok": false,
+            "fb": "The issue is falsely high timing."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Digoxin toxicity scan",
+        "q": "Tap every factor that increases digoxin toxicity risk.",
+        "rows": [
+          {
+            "text": "K 2.8 mEq/L after aggressive diuresis",
+            "problem": true,
+            "why": "Hypokalemia sensitizes the myocardium to digoxin toxicity."
+          },
+          {
+            "text": "New amiodarone started",
+            "problem": true,
+            "why": "Amiodarone can increase digoxin exposure; dose reduction and monitoring are often needed."
+          },
+          {
+            "text": "CrCl drops from 70 to 25 mL/min",
+            "problem": true,
+            "why": "Digoxin is renally cleared and accumulates in renal impairment."
+          },
+          {
+            "text": "Level drawn at an appropriate post-distribution time",
+            "problem": false
+          },
+          {
+            "text": "Magnesium 1.2 mg/dL",
+            "problem": true,
+            "why": "Hypomagnesemia can worsen arrhythmia risk."
+          }
+        ],
+        "note": "Digoxin toxicity is drug level plus patient context, especially renal function and electrolytes."
+      },
+      {
+        "type": "mcq",
+        "kick": "Lithium interaction",
+        "q": "Stable lithium patient starts hydrochlorothiazide and ibuprofen during a heat wave. What is the concern?",
+        "opts": [
+          {
+            "t": "Lithium level may rise from thiazide/NSAID and dehydration. Check level, renal function, and toxicity symptoms",
+            "ok": true,
+            "fb": "Correct. Thiazides, NSAIDs, ACE/ARBs, and volume depletion are classic lithium toxicity triggers."
+          },
+          {
+            "t": "Lithium level will become undetectable",
+            "ok": false,
+            "fb": "These factors tend to raise lithium."
+          },
+          {
+            "t": "Lithium never needs levels",
+            "ok": false,
+            "fb": "Lithium is a classic TDM drug."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Lithium level timing",
+        "q": "When is a routine lithium maintenance level usually drawn?",
+        "opts": [
+          {
+            "t": "About 12 hours after the previous dose",
+            "ok": true,
+            "fb": "Correct. A 12-hour trough standardizes interpretation for most maintenance monitoring."
+          },
+          {
+            "t": "5 minutes after dose",
+            "ok": false,
+            "fb": "That is an absorption/distribution sample and is misleading."
+          },
+          {
+            "t": "Any random time without documenting it",
+            "ok": false,
+            "fb": "Timing must be documented."
+          }
+        ]
+      },
+      {
+        "type": "calc",
+        "kick": "Corrected phenytoin exception",
+        "q": "Measured total phenytoin is 7 mcg/mL, albumin 1.8 g/dL, normal renal function. Corrected level?",
+        "given": [
+          {
+            "label": "Measured",
+            "value": "7 mcg/mL"
+          },
+          {
+            "label": "Albumin",
+            "value": "1.8 g/dL"
+          }
+        ],
+        "answer": {
+          "value": 15.2,
+          "tolerance": 1.2,
+          "unit": "mcg/mL"
+        },
+        "hint": "Corrected = measured / (0.2 x albumin + 0.1).",
+        "note": "7 / (0.2 x 1.8 + 0.1) = 7 / 0.46 = 15.2 mcg/mL. The total looks low, but corrected level is therapeutic."
+      },
+      {
+        "type": "mcq",
+        "kick": "Fosphenytoin PE units",
+        "q": "Fosphenytoin order says 20 mg PE/kg. What does PE mean?",
+        "opts": [
+          {
+            "t": "Phenytoin equivalents. Dose and levels are interpreted in phenytoin-equivalent units",
+            "ok": true,
+            "fb": "Correct. Fosphenytoin is dosed as mg PE to avoid conversion errors."
+          },
+          {
+            "t": "Potassium equivalents",
+            "ok": false,
+            "fb": "Wrong unit and dangerous confusion."
+          },
+          {
+            "t": "No relation to phenytoin",
+            "ok": false,
+            "fb": "It is a prodrug dosed in phenytoin equivalents."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Valproate free level",
+        "q": "ICU patient on valproate has albumin 1.5, total level appears low, but patient is sedated and platelets are falling. Best interpretation?",
+        "opts": [
+          {
+            "t": "Low albumin can make total valproate misleading. Consider free level and toxicity assessment",
+            "ok": true,
+            "fb": "Correct. Highly protein-bound drugs can have toxic free concentrations with low total levels."
+          },
+          {
+            "t": "Give a huge loading dose based only on total level",
+            "ok": false,
+            "fb": "That could worsen toxicity if free level is high."
+          },
+          {
+            "t": "Albumin never matters for valproate",
+            "ok": false,
+            "fb": "Albumin strongly affects protein binding."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Theophylline and smoking",
+        "q": "A patient on chronic theophylline stops smoking while hospitalized. What happens?",
+        "opts": [
+          {
+            "t": "Theophylline clearance may decrease, raising levels and toxicity risk",
+            "ok": true,
+            "fb": "Correct. Smoking induces CYP1A2. Stopping smoking can increase theophylline exposure."
+          },
+          {
+            "t": "Clearance doubles immediately",
+            "ok": false,
+            "fb": "The induction effect fades, so levels may rise."
+          },
+          {
+            "t": "No interaction between smoking and theophylline",
+            "ok": false,
+            "fb": "This is a classic TDM trap."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Carbamazepine safety review",
+        "q": "Tap every carbamazepine monitoring issue.",
+        "rows": [
+          {
+            "text": "New hyponatremia after dose increase",
+            "problem": true,
+            "why": "Carbamazepine can cause SIADH/hyponatremia."
+          },
+          {
+            "text": "No CBC or liver monitoring in a patient with symptoms",
+            "problem": true,
+            "why": "Blood dyscrasias and hepatic toxicity are serious safety concerns."
+          },
+          {
+            "text": "Early therapy level interpreted without considering autoinduction",
+            "problem": true,
+            "why": "Carbamazepine autoinduces metabolism over weeks, so doses and levels can change."
+          },
+          {
+            "text": "Rash with mucosal involvement ignored",
+            "problem": true,
+            "why": "Severe cutaneous reaction is a stop-and-escalate emergency."
+          },
+          {
+            "text": "Medication list reviewed for CYP interactions",
+            "problem": false
+          }
+        ],
+        "note": "NTI drugs need clinical toxicity screening, not only a number."
+      },
+      {
+        "type": "mcq",
+        "kick": "Tacrolimus trough",
+        "q": "Tacrolimus level drawn 2 hours after the morning dose comes back high. What should the pharmacist do?",
+        "opts": [
+          {
+            "t": "Do not interpret it as a trough. Recheck a true pre-dose trough and assess toxicity/interactions",
+            "ok": true,
+            "fb": "Correct. Tacrolimus troughs must be pre-dose unless a special protocol says otherwise."
+          },
+          {
+            "t": "Reduce dose by 90% based only on that post-dose level",
+            "ok": false,
+            "fb": "Post-dose levels are not troughs and can mislead dosing."
+          },
+          {
+            "t": "Ignore all tacrolimus levels",
+            "ok": false,
+            "fb": "Tacrolimus is narrow therapeutic index and needs TDM."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lab_draw_deep",
+    "icon": "45",
+    "area": "R1",
+    "title": "Blood Draw, Level Timing and Lab Integrity",
+    "blurb": "Blood cultures, troughs, peaks, anti-Xa, hemolysis, line contamination, missed doses, and steady-state exceptions.",
+    "brief": "<p class=\"lead\">A clinical pharmacist must know when a lab is real. Wrong sample, wrong time, wrong line, or wrong context can create a wrong recommendation.</p>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "Cultures before antibiotics exception",
+        "q": "Septic shock patient needs antibiotics now, but blood cultures are not yet drawn. Best rule?",
+        "opts": [
+          {
+            "t": "Draw cultures first if this does not significantly delay antibiotics, but do not delay lifesaving therapy",
+            "ok": true,
+            "fb": "Correct. Cultures matter, but shock therapy should not wait for a prolonged draw delay."
+          },
+          {
+            "t": "Wait many hours for perfect cultures",
+            "ok": false,
+            "fb": "Delaying antibiotics in shock is unsafe."
+          },
+          {
+            "t": "Never draw cultures",
+            "ok": false,
+            "fb": "Cultures are essential for de-escalation when feasible."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Bad blood draw clues",
+        "q": "Tap every clue that the lab may be misleading.",
+        "rows": [
+          {
+            "text": "Potassium 6.7 with visible hemolysis, normal ECG, no renal failure",
+            "problem": true,
+            "why": "Hemolysis can cause pseudohyperkalemia. Repeat urgently while assessing ECG and risk."
+          },
+          {
+            "text": "Vancomycin sample drawn from a line used for vancomycin infusion",
+            "problem": true,
+            "why": "Line contamination can falsely elevate the level."
+          },
+          {
+            "text": "Anti-Xa drawn 30 minutes after the first enoxaparin dose",
+            "problem": true,
+            "why": "Peak anti-Xa is usually drawn around 4 hours after dose at steady state per protocol."
+          },
+          {
+            "text": "Creatinine trend checked daily during AKI",
+            "problem": false
+          },
+          {
+            "text": "Digoxin level drawn 45 minutes after dose",
+            "problem": true,
+            "why": "Digoxin needs post-distribution timing, usually at least 6 hours after dose."
+          }
+        ],
+        "note": "Before changing a dose, verify the sample."
+      },
+      {
+        "type": "mcq",
+        "kick": "Anti-Xa timing",
+        "q": "Treatment enoxaparin anti-Xa level is needed. Usual timing?",
+        "opts": [
+          {
+            "t": "Peak about 4 hours after dose, usually after the 3rd to 5th dose depending protocol",
+            "ok": true,
+            "fb": "Correct. The exact protocol varies, but a random early level is not interpretable."
+          },
+          {
+            "t": "Immediately before the first dose",
+            "ok": false,
+            "fb": "That is not a peak anti-Xa."
+          },
+          {
+            "t": "Any time is equivalent",
+            "ok": false,
+            "fb": "Anti-Xa interpretation is timing-dependent."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Heparin discordance",
+        "q": "UFH patient has high aPTT but therapeutic anti-Xa, lupus anticoagulant suspected. Best interpretation?",
+        "opts": [
+          {
+            "t": "aPTT may be unreliable. Follow institutional anti-Xa protocol if appropriate",
+            "ok": true,
+            "fb": "Correct. aPTT can be confounded by lupus anticoagulant, factor issues, inflammation, and reagents."
+          },
+          {
+            "t": "Both tests are always identical",
+            "ok": false,
+            "fb": "They can be discordant."
+          },
+          {
+            "t": "Stop heparin without assessing thrombosis indication",
+            "ok": false,
+            "fb": "Interpret the monitoring test correctly rather than reflexively stopping."
+          }
+        ]
+      },
+      {
+        "type": "order",
+        "kick": "Before acting on a critical level",
+        "q": "Order the verification steps before changing therapy for a surprising drug level:",
+        "correct": [
+          "Check exact dose administration times",
+          "Check exact sample collection time",
+          "Check whether the sample came from a contaminated line",
+          "Check renal/hepatic function and interacting drugs",
+          "Then adjust dose, hold, or repeat level with a documented plan"
+        ],
+        "note": "Clinical pharmacy is dose timing plus sample timing plus organ function plus drug interaction logic."
+      },
+      {
+        "type": "mcq",
+        "kick": "Missed dose level",
+        "q": "A tacrolimus trough is low, but the patient vomited the previous dose and the MAR shows one missed dose. Best action?",
+        "opts": [
+          {
+            "t": "Do not simply escalate. Confirm adherence/absorption, repeat true trough after reliable dosing, and assess rejection risk",
+            "ok": true,
+            "fb": "Correct. A low level after missed dose is not the same as inadequate maintenance dose."
+          },
+          {
+            "t": "Double the chronic dose immediately",
+            "ok": false,
+            "fb": "That can overshoot once doses are reliably taken."
+          },
+          {
+            "t": "Ignore tacrolimus completely",
+            "ok": false,
+            "fb": "The level matters, but context matters more."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Steady state exception",
+        "q": "A drug has a long half-life. A level after one dose is below goal. What is the common error?",
+        "opts": [
+          {
+            "t": "Assuming a non-steady-state level proves maintenance failure",
+            "ok": true,
+            "fb": "Correct. Many drugs need 4-5 half-lives to steady state unless using a validated early-level method."
+          },
+          {
+            "t": "Documenting the level time",
+            "ok": false,
+            "fb": "Documenting time is good."
+          },
+          {
+            "t": "Considering a loading dose when urgent",
+            "ok": false,
+            "fb": "A loading dose can be appropriate if rapid therapeutic concentration is needed."
+          }
+        ]
+      },
+      {
+        "type": "sbar",
+        "kick": "Hemolyzed potassium call",
+        "q": "Build the recommendation for K 6.5 flagged hemolyzed.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "Potassium is reported 6.5, but sample is hemolyzed and patient has no ECG changes.",
+                "score": 2
+              },
+              {
+                "t": "Potassium is a number.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Renal function stable, no potassium supplements, and previous K was 4.2.",
+                "score": 2
+              },
+              {
+                "t": "Patient exists.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Possible pseudohyperkalemia, but hyperkalemia is high-risk enough to verify urgently.",
+                "score": 2
+              },
+              {
+                "t": "Ignore forever.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Repeat stat non-hemolyzed K, review ECG and meds, treat immediately if repeat or ECG confirms true hyperkalemia.",
+                "score": 2
+              },
+              {
+                "t": "Give massive insulin without confirmation in a stable patient.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "Good lab SBAR avoids both overreaction and unsafe delay."
+      },
+      {
+        "type": "mcq",
+        "kick": "Blood culture contamination",
+        "q": "One of four bottles grows coagulase-negative staph in a patient with no line and no symptoms. Best pharmacist stance?",
+        "opts": [
+          {
+            "t": "Possible contaminant. Discuss clinical context rather than automatically treating as bacteremia",
+            "ok": true,
+            "fb": "Correct. CoNS can be contaminant, especially single-bottle growth without device or syndrome."
+          },
+          {
+            "t": "Always treat 6 weeks with vancomycin",
+            "ok": false,
+            "fb": "That can be overtreatment if contaminant."
+          },
+          {
+            "t": "Always ignore every positive culture",
+            "ok": false,
+            "fb": "Some positives are real. Context matters."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Line draw for cultures",
+        "q": "Central-line patient has fever. Which culture approach helps diagnose catheter-related bloodstream infection?",
+        "opts": [
+          {
+            "t": "Obtain paired peripheral and line cultures per protocol before antibiotics if feasible",
+            "ok": true,
+            "fb": "Correct. Paired cultures and differential time to positivity can help identify line source."
+          },
+          {
+            "t": "Only swab the skin outside the line",
+            "ok": false,
+            "fb": "Skin swab does not diagnose bloodstream infection."
+          },
+          {
+            "t": "Avoid all cultures forever",
+            "ok": false,
+            "fb": "Cultures guide source and de-escalation."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "code_cart_deep",
+    "icon": "46",
+    "area": "R1",
+    "title": "Crash Cart and Code Blue Pharmacist",
+    "blurb": "ACLS drugs, crash cart logic, emergency doses, med prep, verbal readback, and restock safety.",
+    "brief": "<p class=\"lead\">In a code, the pharmacist is the medication brain: anticipate, prepare, label, announce, document, and prevent wrong-drug/wrong-dose chaos.</p>",
+    "cases": [
+      {
+        "type": "code",
+        "kick": "VF/pVT arrest sequence",
+        "q": "Pulseless VF persists after shock and CPR. Move through the medication sequence.",
+        "seconds": 50,
+        "steps": [
+          {
+            "prompt": "First arrest vasopressor medication?",
+            "options": [
+              {
+                "t": "Epinephrine 1 mg IV/IO every 3-5 minutes during arrest",
+                "correct": true
+              },
+              {
+                "t": "Adenosine 6 mg",
+                "fb": "Adenosine is for selected stable SVT, not pulseless VF arrest."
+              },
+              {
+                "t": "Oral metoprolol",
+                "fb": "No oral meds during cardiac arrest."
+              }
+            ]
+          },
+          {
+            "prompt": "Refractory VF/pVT after shocks. Antiarrhythmic?",
+            "options": [
+              {
+                "t": "Amiodarone 300 mg IV/IO bolus, then 150 mg if needed",
+                "correct": true
+              },
+              {
+                "t": "Atropine 1 mg",
+                "fb": "Atropine is for symptomatic bradycardia, not VF/pVT arrest."
+              },
+              {
+                "t": "Naloxone only",
+                "fb": "Naloxone may help opioid-associated respiratory arrest, but does not replace VF/pVT ACLS."
+              }
+            ]
+          },
+          {
+            "prompt": "Pharmacist communication?",
+            "options": [
+              {
+                "t": "State drug, dose, route, and time aloud; label syringes; document administrations",
+                "correct": true
+              },
+              {
+                "t": "Hand unlabeled syringes silently",
+                "fb": "Silent unlabeled handoff is a medication error setup."
+              },
+              {
+                "t": "Leave the room after first dose",
+                "fb": "The pharmacist stays to anticipate next meds and prevent duplication."
+              }
+            ]
+          }
+        ],
+        "note": "Code pharmacy is medication accuracy under time pressure: epi timing, shockable rhythm antiarrhythmic, labeling, readback, documentation."
+      },
+      {
+        "type": "mcq",
+        "kick": "Adenosine exception",
+        "q": "Which rhythm is most appropriate for adenosine?",
+        "opts": [
+          {
+            "t": "Stable, regular, narrow-complex SVT after vagal maneuvers",
+            "ok": true,
+            "fb": "Correct. Adenosine is for regular narrow-complex SVT and some regular monomorphic wide rhythms with expert caution."
+          },
+          {
+            "t": "Irregular wide-complex tachycardia",
+            "ok": false,
+            "fb": "Do not give adenosine to irregular wide-complex rhythms such as pre-excited AF."
+          },
+          {
+            "t": "Pulseless asystole as the main drug",
+            "ok": false,
+            "fb": "Asystole uses CPR and epinephrine, not adenosine."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Torsades medication",
+        "q": "Polymorphic VT consistent with torsades de pointes. Which crash cart drug should be prepared?",
+        "opts": [
+          {
+            "t": "Magnesium sulfate 2 g IV",
+            "ok": true,
+            "fb": "Correct. Magnesium is first-line for torsades even if serum Mg is normal."
+          },
+          {
+            "t": "Adenosine",
+            "ok": false,
+            "fb": "Torsades is not SVT."
+          },
+          {
+            "t": "Flumazenil",
+            "ok": false,
+            "fb": "Flumazenil reverses benzodiazepines and can cause seizures in dependent patients."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Crash cart audit",
+        "q": "Tap every crash cart safety problem.",
+        "rows": [
+          {
+            "text": "Expired epinephrine prefilled syringes in the top drawer",
+            "problem": true,
+            "why": "Expired emergency meds must be removed and replaced."
+          },
+          {
+            "text": "Look-alike vials of calcium chloride and sodium bicarbonate stored without separation",
+            "problem": true,
+            "why": "Look-alike emergency meds need clear separation and labeling."
+          },
+          {
+            "text": "Cart seal intact with daily check documented",
+            "problem": false
+          },
+          {
+            "text": "Amiodarone missing after yesterday code and not restocked",
+            "problem": true,
+            "why": "Post-code restock is part of readiness."
+          },
+          {
+            "text": "Pediatric length-based tape and dosing guide available in peds area",
+            "problem": false
+          }
+        ],
+        "note": "A code cart is a system, not a drawer."
+      },
+      {
+        "type": "mcq",
+        "kick": "Hyperkalemia arrest prevention",
+        "q": "Severe hyperkalemia with ECG widening. Which medication stabilizes the myocardium fastest?",
+        "opts": [
+          {
+            "t": "IV calcium gluconate or calcium chloride per access/protocol",
+            "ok": true,
+            "fb": "Correct. Calcium stabilizes cardiac membrane quickly. Insulin/dextrose shifts K but does not stabilize first."
+          },
+          {
+            "t": "Sodium polystyrene as the first emergency step",
+            "ok": false,
+            "fb": "Resins are slow and not first-line for ECG changes."
+          },
+          {
+            "t": "Furosemide only",
+            "ok": false,
+            "fb": "May help elimination later, but calcium is the immediate membrane stabilizer."
+          }
+        ]
+      },
+      {
+        "type": "order",
+        "kick": "Code medication handoff",
+        "q": "Order the safest pharmacist handoff for an emergency syringe:",
+        "correct": [
+          "Draw up medication from verified product",
+          "Label syringe immediately",
+          "Announce drug, dose, and concentration aloud",
+          "Use closed-loop readback before handoff",
+          "Document time and prepare next anticipated dose"
+        ],
+        "note": "In codes, labeling and verbal readback are clinical interventions."
+      },
+      {
+        "type": "mcq",
+        "kick": "Bicarbonate exception",
+        "q": "When is sodium bicarbonate most defensible during a code?",
+        "opts": [
+          {
+            "t": "Specific situations such as severe hyperkalemia or sodium-channel blocker toxicity, not routine every arrest",
+            "ok": true,
+            "fb": "Correct. Routine bicarb for every cardiac arrest is not the move; use it for selected indications."
+          },
+          {
+            "t": "Every arrest before CPR",
+            "ok": false,
+            "fb": "CPR and defibrillation/epi rhythm pathway come first."
+          },
+          {
+            "t": "Never under any circumstance",
+            "ok": false,
+            "fb": "There are selected indications."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Calcium salt distinction",
+        "q": "Why does calcium chloride require extra caution compared with calcium gluconate?",
+        "opts": [
+          {
+            "t": "It contains more elemental calcium and is more caustic, so central access is preferred when possible",
+            "ok": true,
+            "fb": "Correct. Calcium chloride is potent and tissue-injuring if extravasated."
+          },
+          {
+            "t": "It is oral only",
+            "ok": false,
+            "fb": "Calcium chloride is IV in emergencies."
+          },
+          {
+            "t": "It has no calcium",
+            "ok": false,
+            "fb": "It has more elemental calcium than gluconate."
+          }
+        ]
+      },
+      {
+        "type": "sbar",
+        "kick": "Post-code restock",
+        "q": "Build the post-code medication safety recommendation.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "The code cart was opened and multiple emergency meds were used.",
+                "score": 2
+              },
+              {
+                "t": "A cart exists.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Epinephrine, amiodarone, calcium, and dextrose drawers were accessed during the event.",
+                "score": 2
+              },
+              {
+                "t": "People were busy.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Cart readiness is compromised until used meds are reconciled, replaced, and seal-check documented.",
+                "score": 2
+              },
+              {
+                "t": "No follow-up needed.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Quarantine and restock cart per checklist, reconcile code documentation, and verify new seal before returning to service.",
+                "score": 2
+              },
+              {
+                "t": "Push it back into the hall unlocked.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "A code is not finished until the cart and documentation are safe for the next patient."
+      }
+    ]
+  },
+  {
+    "id": "insulin_deep",
+    "icon": "47",
+    "area": "R1",
+    "title": "Advanced Inpatient Insulin, Steroids, TPN and DKA",
+    "blurb": "DKA exceptions, IV-to-SQ transition, NPO basal logic, steroid hyperglycemia, TPN insulin, and hypoglycemia rescue.",
+    "brief": "<p class=\"lead\">Insulin errors hurt fast. Advanced inpatient glycemic care is about timing, nutrition status, potassium, and transitions.</p>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "DKA potassium gate",
+        "q": "DKA patient has K 2.9 mEq/L. What should happen before insulin infusion?",
+        "opts": [
+          {
+            "t": "Hold insulin temporarily and replete potassium until K is at least 3.3 mEq/L per protocol",
+            "ok": true,
+            "fb": "Correct. Insulin will drive K into cells and can precipitate fatal hypokalemia."
+          },
+          {
+            "t": "Start high-dose insulin immediately",
+            "ok": false,
+            "fb": "Insulin before K correction can cause arrhythmia."
+          },
+          {
+            "t": "Give no fluids or electrolytes",
+            "ok": false,
+            "fb": "DKA needs fluids, potassium strategy, and insulin when safe."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "DKA dextrose pivot",
+        "q": "DKA glucose falls to 190 mg/dL but anion gap is still open. Best action?",
+        "opts": [
+          {
+            "t": "Add dextrose-containing fluids and continue insulin until ketoacidosis resolves",
+            "ok": true,
+            "fb": "Correct. Do not stop insulin just because glucose improved; insulin closes the anion gap."
+          },
+          {
+            "t": "Stop insulin immediately",
+            "ok": false,
+            "fb": "Stopping insulin before gap closure can rebound DKA."
+          },
+          {
+            "t": "Give only sliding-scale insulin",
+            "ok": false,
+            "fb": "DKA requires continuous insulin until resolution criteria."
+          }
+        ]
+      },
+      {
+        "type": "order",
+        "kick": "IV-to-SQ insulin transition",
+        "q": "Order a safe transition off an insulin infusion:",
+        "correct": [
+          "Confirm DKA or critical indication has resolved",
+          "Calculate basal insulin need from stable infusion use or home regimen",
+          "Give basal insulin 2-4 hours before stopping drip",
+          "Start prandial/correction plan matched to nutrition",
+          "Monitor glucose and potassium closely after transition"
+        ],
+        "note": "The overlap prevents rebound hyperglycemia and recurrent ketosis."
+      },
+      {
+        "type": "mcq",
+        "kick": "NPO basal insulin",
+        "q": "Type 1 diabetes patient is NPO for procedure. What is the key insulin principle?",
+        "opts": [
+          {
+            "t": "Continue some basal insulin even while NPO, with dose adjustment and dextrose/monitoring as needed",
+            "ok": true,
+            "fb": "Correct. Type 1 patients need basal insulin to prevent ketosis."
+          },
+          {
+            "t": "Hold all insulin because NPO",
+            "ok": false,
+            "fb": "Holding basal insulin in type 1 diabetes can cause DKA."
+          },
+          {
+            "t": "Give prandial insulin without food",
+            "ok": false,
+            "fb": "Prandial insulin matches meals and should be held if not eating."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Steroid hyperglycemia",
+        "q": "Prednisone 60 mg every morning causes afternoon/evening hyperglycemia. Which insulin strategy often matches this pattern?",
+        "opts": [
+          {
+            "t": "Add or increase morning NPH or adjust daytime insulin per protocol",
+            "ok": true,
+            "fb": "Correct. Morning prednisone often causes daytime hyperglycemia; NPH timing can match the steroid curve."
+          },
+          {
+            "t": "Only increase bedtime correction insulin",
+            "ok": false,
+            "fb": "That misses the daytime steroid peak and risks overnight hypoglycemia."
+          },
+          {
+            "t": "Ignore because steroid glucose does not matter",
+            "ok": false,
+            "fb": "Steroid hyperglycemia increases infection and healing risk."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "TPN insulin review",
+        "q": "Tap every unsafe TPN glycemic issue.",
+        "rows": [
+          {
+            "text": "TPN starts tonight with no scheduled glucose monitoring",
+            "problem": true,
+            "why": "TPN can cause major hyperglycemia and requires scheduled glucose checks."
+          },
+          {
+            "text": "Regular insulin added to TPN bag based on stable previous 24-hour insulin need",
+            "problem": false
+          },
+          {
+            "text": "TPN abruptly stopped but long-acting insulin was increased heavily with no dextrose plan",
+            "problem": true,
+            "why": "Stopping carbohydrate source can cause hypoglycemia if insulin remains high."
+          },
+          {
+            "text": "Correction insulin ordered without basal in a type 1 diabetic",
+            "problem": true,
+            "why": "Type 1 diabetes requires basal insulin even if not eating."
+          },
+          {
+            "text": "Hypoglycemia protocol active on MAR",
+            "problem": false
+          }
+        ],
+        "note": "Nutrition source changes are insulin changes."
+      },
+      {
+        "type": "calc",
+        "kick": "Correction factor",
+        "q": "Using the 1800 rule, estimate correction factor for total daily insulin dose 60 units.",
+        "given": [
+          {
+            "label": "Rule",
+            "value": "1800 / total daily dose"
+          },
+          {
+            "label": "TDD",
+            "value": "60 units"
+          }
+        ],
+        "answer": {
+          "value": 30,
+          "tolerance": 3,
+          "unit": "mg/dL per unit"
+        },
+        "hint": "1800 divided by total daily dose.",
+        "note": "1800 / 60 = 30 mg/dL per unit. Use institutional protocols and patient-specific sensitivity."
+      },
+      {
+        "type": "sbar",
+        "kick": "Hypoglycemia prevention",
+        "q": "Build a recommendation after recurrent 3 AM hypoglycemia.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "Patient has recurrent overnight glucose 48-55 mg/dL on basal-heavy regimen.",
+                "score": 2
+              },
+              {
+                "t": "Sugar varies.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Dinner intake is poor and renal function has worsened, reducing insulin clearance.",
+                "score": 2
+              },
+              {
+                "t": "Patient is sleepy.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Basal dose likely excessive for current intake and renal function.",
+                "score": 2
+              },
+              {
+                "t": "Needs more basal insulin.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Reduce basal insulin, hold prandial when not eating, adjust correction scale, and monitor overnight.",
+                "score": 2
+              },
+              {
+                "t": "Continue unchanged.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "Hypoglycemia prevention is as important as hyperglycemia correction."
+      },
+      {
+        "type": "mcq",
+        "kick": "U-500 insulin safety",
+        "q": "A patient uses U-500 regular insulin at home. What is the inpatient safety priority?",
+        "opts": [
+          {
+            "t": "Verify actual units and device, avoid volume-unit confusion, and use a high-alert double-check process",
+            "ok": true,
+            "fb": "Correct. U-500 errors are often 5-fold dosing disasters."
+          },
+          {
+            "t": "Automatically convert 1:1 to U-100 syringe markings",
+            "ok": false,
+            "fb": "This is exactly how 5-fold errors happen."
+          },
+          {
+            "t": "Never ask how the patient measures it",
+            "ok": false,
+            "fb": "Home device and units must be verified."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Hypoglycemia rescue choice",
+        "q": "NPO patient with glucose 42 mg/dL and IV access. Best immediate rescue?",
+        "opts": [
+          {
+            "t": "IV dextrose per hypoglycemia protocol, then identify and fix the cause",
+            "ok": true,
+            "fb": "Correct. IV dextrose is fastest with IV access; then adjust insulin/nutrition."
+          },
+          {
+            "t": "Oral juice despite aspiration risk",
+            "ok": false,
+            "fb": "NPO/unsafe swallow favors IV dextrose."
+          },
+          {
+            "t": "Wait for lunch",
+            "ok": false,
+            "fb": "Severe hypoglycemia requires immediate treatment."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "opioid_pca_oud",
+    "icon": "48",
+    "area": "R1",
+    "title": "Pain, PCA, Opioid and OUD Stewardship Exceptions",
+    "blurb": "PCA safety, renal opioid selection, naloxone titration, bowel regimen, MME, buprenorphine, methadone, and discharge risk.",
+    "brief": "<p class=\"lead\">Advanced opioid stewardship means treating pain while anticipating respiratory depression, accumulation, withdrawal, and discharge harm.</p>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "PCA basal exception",
+        "q": "Opioid-naive post-op patient is ordered hydromorphone PCA with a basal infusion. Concern?",
+        "opts": [
+          {
+            "t": "Basal infusion in opioid-naive patients increases respiratory depression risk and is usually avoided",
+            "ok": true,
+            "fb": "Correct. Demand-only PCA is safer for opioid-naive patients unless a specific expert plan exists."
+          },
+          {
+            "t": "Basal infusion is mandatory for every PCA",
+            "ok": false,
+            "fb": "Not in opioid-naive patients."
+          },
+          {
+            "t": "PCA cannot cause respiratory depression",
+            "ok": false,
+            "fb": "PCA opioids are high-alert."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Renal opioid choice",
+        "q": "Severe renal failure patient has accumulating morphine metabolites and sedation. Better opioid approach?",
+        "opts": [
+          {
+            "t": "Avoid morphine accumulation; consider fentanyl or carefully dosed hydromorphone per protocol and monitor sedation",
+            "ok": true,
+            "fb": "Correct. Morphine active metabolites accumulate in renal failure."
+          },
+          {
+            "t": "Escalate morphine because creatinine is high",
+            "ok": false,
+            "fb": "That worsens accumulation."
+          },
+          {
+            "t": "Use meperidine",
+            "ok": false,
+            "fb": "Meperidine metabolite neurotoxicity is a poor choice, especially renal dysfunction."
+          }
+        ]
+      },
+      {
+        "type": "calc",
+        "kick": "PCA total opioid exposure",
+        "q": "PCA hydromorphone: 0.2 mg demand dose, 18 successful demands in 8 hours. Total hydromorphone used?",
+        "given": [
+          {
+            "label": "Demand dose",
+            "value": "0.2 mg"
+          },
+          {
+            "label": "Successful demands",
+            "value": "18"
+          }
+        ],
+        "answer": {
+          "value": 3.6,
+          "tolerance": 0.2,
+          "unit": "mg"
+        },
+        "hint": "Dose x successful demands.",
+        "note": "0.2 x 18 = 3.6 mg in 8 hours. Use demand history plus sedation/pain scores to adjust safely."
+      },
+      {
+        "type": "mcq",
+        "kick": "Naloxone titration",
+        "q": "Chronic opioid patient is oversedated but has a pulse and is breathing slowly. Best naloxone strategy?",
+        "opts": [
+          {
+            "t": "Titrate small IV doses to restore ventilation, not necessarily full pain reversal",
+            "ok": true,
+            "fb": "Correct. Small titrated doses reduce risk of acute withdrawal and severe pain while fixing ventilation."
+          },
+          {
+            "t": "Always give a huge bolus to full withdrawal",
+            "ok": false,
+            "fb": "That can cause severe withdrawal, agitation, vomiting, and pain crisis."
+          },
+          {
+            "t": "Never use naloxone if opioids are prescribed",
+            "ok": false,
+            "fb": "Respiratory depression is an indication."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Opioid discharge safety",
+        "q": "Tap every discharge opioid safety issue.",
+        "rows": [
+          {
+            "text": "New oxycodone prescription plus home alprazolam with no counseling or naloxone",
+            "problem": true,
+            "why": "Opioid plus benzodiazepine raises overdose risk; counsel and consider naloxone."
+          },
+          {
+            "text": "No bowel regimen for scheduled opioids",
+            "problem": true,
+            "why": "Opioid constipation is predictable and should be prevented."
+          },
+          {
+            "text": "Clear taper plan and safe storage counseling documented",
+            "problem": false
+          },
+          {
+            "text": "Prescription written for 30 days after minor procedure without reassessment plan",
+            "problem": true,
+            "why": "Oversupply increases long-term use and diversion risk."
+          },
+          {
+            "text": "PDMP reviewed for overlapping controlled substances",
+            "problem": false
+          }
+        ],
+        "note": "Discharge is where inpatient opioid decisions become community risk."
+      },
+      {
+        "type": "mcq",
+        "kick": "Buprenorphine perioperative care",
+        "q": "Patient on buprenorphine for OUD needs surgery. Current best general principle?",
+        "opts": [
+          {
+            "t": "Often continue buprenorphine and add multimodal analgesia plus higher-affinity full agonists if needed, coordinated with team",
+            "ok": true,
+            "fb": "Correct. Many protocols continue buprenorphine to reduce relapse risk and manage pain intentionally."
+          },
+          {
+            "t": "Always stop abruptly without a plan",
+            "ok": false,
+            "fb": "Abrupt discontinuation can trigger withdrawal and relapse risk."
+          },
+          {
+            "t": "Assume buprenorphine means no pain treatment is needed",
+            "ok": false,
+            "fb": "Patients on buprenorphine still need analgesia."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Methadone QT",
+        "q": "Patient on methadone has QTc 525 ms and is also ordered levofloxacin and ondansetron. Pharmacist concern?",
+        "opts": [
+          {
+            "t": "Additive QT prolongation and torsades risk. Reassess QT drugs and electrolytes",
+            "ok": true,
+            "fb": "Correct. Methadone plus other QT drugs and low K/Mg is a torsades setup."
+          },
+          {
+            "t": "No interaction because methadone treats OUD",
+            "ok": false,
+            "fb": "Methadone can prolong QT."
+          },
+          {
+            "t": "Give more QT-prolonging antiemetics",
+            "ok": false,
+            "fb": "That worsens risk."
+          }
+        ]
+      },
+      {
+        "type": "sbar",
+        "kick": "Oversedation PCA call",
+        "q": "Build a recommendation for PCA oversedation.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "Patient on hydromorphone PCA is difficult to arouse with RR 7/min and SpO2 falling.",
+                "score": 2
+              },
+              {
+                "t": "Patient is resting.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Opioid-naive, basal PCA rate is running, last several demands successful.",
+                "score": 2
+              },
+              {
+                "t": "They have a button.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Likely opioid-induced respiratory depression from excessive PCA exposure.",
+                "score": 2
+              },
+              {
+                "t": "Pain is solved forever.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Stop basal/PCA, stimulate and support airway, give titrated naloxone per protocol, and redesign regimen.",
+                "score": 2
+              },
+              {
+                "t": "Increase basal rate.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "PCA safety recommendations must include immediate rescue and future regimen redesign."
+      },
+      {
+        "type": "calc",
+        "kick": "Oxycodone MME high-risk",
+        "q": "Oxycodone 20 mg every 6 hours scheduled. Approximate daily MME using factor 1.5?",
+        "given": [
+          {
+            "label": "Dose",
+            "value": "20 mg q6h = 80 mg/day"
+          },
+          {
+            "label": "Factor",
+            "value": "1.5"
+          }
+        ],
+        "answer": {
+          "value": 120,
+          "tolerance": 5,
+          "unit": "MME/day"
+        },
+        "hint": "80 mg/day x 1.5.",
+        "note": "80 x 1.5 = 120 MME/day. This is high-risk and should trigger reassessment, naloxone, and taper planning when appropriate."
+      },
+      {
+        "type": "order",
+        "kick": "Opioid stewardship review",
+        "q": "Order a safe inpatient opioid review:",
+        "correct": [
+          "Assess pain type, function goal, sedation, respiratory risk",
+          "Maximize non-opioid and regional options when appropriate",
+          "Calculate total opioid exposure and MME trend",
+          "Check renal/hepatic function and interacting sedatives",
+          "Set bowel, naloxone, taper, and discharge plan"
+        ],
+        "note": "Opioid stewardship is analgesia, safety, function, and exit strategy."
+      }
+    ]
+  },
+  {
+    "id": "ast_exceptions",
+    "icon": "49",
+    "area": "R2",
+    "title": "Antimicrobial Stewardship Exceptions and Antibiogram Thinking",
+    "blurb": "Culture follow-up, antibiogram, allergy delabeling, MRSA nares, double anaerobic coverage, source control, and duration traps.",
+    "brief": "<p class=\"lead\">Stewardship is not just narrowing. It is the right drug, dose, route, duration, culture interpretation, and source-control plan.</p>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "Antibiogram use",
+        "q": "Empiric therapy is needed for severe hospital-acquired pneumonia. How should the antibiogram be used?",
+        "opts": [
+          {
+            "t": "Use local unit/pathogen susceptibility patterns plus patient risk factors to choose empiric coverage",
+            "ok": true,
+            "fb": "Correct. Local resistance changes empiric choices."
+          },
+          {
+            "t": "Ignore local resistance and use the same drug everywhere",
+            "ok": false,
+            "fb": "Empiric therapy is local."
+          },
+          {
+            "t": "Use outpatient E. coli urine data to choose ICU Pseudomonas coverage",
+            "ok": false,
+            "fb": "Wrong organism/site/unit data can mislead."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Stewardship exceptions scan",
+        "q": "Tap every stewardship problem.",
+        "rows": [
+          {
+            "text": "Metronidazole added to piperacillin-tazobactam for routine intra-abdominal coverage with no special indication",
+            "problem": true,
+            "why": "Double anaerobic coverage is usually unnecessary."
+          },
+          {
+            "text": "MRSA nares PCR negative in pneumonia patient but vancomycin continued despite no MRSA culture",
+            "problem": true,
+            "why": "A negative MRSA nares has high negative predictive value for MRSA pneumonia in many settings and supports de-escalation when appropriate."
+          },
+          {
+            "text": "Abscess antibiotics continued without drainage/source-control plan",
+            "problem": true,
+            "why": "Source control is often the real treatment."
+          },
+          {
+            "text": "Antibiotic timeout documented at 48 hours",
+            "problem": false
+          },
+          {
+            "text": "Cefepime continued in encephalopathic renal failure patient without renal adjustment",
+            "problem": true,
+            "why": "Cefepime neurotoxicity is a renal-dose and accumulation concern."
+          }
+        ],
+        "note": "Stewardship misses are often hidden in continuation, not initiation."
+      },
+      {
+        "type": "mcq",
+        "kick": "Penicillin allergy delabeling",
+        "q": "Patient reports penicillin allergy as nausea only 20 years ago. Best stewardship move?",
+        "opts": [
+          {
+            "t": "Clarify reaction and consider delabeling or beta-lactam use per protocol because nausea is intolerance, not IgE allergy",
+            "ok": true,
+            "fb": "Correct. Bad allergy labels force broader, worse therapy."
+          },
+          {
+            "t": "Ban every beta-lactam forever",
+            "ok": false,
+            "fb": "Nausea alone is not an IgE allergy."
+          },
+          {
+            "t": "Ignore all allergy histories",
+            "ok": false,
+            "fb": "Clarify and risk stratify."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Candida in urine",
+        "q": "Foley patient has Candida in urine culture but no symptoms. Best general approach?",
+        "opts": [
+          {
+            "t": "Usually remove/change catheter and avoid antifungals unless high-risk indication or symptomatic infection",
+            "ok": true,
+            "fb": "Correct. Asymptomatic candiduria is often colonization."
+          },
+          {
+            "t": "Treat everyone with amphotericin",
+            "ok": false,
+            "fb": "Overtreatment causes harm."
+          },
+          {
+            "t": "Ignore catheter management",
+            "ok": false,
+            "fb": "Catheter removal/change is often the key intervention."
+          }
+        ]
+      },
+      {
+        "type": "sbar",
+        "kick": "Culture follow-up",
+        "q": "Build the recommendation after broad empiric therapy cultures return.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "Patient started on vancomycin plus cefepime for sepsis; cultures now show ceftriaxone-susceptible E. coli urinary source.",
+                "score": 2
+              },
+              {
+                "t": "Cultures came back.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Hemodynamics improved, no MRSA or Pseudomonas isolated, source is urinary.",
+                "score": 2
+              },
+              {
+                "t": "They were sick before.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Current regimen is broader than necessary and adds nephrotoxicity/neurotoxicity risk.",
+                "score": 2
+              },
+              {
+                "t": "Broad forever is best.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Stop vancomycin, narrow cefepime to ceftriaxone or oral step-down if eligible, and set duration.",
+                "score": 2
+              },
+              {
+                "t": "Add metronidazole forever.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "Culture follow-up should name what to stop, what to continue, route, and duration."
+      },
+      {
+        "type": "mcq",
+        "kick": "IV-to-PO exception",
+        "q": "Which patient is a poor candidate for IV-to-PO switch today?",
+        "opts": [
+          {
+            "t": "Septic shock patient on vasopressors with ileus and no enteral absorption",
+            "ok": true,
+            "fb": "Correct. IV-to-PO requires clinical stability and reliable absorption."
+          },
+          {
+            "t": "Stable patient tolerating diet on highly bioavailable levofloxacin",
+            "ok": false,
+            "fb": "That is often a good IV-to-PO candidate."
+          },
+          {
+            "t": "Stable patient on linezolid tolerating oral meds",
+            "ok": false,
+            "fb": "Linezolid has excellent oral bioavailability."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Duration trap",
+        "q": "Uncomplicated cystitis improves. Resident wants 14 days of broad IV therapy. Best pharmacist response?",
+        "opts": [
+          {
+            "t": "Recommend syndrome-appropriate short-course therapy and oral route when eligible",
+            "ok": true,
+            "fb": "Correct. Excess duration increases adverse effects, C. diff, and resistance."
+          },
+          {
+            "t": "Longer is always safer",
+            "ok": false,
+            "fb": "Longer often harms."
+          },
+          {
+            "t": "Treat until urine culture is negative in everyone",
+            "ok": false,
+            "fb": "Clinical syndrome and guideline duration matter."
+          }
+        ]
+      },
+      {
+        "type": "journal",
+        "kick": "Antibiotic duration trial",
+        "q": "Appraise a duration study.",
+        "abstract": "Randomized trial compares 7 vs 14 days for stable gram-negative bacteremia after source control. Excludes endocarditis, CNS infection, uncontrolled abscess, and severe immunosuppression. Mortality similar. Recurrent infection 3% vs 3.5%.",
+        "flaws": [
+          {
+            "text": "Exclusions limit applying to endocarditis, CNS infection, uncontrolled source, or severe immunosuppression",
+            "isFlaw": true,
+            "why": "Short-course evidence often applies only to stable, source-controlled patients."
+          },
+          {
+            "text": "Randomized comparison",
+            "isFlaw": false,
+            "why": "Randomization is a strength."
+          },
+          {
+            "text": "Source control requirement is important",
+            "isFlaw": true,
+            "why": "You cannot generalize to patients without source control."
+          },
+          {
+            "text": "Similar recurrence rates",
+            "isFlaw": false,
+            "why": "This supports noninferiority if the design and margin are acceptable."
+          }
+        ],
+        "nnt": {
+          "stem": "Recurrent infection 3.5% with 14 days vs 3.0% with 7 days. Absolute difference?",
+          "options": [
+            {
+              "t": "0.5 percentage point lower with 7 days",
+              "correct": true,
+              "fb": "Correct. The observed recurrence is similar, but patient selection is key."
+            },
+            {
+              "t": "50 percentage points",
+              "fb": "No. The rates are 3.5 and 3.0 percent."
+            },
+            {
+              "t": "Cannot compare percentages",
+              "fb": "You can compare absolute percentages."
+            }
+          ]
+        },
+        "note": "Short-course stewardship requires the right patient, not blind shortening."
+      },
+      {
+        "type": "order",
+        "kick": "Restricted antibiotic approval",
+        "q": "Order a restricted-antibiotic stewardship review:",
+        "correct": [
+          "Confirm syndrome, severity, and source control",
+          "Check prior cultures, resistance risk, and antibiogram",
+          "Verify renal/weight dosing and infusion strategy",
+          "Set approval criteria and stop/review time",
+          "Document de-escalation triggers"
+        ],
+        "note": "Restricted agents need a plan for how to get off them."
+      },
+      {
+        "type": "mcq",
+        "kick": "Procalcitonin exception",
+        "q": "How should procalcitonin be used in stewardship?",
+        "opts": [
+          {
+            "t": "As one data point with clinical picture, source, cultures, and trajectory, not as a stand-alone yes/no rule",
+            "ok": true,
+            "fb": "Correct. Biomarkers support decisions; they do not replace clinical judgment."
+          },
+          {
+            "t": "Treat or stop solely based on one value",
+            "ok": false,
+            "fb": "Single biomarkers can mislead."
+          },
+          {
+            "t": "Ignore clinical deterioration if procalcitonin is low",
+            "ok": false,
+            "fb": "The patient always comes first."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "renal_rrt_obesity",
+    "icon": "50",
+    "area": "R1",
+    "title": "Renal Replacement, AKI and Obesity Dosing Exceptions",
+    "blurb": "HD, CRRT, AKI creatinine lag, loading doses, post-HD dosing, obesity weights, and nephrotoxin stacking.",
+    "brief": "<p class=\"lead\">Renal dosing is not a table lookup when the kidney is changing, dialysis is running, or body size changes distribution.</p>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "Loading dose in renal failure",
+        "q": "Septic patient with severe renal impairment needs meropenem. What is the key loading-dose principle?",
+        "opts": [
+          {
+            "t": "Give an appropriate loading dose for severity/volume, then adjust maintenance for renal clearance",
+            "ok": true,
+            "fb": "Correct. Loading dose is driven mainly by volume of distribution and urgency, not only renal clearance."
+          },
+          {
+            "t": "Skip all loading doses because CrCl is low",
+            "ok": false,
+            "fb": "That can underdose early sepsis."
+          },
+          {
+            "t": "Use pediatric dose for all renal patients",
+            "ok": false,
+            "fb": "Renal adjustment is not arbitrary underdosing."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Creatinine lag",
+        "q": "SCr is 0.8 today after massive bleed and shock, but urine output is near zero. Best pharmacist interpretation?",
+        "opts": [
+          {
+            "t": "Creatinine may lag behind true AKI. Dose using clinical trajectory, urine output, and close monitoring",
+            "ok": true,
+            "fb": "Correct. Serum creatinine is delayed and can look falsely reassuring early in AKI."
+          },
+          {
+            "t": "Renal function is definitely normal",
+            "ok": false,
+            "fb": "Oliguria and shock suggest AKI despite current SCr."
+          },
+          {
+            "t": "No monitoring needed",
+            "ok": false,
+            "fb": "This is high-risk for accumulation."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Renal dosing traps",
+        "q": "Tap every renal dosing problem.",
+        "rows": [
+          {
+            "text": "Enoxaparin treatment dose q12h continued at CrCl 18 mL/min",
+            "problem": true,
+            "why": "Treatment enoxaparin accumulates in severe renal impairment; adjust or use alternative per protocol."
+          },
+          {
+            "text": "Nitrofurantoin used for suspected pyelonephritis",
+            "problem": true,
+            "why": "Nitrofurantoin does not achieve kidney tissue levels for pyelonephritis."
+          },
+          {
+            "text": "Gabapentin high dose continued after AKI with new somnolence",
+            "problem": true,
+            "why": "Gabapentin accumulates and causes neurotoxicity in renal impairment."
+          },
+          {
+            "text": "Vancomycin level ordered after CRRT settings changed",
+            "problem": false
+          },
+          {
+            "text": "Metformin held during shock and AKI",
+            "problem": false
+          }
+        ],
+        "note": "Renal review is indication plus site of infection plus clearance plus toxicity."
+      },
+      {
+        "type": "mcq",
+        "kick": "Intermittent HD timing",
+        "q": "Vancomycin is dialyzable with high-flux HD. Which plan is generally safer?",
+        "opts": [
+          {
+            "t": "Coordinate levels and dosing around dialysis sessions, often post-HD dosing per protocol",
+            "ok": true,
+            "fb": "Correct. HD timing strongly affects levels; random schedules mislead."
+          },
+          {
+            "t": "Ignore dialysis schedule",
+            "ok": false,
+            "fb": "Dialysis schedule is central."
+          },
+          {
+            "t": "Draw every level during the first 5 minutes of dialysis",
+            "ok": false,
+            "fb": "That will not reflect post-dialysis redistribution and protocol timing."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "CRRT not equal anuria",
+        "q": "Patient is anuric but on high-intensity CRRT. Antibiotic dosing issue?",
+        "opts": [
+          {
+            "t": "CRRT can clear drugs substantially, so severe infection may need higher doses than anuric-no-dialysis tables",
+            "ok": true,
+            "fb": "Correct. CRRT intensity matters."
+          },
+          {
+            "t": "All drugs require zero dosing",
+            "ok": false,
+            "fb": "That underdoses many antibiotics during CRRT."
+          },
+          {
+            "t": "CRRT never removes any drug",
+            "ok": false,
+            "fb": "Many hydrophilic drugs are cleared by CRRT."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Obesity aminoglycoside weight",
+        "q": "Aminoglycoside dosing in obesity often uses which weight concept?",
+        "opts": [
+          {
+            "t": "Adjusted body weight when actual body weight is far above ideal, per protocol",
+            "ok": true,
+            "fb": "Correct. Aminoglycosides distribute poorly into adipose tissue; adjusted weight often prevents overdose."
+          },
+          {
+            "t": "Always total body weight with no cap or levels",
+            "ok": false,
+            "fb": "That can overdose aminoglycosides."
+          },
+          {
+            "t": "Always zero dose in obesity",
+            "ok": false,
+            "fb": "Obesity changes dosing weight, not the indication."
+          }
+        ]
+      },
+      {
+        "type": "calc",
+        "kick": "Adjusted body weight",
+        "q": "IBW 70 kg, actual body weight 120 kg. Using AdjBW = IBW + 0.4 x (ABW - IBW), calculate AdjBW.",
+        "given": [
+          {
+            "label": "IBW",
+            "value": "70 kg"
+          },
+          {
+            "label": "ABW",
+            "value": "120 kg"
+          }
+        ],
+        "answer": {
+          "value": 90,
+          "tolerance": 2,
+          "unit": "kg"
+        },
+        "hint": "70 + 0.4 x (120 - 70).",
+        "note": "70 + 0.4 x 50 = 90 kg. Many institutions use adjusted weight for aminoglycosides in obesity."
+      },
+      {
+        "type": "sbar",
+        "kick": "Nephrotoxin stacking",
+        "q": "Build a recommendation for rising creatinine on multiple nephrotoxins.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "SCr doubled while patient receives vancomycin, piperacillin-tazobactam, ketorolac, and IV contrast exposure.",
+                "score": 2
+              },
+              {
+                "t": "Creatinine changed.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Urine output is falling and cultures now identify ceftriaxone-susceptible E. coli.",
+                "score": 2
+              },
+              {
+                "t": "Lots of meds.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "AKI likely worsened by nephrotoxin stacking and broad therapy no longer needed.",
+                "score": 2
+              },
+              {
+                "t": "Continue all nephrotoxins.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Stop ketorolac, narrow antibiotics, hold/re-dose vancomycin by levels, and monitor renal labs/urine output.",
+                "score": 2
+              },
+              {
+                "t": "Add aminoglycoside.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "Renal stewardship and antimicrobial stewardship often happen in the same recommendation."
+      }
+    ]
+  },
+  {
+    "id": "high_alert_reversal",
+    "icon": "51",
+    "area": "R1",
+    "title": "High-Alert Medication Rescue and Reversal",
+    "blurb": "Heparin, warfarin, DOACs, potassium, magnesium, concentrated electrolytes, pressors, and antidote decision-making.",
+    "brief": "<p class=\"lead\">High-alert medications need rescue plans before the rescue is needed.</p>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "Heparin reversal",
+        "q": "Life-threatening bleeding on unfractionated heparin. Reversal agent?",
+        "opts": [
+          {
+            "t": "Protamine sulfate, dosed to recent heparin exposure per protocol",
+            "ok": true,
+            "fb": "Correct. Protamine reverses UFH, with dose based on recent heparin amount and time."
+          },
+          {
+            "t": "Vitamin K",
+            "ok": false,
+            "fb": "Vitamin K reverses warfarin, not heparin."
+          },
+          {
+            "t": "Idarucizumab",
+            "ok": false,
+            "fb": "Idarucizumab reverses dabigatran."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Warfarin major bleed",
+        "q": "Warfarin patient has intracranial hemorrhage and INR 4.8. Best reversal concept?",
+        "opts": [
+          {
+            "t": "4-factor PCC plus IV vitamin K per protocol",
+            "ok": true,
+            "fb": "Correct. PCC gives rapid factors; vitamin K sustains reversal."
+          },
+          {
+            "t": "Hold one dose only",
+            "ok": false,
+            "fb": "Major bleed needs rapid reversal."
+          },
+          {
+            "t": "Protamine",
+            "ok": false,
+            "fb": "Protamine is for heparin."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Dabigatran reversal",
+        "q": "Dabigatran patient has life-threatening bleeding. Specific reversal?",
+        "opts": [
+          {
+            "t": "Idarucizumab",
+            "ok": true,
+            "fb": "Correct. Idarucizumab is the specific dabigatran reversal agent."
+          },
+          {
+            "t": "Vitamin K",
+            "ok": false,
+            "fb": "Vitamin K does not reverse dabigatran."
+          },
+          {
+            "t": "Naloxone",
+            "ok": false,
+            "fb": "Naloxone reverses opioids."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Factor Xa reversal",
+        "q": "Apixaban-associated life-threatening bleed. Which reversal options may be considered depending protocol and availability?",
+        "opts": [
+          {
+            "t": "Andexanet alfa or 4-factor PCC per institutional protocol",
+            "ok": true,
+            "fb": "Correct. Factor Xa inhibitor reversal depends on agent, timing, bleed severity, and institutional pathway."
+          },
+          {
+            "t": "Flumazenil",
+            "ok": false,
+            "fb": "Flumazenil reverses benzodiazepines, not apixaban."
+          },
+          {
+            "t": "Fomepizole",
+            "ok": false,
+            "fb": "Fomepizole treats toxic alcohol poisoning."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "High-alert storage scan",
+        "q": "Tap every high-alert storage or ordering problem.",
+        "rows": [
+          {
+            "text": "Concentrated potassium chloride vials stocked on a general med-surg floor",
+            "problem": true,
+            "why": "Concentrated KCl should be restricted to prevent fatal direct administration errors."
+          },
+          {
+            "text": "Insulin U-500 order lacks units and device clarification",
+            "problem": true,
+            "why": "U-500 requires exact unit/device communication to avoid 5-fold errors."
+          },
+          {
+            "text": "Heparin protocol includes independent double-check and weight in kg",
+            "problem": false
+          },
+          {
+            "text": "Norepinephrine concentration differs between units with no smart-pump library update",
+            "problem": true,
+            "why": "Concentration mismatch can cause severe dosing errors."
+          },
+          {
+            "text": "Chemotherapy order has independent double verification",
+            "problem": false
+          }
+        ],
+        "note": "High-alert safety is designed before the bedside."
+      },
+      {
+        "type": "order",
+        "kick": "Massive anticoagulant bleed response",
+        "q": "Order the pharmacist response to life-threatening anticoagulant bleeding:",
+        "correct": [
+          "Identify anticoagulant, last dose time, renal function, and indication",
+          "Assess bleed site/severity and need for procedure",
+          "Hold anticoagulant and activate reversal protocol",
+          "Prepare specific reversal or PCC/vitamin K strategy as appropriate",
+          "Document restart-risk plan once bleeding controlled"
+        ],
+        "note": "Reversal is only half the job. The restart plan prevents the next clot or bleed."
+      },
+      {
+        "type": "mcq",
+        "kick": "Flumazenil exception",
+        "q": "Why is flumazenil not given casually to every sleepy benzodiazepine patient?",
+        "opts": [
+          {
+            "t": "It can precipitate seizures, especially in chronic benzodiazepine use or mixed overdose",
+            "ok": true,
+            "fb": "Correct. Supportive care is often safer unless a specific low-risk indication exists."
+          },
+          {
+            "t": "It has no pharmacologic effect",
+            "ok": false,
+            "fb": "It reverses benzodiazepines, but risk limits use."
+          },
+          {
+            "t": "It reverses warfarin",
+            "ok": false,
+            "fb": "Wrong antidote."
+          }
+        ]
+      },
+      {
+        "type": "code",
+        "kick": "Toxicology rescue sequence",
+        "q": "Move quickly through the antidote selection.",
+        "seconds": 45,
+        "steps": [
+          {
+            "prompt": "Acetaminophen overdose with toxic nomogram level?",
+            "options": [
+              {
+                "t": "N-acetylcysteine",
+                "correct": true
+              },
+              {
+                "t": "Dantrolene",
+                "fb": "Dantrolene treats malignant hyperthermia."
+              },
+              {
+                "t": "Protamine",
+                "fb": "Protamine reverses heparin."
+              }
+            ]
+          },
+          {
+            "prompt": "Ethylene glycol ingestion with high anion gap acidosis?",
+            "options": [
+              {
+                "t": "Fomepizole and toxicology/nephrology evaluation",
+                "correct": true
+              },
+              {
+                "t": "Vitamin K only",
+                "fb": "Vitamin K does not block alcohol dehydrogenase."
+              },
+              {
+                "t": "Oral vancomycin",
+                "fb": "Not relevant."
+              }
+            ]
+          },
+          {
+            "prompt": "Malignant hyperthermia after anesthesia?",
+            "options": [
+              {
+                "t": "Dantrolene",
+                "correct": true
+              },
+              {
+                "t": "Naloxone",
+                "fb": "Naloxone reverses opioids."
+              },
+              {
+                "t": "Idarucizumab",
+                "fb": "Idarucizumab reverses dabigatran."
+              }
+            ]
+          }
+        ],
+        "note": "Antidote matching must be reflexive, but always pair it with supportive care and specialist escalation."
+      }
+    ]
+  }
+];
+  MODULES.push(...ADVANCED_MODULES);
+  Object.assign(TEACH, {
+  "vanc_deep": [
+    "Vancomycin is where pharmacists prove they understand PK, not just dose tables.",
+    "Ask whether the level is usable before asking whether the dose is right.",
+    "AKI, obesity, dialysis, bad timing, and line contamination are the common traps.",
+    "The goal is exposure that treats MRSA without creating kidney injury."
+  ],
+  "tdm_nti": [
+    "TDM is a timing game and a physiology game.",
+    "Total levels can lie when albumin or renal function changes.",
+    "Lithium, digoxin, phenytoin, aminoglycosides, theophylline, and tacrolimus all punish lazy timing.",
+    "A good pharmacist documents dose time, sample time, organ function, interactions, and symptoms."
+  ],
+  "lab_draw_deep": [
+    "Bad samples create bad clinical decisions.",
+    "Before changing a dose, check when the dose was given, when the level was drawn, and where it was drawn from.",
+    "Hemolysis, line contamination, missed doses, and non-steady-state levels are not small details.",
+    "This module trains the habit of challenging the lab before acting on it."
+  ],
+  "code_cart_deep": [
+    "A code pharmacist is not just a person holding syringes.",
+    "You anticipate rhythm-specific drugs, label everything, use closed-loop communication, and protect the next patient by restocking correctly.",
+    "Know the exceptions: adenosine is not for irregular wide rhythms, magnesium is for torsades, bicarbonate is not routine.",
+    "The code cart is a medication-use system under stress."
+  ],
+  "insulin_deep": [
+    "Insulin is high-alert because the patient can crash in minutes.",
+    "DKA is potassium first when K is low, insulin until the gap closes, and basal overlap before stopping the drip.",
+    "Nutrition status drives insulin: NPO, steroids, tube feeds, and TPN all change the plan.",
+    "Your job is preventing both hyperglycemia harm and hypoglycemia harm."
+  ],
+  "opioid_pca_oud": [
+    "Opioid stewardship is not anti-pain. It is pain relief with a safety architecture.",
+    "PCA, renal failure, naloxone, buprenorphine, methadone, bowel regimens, and discharge supply are all pharmacist territory.",
+    "The best plan treats pain, protects breathing, prevents withdrawal, and has an exit strategy.",
+    "Do the math, check the sedation, and plan the discharge."
+  ],
+  "ast_exceptions": [
+    "Stewardship is active clinical reasoning, not just saying no.",
+    "Cultures, antibiogram, allergy history, source control, route, and duration all change the answer.",
+    "The exception matters: unstable patients need broad empiric therapy, but stable culture-positive patients need de-escalation.",
+    "Your recommendation should always include drug, dose, route, duration, and reassessment trigger."
+  ],
+  "renal_rrt_obesity": [
+    "Renal dosing tables break down when the kidney is changing or dialysis is clearing drug.",
+    "Loading dose treats today. Maintenance dose follows clearance. Do not confuse the two.",
+    "CRRT, intermittent HD, obesity, and AKI creatinine lag are where pharmacists earn trust.",
+    "When in doubt, document the assumption and schedule the next level or lab."
+  ],
+  "high_alert_reversal": [
+    "High-alert meds should always have a rescue plan.",
+    "Know the reversal pairings cold: heparin-protamine, warfarin-PCC plus vitamin K, dabigatran-idarucizumab, Xa inhibitors-andexanet or PCC pathway.",
+    "But reversal decisions still need indication, timing, renal function, bleed severity, and restart thinking.",
+    "The safest pharmacist is already thinking about the next error before it happens."
+  ]
+});
+  for (const k of Object.keys(AREA_TOTALS)) delete AREA_TOTALS[k];
+  MODULES.forEach(m=>AREA_TOTALS[m.area]=(AREA_TOTALS[m.area]||0)+m.cases.length);
+})();
+
 </script>
 </body>
 </html>
