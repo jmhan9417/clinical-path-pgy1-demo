@@ -269,6 +269,10 @@
 .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#2a2236;color:#fff;border-radius:12px;padding:10px;font-size:12px;overflow:auto}
 @media(max-width:720px){.timeline,.matrix{grid-template-columns:1fr}.arrow{display:none}.node{min-width:100%}}
 
+/* learning sequence clarity v5 */
+.path-panel{margin:14px 0 16px;padding:14px;border-radius:22px;background:rgba(255,255,255,.78);border:1.5px solid rgba(122,77,143,.16);box-shadow:0 10px 24px rgba(70,35,80,.08)}
+.path-head{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;margin-bottom:10px}.path-head h3{margin:0;font-size:16px}.path-head p{margin:3px 0 0;color:#7b6378;font-size:12.5px;line-height:1.35}.path-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.path-step{border:1px solid #eed8e5;background:#fff;border-radius:15px;padding:10px;cursor:pointer;transition:.15s}.path-step:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(70,35,80,.10)}.path-step .num{font-size:11px;font-weight:900;color:#fff;background:#b28bff;border-radius:99px;padding:3px 8px;display:inline-block;margin-bottom:6px}.path-step b{display:block;font-size:12.5px;color:#3a2e4a}.path-step span{display:block;font-size:11.5px;color:#876f84;line-height:1.25;margin-top:3px}.plain-note{margin-top:10px;border-radius:14px;background:#fff7fb;border:1px solid #f3d8e8;padding:10px 12px;font-size:12px;color:#6f536b;line-height:1.35}.download-help{margin-top:8px;border-radius:14px;background:#f8fbff;border:1px solid #dbeafe;padding:10px 12px;font-size:12px;color:#52647a;line-height:1.35}.download-help b{color:#334155}@media(max-width:900px){.path-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.path-grid{grid-template-columns:1fr}.path-head{display:block}}
+
 </style>
 </head>
 <body>
@@ -1294,6 +1298,22 @@ function introHarlin(){
 /* ==================================================================
    HUB (rotation select)
    ================================================================== */
+
+function learningPathHTML(){
+  const phases=[
+    {n:'Phase 1',title:'Core hospital pharmacist reflexes',range:'01-06',desc:'role, SOAP/SBAR, TDM basics, safety, code basics',id:'role'},
+    {n:'Phase 2',title:'Residency communication skills',range:'07-11',desc:'journal club, MUE, leadership, teaching, presentations',id:'journal'},
+    {n:'Phase 3',title:'Medication-use system and broad inpatient care',range:'12-20',desc:'EHR, machines, renal/hepatic, anticoag, stewardship, tox, compounding, transitions',id:'systems'},
+    {n:'Phase 4',title:'Calculation and emergency engine practice',range:'21-33',desc:'math, sepsis, DKA, oncology, chart review, ID, lytes, seizures, peds, nutrition',id:'calc'},
+    {n:'Phase 5',title:'Specialty rotations',range:'34-42',desc:'oncology, transplant, ICU, resistant ID, ambulatory care',id:'onco_emerg'},
+    {n:'Phase 6',title:'Exception mastery',range:'43-51',desc:'vanco, TDM, blood draws, crash cart, insulin, opioid, AST, RRT, reversal',id:'vanc_deep'},
+    {n:'Phase 7',title:'Guidelines and evidence defense',range:'52-55',desc:'vanco trough guidelines, biostatistics, BMT, visual synthesis',id:'vanco_trough_guidelines'}
+  ];
+  return '<div class="path-panel"><div class="path-head"><div><h3>Recommended learning path</h3><p>Follow this order if you want the material to build naturally. Earlier phases teach the language and workflow; later phases teach exceptions, guidelines, and hard judgment calls.</p></div></div><div class="path-grid">'+
+    phases.map(p=>'<div class="path-step" onclick="openModule(\''+p.id+'\')"><span class="num">'+p.n+' · '+p.range+'</span><b>'+p.title+'</b><span>'+p.desc+'</span></div>').join('')+
+    '</div><div class="plain-note"><b>Plain English:</b> do not start with the rare exceptions. Start with patient-care workflow, then systems and safety, then calculations and specialties, then the exception modules, then guideline/evidence defense.</div></div>';
+}
+
 function goHub(){
   setBG("core");
   const dashAreas=["R1","R2","R3","R4"];
@@ -1305,6 +1325,7 @@ function goHub(){
       <div class="hub-panel">
         <h2>Choose your rotation</h2>
         <div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with Dr. Harlin</div>
+        ${learningPathHTML()}
         <div class="comp-row">
           ${dashAreas.map(a=>{const s=areaScore(a),m=AREA[a];return `<div class="compb">
             <div class="k" style="color:${m.c}">${a}</div>
@@ -1321,9 +1342,9 @@ function goHub(){
               <span class="prog">${done?nc+'/'+m.cases.length+' done':m.cases.length+' cases'}</span></div></div></div>`;}).join("")}
         </div>
         <div style="text-align:center;margin-top:18px">
-          <button class="btn mint" onclick="showStudyCards()">Study Cards</button>
-          <button class="btn ghost" onclick="exportStudyCardsTSV()">Export TSV</button>
-          <button class="btn ghost" onclick="exportQuizletTXT()">Export Quizlet</button>
+          <button class="btn mint" onclick="showStudyCards()">Review Cards</button>
+          <button class="btn ghost" onclick="exportStudyCardsTSV()">Download cards for spreadsheet</button>
+          <button class="btn ghost" onclick="exportQuizletTXT()">Download cards for Quizlet</button>
           <button class="btn" onclick="graduate()">Final Evaluation</button>
         </div>
       </div>
@@ -1732,11 +1753,11 @@ function renderStudyCards(){
   document.getElementById('app').innerHTML=`
     <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div><div class="fx" id="fx2"></div>
     <div class="center-layer" style="justify-content:center;padding:4vh 18px"><div class="study-panel">
-      <div class="study-head"><div><h2>Study Cards</h2><div class="study-sub">Auto-generated from ${MODULES.length} modules · ${STUDY.cards.length} cards · local spaced review</div></div>
-        <div class="study-actions"><button class="btn ghost sm" onclick="goHub()">Back to rotations</button><button class="btn ghost sm" onclick="exportStudyCardsTSV()">Export TSV</button><button class="btn ghost sm" onclick="exportQuizletTXT()">Export Quizlet</button><button class="btn ghost sm" onclick="resetCardProgress()">Reset progress</button></div></div>
-      <div class="study-grid"><div>${c?cardHTML(c):'<div class="flash-empty">No due cards in this filter. Use Export TSV, switch filters, or reset progress.</div>'}</div><div class="study-side">
+      <div class="study-head"><div><h2>Review Cards</h2><div class="study-sub">Auto-generated from ${MODULES.length} modules · ${STUDY.cards.length} cards · local spaced review</div><div class="download-help"><b>What is the spreadsheet download?</b> It is a simple table file: one row per card, with front, back, and tags. Excel, Google Sheets, Notion, and many study tools can open it. Quizlet download uses the same front/back structure formatted for Quizlet import.</div></div>
+        <div class="study-actions"><button class="btn ghost sm" onclick="goHub()">Back to rotations</button><button class="btn ghost sm" onclick="exportStudyCardsTSV()">Download spreadsheet</button><button class="btn ghost sm" onclick="exportQuizletTXT()">Download for Quizlet</button><button class="btn ghost sm" onclick="resetCardProgress()">Reset progress</button></div></div>
+      <div class="study-grid"><div>${c?cardHTML(c):'<div class="flash-empty">No due cards in this filter. Download the spreadsheet, switch filters, or reset progress.</div>'}</div><div class="study-side">
         <div class="study-stat"><div class="statbox"><b>${pool.length}</b><span>Due</span></div><div class="statbox"><b>${all.length}</b><span>Filtered</span></div><div class="statbox"><b>${STUDY.cards.length}</b><span>Total</span></div><div class="statbox"><b>${Math.round((STUDY.cards.filter(x=>x.seen).length/Math.max(STUDY.cards.length,1))*100)}%</b><span>Seen</span></div></div>
-        <div class="due-note">Generated from teaching lines, cases, rationales, SBAR/order sequences, calculation answers, and journal-club appraisal points.</div>
+        <div class="due-note">Generated from teaching lines, cases, rationales, SBAR/order sequences, calculation answers, journal-club appraisal points, and guideline diagrams.</div>
         <div class="filter-list"><button class="${STUDY.filter==='all'?'on':''}" onclick="showStudyCards('all')">All</button>${mods.slice(-24).map(m=>`<button class="${STUDY.filter===m.id?'on':''}" onclick="showStudyCards('${m.id}')">${m.icon} ${m.title.split(':')[0].slice(0,18)}</button>`).join('')}</div>
         <div class="card-list">${all.slice(0,90).map(x=>`<div class="card-mini ${c&&x.id===c.id?'on':''}" onclick="jumpCard('${x.id}')"><b>${x.kind}</b> · ${x.module}<br>${stripHTML(x.front).slice(0,80)}</div>`).join('')}</div>
       </div></div></div></div>`;
