@@ -258,6 +258,17 @@
 .study-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}.study-head h2{margin:0;color:#7a3d65;font-size:24px}.study-sub{font-weight:800;color:#9a6d82;font-size:13px}.study-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.study-grid{display:grid;grid-template-columns:1fr 310px;gap:14px}@media(max-width:900px){.study-grid{grid-template-columns:1fr}.study-side{order:-1}}
 .flash-card{min-height:330px;border-radius:24px;background:linear-gradient(160deg,#fff,#fff7fb);border:2px solid #ffd1e2;box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 12px 32px rgba(120,60,100,.14);padding:24px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;user-select:none;transition:.2s transform,.2s box-shadow}.flash-card:hover{transform:translateY(-1px);box-shadow:0 18px 42px rgba(120,60,100,.18)}.flash-kicker{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.tag{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;background:#f6e8ff;color:#7b4b91}.tag.area{background:#dbfff6;color:#167a70}.tag.type{background:#ffe3ec;color:#a33d64}.flash-face{font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#b45d83;margin-bottom:8px}.flash-q{font-size:21px;line-height:1.45;font-weight:900;color:#3f2a46}.flash-a{font-size:16px;line-height:1.55;font-weight:700;color:#49334f}.flash-a b{color:#8a3d67}.flash-hint{font-size:12px;color:#9c7188;font-weight:800;margin-top:10px}.flash-empty{text-align:center;padding:50px 20px;font-weight:900;color:#8f647a}.review-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.review-buttons .btn{flex:1;min-width:105px}.study-side{border-radius:20px;background:#fff7fb;border:1px solid #ffd4e3;padding:14px}.study-stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.statbox{border-radius:14px;background:#fff;border:1px solid #ffe0ea;padding:10px;text-align:center}.statbox b{display:block;font-size:20px;color:#7a3d65}.statbox span{font-size:11px;font-weight:900;color:#9a7084;text-transform:uppercase;letter-spacing:.05em}.filter-list{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}.filter-list button{border:1px solid #ffd2e2;background:#fff;border-radius:999px;padding:6px 9px;font-weight:900;color:#8f5675;cursor:pointer}.filter-list button.on{background:#ff8fb3;color:white;border-color:#ff8fb3}.card-list{max-height:260px;overflow:auto;display:flex;flex-direction:column;gap:6px}.card-mini{border:1px solid #ffe0ea;border-radius:12px;background:#fff;padding:8px;font-size:12px;font-weight:800;color:#63445b;cursor:pointer}.card-mini.on{border-color:#ff8fb3;background:#fff0f6}.due-note{font-size:12px;font-weight:800;color:#8e6b7c;line-height:1.45}
 
+/* guideline visual expansion v4 */
+.viz{margin:12px 0;padding:12px;border:1.5px solid rgba(122,77,143,.18);border-radius:18px;background:rgba(255,255,255,.74);box-shadow:0 8px 20px rgba(70,35,80,.08)}
+.viz-title{font-weight:900;color:#7a4d8f;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+.flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.node{flex:1;min-width:132px;border-radius:14px;padding:10px;background:#fff;border:1px solid #f0d8e4;font-size:12px;line-height:1.25}
+.node b{display:block;color:#3a2e4a;margin-bottom:3px}.arrow{align-self:center;font-weight:900;color:#b58aa6}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.timebox{border-radius:14px;background:#fff;padding:10px;border:1px solid #e6d7f0;font-size:12px}.timebox b{display:block;color:#7a4d8f;margin-bottom:4px}
+.matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.quad{border-radius:14px;background:#fff;padding:10px;border:1px solid #dceaf7;font-size:12px}.quad b{display:block;color:#2b6f9f}
+.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#2a2236;color:#fff;border-radius:12px;padding:10px;font-size:12px;overflow:auto}
+@media(max-width:720px){.timeline,.matrix{grid-template-columns:1fr}.arrow{display:none}.node{min-width:100%}}
+
 </style>
 </head>
 <body>
@@ -4196,6 +4207,986 @@ function exportQuizletTXT(){
     "Know the reversal pairings cold: heparin-protamine, warfarin-PCC plus vitamin K, dabigatran-idarucizumab, Xa inhibitors-andexanet or PCC pathway.",
     "But reversal decisions still need indication, timing, renal function, bleed severity, and restart thinking.",
     "The safest pharmacist is already thinking about the next error before it happens."
+  ]
+});
+  for (const k of Object.keys(AREA_TOTALS)) delete AREA_TOTALS[k];
+  MODULES.forEach(m=>AREA_TOTALS[m.area]=(AREA_TOTALS[m.area]||0)+m.cases.length);
+})();
+
+
+/* --- guideline visual expansion v4: trough monitoring, biostats, BMT, visual synthesis --- */
+(function(){
+  const GUIDELINE_VISUAL_MODULES = [
+  {
+    "id": "vanco_trough_guidelines",
+    "icon": "52",
+    "area": "R1",
+    "title": "Vancomycin Trough Monitoring and Guideline Navigation",
+    "blurb": "How troughs fit into modern AUC monitoring, when troughs mislead, and which guidelines to read first.",
+    "brief": "<p class=\"lead\">AUC-guided monitoring is preferred for serious MRSA, but pharmacists still need to understand trough timing because hospitals, legacy orders, and fallback workflows still use it.</p>\n      <div class=\"viz\"><div class=\"viz-title\">Guideline map</div><div class=\"flow\">\n        <div class=\"node\"><b>2009 consensus</b>Trough 15-20 was used as a surrogate for serious infection exposure.</div><div class=\"arrow\">→</div>\n        <div class=\"node\"><b>2020 ASHP/IDSA/PIDS/SIDP</b>AUC/MIC 400-600 is preferred for serious MRSA to reduce nephrotoxicity.</div><div class=\"arrow\">→</div>\n        <div class=\"node\"><b>Institutional protocol</b>Defines local sampling windows, Bayesian software, dialysis workflows, and pharmacist authority.</div>\n      </div></div>\n      <div class=\"viz\"><div class=\"viz-title\">Trough decision diagram</div><div class=\"flow\">\n        <div class=\"node\"><b>Is it serious MRSA?</b>If yes, prefer AUC-guided monitoring when available.</div><div class=\"arrow\">→</div>\n        <div class=\"node\"><b>Is trough used?</b>Confirm it is a true pre-dose level near steady state or per protocol.</div><div class=\"arrow\">→</div>\n        <div class=\"node\"><b>Did renal function change?</b>If yes, hold or re-level rather than trusting a fixed schedule.</div>\n      </div></div>\n      <table class=\"ref\"><tr><th>Read first</th><th>Why</th></tr><tr><td>2020 ASHP/IDSA/PIDS/SIDP vancomycin monitoring consensus</td><td>Current AUC target and safety rationale</td></tr><tr><td>Your hospital vancomycin protocol</td><td>Operational timing, software, dialysis, pharmacist dosing rules</td></tr><tr><td>2009 consensus or legacy protocol</td><td>Explains why old trough targets still appear in charts</td></tr></table>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "Modern guideline anchor",
+        "q": "Which document is the best first guideline anchor for serious MRSA vancomycin monitoring today?",
+        "opts": [
+          {
+            "t": "2020 ASHP/IDSA/PIDS/SIDP revised consensus guideline targeting AUC/MIC 400-600",
+            "ok": true,
+            "fb": "Correct. The revised consensus guideline shifted serious MRSA monitoring from trough-only targets toward AUC-guided exposure."
+          },
+          {
+            "t": "A random dosing table from an old pocket card with no date",
+            "ok": false,
+            "fb": "Undated pocket cards may reflect old trough-only practice and should not override current protocol."
+          },
+          {
+            "t": "Only the medication package insert, ignoring institutional protocol",
+            "ok": false,
+            "fb": "The package insert is not enough for hospital TDM workflow, sampling, and pharmacist-managed protocols."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Why troughs still matter",
+        "q": "If AUC monitoring is preferred, why should a PGY-1 still learn trough monitoring?",
+        "opts": [
+          {
+            "t": "Because trough timing still appears in legacy orders, non-Bayesian workflows, dialysis protocols, and level-validity checks",
+            "ok": true,
+            "fb": "Correct. AUC is preferred for serious MRSA, but trough literacy prevents wrong interpretation of old or fallback workflows."
+          },
+          {
+            "t": "Because trough 15-20 is always safer than AUC",
+            "ok": false,
+            "fb": "Trough-only 15-20 strategies are associated with more nephrotoxicity and are no longer preferred for serious MRSA."
+          },
+          {
+            "t": "Because sample timing no longer matters",
+            "ok": false,
+            "fb": "Timing matters even more when deciding if a level is usable."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "True trough timing",
+        "q": "A conventional trough is ordered. Which sample is most interpretable?",
+        "opts": [
+          {
+            "t": "A pre-dose sample drawn shortly before the next dose at steady state or per protocol",
+            "ok": true,
+            "fb": "Correct. A trough is a pre-dose concentration. Early, post-dose, or contaminated samples can mislead."
+          },
+          {
+            "t": "A sample drawn 30 minutes after infusion ends",
+            "ok": false,
+            "fb": "That is closer to a post-distribution/random level, not a trough."
+          },
+          {
+            "t": "A sample drawn from the infusion line during vancomycin administration",
+            "ok": false,
+            "fb": "That can be contaminated and falsely high."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Trough interpretation audit",
+        "q": "Tap every reason this trough should be questioned before changing the dose.",
+        "rows": [
+          {
+            "text": "Trough drawn 4 hours early because phlebotomy was leaving the unit",
+            "problem": true,
+            "why": "An early trough can overestimate the true pre-dose trough."
+          },
+          {
+            "text": "Morning dose was held but the level label still says trough before dose",
+            "problem": true,
+            "why": "A held or missed dose changes interpretation. It is not the expected scheduled trough."
+          },
+          {
+            "text": "SCr rose from 0.8 to 1.8 in 24 hours",
+            "problem": true,
+            "why": "Changing clearance means the old regimen and steady-state assumptions are broken."
+          },
+          {
+            "text": "Dose administration and sample time are both documented clearly",
+            "problem": false
+          },
+          {
+            "text": "Level drawn from a central line used for vancomycin infusion without waste/flush documentation",
+            "problem": true,
+            "why": "Line contamination can falsely elevate the result."
+          }
+        ],
+        "note": "Never adjust vancomycin from a level until the timing story makes sense."
+      },
+      {
+        "type": "calc",
+        "kick": "Trough extrapolation concept",
+        "q": "A measured concentration is 18 mg/L. If the level was drawn 2 hours before the true trough and the elimination rate is 0.08 hr^-1, approximate true trough using Ctrue = Cmeasured x e^(-k x deltaT).",
+        "given": [
+          {
+            "label": "Measured",
+            "value": "18 mg/L"
+          },
+          {
+            "label": "k",
+            "value": "0.08 hr^-1"
+          },
+          {
+            "label": "Time early",
+            "value": "2 hr"
+          }
+        ],
+        "answer": {
+          "value": 15.3,
+          "tolerance": 0.8,
+          "unit": "mg/L"
+        },
+        "hint": "18 x e^(-0.08 x 2). e^-0.16 is about 0.85.",
+        "note": "18 x 0.85 = about 15.3 mg/L. This shows why an early trough can look higher than the true trough."
+      },
+      {
+        "type": "sbar",
+        "kick": "AUC transition recommendation",
+        "q": "Build the recommendation for a patient with serious MRSA bacteremia on trough-only monitoring.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "Patient has serious MRSA bacteremia and is being monitored with trough-only targets.",
+                "score": 2
+              },
+              {
+                "t": "Vanco is ordered.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Current trough target is 15-20, SCr is rising, and Bayesian AUC software is available.",
+                "score": 2
+              },
+              {
+                "t": "The patient has labs.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Current guideline-preferred monitoring is AUC/MIC 400-600 to balance efficacy and nephrotoxicity.",
+                "score": 2
+              },
+              {
+                "t": "Higher trough is always better.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Switch to AUC-guided monitoring per hospital protocol, verify sample timing, and adjust to AUC 400-600.",
+                "score": 2
+              },
+              {
+                "t": "Increase dose until trough exceeds 25.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "A guideline-based recommendation names the source, target, patient-specific risk, and operational next step."
+      },
+      {
+        "type": "mcq",
+        "kick": "Non-serious infection caveat",
+        "q": "The 2020 AUC target was developed mainly for which setting?",
+        "opts": [
+          {
+            "t": "Serious MRSA infections, especially invasive infections",
+            "ok": true,
+            "fb": "Correct. Be careful generalizing the AUC target to mild noninvasive infections without local protocol."
+          },
+          {
+            "t": "Every mild cellulitis regardless of organism",
+            "ok": false,
+            "fb": "The target is anchored to serious MRSA evidence, not every minor infection."
+          },
+          {
+            "t": "Only viral infections",
+            "ok": false,
+            "fb": "Vancomycin does not treat viral infection."
+          }
+        ]
+      },
+      {
+        "type": "order",
+        "kick": "Guideline-based vanco note",
+        "q": "Order the parts of a high-quality vancomycin monitoring note:",
+        "correct": [
+          "State indication and organism or suspected syndrome",
+          "State guideline or hospital protocol target",
+          "Verify dose times, infusion times, and sample times",
+          "Interpret renal function and interacting nephrotoxins",
+          "Give dose plan plus next level or lab timing"
+        ],
+        "note": "A good TDM note teaches the team how you interpreted the level, not just what dose you picked."
+      }
+    ]
+  },
+  {
+    "id": "biostats_pharm",
+    "icon": "53",
+    "area": "R4",
+    "title": "Clinical Biostatistics and Trial Appraisal for Pharmacists",
+    "blurb": "ARR, RRR, NNT, confidence intervals, p-values, noninferiority, survival curves, subgroup traps, CONSORT, and PRISMA.",
+    "brief": "<p class=\"lead\">A pharmacist who can read trials can defend recommendations. The skill is translating statistics into a patient-care decision.</p>\n      <div class=\"viz\"><div class=\"viz-title\">Effect size ladder</div><div class=\"flow\"><div class=\"node\"><b>Event rates</b>What happened in each group?</div><div class=\"arrow\">→</div><div class=\"node\"><b>Absolute effect</b>ARR or ARI shows real difference.</div><div class=\"arrow\">→</div><div class=\"node\"><b>NNT or NNH</b>1 divided by absolute difference.</div><div class=\"arrow\">→</div><div class=\"node\"><b>Precision</b>CI shows plausible range.</div></div></div>\n      <div class=\"viz\"><div class=\"viz-title\">Trial quality map</div><div class=\"matrix\"><div class=\"quad\"><b>Internal validity</b>Randomization, allocation concealment, blinding, follow-up.</div><div class=\"quad\"><b>External validity</b>Does this patient match the trial population?</div><div class=\"quad\"><b>Outcome quality</b>Patient-important outcome beats surrogate-only outcome.</div><div class=\"quad\"><b>Harms and feasibility</b>NNH, monitoring burden, cost, route, adherence.</div></div></div>\n      <div class=\"formula\">ARR = control event rate - treatment event rate<br>NNT = 1 / ARR<br>RR = treatment event rate / control event rate<br>RRR = 1 - RR</div>\n      <table class=\"ref\"><tr><th>Framework</th><th>Use</th></tr><tr><td>CONSORT</td><td>Reporting checklist for randomized trials, including flow, randomization, outcomes, effect estimate, precision, and harms</td></tr><tr><td>PRISMA</td><td>Reporting checklist and flow diagram for systematic reviews and meta-analyses</td></tr></table>",
+    "cases": [
+      {
+        "type": "calc",
+        "kick": "ARR and NNT",
+        "q": "Event rate is 12% with control and 8% with treatment. Calculate NNT.",
+        "given": [
+          {
+            "label": "Control event rate",
+            "value": "12%"
+          },
+          {
+            "label": "Treatment event rate",
+            "value": "8%"
+          }
+        ],
+        "answer": {
+          "value": 25,
+          "tolerance": 1,
+          "unit": "patients"
+        },
+        "hint": "ARR = 0.12 - 0.08 = 0.04. NNT = 1 / 0.04.",
+        "note": "ARR is 4 percentage points, so NNT = 25. A 33% relative reduction sounds bigger than the absolute change."
+      },
+      {
+        "type": "mcq",
+        "kick": "Relative risk trap",
+        "q": "A study says mortality was reduced by 50%, from 2% to 1%. Best pharmacist interpretation?",
+        "opts": [
+          {
+            "t": "Relative reduction is 50%, but absolute reduction is 1 percentage point and NNT is 100",
+            "ok": true,
+            "fb": "Correct. Always convert relative claims into absolute risk and NNT."
+          },
+          {
+            "t": "Half of all patients will survive only because of the drug",
+            "ok": false,
+            "fb": "That misreads relative risk reduction."
+          },
+          {
+            "t": "The study proves no benefit because 1% is small",
+            "ok": false,
+            "fb": "Small absolute effects can matter depending on severity, safety, and cost."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "Confidence interval",
+        "q": "RR 0.82 with 95% CI 0.61 to 1.10 for the primary outcome. What does this imply?",
+        "opts": [
+          {
+            "t": "The estimate favors treatment, but the CI includes no effect, so statistical uncertainty remains",
+            "ok": true,
+            "fb": "Correct. For a ratio measure, 1.0 is no effect."
+          },
+          {
+            "t": "Definitely harmful",
+            "ok": false,
+            "fb": "The point estimate is below 1, not definitely harmful."
+          },
+          {
+            "t": "Guaranteed 18% benefit in every patient",
+            "ok": false,
+            "fb": "Point estimates are uncertain and not individual predictions."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "P-value limitation",
+        "q": "A p-value of 0.04 means what?",
+        "opts": [
+          {
+            "t": "If the null hypothesis were true, results this extreme or more would be uncommon, but it does not measure clinical importance",
+            "ok": true,
+            "fb": "Correct. Statistical significance is not the same as clinical significance."
+          },
+          {
+            "t": "There is a 4% chance the null is true",
+            "ok": false,
+            "fb": "That is a common p-value misunderstanding."
+          },
+          {
+            "t": "The effect is always large and important",
+            "ok": false,
+            "fb": "A tiny effect can be statistically significant in a huge trial."
+          }
+        ]
+      },
+      {
+        "type": "journal",
+        "kick": "Noninferiority trial",
+        "q": "Appraise this noninferiority abstract.",
+        "abstract": "Open-label noninferiority trial compares oral step-down vs IV-only therapy after source control. Margin 10%. Failure 9% oral vs 6% IV. Excludes endocarditis, CNS infection, neutropenia, and uncontrolled source. Per-protocol analysis emphasized.",
+        "flaws": [
+          {
+            "text": "Noninferiority margin may be too wide clinically",
+            "isFlaw": true,
+            "why": "A wide margin can accept meaningfully worse care."
+          },
+          {
+            "text": "Exclusions limit applying to neutropenia, CNS infection, endocarditis, or uncontrolled source",
+            "isFlaw": true,
+            "why": "External validity matters."
+          },
+          {
+            "text": "Per-protocol emphasis in noninferiority can bias toward noninferiority",
+            "isFlaw": true,
+            "why": "Noninferiority often needs both ITT and per-protocol interpretation."
+          },
+          {
+            "text": "Reports actual event rates",
+            "isFlaw": false,
+            "why": "Reporting event rates is a strength."
+          }
+        ],
+        "nnt": {
+          "stem": "Failure 9% vs 6%. Absolute risk increase with oral therapy?",
+          "options": [
+            {
+              "t": "3 percentage points higher failure",
+              "correct": true,
+              "fb": "Correct. 9% - 6% = 3 percentage points."
+            },
+            {
+              "t": "30 percentage points",
+              "fb": "No. Do not confuse percent with percentage points."
+            },
+            {
+              "t": "0%",
+              "fb": "The observed rates differ."
+            }
+          ]
+        },
+        "note": "Noninferiority is not easier than superiority. Margin, exclusions, and analysis set are everything."
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Subgroup and multiplicity traps",
+        "q": "Tap every red flag in this trial report.",
+        "rows": [
+          {
+            "text": "Primary outcome neutral, but one of 28 unplanned subgroups is positive",
+            "problem": true,
+            "why": "Multiple comparisons create false-positive risk."
+          },
+          {
+            "text": "Subgroup was pre-specified with interaction p-value reported",
+            "problem": false
+          },
+          {
+            "text": "Composite endpoint driven only by a soft surrogate component",
+            "problem": true,
+            "why": "Composite outcomes can exaggerate benefit if driven by less important components."
+          },
+          {
+            "text": "Loss to follow-up 22% with no sensitivity analysis",
+            "problem": true,
+            "why": "Missing data can bias results."
+          },
+          {
+            "text": "Harms table reports serious adverse events by group",
+            "problem": false
+          }
+        ],
+        "note": "Biostatistics is mostly asking whether the trial conclusion outruns the data."
+      },
+      {
+        "type": "mcq",
+        "kick": "Kaplan-Meier reading",
+        "q": "A survival curve separates early but crosses at 12 months. What is the safest interpretation?",
+        "opts": [
+          {
+            "t": "Proportional hazards may be questionable. Look beyond a single hazard ratio and assess timing, events, and assumptions",
+            "ok": true,
+            "fb": "Correct. Crossing curves can violate proportional hazards assumptions."
+          },
+          {
+            "t": "The hazard ratio alone tells the whole story",
+            "ok": false,
+            "fb": "A single HR can hide changing effects over time."
+          },
+          {
+            "t": "Survival curves are irrelevant",
+            "ok": false,
+            "fb": "They show timing of events and censoring."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "PRISMA role",
+        "q": "What does PRISMA help you evaluate?",
+        "opts": [
+          {
+            "t": "Whether a systematic review transparently reports search, selection, synthesis, risk of bias, and certainty",
+            "ok": true,
+            "fb": "Correct. PRISMA is a reporting framework for systematic reviews and meta-analyses."
+          },
+          {
+            "t": "The correct vancomycin dose",
+            "ok": false,
+            "fb": "PRISMA is not a dosing guideline."
+          },
+          {
+            "t": "Crash cart layout",
+            "ok": false,
+            "fb": "PRISMA is for evidence synthesis reporting."
+          }
+        ]
+      },
+      {
+        "type": "sbar",
+        "kick": "Trial-to-patient recommendation",
+        "q": "Build a recommendation when a new drug has NNT 100, NNH 25, high cost, and surrogate-only benefit.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "The proposed drug shows a small surrogate benefit with NNT 100 and harm signal NNH 25.",
+                "score": 2
+              },
+              {
+                "t": "The paper is new.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Trial excluded patients like ours and did not show patient-important outcome improvement.",
+                "score": 2
+              },
+              {
+                "t": "It was published online.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Benefit-harm balance is weak for this patient without a stronger indication.",
+                "score": 2
+              },
+              {
+                "t": "All new drugs are automatically better.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Do not add routinely now; consider only if patient-specific rationale exists and monitor harms closely.",
+                "score": 2
+              },
+              {
+                "t": "Add for everyone forever.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "A pharmacist recommendation should translate statistics into a patient-specific benefit-harm decision."
+      }
+    ]
+  },
+  {
+    "id": "bmt_support",
+    "icon": "54",
+    "area": "R1",
+    "title": "Bone Marrow Transplant Supportive Care",
+    "blurb": "Autologous vs allogeneic HCT, conditioning, neutropenia, prophylaxis, mucositis, GVHD, SOS/VOD, TMA, vaccination, and long-term follow-up.",
+    "brief": "<p class=\"lead\">BMT supportive care is a timeline. The pharmacist anticipates predictable complications before they happen.</p>\n      <div class=\"viz\"><div class=\"viz-title\">HCT supportive-care timeline</div><div class=\"timeline\"><div class=\"timebox\"><b>Pre-transplant</b>Med rec, organ function, conditioning plan, fertility, vaccines, infection history.</div><div class=\"timebox\"><b>Conditioning to day 0</b>Chemo toxicity, antiemetics, seizure prophylaxis if needed, antimicrobial plan.</div><div class=\"timebox\"><b>Neutropenic phase</b>Febrile neutropenia, mucositis, TPN, antifungal and antiviral prophylaxis.</div><div class=\"timebox\"><b>Engraftment and after</b>GVHD, VOD/SOS, TMA, immunosuppression TDM, revaccination.</div></div></div>\n      <div class=\"viz\"><div class=\"viz-title\">Autologous vs allogeneic</div><div class=\"matrix\"><div class=\"quad\"><b>Autologous</b>Own cells. Less GVHD risk. Supportive care centers on regimen toxicity, infection, mucositis, relapse monitoring.</div><div class=\"quad\"><b>Allogeneic</b>Donor cells. Adds GVHD, graft failure, immunosuppression, CMV, fungal, and chronic survivorship risks.</div><div class=\"quad\"><b>Pharmacist core</b>Prophylaxis, drug interactions, renal/hepatic adjustment, TDM, adherence.</div><div class=\"quad\"><b>Long-term care</b>Vaccines, infection prevention, endocrine/bone/secondary cancer screening, chronic GVHD support.</div></div></div>\n      <table class=\"ref\"><tr><th>Guideline anchors</th><th>Use</th></tr><tr><td>NMDP post-transplant care guidance</td><td>Long-term follow-up, vaccination, complications, GVHD tools</td></tr><tr><td>NCCN HCT and institutional transplant SOPs</td><td>Disease-specific transplant pathways and supportive-care rules</td></tr><tr><td>ASTCT/EBMT and center protocols</td><td>GVHD, infection prophylaxis, cellular therapy complications</td></tr></table>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "Auto vs allo",
+        "q": "Which supportive-care issue is much more central to allogeneic HCT than autologous HCT?",
+        "opts": [
+          {
+            "t": "GVHD prophylaxis and treatment with immunosuppression monitoring",
+            "ok": true,
+            "fb": "Correct. GVHD is an allogeneic donor-immune complication."
+          },
+          {
+            "t": "Chemotherapy nausea",
+            "ok": false,
+            "fb": "Both auto and allo conditioning can cause nausea."
+          },
+          {
+            "t": "Medication reconciliation",
+            "ok": false,
+            "fb": "Both require med rec."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Pre-transplant pharmacist review",
+        "q": "Tap every pre-transplant issue the pharmacist should flag.",
+        "rows": [
+          {
+            "text": "Azole antifungal planned with tacrolimus but no dose/level strategy",
+            "problem": true,
+            "why": "Azoles raise tacrolimus exposure and require preemptive planning."
+          },
+          {
+            "text": "No hepatitis B status documented before rituximab-containing regimen",
+            "problem": true,
+            "why": "HBV screening and prophylaxis planning can prevent reactivation."
+          },
+          {
+            "text": "Medication list includes multiple QT-prolonging antiemetics plus low magnesium",
+            "problem": true,
+            "why": "Conditioning regimens often add QT risk, so electrolytes and med stacking matter."
+          },
+          {
+            "text": "Renal and hepatic function reviewed before conditioning",
+            "problem": false
+          },
+          {
+            "text": "Allergy history clarified and updated",
+            "problem": false
+          }
+        ],
+        "note": "Pre-transplant pharmacy is risk prevention before conditioning starts."
+      },
+      {
+        "type": "mcq",
+        "kick": "Neutropenic fever",
+        "q": "Day +7 allogeneic HCT patient has ANC 0 and fever 38.6 C. Best immediate antimicrobial concept?",
+        "opts": [
+          {
+            "t": "Treat as febrile neutropenia with prompt empiric anti-pseudomonal beta-lactam per protocol after cultures if feasible",
+            "ok": true,
+            "fb": "Correct. HCT neutropenic fever is an emergency."
+          },
+          {
+            "t": "Wait for final cultures before antibiotics",
+            "ok": false,
+            "fb": "Waiting can be fatal in neutropenia."
+          },
+          {
+            "t": "Use oral amoxicillin only for all HCT fever",
+            "ok": false,
+            "fb": "This is inadequate for high-risk neutropenia."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "HSV prophylaxis",
+        "q": "HSV-seropositive HCT recipient during early transplant period. Common prophylaxis concept?",
+        "opts": [
+          {
+            "t": "Acyclovir or valacyclovir prophylaxis per transplant protocol",
+            "ok": true,
+            "fb": "Correct. Antiviral prophylaxis is common for HSV-seropositive transplant recipients."
+          },
+          {
+            "t": "No antiviral prophylaxis ever",
+            "ok": false,
+            "fb": "That misses a standard supportive-care domain."
+          },
+          {
+            "t": "Vancomycin for HSV prevention",
+            "ok": false,
+            "fb": "Vancomycin has no HSV activity."
+          }
+        ]
+      },
+      {
+        "type": "mcq",
+        "kick": "PJP prophylaxis timing",
+        "q": "After engraftment, many allogeneic HCT patients need which prophylaxis for months?",
+        "opts": [
+          {
+            "t": "PJP prophylaxis, commonly TMP-SMX if tolerated, with alternatives if needed",
+            "ok": true,
+            "fb": "Correct. PJP prevention is a key post-HCT pharmacist task."
+          },
+          {
+            "t": "Naloxone prophylaxis",
+            "ok": false,
+            "fb": "Not infection prophylaxis."
+          },
+          {
+            "t": "Daptomycin prophylaxis for all patients",
+            "ok": false,
+            "fb": "Not standard PJP prophylaxis."
+          }
+        ]
+      },
+      {
+        "type": "sbar",
+        "kick": "Mucositis support",
+        "q": "Build a recommendation for severe mucositis with poor oral intake.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "Day +5 HCT patient has grade 3 mucositis, cannot swallow pills, and pain is uncontrolled.",
+                "score": 2
+              },
+              {
+                "t": "Mouth hurts.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Conditioning regimen is mucotoxic, ANC is zero, oral intake minimal, renal function stable.",
+                "score": 2
+              },
+              {
+                "t": "They had chemo.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Needs route conversion, analgesia plan, infection monitoring, nutrition and medication continuity.",
+                "score": 2
+              },
+              {
+                "t": "Just skip all meds.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Convert critical meds to IV/liquid, start PCA or protocol analgesia, oral care, nutrition support, and reassess daily.",
+                "score": 2
+              },
+              {
+                "t": "Give tablets anyway.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "Mucositis is pain, nutrition, infection risk, and route-of-administration problem at once."
+      },
+      {
+        "type": "mcq",
+        "kick": "SOS/VOD recognition",
+        "q": "Early post-HCT patient develops painful hepatomegaly, rising bilirubin, weight gain, and fluid retention. Concern?",
+        "opts": [
+          {
+            "t": "Sinusoidal obstruction syndrome / veno-occlusive disease; escalate urgently and assess defibrotide eligibility per protocol",
+            "ok": true,
+            "fb": "Correct. SOS/VOD is a transplant emergency."
+          },
+          {
+            "t": "Expected harmless nausea only",
+            "ok": false,
+            "fb": "This pattern is concerning."
+          },
+          {
+            "t": "Pure opioid constipation",
+            "ok": false,
+            "fb": "The liver and fluid findings point elsewhere."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Post-HCT complication scan",
+        "q": "Tap every complication requiring pharmacist escalation.",
+        "rows": [
+          {
+            "text": "Tacrolimus trough high with tremor, creatinine rise, and new azole",
+            "problem": true,
+            "why": "CNI toxicity from interaction requires dose/level action."
+          },
+          {
+            "text": "Platelets falling, hemolysis markers high, renal dysfunction after transplant",
+            "problem": true,
+            "why": "Consider transplant-associated TMA and escalate."
+          },
+          {
+            "text": "New watery diarrhea and rash after allogeneic transplant",
+            "problem": true,
+            "why": "Acute GVHD is a major concern, but infection and meds also need evaluation."
+          },
+          {
+            "text": "Vaccination schedule planned for immune reconstitution phase",
+            "problem": false
+          },
+          {
+            "text": "Medication calendar reviewed with caregiver before discharge",
+            "problem": false
+          }
+        ],
+        "note": "BMT pharmacists scan for patterns, not isolated labs."
+      },
+      {
+        "type": "mcq",
+        "kick": "Live vaccines after HCT",
+        "q": "Which vaccine principle is important after HCT?",
+        "opts": [
+          {
+            "t": "Revaccination is needed over time, but live vaccines require strict timing and immune recovery criteria",
+            "ok": true,
+            "fb": "Correct. HCT recipients lose immunity and need structured revaccination, with live vaccines delayed or avoided until safe."
+          },
+          {
+            "t": "Give all live vaccines immediately on day +1",
+            "ok": false,
+            "fb": "Unsafe during profound immunosuppression."
+          },
+          {
+            "t": "Never vaccinate again with any vaccine",
+            "ok": false,
+            "fb": "Inactivated revaccination is a key long-term care task."
+          }
+        ]
+      },
+      {
+        "type": "order",
+        "kick": "BMT discharge readiness",
+        "q": "Order the pharmacist discharge readiness review:",
+        "correct": [
+          "Reconcile immunosuppression, prophylaxis, antiemetics, pain, and electrolyte meds",
+          "Confirm TDM follow-up and lab schedule",
+          "Create patient/caregiver medication calendar",
+          "Teach fever, diarrhea, rash, bleeding, and infection red flags",
+          "Confirm vaccination and long-term follow-up plan"
+        ],
+        "note": "BMT discharge is high-risk because the regimen is complex and the patient is still immunocompromised."
+      }
+    ]
+  },
+  {
+    "id": "guideline_visual_synthesis",
+    "icon": "55",
+    "area": "R3",
+    "title": "Guideline Navigator and Visual Case Synthesis",
+    "blurb": "How to choose the right guideline, draw the algorithm, and defend exceptions when protocols conflict.",
+    "brief": "<p class=\"lead\">Senior pharmacists do not just know guidelines. They know which guideline applies, when local policy overrides workflow, and how to draw the decision for a team.</p>\n      <div class=\"viz\"><div class=\"viz-title\">Guideline selection algorithm</div><div class=\"flow\"><div class=\"node\"><b>1. Identify syndrome</b>MRSA bacteremia, HCT fever, DKA, opioid toxicity, trial appraisal.</div><div class=\"arrow\">→</div><div class=\"node\"><b>2. Pick source tier</b>National guideline, specialty society, institutional protocol, package labeling.</div><div class=\"arrow\">→</div><div class=\"node\"><b>3. Match patient</b>Renal, hepatic, immune status, pregnancy, obesity, dialysis, organ support.</div><div class=\"arrow\">→</div><div class=\"node\"><b>4. Document exception</b>Why deviating from default is safer for this patient.</div></div></div>\n      <div class=\"viz\"><div class=\"viz-title\">When guidelines conflict</div><div class=\"matrix\"><div class=\"quad\"><b>National guideline</b>Best evidence and targets.</div><div class=\"quad\"><b>Hospital protocol</b>Operational authority and approved workflow.</div><div class=\"quad\"><b>Patient exception</b>Contraindication, organ failure, culture, allergy, goals.</div><div class=\"quad\"><b>Documentation</b>State source, reason, monitoring, reassessment time.</div></div></div>",
+    "cases": [
+      {
+        "type": "mcq",
+        "kick": "Choosing the right source",
+        "q": "A team asks for vancomycin dosing in serious MRSA bacteremia at your hospital. Best source stack?",
+        "opts": [
+          {
+            "t": "2020 ASHP/IDSA/PIDS/SIDP consensus plus local vancomycin protocol and patient-specific PK data",
+            "ok": true,
+            "fb": "Correct. National target plus local operations plus patient data."
+          },
+          {
+            "t": "A social media post",
+            "ok": false,
+            "fb": "Not an authoritative clinical source."
+          },
+          {
+            "t": "Only memory from school, no date or protocol",
+            "ok": false,
+            "fb": "Guidelines change."
+          }
+        ]
+      },
+      {
+        "type": "chartHunt",
+        "kick": "Guideline mismatch scan",
+        "q": "Tap every case where a default guideline answer may not apply cleanly.",
+        "rows": [
+          {
+            "text": "AUC vancomycin target applied to mild non-MRSA cellulitis without checking indication",
+            "problem": true,
+            "why": "The AUC target evidence is serious MRSA-focused."
+          },
+          {
+            "text": "PRISMA checklist used to judge a systematic review",
+            "problem": false
+          },
+          {
+            "text": "Adult DKA insulin protocol applied to a child without pediatric protocol review",
+            "problem": true,
+            "why": "Pediatric DKA has different safety considerations and cerebral edema risk."
+          },
+          {
+            "text": "BMT patient with diarrhea treated as simple loperamide-only diarrhea without checking GVHD or infection",
+            "problem": true,
+            "why": "Post-allogeneic HCT diarrhea has high-risk differential."
+          },
+          {
+            "text": "Local restricted-antibiotic protocol checked before using ceftazidime-avibactam",
+            "problem": false
+          }
+        ],
+        "note": "Guideline navigation starts by asking whether this patient is inside the evidence boundary."
+      },
+      {
+        "type": "sbar",
+        "kick": "Protocol conflict",
+        "q": "Build the recommendation when national guidance and local workflow seem to conflict.",
+        "slots": [
+          {
+            "key": "Situation",
+            "fragments": [
+              {
+                "t": "National guideline favors AUC monitoring, but the current order set still requests trough-only levels.",
+                "score": 2
+              },
+              {
+                "t": "Guidelines are confusing.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Background",
+            "fragments": [
+              {
+                "t": "Patient has serious MRSA infection, AKI risk, and the pharmacy department has an approved Bayesian workflow.",
+                "score": 2
+              },
+              {
+                "t": "The patient is on antibiotics.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Assessment",
+            "fragments": [
+              {
+                "t": "Trough-only order set is outdated for this patient and may increase nephrotoxicity risk.",
+                "score": 2
+              },
+              {
+                "t": "Ignore all protocols.",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "key": "Recommendation",
+            "fragments": [
+              {
+                "t": "Use approved AUC workflow, document guideline rationale, and notify team/order-set owner if needed.",
+                "score": 2
+              },
+              {
+                "t": "Use whichever number is highest.",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "note": "When protocols lag guidelines, use the approved local pathway and document why."
+      },
+      {
+        "type": "order",
+        "kick": "Visual recommendation workflow",
+        "q": "Order the steps to turn a complex case into a team-ready diagram:",
+        "correct": [
+          "Define the clinical decision and patient-specific constraint",
+          "Choose the guideline or protocol source",
+          "Map the default pathway",
+          "Mark the exception or branch point",
+          "Attach monitoring and reassessment trigger"
+        ],
+        "note": "A visual algorithm should make the exception visible, not hide it."
+      },
+      {
+        "type": "mcq",
+        "kick": "Evidence hierarchy",
+        "q": "Which statement best describes guideline use?",
+        "opts": [
+          {
+            "t": "Guidelines inform care, but patient-specific contraindications and local safety protocols must be integrated",
+            "ok": true,
+            "fb": "Correct. Guidelines are not blind autopilot."
+          },
+          {
+            "t": "Guidelines replace clinical judgment completely",
+            "ok": false,
+            "fb": "They guide judgment."
+          },
+          {
+            "t": "Institutional protocols never matter",
+            "ok": false,
+            "fb": "Local protocols define approved operational workflow."
+          }
+        ]
+      }
+    ]
+  }
+];
+  MODULES.push(...GUIDELINE_VISUAL_MODULES);
+  Object.assign(TEACH, {
+  "vanco_trough_guidelines": [
+    "Troughs are not dead. Trough-only as the main target for serious MRSA is the outdated part.",
+    "You need to know the 2020 consensus guideline, your hospital protocol, and why old trough orders still appear.",
+    "A trough without timing is just a number. Dose time, sample time, renal trend, and line source decide whether it is usable.",
+    "When the patient is serious MRSA and AUC is available, move the team toward AUC 400 to 600."
+  ],
+  "biostats_pharm": [
+    "Biostatistics is not math for math’s sake. It tells you whether a recommendation is worth making.",
+    "Relative risk can sound dramatic. Absolute risk, NNT, confidence intervals, and harms tell the clinical truth.",
+    "CONSORT helps you read randomized trials. PRISMA helps you read systematic reviews.",
+    "A good pharmacist translates evidence into patient-specific benefit, harm, feasibility, and monitoring."
+  ],
+  "bmt_support": [
+    "BMT supportive care is a timeline: before conditioning, day zero, neutropenia, engraftment, and long-term immune recovery.",
+    "Autologous and allogeneic transplant share toxicity and infection risks, but allogeneic adds GVHD and immunosuppression complexity.",
+    "The pharmacist watches prophylaxis, tacrolimus interactions, mucositis routes, SOS, TMA, vaccines, and caregiver medication calendars.",
+    "In BMT, small missed details become readmissions or life-threatening infections."
+  ],
+  "guideline_visual_synthesis": [
+    "When cases get complex, draw the algorithm. Visual thinking makes branch points obvious.",
+    "Pick the right source: national guideline for evidence, hospital protocol for workflow, patient factors for exceptions.",
+    "If you deviate from a default pathway, document why and when you will reassess.",
+    "This is the senior pharmacist skill: source, patient, exception, monitoring, communication."
   ]
 });
   for (const k of Object.keys(AREA_TOTALS)) delete AREA_TOTALS[k];
