@@ -12,7 +12,7 @@
   :root{
     --ink:#3a2e4a; --pink:#ff7fa8; --pink2:#ff9db8; --rose:#ffdfe9;
     --teal:#2bb7a8; --sky:#5cb8ff; --lav:#b28bff; --peach:#ffb36b;
-    --gold:#ffd166;
+    --gold:#ffd166; --font-scale:1;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -78,7 +78,7 @@
     border-radius:8px 22px 22px 22px;padding:20px 28px 22px;min-height:128px;max-width:960px;margin:0 auto;
     box-shadow:0 18px 46px rgba(120,50,90,.32),inset 0 2px 0 rgba(255,255,255,.7);position:relative;cursor:pointer}
   .vn-box.nameless{border-radius:22px}
-  .vn-text{font-size:19px;line-height:1.6;font-weight:700;color:#4a3540;min-height:52px}
+  .vn-text{font-size:calc(19px * var(--font-scale,1));line-height:1.6;font-weight:700;color:#4a3540;min-height:52px}
   .vn-ctrl{position:absolute;top:-15px;right:22px;display:flex;gap:6px}
   .vn-ctrl button{font-family:"Jua";font-size:11px;color:#fff;background:rgba(84,64,92,.76);
     border:1px solid rgba(255,255,255,.45);padding:3px 13px;border-radius:12px;letter-spacing:1px;
@@ -105,7 +105,7 @@
   .scene-win i{position:absolute;left:50%;top:0;bottom:0;width:5px;background:rgba(255,255,255,.6);transform:translateX(-50%)}
   .scene-win b{position:absolute;top:50%;left:0;right:0;height:5px;background:rgba(255,255,255,.6);transform:translateY(-50%)}
   .vn-note{margin-top:11px;background:#f4f0ff;border-left:4px solid var(--lav);border-radius:10px;
-    padding:10px 13px;font-size:13.5px;line-height:1.5;font-weight:600;color:#4a3d63;cursor:default}
+    padding:10px 13px;font-size:calc(13.5px * var(--font-scale,1));line-height:1.5;font-weight:600;color:#4a3d63;cursor:default}
   .vn-note b{color:#2a2140}
   .adv{position:absolute;right:18px;bottom:12px;font-size:14px;color:var(--pink);animation:blink 1s infinite}
   @keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
@@ -114,7 +114,7 @@
   .vn-choices{max-width:900px;margin:0 auto}
   .choices{max-width:760px;margin:0 auto 12px;display:flex;flex-direction:column;gap:10px}
   .choice{background:rgba(255,255,255,.96);border:2.5px solid #ffd0e0;border-radius:16px;
-    padding:13px 18px;font-size:15px;font-weight:700;cursor:pointer;text-align:left;
+    padding:13px 18px;font-size:calc(15px * var(--font-scale,1));font-weight:700;cursor:pointer;text-align:left;
     box-shadow:0 6px 18px rgba(90,50,90,.14);transition:.14s}
   .choice:hover{border-color:var(--pink);background:#fff4f8;transform:translateX(4px)}
   .choice:disabled{cursor:default;opacity:.65}
@@ -133,7 +133,7 @@
   .calc-input{font-family:'Nunito';font-weight:800;font-size:20px;text-align:center;padding:10px 14px;width:150px;border:2.5px solid #ffd0e0;border-radius:14px;outline:none}
   .calc-input:focus{border-color:var(--teal,#0d9488)}
   .calc-unit{font-weight:800;color:#7a4d8f;font-size:15px;min-width:40px}
-  .calc-hint{max-width:640px;margin:10px auto 0;background:#eef7ff;border-left:4px solid #5cb8ff;border-radius:10px;padding:10px 14px;font-size:13.5px;font-weight:600;color:#37506a}
+  .calc-hint{max-width:640px;margin:10px auto 0;background:#eef7ff;border-left:4px solid #5cb8ff;border-radius:10px;padding:10px 14px;font-size:calc(13.5px * var(--font-scale,1));font-weight:600;color:#37506a}
   .oitem{background:#fff;border:2.5px solid #ffd0e0;border-radius:13px;padding:9px 14px;font-size:14px;
     font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(90,50,90,.12)}
   .oitem:hover{border-color:var(--pink);background:#fff4f8}
@@ -173,7 +173,7 @@
     padding:20px 22px;max-width:940px;width:100%;box-shadow:0 20px 50px rgba(90,50,90,.28);
     max-height:86vh;overflow:auto}
   .hub-panel h2{font-family:"Jua";font-size:24px;margin:2px 0 4px;color:#c23b6b;text-align:center}
-  .hub-sub{text-align:center;font-size:13px;color:#8a6f82;font-weight:700;margin-bottom:14px}
+  .hub-sub{text-align:center;font-size:calc(13px * var(--font-scale,1));color:#8a6f82;font-weight:700;margin-bottom:14px}
   .comp-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}
   @media(max-width:640px){.comp-row{grid-template-columns:1fr 1fr}}
   .compb{background:#fff;border-radius:14px;padding:9px 12px;box-shadow:0 6px 16px rgba(90,50,90,.1)}
@@ -187,8 +187,8 @@
   .mc:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(90,50,90,.2)}
   .mc .top{height:64px;display:flex;align-items:center;justify-content:center;font-size:30px}
   .mc .bd{padding:11px 13px 13px}
-  .mc .t{font-family:"Jua";font-size:15px;line-height:1.25}
-  .mc .bl{font-size:11.5px;color:#8a6f82;font-weight:700;line-height:1.4;margin-top:4px;min-height:32px}
+  .mc .t{font-family:"Jua";font-size:calc(15px * var(--font-scale,1));line-height:1.25}
+  .mc .bl{font-size:calc(11.5px * var(--font-scale,1));color:#8a6f82;font-weight:700;line-height:1.4;margin-top:4px;min-height:32px}
   .mc .f{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
   .mc .cpill{font-family:"Jua";font-size:10px;color:#fff;padding:3px 9px;border-radius:20px}
   .mc .prog{font-size:11px;font-weight:800;color:#b58aa6}
@@ -199,17 +199,17 @@
   /* notes overlay */
   .notes-ov{position:absolute;inset:0;z-index:40;background:rgba(58,46,74,.55);display:flex;
     align-items:center;justify-content:center;padding:20px}
-  .notes-card{background:#fff;border-radius:22px;max-width:760px;width:100%;max-height:84vh;overflow:auto;
+  .notes-card{background:#fff;border-radius:22px;max-width:760px;width:100%;max-height:84vh;overflow:auto;font-size:calc(16px * var(--font-scale,1));
     padding:22px 26px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
   .notes-card h3{font-family:"Jua";color:#c23b6b}
-  .brief{font-size:14px;line-height:1.6}
+  .brief{font-size:calc(14px * var(--font-scale,1));line-height:1.6}
   .brief .lead{color:#4a3d63}
   .brief h3{font-size:16px;margin:18px 0 7px;padding-bottom:5px;border-bottom:2px solid #f4eef8;color:#7a4d8f}
   .brief h4{font-size:13px;margin:12px 0 4px;color:#8a6f82}
   .brief ul,.brief ol{margin:5px 0;padding-left:20px}
   .brief li{margin:3px 0}
   .brief b{color:#3a2e4a}
-  .callout{border-radius:12px;padding:11px 14px;margin:10px 0;font-size:13px;line-height:1.5}
+  .callout{border-radius:12px;padding:11px 14px;margin:10px 0;font-size:calc(13px * var(--font-scale,1));line-height:1.5}
   .callout.info{background:#eaf4ff;border-left:4px solid var(--sky)}
   .callout.warn{background:#ffe9ee;border-left:4px solid #ff6b8a}
   .callout.pearl{background:#fff6e0;border-left:4px solid var(--peach)}
@@ -283,6 +283,59 @@
 /* learning sequence clarity v5 */
 .path-panel{margin:14px 0 16px;padding:14px;border-radius:22px;background:rgba(255,255,255,.78);border:1.5px solid rgba(122,77,143,.16);box-shadow:0 10px 24px rgba(70,35,80,.08)}
 .path-head{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;margin-bottom:10px}.path-head h3{margin:0;font-size:16px}.path-head p{margin:3px 0 0;color:#7b6378;font-size:12.5px;line-height:1.35}.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.path-step{border:1px solid #eed8e5;background:#fff;border-radius:15px;padding:10px;cursor:pointer;transition:.15s}.path-step:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(70,35,80,.10)}.path-step .num{font-size:11px;font-weight:900;color:#fff;background:#7a4d8f;border-radius:99px;padding:3px 8px;display:inline-block;margin-bottom:6px}.path-step b{display:block;font-size:12.5px;color:#3a2e4a}.path-step span{display:block;font-size:11.5px;color:#876f84;line-height:1.25;margin-top:3px}.path-step .mods{color:#5b4b66;font-weight:800;margin-top:6px}.path-step .why{color:#9a6f7f;font-style:italic}.plain-note{margin-top:10px;border-radius:14px;background:#fff7fb;border:1px solid #f3d8e8;padding:10px 12px;font-size:12px;color:#6f536b;line-height:1.35}.download-help{margin-top:8px;border-radius:14px;background:#f8fbff;border:1px solid #dbeafe;padding:10px 12px;font-size:12px;color:#52647a;line-height:1.35}.download-help b{color:#334155}@media(max-width:900px){.path-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.path-grid{grid-template-columns:1fr}.path-head{display:block}}
+
+
+
+  /* clinical UI polish v9: quieter, less glossy, more hospital-workstation */
+  .vn-name{background:#334155;color:#fff;font-family:"Nunito",sans-serif;font-size:14px;font-weight:900;letter-spacing:.02em;padding:6px 16px;border-radius:8px 8px 0 0;box-shadow:0 4px 12px rgba(15,23,42,.18);margin-left:22px}
+  .vn-box{background:rgba(255,255,255,.97);border:1px solid #cbd5e1;border-radius:0 12px 12px 12px;box-shadow:0 16px 36px rgba(15,23,42,.22);padding:18px 24px 20px}
+  .vn-box.nameless{border-radius:12px}
+  .vn-text{color:#1f2937;font-weight:750}
+  .vn-note{background:#f8fafc;border-left:4px solid #475569;border-radius:8px;color:#1f2937;box-shadow:none}
+  .choice{background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;color:#1f2937;box-shadow:0 3px 10px rgba(15,23,42,.08);transition:border-color .12s, background .12s}
+  .choice:hover{border-color:#334155;background:#f8fafc;transform:none}
+  .choice.correct{border-color:#0f766e;background:#ecfdf5}
+  .choice.wrong{border-color:#be123c;background:#fff1f2}
+  .choice .k{color:#334155;font-family:"Nunito";font-weight:900}
+  .oitem{border-radius:8px;border:1px solid #cbd5e1;background:#fff;box-shadow:none}
+  .ord-dst{background:#f8fafc;border:1px dashed #94a3b8;border-radius:10px}
+  .calc-given .cg,.hunt-row,.sbar-slot{border-color:#cbd5e1;background:#fff;box-shadow:none}
+  .hunt-row,.sbar-frag{border-radius:10px}
+  .btn{box-shadow:none;border-radius:10px}
+  .btn.ghost{background:#f8fafc;border:1px solid #cbd5e1;color:#334155}
+  .btn.mint{background:#0f766e;color:#fff}
+  .abbr{position:relative;display:inline-flex;align-items:center;gap:2px;border-bottom:1px dotted #64748b;color:#0f3f5f;font-weight:900;white-space:nowrap}
+  .abbr-q{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#e2e8f0;color:#334155;font-size:11px;font-weight:900;line-height:1;cursor:pointer;margin-left:2px}
+  .abbr-tip{display:none;position:absolute;left:0;bottom:calc(100% + 6px);z-index:120;width:max-content;max-width:min(320px,80vw);background:#0f172a;color:#fff;border-radius:8px;padding:9px 11px;box-shadow:0 14px 35px rgba(15,23,42,.28);font-size:12px;line-height:1.4;font-weight:700;white-space:normal}
+  .abbr-tip b{color:#bae6fd}
+  .abbr.open .abbr-tip,.abbr:hover .abbr-tip,.abbr:focus-within .abbr-tip{display:block}
+
+
+
+  /* clinical typography override v10 */
+  .display,.logo,.logo .big,.logo .small,.hub-panel h2,.mc .t,.vn-name,.btn,.vn-ctrl button,.notes-card h3,.brief h3,.brief h4,.compb .k,.mc .cpill,.rolebox .num,.rolebox .rt,table.ref th{font-family:"Nunito",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;letter-spacing:0!important}
+  .logo .big{font-size:min(8vw,54px);color:#0f172a;text-shadow:none;font-weight:900}
+  .logo .small{color:#334155;text-shadow:none;font-weight:850}
+  .title-plate{background:rgba(255,255,255,.86);border:1px solid rgba(203,213,225,.9);box-shadow:0 18px 40px rgba(15,23,42,.18)}
+  .hud .area-pill,.bond{background:rgba(255,255,255,.9);border:1px solid rgba(203,213,225,.85);box-shadow:0 4px 12px rgba(15,23,42,.10);color:#334155!important}
+  .bond .lbl{color:#475569}
+  .bond .hbar{background:#e2e8f0}.bond .hbar i{background:#0f766e}
+  .menu-btn{background:rgba(255,255,255,.9);border:1px solid rgba(203,213,225,.85);box-shadow:0 4px 12px rgba(15,23,42,.10)}
+  .hub-panel{background:rgba(255,255,255,.94);border:1px solid #cbd5e1;box-shadow:0 18px 50px rgba(15,23,42,.20);border-radius:16px}
+  .hub-panel h2{font-weight:900;color:#0f172a;font-size:24px}
+  .hub-sub{color:#475569}
+  .compb{border:1px solid #e2e8f0;box-shadow:none}.compb .k{font-weight:900}.compb .n{color:#64748b}
+  .mc{border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 4px 14px rgba(15,23,42,.08)}
+  .mc:hover{transform:none;border-color:#64748b;box-shadow:0 8px 20px rgba(15,23,42,.12)}
+  .mc .top{height:48px;font-size:18px;font-weight:900;color:#334155}
+  .mc .t{font-weight:900;color:#0f172a}.mc .bl{color:#475569}
+  .mc .cpill{background:#334155!important;border-radius:6px;font-size:10px;font-weight:900}.mc .prog{color:#64748b}
+  .notes-card{border-radius:14px;border:1px solid #cbd5e1;box-shadow:0 24px 70px rgba(15,23,42,.32)}
+  .notes-card h3{font-size:21px;font-weight:900;color:#0f172a;border-bottom:1px solid #e2e8f0;padding-bottom:12px;margin-bottom:16px}
+  .brief h3{color:#0f172a;border-bottom:1px solid #e2e8f0;font-weight:900}.brief h4{color:#334155;font-weight:900}
+  .callout.pearl{background:#f8fafc;border-left-color:#0f766e}.callout.warn{background:#fff7ed;border-left-color:#ea580c}.callout.info{background:#eff6ff;border-left-color:#2563eb}
+  table.ref th{background:#f8fafc;color:#0f172a;font-weight:900} table.ref th,table.ref td{border-color:#e2e8f0}
+  .center-layer .btn,.choices .btn,.ord-btns .btn{font-weight:900}
 
 </style>
 </head>
@@ -424,6 +477,122 @@ function face(expr, who){ return faceImg(expr, who);
 
 var VNTYPE={timer:null,full:'',el:null,done:true,onBox:null};
 var VNCTRL={auto:false,autoTimer:null,log:[]};
+const FONT_KEY="clinicalPathFontScale.v1";
+function getFontScale(){
+  const raw=parseFloat(localStorage.getItem(FONT_KEY)||"1");
+  return Math.min(1.35, Math.max(0.85, isNaN(raw)?1:raw));
+}
+function applyFontScale(v){
+  const next=Math.min(1.35, Math.max(0.85, Math.round(v*100)/100));
+  document.documentElement.style.setProperty('--font-scale', String(next));
+  try{localStorage.setItem(FONT_KEY,String(next));}catch(e){}
+  document.querySelectorAll('[data-font-label]').forEach(el=>el.textContent=Math.round(next*100)+'%');
+  return next;
+}
+function changeFontScale(delta,ev){
+  if(ev)ev.stopPropagation();
+  applyFontScale(getFontScale()+delta);
+}
+function fontControlsHTML(){
+  return `<button type="button" onclick="changeFontScale(-0.1,event)" title="Decrease font size">A-</button><button type="button" onclick="changeFontScale(0.1,event)" title="Increase font size">A+</button><button type="button" data-font-label onclick="changeFontScale(0,event)" title="Current font size">${Math.round(getFontScale()*100)}%</button>`;
+}
+applyFontScale(getFontScale());
+
+const GLOSSARY={
+  MAR:['Medication Administration Record','The part of the chart that shows what was actually administered, held, refused, and when.'],
+  EHR:['Electronic Health Record','The patient chart system used for orders, notes, labs, medication lists, and documentation.'],
+  CPOE:['Computerized Provider Order Entry','The electronic order-entry workflow used by prescribers.'],
+  CDS:['Clinical Decision Support','Electronic alerts or guidance such as allergy, interaction, dose, or duplicate-therapy warnings.'],
+  BCMA:['Barcode Medication Administration','Bedside barcode scanning to match patient, drug, dose, time, and route before administration.'],
+  ADC:['Automated Dispensing Cabinet','Unit-based medication storage such as Pyxis or Omnicell.'],
+  DERS:['Dose Error Reduction Software','Smart-pump drug library guardrails with soft and hard limits.'],
+  AUC:['Area Under the Curve','A drug exposure measure; for vancomycin, the common target is AUC/MIC 400 to 600 for serious MRSA infections.'],
+  MIC:['Minimum Inhibitory Concentration','The lowest antimicrobial concentration that inhibits a pathogen in vitro.'],
+  TDM:['Therapeutic Drug Monitoring','Using drug levels, timing, renal/hepatic function, and clinical response to adjust therapy.'],
+  NTI:['Narrow Therapeutic Index','Drugs where small concentration changes can cause treatment failure or toxicity.'],
+  CrCl:['Creatinine Clearance','Cockcroft-Gault kidney-function estimate commonly used for drug dosing.'],
+  DOAC:['Direct Oral Anticoagulant','Oral anticoagulants such as apixaban, rivaroxaban, dabigatran, or edoxaban.'],
+  LMWH:['Low-Molecular-Weight Heparin','Injectable anticoagulants such as enoxaparin.'],
+  INR:['International Normalized Ratio','Standardized coagulation test used to monitor warfarin.'],
+  SBAR:['Situation, Background, Assessment, Recommendation','A concise structure for clinical recommendations on rounds or by phone.'],
+  JCPP:['Joint Commission of Pharmacy Practitioners process','The pharmacist patient-care process: collect, assess, plan, implement, and follow up.'],
+  SOAP:['Subjective, Objective, Assessment, Plan','A common clinical documentation structure.'],
+  PICO:['Population, Intervention, Comparison, Outcome','Framework for building an answerable clinical question.'],
+  ARR:['Absolute Risk Reduction','Difference in event rates between control and treatment groups.'],
+  NNT:['Number Needed to Treat','How many patients need treatment for one additional patient to benefit.'],
+  MUE:['Medication-Use Evaluation','A structured review of how a medication or medication process is being used.'],
+  QI:['Quality Improvement','Systematic improvement work focused on care processes and outcomes.'],
+  IRB:['Institutional Review Board','Committee that reviews human-subjects research and some publication-intended projects.'],
+  'P&T':['Pharmacy and Therapeutics Committee','Hospital committee responsible for formulary and medication-use policy decisions.'],
+  USP:['United States Pharmacopeia','Standards body for compounding and medication quality chapters such as USP 797 and 800.'],
+  BUD:['Beyond-Use Date','The date/time after which a compounded preparation should not be used.'],
+  RPD:['Residency Program Director','The pharmacist responsible for managing the residency program.'],
+  ICU:['Intensive Care Unit','Hospital unit for critically ill patients needing close monitoring and organ support.'],
+  ED:['Emergency Department','Hospital department for acute unscheduled emergency care.'],
+  RSI:['Rapid Sequence Intubation','Medication-supported emergency airway procedure.'],
+  ACLS:['Advanced Cardiovascular Life Support','Standardized resuscitation algorithms for cardiac arrest and related emergencies.'],
+  ROSC:['Return of Spontaneous Circulation','Return of a perfusing rhythm after cardiac arrest.'],
+  DKA:['Diabetic Ketoacidosis','Hyperglycemic emergency with ketosis and metabolic acidosis.'],
+  HFrEF:['Heart Failure with Reduced Ejection Fraction','Heart failure phenotype where guideline-directed therapy improves morbidity and mortality.'],
+  ACS:['Acute Coronary Syndrome','Clinical spectrum including unstable angina, NSTEMI, and STEMI.'],
+  AF:['Atrial Fibrillation','Common arrhythmia requiring stroke-risk and rate/rhythm assessment.'],
+  QTc:['Corrected QT interval','Heart-rhythm interval adjusted for rate; prolongation increases torsades risk.'],
+  GDMT:['Guideline-Directed Medical Therapy','Evidence-based medication regimen recommended by guidelines for a condition.'],
+  VTE:['Venous Thromboembolism','DVT and/or PE clot disease.'],
+  TPN:['Total Parenteral Nutrition','IV nutrition, more precisely called parenteral nutrition.'],
+  PN:['Parenteral Nutrition','IV nutrition given when enteral feeding is not feasible or sufficient.'],
+  NICU:['Neonatal Intensive Care Unit','ICU for premature and critically ill newborns.'],
+  PICU:['Pediatric Intensive Care Unit','ICU for critically ill children.'],
+  IDS:['Investigational Drug Services','Pharmacy service managing study drugs, accountability, blinding, storage, and protocol dispensing.'],
+  IRT:['Interactive Response Technology','Research-study system used for randomization and study-drug assignment.'],
+  SAE:['Serious Adverse Event','Research safety event meeting seriousness criteria such as hospitalization, life threat, or death.'],
+  AESI:['Adverse Event of Special Interest','Protocol-defined event requiring focused monitoring/reporting.'],
+  CYP3A:['Cytochrome P450 3A','Major drug-metabolizing enzyme family involved in many interactions.']
+};
+let GLOSSARY_RE=null;
+function glossaryRegex(){ if(!GLOSSARY_RE){ const keys=Object.keys(GLOSSARY).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')); GLOSSARY_RE=new RegExp('\\b('+keys.join('|')+')\\b','g'); } return GLOSSARY_RE; }
+function toggleGlossaryTip(el,ev){ if(ev){ev.preventDefault();ev.stopPropagation();} const ab=el.closest('.abbr'); if(!ab)return; document.querySelectorAll('.abbr.open').forEach(x=>{if(x!==ab)x.classList.remove('open')}); ab.classList.toggle('open'); }
+function enhanceGlossary(root){
+  root=root||document.getElementById('app')||document.body; const re=glossaryRegex();
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    if(!n.nodeValue||!re.test(n.nodeValue)){re.lastIndex=0;return NodeFilter.FILTER_REJECT;} re.lastIndex=0;
+    const p=n.parentElement; if(!p||p.closest('.abbr,.abbr-tip,.vn-ctrl,script,style'))return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT;
+  }});
+  const nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(n=>{ const frag=document.createDocumentFragment(); let text=n.nodeValue,last=0; text.replace(re,(match,_,idx)=>{ if(idx>last)frag.appendChild(document.createTextNode(text.slice(last,idx))); const info=GLOSSARY[match]; const span=document.createElement('span'); span.className='abbr'; span.tabIndex=0; span.appendChild(document.createTextNode(match)); const q=document.createElement('span'); q.className='abbr-q'; q.setAttribute('role','button'); q.setAttribute('aria-label',match+' definition'); q.textContent='?'; q.onclick=(ev)=>toggleGlossaryTip(q,ev); q.onkeydown=(ev)=>{if(ev.key==='Enter'||ev.key===' '){toggleGlossaryTip(q,ev);}}; const tip=document.createElement('span'); tip.className='abbr-tip'; tip.innerHTML='<b>'+match+'</b> = '+info[0]+'<br>'+info[1]; span.appendChild(q); span.appendChild(tip); frag.appendChild(span); last=idx+match.length; }); if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last))); n.parentNode.replaceChild(frag,n); });
+}
+document.addEventListener('click',function(e){ if(!e.target.closest||!e.target.closest('.abbr')) document.querySelectorAll('.abbr.open').forEach(x=>x.classList.remove('open')); });
+function prepareMCQOptions(c){ if(!c._renderOpts){ c._renderOpts=shuffle((c.opts||[]).map(o=>Object.assign({},o))); } return c._renderOpts; }
+function deBiasGeneratedMCQs(){
+  const good='Choose the patient-specific plan with monitoring and follow-up';
+  const trap1='Use the default order because it already looks familiar';
+  const trap2='Delay the recommendation until every minor detail is known';
+  MODULES.forEach(m=>(m.cases||[]).forEach(c=>{ if(c.type==='mcq' && c.kick==='BCPS-style integration' && c.opts&&c.opts.length>=3){ c.opts[0].t=good; c.opts[1].t=trap1; c.opts[2].t=trap2; } }));
+}
+function balanceMCQOptionLengths(){
+  const suffixes=[
+    ' while bleeding risk and procedure timing are clarified',
+    ' with reassessment after the next lab and symptom review',
+    ' after confirming no immediate instability is present',
+    ' while waiting for the primary team to reassess'
+  ];
+  MODULES.forEach(m=>(m.cases||[]).forEach(c=>{
+    if(c.type!=='mcq'||!Array.isArray(c.opts)||!c.opts.length)return;
+    const correct=c.opts.find(o=>o.ok); if(!correct)return;
+    const correctLen=String(correct.t||'').length;
+    const maxLen=Math.max(...c.opts.map(o=>String(o.t||'').length));
+    if(correctLen<75 || correctLen<maxLen*0.95)return;
+    const target=Math.min(95, Math.max(55, Math.round(correctLen*0.78)));
+    c.opts.forEach((o,i)=>{
+      if(o.ok)return;
+      let t=String(o.t||''); let guard=0;
+      while(t.length<target && guard<2){ t += suffixes[(i+guard)%suffixes.length]; guard++; }
+      o.t=t;
+    });
+  }));
+}
+
 function stripHTMLForLog(html){
   var d=document.createElement('div'); d.innerHTML=String(html||'').replace(/<br\s*\/?>(?!$)/gi,'\n');
   return (d.textContent||d.innerText||'').replace(/\s+\n/g,'\n').replace(/\n\s+/g,'\n').trim();
@@ -438,14 +607,14 @@ function recordVNLog(area,name,textHTML,noteHTML){
   if(VNCTRL.log.length>80) VNCTRL.log.shift();
 }
 function typeHTML(el,html){ if(!el)return; el.innerHTML=''; VNTYPE.full=html; VNTYPE.el=el; VNTYPE.done=false;
-  clearInterval(VNTYPE.timer); clearTimeout(VNCTRL.autoTimer); var i=0; var speed=VNCTRL.auto?9:15;
-  VNTYPE.timer=setInterval(function(){ if(i>=html.length){clearInterval(VNTYPE.timer);VNTYPE.done=true;scheduleAuto();return;}
+  clearInterval(VNTYPE.timer); clearTimeout(VNCTRL.autoTimer); var i=0; var speed=15;
+  VNTYPE.timer=setInterval(function(){ if(i>=html.length){clearInterval(VNTYPE.timer);VNTYPE.done=true;enhanceGlossary(el);scheduleAuto();return;}
     if(html[i]==='<'){var j=html.indexOf('>',i); if(j<0){i++;}else{el.innerHTML=html.slice(0,j+1); i=j+1;}}
     else{i++; el.innerHTML=html.slice(0,i);} },speed); }
-function finishType(){ if(VNTYPE.el){clearInterval(VNTYPE.timer);VNTYPE.el.innerHTML=VNTYPE.full;VNTYPE.done=true;scheduleAuto();} }
+function finishType(){ if(VNTYPE.el){clearInterval(VNTYPE.timer);VNTYPE.el.innerHTML=VNTYPE.full;VNTYPE.done=true;enhanceGlossary(VNTYPE.el);scheduleAuto();} }
 function vnAdvance(){ if(VNTYPE.onBox){ try{(new Function(VNTYPE.onBox))();}catch(e){console.log(e);} } }
 function vnClick(){ if(!VNTYPE.done){finishType();return;} vnAdvance(); }
-function scheduleAuto(){ clearTimeout(VNCTRL.autoTimer); if(!VNCTRL.auto || !VNTYPE.done || !VNTYPE.onBox) return; VNCTRL.autoTimer=setTimeout(function(){ if(VNCTRL.auto && VNTYPE.done) vnAdvance(); },850); }
+function scheduleAuto(){ clearTimeout(VNCTRL.autoTimer); if(!VNCTRL.auto || !VNTYPE.done || !VNTYPE.onBox) return; VNCTRL.autoTimer=setTimeout(function(){ if(VNCTRL.auto && VNTYPE.done) vnAdvance(); },6000); }
 function updateCtrlState(){ document.querySelectorAll('[data-vnctrl="auto"]').forEach(b=>b.classList.toggle('on',VNCTRL.auto)); }
 function toggleAuto(ev){ if(ev)ev.stopPropagation(); VNCTRL.auto=!VNCTRL.auto; updateCtrlState(); if(!VNTYPE.done)finishType(); else scheduleAuto(); }
 function skipForward(ev){
@@ -472,6 +641,8 @@ document.addEventListener('keydown',function(e){
   if(e.key && e.key.toLowerCase()==='a')toggleAuto(e);
   if(e.key && e.key.toLowerCase()==='s')skipForward(e);
   if(e.key && e.key.toLowerCase()==='l')openVNLog(e);
+  if(e.key==='+' || e.key==='=')changeFontScale(0.1,e);
+  if(e.key==='-' || e.key==='_')changeFontScale(-0.1,e);
 });
 
 /* ==================================================================
@@ -1180,6 +1351,68 @@ function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
    ================================================================== */
 let G=null, pickedAv="";
 const AVS=["","","","","",""];
+const SAVE_KEY="clinicalPathPGY1Save.v2";
+function initResults(){
+  const results={};
+  MODULES.forEach(m=>results[m.id]=m.cases.map(()=>null));
+  return results;
+}
+function normalizeResults(savedResults){
+  const out=initResults();
+  savedResults=savedResults||{};
+  MODULES.forEach(m=>{
+    const old=Array.isArray(savedResults[m.id])?savedResults[m.id]:[];
+    out[m.id]=m.cases.map((_,i)=> old[i]===true?true : old[i]===false?false : null);
+  });
+  return out;
+}
+function hasSavedProgress(){
+  try{ const raw=localStorage.getItem(SAVE_KEY); if(!raw)return false; const d=JSON.parse(raw); return !!(d&&d.results&&d.name); }catch(e){ return false; }
+}
+function saveProgress(mode){
+  if(!G||!G.results)return;
+  try{
+    localStorage.setItem(SAVE_KEY, JSON.stringify({
+      v:2, savedAt:new Date().toISOString(), name:G.name||"Joey Han", avatar:G.avatar||"",
+      results:G.results, mode:mode||"hub", curModuleId:curM?curM.id:null, learnIdx:learnIdx||0, caseIdx:caseIdx||0
+    }));
+  }catch(e){ console.log('save failed',e); }
+}
+function loadProgress(){
+  try{ const raw=localStorage.getItem(SAVE_KEY); return raw?JSON.parse(raw):null; }catch(e){ return null; }
+}
+function clearSavedProgress(){
+  try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
+}
+function resumeProgress(){
+  const d=loadProgress();
+  if(!d||!d.results){ showIntro(); return; }
+  G={name:(d.name||"Joey Han"), avatar:d.avatar||"", results:normalizeResults(d.results)};
+  const m=d.curModuleId?MODULES.find(x=>x.id===d.curModuleId):null;
+  curM=m||null;
+  learnIdx=Math.max(0,parseInt(d.learnIdx||0,10)||0);
+  caseIdx=Math.max(0,parseInt(d.caseIdx||0,10)||0);
+  if(curM){
+    learnIdx=Math.min(learnIdx, Math.max(0,(TEACH[curM.id]||[]).length-1));
+    caseIdx=Math.min(caseIdx, Math.max(0,curM.cases.length-1));
+  }
+  if(d.mode==='learn'&&curM){ runLearn(); }
+  else if(d.mode==='case'&&curM){ runCase(); }
+  else if(d.mode==='complete'&&curM){ moduleComplete(); }
+  else if(d.mode==='graduation'){ graduate(); }
+  else { goHub(); }
+}
+function resetSavedProgress(){
+  clearSavedProgress();
+  G=null; curM=null; learnIdx=0; caseIdx=0;
+  showTitle();
+}
+function saveStatusText(){
+  const d=loadProgress();
+  if(!d||!d.savedAt)return 'Progress saves automatically on this device.';
+  try{return 'Saved locally '+new Date(d.savedAt).toLocaleString([], {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});}
+  catch(e){return 'Progress saves automatically on this device.';}
+}
 
 const stage=document.getElementById("stage");
 const fx=document.getElementById("fx");
@@ -1223,7 +1456,7 @@ function drawScene(area, expr, name, textHTML, opts={}){
   const nameTab = name? `<div class="vn-name">${name}</div>`:"";
   const note = opts.note? `<div class="vn-note">${opts.note}</div>`:"";
   const adv = opts.advance? `<span class="adv">▼</span>`:"";
-  const ctrl = `<div class="vn-ctrl"><button type="button" data-vnctrl="auto" class="${VNCTRL.auto?'on':''}" onclick="toggleAuto(event)">AUTO</button><button type="button" onclick="skipForward(event)">SKIP</button><button type="button" onclick="openVNLog(event)">LOG</button></div>`;
+  const ctrl = `<div class="vn-ctrl"><button type="button" data-vnctrl="auto" class="${VNCTRL.auto?'on':''}" onclick="toggleAuto(event)">AUTO</button><button type="button" onclick="skipForward(event)">SKIP</button><button type="button" onclick="openVNLog(event)">LOG</button>${fontControlsHTML()}</div>`;
   let below = opts.below||"";
   document.getElementById("app").innerHTML=`
     <div class="stage scene-photo ${AREA[area]?AREA[area].bg:'bg-title'}" id="stage" style="background-image:url('${bgFor(area)}')">${sceneDeco()}</div>
@@ -1244,6 +1477,7 @@ function drawScene(area, expr, name, textHTML, opts={}){
   recordVNLog(area,name,textHTML,opts.note||'');
   typeHTML(document.getElementById("vnText"), textHTML);
   updateCtrlState();
+  enhanceGlossary(document.getElementById("app"));
 }
 
 function sceneDeco(){ return '<div class="scene-tint"></div><div class="scene-vig"></div><div class="scene-dim"></div>';
@@ -1333,7 +1567,11 @@ function showTitle(){
         <span class="big">The Clinical Path</span>
         <span class="small">~ A PGY-1 Year with Dr. Harlin ~</span>
       </div>
-      <button class="btn" onclick="showIntro()">▶ Start</button>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        ${hasSavedProgress()?'<button class="btn mint" onclick="resumeProgress()">Continue saved progress</button>':''}
+        <button class="btn" onclick="showIntro()">Start new resident</button>
+      </div>
+      <div style="font-size:12px;font-weight:800;color:#6b5262;background:rgba(255,255,255,.7);border-radius:999px;padding:7px 13px">${saveStatusText()}</div>
     </div>`;
 }
 
@@ -1357,14 +1595,16 @@ function showIntro(){
 }
 function beginGame(){
   const nm=(document.getElementById("nm").value||"Joey Han").trim().slice(0,16);
-  G={name:nm,avatar:pickedAv,results:{}};
-  MODULES.forEach(m=>G.results[m.id]=m.cases.map(()=>null));
+  clearSavedProgress();
+  G={name:nm,avatar:pickedAv,results:initResults()};
+  saveProgress("intro");
   drawScene("core","worry","Joey Han (you)",
     `<b>I'm ${nm}, PGY-1.</b><br>A little nervous, but ready to learn.`,
     {advance:true, hud:false, who:'joey', pop:true, onBox:"introHarlin()"});
   burst("good");
 }
 function introHarlin(){
+  saveProgress("intro");
   drawScene("core","happy","Dr. Harlin",
     `Great to meet you, <b>${G.name}</b>! I'm <b>Dr. Harlin</b>, your preceptor.<br>Pick a rotation and we'll learn it step by step.`,
     {advance:true, who:'harlin', pop:true, onBox:"goHub()"});
@@ -1391,6 +1631,7 @@ function studyOrderedModules(){
 }
 
 function goHub(){
+  saveProgress("hub");
   setBG("core");
   const dashAreas=["R1","R2","R3","R4"];
   document.getElementById("app").innerHTML=`
@@ -1417,10 +1658,12 @@ function goHub(){
               <span class="prog">${done?nc+'/'+m.cases.length+' done':m.cases.length+' cases'}</span></div></div></div>`;}).join("")}
         </div>
         <div style="text-align:center;margin-top:18px">
+          <span class="vn-ctrl" style="position:static;top:auto;right:auto;display:inline-flex;vertical-align:middle;margin-right:8px">${fontControlsHTML()}</span>
           <button class="btn mint" onclick="showStudyCards()">Review Cards</button>
           <button class="btn ghost" onclick="exportStudyCardsTSV()">Download cards for spreadsheet</button>
           <button class="btn ghost" onclick="exportQuizletTXT()">Download cards for Quizlet</button>
           <button class="btn" onclick="graduate()">Final Evaluation</button>
+          <button class="btn ghost" onclick="resetSavedProgress()">Reset saved progress</button>
         </div>
       </div>
     </div>`;
@@ -1430,9 +1673,10 @@ function goHub(){
    MODULE — LEARN (dialogue) then CASES
    ================================================================== */
 let curM=null, learnIdx=0, caseIdx=0;
-function openModule(id){ curM=MODULES.find(m=>m.id===id); learnIdx=0; runLearn(); }
+function openModule(id){ curM=MODULES.find(m=>m.id===id); learnIdx=0; saveProgress("learn"); runLearn(); }
 
 function runLearn(){
+  saveProgress("learn");
   const m=curM;
   const lines=TEACH[m.id]||[];
   const last=learnIdx>=lines.length-1;
@@ -1450,7 +1694,7 @@ function runLearn(){
     // remove advance arrow / box click on last so button is the path
   }
 }
-function learnNext(){ if(learnIdx<((TEACH[curM.id]||[]).length-1)){ learnIdx++; runLearn(); } }
+function learnNext(){ if(learnIdx<((TEACH[curM.id]||[]).length-1)){ learnIdx++; saveProgress("learn"); runLearn(); } }
 
 function openNotes(){
   const m=curM;
@@ -1461,11 +1705,12 @@ function openNotes(){
       <button class="btn ghost sm" onclick="closeNotes()">Close </button></div>
     <div class="brief" style="margin-top:10px">${m.brief}</div></div>`;
   document.getElementById("app").appendChild(ov);
+  enhanceGlossary(ov);
   ov.onclick=e=>{if(e.target===ov)closeNotes();};
 }
 function closeNotes(){const o=document.getElementById("notesOv");if(o)o.remove();}
 
-function startCases(){ caseIdx=0; runCase(); }
+function startCases(){ caseIdx=0; saveProgress("case"); runCase(); }
 
 
 function caseGuide(m,c,introLine,introExpr){
@@ -1478,8 +1723,19 @@ function caseGuide(m,c,introLine,introExpr){
 }
 
 function runCase(){
+  saveProgress("case");
   const m=curM, c=m.cases[caseIdx];
   const already=G.results[m.id][caseIdx];
+  if(already!==null){
+    const last = caseIdx===m.cases.length-1;
+    drawScene(m.area, already?"proud":"think", "Dr. Harlin",
+      already?"You already completed this case. Let's keep moving." : "You already attempted this case. Review it later if you want — for now, let's continue.",
+      {advance:false, note:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`, below:caseProgress()});
+    const cta=document.createElement("div"); cta.className="choices";
+    cta.innerHTML=`<button class="btn mint" onclick="nextCase()">${last?'Finish rotation ':'Next case ▶'}</button>`;
+    document.getElementById("choiceLayer").appendChild(cta);
+    return;
+  }
   // dialogue = mentor ask, then question emphasized + choices
   const it=bondTier();
   const introLine=[
@@ -1498,8 +1754,10 @@ function runCase(){
   const holder=document.createElement("div");holder.id="caseHolder";
   if(c.type==="mcq"){
     holder.className="choices";
-    holder.innerHTML=c.opts.map((o,i)=>`<button class="choice" data-i="${i}"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("");
+    const opts=prepareMCQOptions(c);
+    holder.innerHTML=opts.map((o,i)=>`<button class="choice" data-i="${i}"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("");
     document.getElementById("choiceLayer").appendChild(holder);
+    enhanceGlossary(holder);
     holder.querySelectorAll(".choice").forEach(b=>b.onclick=()=>answerMcq(parseInt(b.dataset.i)));
   } else if(c.type==="order"){
     holder.innerHTML=`
@@ -1508,6 +1766,7 @@ function runCase(){
       <div class="ord-btns"><button class="btn sm" id="ordChk" disabled onclick="checkOrder()">Check order</button>
       <button class="btn ghost sm" onclick="resetOrder()">Reset</button></div>`;
     document.getElementById("choiceLayer").appendChild(holder);
+    enhanceGlossary(holder);
     holder.querySelectorAll("#ordSrc .oitem").forEach(b=>b.onclick=()=>placeOrder(b));
   } else if(c.type==="calc"){
     holder.className="choices";
@@ -1520,6 +1779,7 @@ function runCase(){
       </div>
       ${c.hint?`<div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="document.getElementById('calcHint').style.display='block'">Formula hint</button></div><div id="calcHint" class="calc-hint" style="display:none">${c.hint}</div>`:""}`;
     document.getElementById("choiceLayer").appendChild(holder);
+    enhanceGlossary(holder);
     const ci=document.getElementById("calcIn"); if(ci){ ci.focus(); ci.addEventListener("keydown",e=>{if(e.key==="Enter")answerCalc();}); }
   } else if(c.type==="chartHunt"){ renderHunt(c);
   } else if(c.type==="sbar"){ renderSbar(c);
@@ -1533,6 +1793,7 @@ function answerCalc(){
   const val=parseFloat(raw); if(isNaN(val)) return;
   const ok=Math.abs(val-c.answer.value)<=(c.answer.tolerance||0);
   G.results[m.id][caseIdx]=ok;
+  saveProgress("case");
   const ci=document.getElementById("calcIn"); if(ci)ci.disabled=true;
   const cc=document.getElementById("calcChk"); if(cc)cc.disabled=true;
   const fb= ok? c.note : `Not quite — the answer is <b>${c.answer.value} ${c.answer.unit||""}</b>. ${c.note}`;
@@ -1550,12 +1811,14 @@ function caseProgress(){
 function answerMcq(i){
   const m=curM,c=m.cases[caseIdx];
   if(G.results[m.id][caseIdx]!==null) return;
-  const ok=c.opts[i].ok;
+  const opts=c._renderOpts||c.opts;
+  const ok=opts[i].ok;
   G.results[m.id][caseIdx]=ok;
+  saveProgress("case");
   const holder=document.getElementById("caseHolder");
   holder.querySelectorAll(".choice").forEach((b,bi)=>{b.disabled=true;
-    if(c.opts[bi].ok)b.classList.add("correct"); if(bi===i&&!ok)b.classList.add("wrong");});
-  feedback(ok,c.opts[i].fb);
+    if(opts[bi].ok)b.classList.add("correct"); if(bi===i&&!ok)b.classList.add("wrong");});
+  feedback(ok,opts[i].fb);
 }
 /* ORDER */
 let ordSeq=[];
@@ -1574,6 +1837,7 @@ function checkOrder(){
   const m=curM,c=m.cases[caseIdx];if(G.results[m.id][caseIdx]!==null)return;
   const ok=JSON.stringify(ordSeq)===JSON.stringify(c.correct);
   G.results[m.id][caseIdx]=ok;
+  saveProgress("case");
   const fbtext= ok? c.note :"Not quite. The correct order is"+c.correct.map((s,i)=>`${i+1}.${s}`).join(" →")+"."+c.note;
   feedback(ok,fbtext);
 }
@@ -1602,10 +1866,11 @@ function feedback(ok, expl){
 }
 function nextCase(){
   const m=curM;
-  if(caseIdx<m.cases.length-1){caseIdx++;runCase();}
+  if(caseIdx<m.cases.length-1){caseIdx++;saveProgress("case");runCase();}
   else moduleComplete();
 }
 function moduleComplete(){
+  saveProgress("complete");
   const m=curM,nc=modCorrect(m),meta=AREA[m.area];
   const perfect=nc===m.cases.length;
   drawScene(m.area, perfect?"wink":"smile","Dr. Harlin",
@@ -1621,6 +1886,7 @@ function moduleComplete(){
    GRADUATION
    ================================================================== */
 function graduate(){
+  saveProgress("graduation");
   const ov=overall(),r1=areaScore("R1"),r2=areaScore("R2"),r3=areaScore("R3"),r4=areaScore("R4"),core=areaScore("core");
   const done=MODULES.filter(m=>modDone(m)).length;
   let medal,title,rk,expr;
@@ -1666,6 +1932,8 @@ function graduate(){
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
 /* boot */
+deBiasGeneratedMCQs();
+balanceMCQOptionLengths();
 showTitle();
 
 /* --- calc + specialty modules --- */
@@ -1682,6 +1950,7 @@ function renderHunt(c){
     '<div class="hunt-list">'+c.rows.map((r,i)=>'<button class="hunt-row" data-i="'+i+'">'+r.text+'</button>').join("")+'</div>'+
     '<div style="text-align:center"><button class="btn sm" onclick="submitHunt()">Submit</button></div>';
   document.getElementById("choiceLayer").appendChild(holder);
+    enhanceGlossary(holder);
   holder.querySelectorAll(".hunt-row").forEach(b=>b.onclick=()=>b.classList.toggle("sel"));
 }
 function submitHunt(){
@@ -1690,6 +1959,7 @@ function submitHunt(){
   const probs=c.rows.map((r,i)=>r.problem?i:-1).filter(i=>i>=0);
   const ok = sel.length===probs.length && probs.every(i=>sel.includes(i));
   G.results[m.id][caseIdx]=ok;
+  saveProgress("case");
   document.querySelectorAll(".hunt-row").forEach((b,i)=>{ b.disabled=true; if(c.rows[i].problem)b.classList.add("correct"); else if(b.classList.contains("sel"))b.classList.add("wrong"); });
   const why=c.rows.filter(r=>r.problem).map(r=>"• "+r.why).join("<br>");
   feedback(ok, (c.note?c.note+"<br>":"")+why);
@@ -1700,6 +1970,7 @@ function renderSbar(c){
     s.fragments.map((fr,fi)=>'<button class="sbar-frag" data-s="'+si+'" data-f="'+fi+'">'+fr.t+'</button>').join("")+'</div>').join("")+
     '<div style="text-align:center"><button class="btn sm" onclick="submitSbar()">Submit recommendation</button></div>';
   document.getElementById("choiceLayer").appendChild(holder);
+    enhanceGlossary(holder);
   holder.querySelectorAll(".sbar-frag").forEach(b=>b.onclick=()=>{
     holder.querySelectorAll('.sbar-frag[data-s="'+b.dataset.s+'"]').forEach(x=>x.classList.remove("sel"));
     b.classList.add("sel");
@@ -1714,6 +1985,7 @@ function submitSbar(){
     if(!chosen || +chosen.dataset.f!==bi) ok=false;
   });
   G.results[m.id][caseIdx]=ok;
+  saveProgress("case");
   document.querySelectorAll(".sbar-frag").forEach(b=>{ b.disabled=true; const s=+b.dataset.s,fi=+b.dataset.f; let bi=0; c.slots[s].fragments.forEach((fr,j)=>{ if(fr.score>c.slots[s].fragments[bi].score) bi=j; }); if(fi===bi)b.classList.add("correct"); else if(b.classList.contains("sel"))b.classList.add("wrong"); });
   feedback(ok, c.note||"A strong recommendation is specific in every part: a clear recommendation, evidence-based rationale, honest risks, and concrete next steps.");
 }
@@ -1723,12 +1995,13 @@ function renderCode(c){
   const holder=document.createElement("div"); holder.id="caseHolder"; holder.className="choices";
   holder.innerHTML='<div class="code-timer"><i id="codeBar"></i></div><div id="codeStep"></div>';
   document.getElementById("choiceLayer").appendChild(holder);
+    enhanceGlossary(holder);
   renderCodeStep();
   codeState.timer=setInterval(function(){ codeState.timeLeft-=0.1; const bar=document.getElementById("codeBar"); if(bar)bar.style.width=Math.max(0,codeState.timeLeft/(codeState.c.seconds||45)*100)+"%"; if(codeState.timeLeft<=0){ clearInterval(codeState.timer); codeFinish(false,"Time ran out — in a real code, seconds are everything. "+(codeState.c.note||"")); } },100);
 }
 function renderCodeStep(){
   const s=codeState.c.steps[codeState.step]; const el=document.getElementById("codeStep");
-  el.innerHTML='<div class="code-prompt">'+s.prompt+'</div>'+s.options.map((o,i)=>'<button class="choice" onclick="codeAnswer('+i+')"><span class="k">'+String.fromCharCode(65+i)+'</span>'+o.t+'</button>').join("");
+  el.innerHTML='<div class="code-prompt">'+s.prompt+'</div>'+s.options.map((o,i)=>'<button class="choice" onclick="codeAnswer('+i+')"><span class="k">'+String.fromCharCode(65+i)+'</span>'+o.t+'</button>').join(""); enhanceGlossary(el);
 }
 function codeAnswer(i){
   if(!codeState) return; const s=codeState.c.steps[codeState.step];
@@ -1737,7 +2010,7 @@ function codeAnswer(i){
   if(codeState.step>=codeState.c.steps.length){ clearInterval(codeState.timer); codeFinish(true, codeState.c.note||"Fast and correct — that's a code-ready pharmacist."); }
   else renderCodeStep();
 }
-function codeFinish(ok,expl){ const m=curM; if(G.results[m.id][caseIdx]!==null) return; G.results[m.id][caseIdx]=ok; codeState=null; feedback(ok,expl); }
+function codeFinish(ok,expl){ const m=curM; if(G.results[m.id][caseIdx]!==null) return; G.results[m.id][caseIdx]=ok; saveProgress("case"); codeState=null; feedback(ok,expl); }
 var jcState=null;
 function renderJournal(c){
   jcState={c:c, flawsOk:null};
@@ -1746,6 +2019,7 @@ function renderJournal(c){
     '<div class="hunt-list">'+c.flaws.map((fl,i)=>'<button class="hunt-row" data-i="'+i+'">'+fl.text+'</button>').join("")+'</div>'+
     '<div style="text-align:center"><button class="btn sm" onclick="jcSubmitFlaws()">Next ▶</button></div>';
   document.getElementById("choiceLayer").appendChild(holder);
+    enhanceGlossary(holder);
   holder.querySelectorAll(".hunt-row").forEach(b=>b.onclick=()=>b.classList.toggle("sel"));
 }
 function jcSubmitFlaws(){
@@ -1754,7 +2028,7 @@ function jcSubmitFlaws(){
   const flaws=c.flaws.map((fl,i)=>fl.isFlaw?i:-1).filter(i=>i>=0);
   jcState.flawsOk = sel.length===flaws.length && flaws.every(i=>sel.includes(i));
   const holder=document.getElementById("caseHolder");
-  holder.innerHTML='<div class="jc-abstract">'+c.nnt.stem+'</div>'+c.nnt.options.map((o,i)=>'<button class="choice" onclick="jcAnswerNnt('+i+')"><span class="k">'+String.fromCharCode(65+i)+'</span>'+o.t+'</button>').join("");
+  holder.innerHTML='<div class="jc-abstract">'+c.nnt.stem+'</div>'+c.nnt.options.map((o,i)=>'<button class="choice" onclick="jcAnswerNnt('+i+')"><span class="k">'+String.fromCharCode(65+i)+'</span>'+o.t+'</button>').join(""); enhanceGlossary(holder);
 }
 function jcAnswerNnt(i){
   const c=jcState.c,m=curM; if(G.results[m.id][caseIdx]!==null) return;
@@ -5321,6 +5595,8 @@ function makeGeneratedCase(m,n){
 }
 function ensureMinimumCasesPerModule(){MODULES.forEach(m=>{let guard=0;while(m.cases.length<10&&guard<20){m.cases.push(makeGeneratedCase(m,m.cases.length));guard++;}});for(const k of Object.keys(AREA_TOTALS))delete AREA_TOTALS[k];MODULES.forEach(m=>AREA_TOTALS[m.area]=(AREA_TOTALS[m.area]||0)+m.cases.length);}
 ensureMinimumCasesPerModule();
+deBiasGeneratedMCQs();
+balanceMCQOptionLengths();
 </script>
 </body>
 </html>
