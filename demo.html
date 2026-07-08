@@ -359,6 +359,31 @@
   .lab-ref-card h3{font-family:"Nunito",system-ui,sans-serif!important;margin:0 0 6px;color:#0f172a;font-size:22px;font-weight:900}.lab-ref-card p{font-size:12.5px;color:#475569;margin:0 0 12px;line-height:1.45;font-weight:700}
   .lab-ref-card table{width:100%;border-collapse:collapse;font-size:12px}.lab-ref-card th,.lab-ref-card td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}.lab-ref-card th{background:#f8fafc;color:#0f172a;font-weight:900}.lab-ref-card .sec{background:#eef2ff;color:#312e81;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
 
+
+
+  /* Clinical calculators v12 */
+  .calc-tool-ov{position:absolute;inset:0;z-index:95;background:rgba(15,23,42,.58);display:flex;align-items:center;justify-content:center;padding:22px}
+  .calc-tool-card{width:min(1080px,95vw);max-height:88vh;overflow:auto;background:#fff;border:1px solid #cbd5e1;border-radius:14px;box-shadow:0 24px 80px rgba(15,23,42,.38);padding:18px 20px;color:#1f2937}
+  .calc-tool-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.calc-tool-head h3{font-family:"Nunito",system-ui,sans-serif!important;margin:0;color:#0f172a;font-size:22px;font-weight:900}.calc-tool-head p{font-size:12.5px;color:#475569;margin:4px 0 0;line-height:1.45;font-weight:700}
+  .calc-tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}.calc-tool{border:1px solid #cbd5e1;border-radius:12px;background:#f8fafc;padding:12px;box-shadow:none}.calc-tool.focus{border-color:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,.12)}.calc-tool h4{margin:0 0 4px;font-size:14px;color:#0f172a;font-weight:900}.calc-tool .formula{font-size:11.5px;color:#475569;line-height:1.4;margin:0 0 10px;font-weight:750}.calc-tool .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.calc-tool label{font-size:11px;color:#334155;text-transform:uppercase;letter-spacing:.05em;font-weight:900}.calc-tool input,.calc-tool select{width:100%;margin-top:3px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:7px 8px;font-family:"Nunito",system-ui,sans-serif;font-weight:800;color:#0f172a}.calc-tool button{margin-top:9px}.calc-result{margin-top:9px;border-top:1px solid #e2e8f0;padding-top:8px;font-size:13px;line-height:1.4;color:#0f172a;font-weight:800;min-height:26px}.calc-result b{font-size:17px;color:#0d9488}.calc-disclaimer{font-size:11px;color:#64748b;margin-top:12px;line-height:1.4;font-weight:700}.abbr-q.calc-badge{width:auto;min-width:30px;border-radius:999px;padding:0 5px;font-size:9px;text-transform:uppercase;background:#e0f2fe;color:#075985;border-color:#bae6fd}
+
+
+
+  /* Calculator readability v13 */
+  .calc-tool-card{padding:22px 24px!important;background:#ffffff!important;color:#111827!important}
+  .calc-tool-head{border-bottom:1px solid #e5e7eb;padding-bottom:12px;margin-bottom:16px!important}.calc-tool-head h3{font-size:24px!important;letter-spacing:-.01em}.calc-tool-head p{font-size:14px!important;color:#334155!important;max-width:760px}
+  .calc-tools-grid{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))!important;gap:16px!important}.calc-tool{background:#ffffff!important;border:1px solid #d1d5db!important;border-radius:14px!important;padding:16px!important}.calc-tool h4{font-size:17px!important;margin-bottom:6px!important}.calc-tool .formula{background:#f8fafc!important;border:1px solid #e5e7eb!important;border-left:4px solid #0d9488!important;border-radius:9px!important;padding:9px 10px!important;margin:8px 0 12px!important;color:#334155!important;font-size:13px!important;line-height:1.45!important}.calc-tool label{font-size:12px!important;color:#475569!important}.calc-tool input,.calc-tool select{font-size:15px!important;padding:10px 11px!important;border-radius:10px!important}.calc-result{font-size:14px!important;background:#f0fdfa!important;border:1px solid #99f6e4!important;border-radius:10px!important;padding:10px 12px!important}.calc-result:empty{display:none}.calc-result b{font-size:20px!important}.calc-tool.general-calc{grid-column:1/-1;background:#f8fafc!important}.general-calc-grid{display:grid;grid-template-columns:minmax(260px,1fr) 220px;gap:14px;align-items:start}.gen-display{width:100%;font-size:22px!important;font-weight:900!important;letter-spacing:.01em}.gen-pad{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.gen-pad button{margin:0!important;padding:9px 0!important;border-radius:9px!important}.gen-pad .op{background:#e0f2fe!important;color:#075985!important}.gen-pad .eq{background:#0d9488!important;color:#fff!important}.gen-pad .clear{background:#fee2e2!important;color:#991b1b!important}@media(max-width:760px){.general-calc-grid{grid-template-columns:1fr}.calc-tools-grid{grid-template-columns:1fr!important}.calc-tool-card{padding:16px!important}}
+
+
+
+  /* Acronym readability v14: no inline question-mark clutter */
+  .abbr{border-bottom:1px dotted #64748b;cursor:help;position:relative}.abbr.has-calc{border-bottom:2px solid #0d9488;cursor:pointer}.abbr-q{display:none!important}
+
+
+
+  /* Standalone basic calculator v15 */
+  .basic-calc-ov{position:absolute;inset:0;z-index:110;background:rgba(15,23,42,.32);display:flex;align-items:center;justify-content:center;padding:18px}.basic-calc-card{width:min(430px,92vw);background:#fff;border:1px solid #cbd5e1;border-radius:16px;box-shadow:0 22px 70px rgba(15,23,42,.35);padding:16px;color:#111827}.basic-calc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}.basic-calc-head h3{font-family:"Nunito",system-ui,sans-serif!important;margin:0;color:#0f172a;font-size:20px;font-weight:900}.basic-calc-head p{margin:2px 0 0;color:#64748b;font-size:12px;font-weight:700}.basic-calc-card .gen-pad{grid-template-columns:repeat(4,1fr);margin-top:10px}.basic-calc-card .gen-display{font-size:24px!important}
+
 </style>
 </head>
 <body>
@@ -498,7 +523,8 @@ function face(expr, who){ return faceImg(expr, who);
 
 
 var VNTYPE={timer:null,full:'',el:null,done:true,onBox:null};
-var VNCTRL={auto:false,autoTimer:null,log:[]};
+var VNCTRL={auto:false,autoTimer:null,autoToken:0,log:[]};
+const AUTO_DELAY_MS=2500;
 const FONT_KEY="clinicalPathFontScale.v1";
 function getFontScale(){
   const raw=parseFloat(localStorage.getItem(FONT_KEY)||"1");
@@ -572,6 +598,7 @@ const GLOSSARY={
   CYP3A:['Cytochrome P450 3A','Major drug-metabolizing enzyme family involved in many interactions.']
 };
 let GLOSSARY_RE=null;
+const CALC_TERM_MAP={CrCl:"crcl",INR:"none",aPTT:"none"};
 function glossaryRegex(){ if(!GLOSSARY_RE){ const keys=Object.keys(GLOSSARY).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')); GLOSSARY_RE=new RegExp('\\b('+keys.join('|')+')\\b','g'); } return GLOSSARY_RE; }
 function toggleGlossaryTip(el,ev){ if(ev){ev.preventDefault();ev.stopPropagation();} const ab=el.closest('.abbr'); if(!ab)return; document.querySelectorAll('.abbr.open').forEach(x=>{if(x!==ab)x.classList.remove('open')}); ab.classList.toggle('open'); }
 function enhanceGlossary(root){
@@ -582,7 +609,7 @@ function enhanceGlossary(root){
     return NodeFilter.FILTER_ACCEPT;
   }});
   const nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
-  nodes.forEach(n=>{ const frag=document.createDocumentFragment(); let text=n.nodeValue,last=0; text.replace(re,(match,_,idx)=>{ if(idx>last)frag.appendChild(document.createTextNode(text.slice(last,idx))); const info=GLOSSARY[match]; const span=document.createElement('span'); span.className='abbr'; span.tabIndex=0; span.appendChild(document.createTextNode(match)); const q=document.createElement('span'); q.className='abbr-q'; q.setAttribute('role','button'); q.setAttribute('aria-label',match+' definition'); q.textContent='?'; q.onclick=(ev)=>toggleGlossaryTip(q,ev); q.onkeydown=(ev)=>{if(ev.key==='Enter'||ev.key===' '){toggleGlossaryTip(q,ev);}}; const tip=document.createElement('span'); tip.className='abbr-tip'; tip.innerHTML='<b>'+match+'</b> = '+info[0]+'<br>'+info[1]; span.appendChild(q); span.appendChild(tip); frag.appendChild(span); last=idx+match.length; }); if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last))); n.parentNode.replaceChild(frag,n); });
+  nodes.forEach(n=>{ const frag=document.createDocumentFragment(); let text=n.nodeValue,last=0; text.replace(re,(match,_,idx)=>{ if(idx>last)frag.appendChild(document.createTextNode(text.slice(last,idx))); const info=GLOSSARY[match]; const calc=CALC_TERM_MAP[match]&&CALC_TERM_MAP[match]!=='none'?CALC_TERM_MAP[match]:''; const span=document.createElement('span'); span.className='abbr'+(calc?' has-calc':''); span.tabIndex=0; span.onclick=(ev)=>calc?openClinicalCalculator(ev,calc):toggleGlossaryTip(span,ev); span.onkeydown=(ev)=>{if(ev.key==='Enter'||ev.key===' '){calc?openClinicalCalculator(ev,calc):toggleGlossaryTip(span,ev);}}; span.appendChild(document.createTextNode(match)); const q=document.createElement('span'); q.className='abbr-q'+(calc?' calc-badge':''); q.setAttribute('role','button'); q.setAttribute('aria-label',calc?'Open '+match+' calculator':match+' definition'); q.textContent=calc?'calc':'?'; q.onclick=(ev)=>calc?openClinicalCalculator(ev,calc):toggleGlossaryTip(q,ev); q.onkeydown=(ev)=>{if(ev.key==='Enter'||ev.key===' '){calc?openClinicalCalculator(ev,calc):toggleGlossaryTip(q,ev);}}; const tip=document.createElement('span'); tip.className='abbr-tip'; tip.innerHTML='<b>'+match+'</b> = '+info[0]+'<br>'+info[1]+(calc?'<br><button class="btn ghost sm" style="margin-top:7px" onclick="openClinicalCalculator(event,\''+calc+'\')">Open calculator</button>':''); span.appendChild(q); span.appendChild(tip); frag.appendChild(span); last=idx+match.length; }); if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last))); n.parentNode.replaceChild(frag,n); });
 }
 document.addEventListener('click',function(e){ if(!e.target.closest||!e.target.closest('.abbr')) document.querySelectorAll('.abbr.open').forEach(x=>x.classList.remove('open')); });
 
@@ -602,6 +629,30 @@ const LAB_VALUES=[
 ];
 function showLabValues(ev){ if(ev)ev.stopPropagation(); closeLabValues(); const ov=document.createElement('div'); ov.className='lab-ref-ov'; ov.id='labRefOv'; let cur=''; const rows=LAB_VALUES.map(r=>{let sec=''; if(r[0]!==cur){cur=r[0];sec=`<tr><td class="sec" colspan="3">${cur}</td></tr>`;} return sec+`<tr><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`;}).join(''); ov.innerHTML=`<div class="lab-ref-card"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px"><div><h3>Lab Values Reference</h3><p>Reference ranges adapted for simulation use from the ACCP CCSAP lab values table. Use institutional ranges when they differ.</p></div><button class="btn ghost sm" onclick="closeLabValues()">Close</button></div><table><thead><tr><th>Test</th><th>Reference range</th><th>Unit</th></tr></thead><tbody>${rows}</tbody></table></div>`; document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)closeLabValues();}; }
 function closeLabValues(){ const o=document.getElementById('labRefOv'); if(o)o.remove(); }
+function nnum(id){ const v=parseFloat(String(document.getElementById(id)?.value||'').replace(/,/g,'')); return isNaN(v)?null:v; }
+function fmtCalc(x,d=1){ if(x===null||!isFinite(x))return ''; return Math.round(x*Math.pow(10,d))/Math.pow(10,d); }
+function setCalcResult(id,html){ const el=document.getElementById(id); if(el)el.innerHTML=html; }
+function openClinicalCalculator(ev,focus){ if(ev){ev.preventDefault();ev.stopPropagation();} closeClinicalCalculator(); const ov=document.createElement('div'); ov.className='calc-tool-ov'; ov.id='calcToolOv'; ov.innerHTML=`<div class="calc-tool-card"><div class="calc-tool-head"><div><h3>Clinical Calculators</h3><p>Use pharmacy-specific calculators for renal dosing, lab interpretation, high-alert infusion, and TDM support. Use the separate MATH button for basic arithmetic.</p></div><button class="btn ghost sm" onclick="closeClinicalCalculator()">Close</button></div><div class="calc-tools-grid">
+  <section class="calc-tool" data-tool="crcl"><h4>Cockcroft-Gault CrCl</h4><p class="formula">CrCl = [(140 − age) × weight] / (72 × SCr). Multiply by 0.85 for female sex.</p><div class="row"><div><label>Age</label><input id="cc_age" type="number" value="72"></div><div><label>Weight kg</label><input id="cc_wt" type="number" value="70"></div><div><label>SCr mg/dL</label><input id="cc_scr" type="number" step="0.1" value="1.9"></div><div><label>Sex</label><select id="cc_sex"><option value="m">Male</option><option value="f">Female</option></select></div></div><button class="btn sm" onclick="calcCrCl()">Calculate CrCl</button><div class="calc-result" id="cc_out"></div></section>
+  <section class="calc-tool" data-tool="anion"><h4>Anion Gap</h4><p class="formula">AG = Na − (Cl + HCO₃). Optional albumin correction: +2.5 × (4 − albumin).</p><div class="row"><div><label>Na</label><input id="ag_na" type="number" value="140"></div><div><label>Cl</label><input id="ag_cl" type="number" value="100"></div><div><label>HCO₃/CO₂</label><input id="ag_hco3" type="number" value="12"></div><div><label>Albumin</label><input id="ag_alb" type="number" step="0.1" placeholder="optional"></div></div><button class="btn sm" onclick="calcAnionGap()">Calculate AG</button><div class="calc-result" id="ag_out"></div></section>
+  <section class="calc-tool" data-tool="calcium"><h4>Corrected Calcium</h4><p class="formula">Corrected Ca = measured Ca + 0.8 × (4 − albumin).</p><div class="row"><div><label>Measured Ca</label><input id="ca_ca" type="number" step="0.1" value="7.6"></div><div><label>Albumin</label><input id="ca_alb" type="number" step="0.1" value="2.1"></div></div><button class="btn sm" onclick="calcCorrectedCa()">Calculate corrected Ca</button><div class="calc-result" id="ca_out"></div></section>
+  <section class="calc-tool" data-tool="phenytoin"><h4>Corrected Phenytoin</h4><p class="formula">Sheiner-Tozer estimate. Normal renal: total / (0.2×albumin + 0.1). Renal failure: total / (0.1×albumin + 0.1).</p><div class="row"><div><label>Total level</label><input id="pt_lvl" type="number" step="0.1" value="8"></div><div><label>Albumin</label><input id="pt_alb" type="number" step="0.1" value="2"></div><div><label>Renal failure</label><select id="pt_rf"><option value="n">No</option><option value="y">Yes</option></select></div></div><button class="btn sm" onclick="calcPhenytoin()">Calculate corrected level</button><div class="calc-result" id="pt_out"></div></section>
+  <section class="calc-tool" data-tool="heparin"><h4>Heparin Infusion Rate</h4><p class="formula">mL/hr = units/kg/hr × weight ÷ concentration units/mL.</p><div class="row"><div><label>Units/kg/hr</label><input id="hp_dose" type="number" step="0.1" value="18"></div><div><label>Weight kg</label><input id="hp_wt" type="number" value="80"></div><div><label>Units/mL</label><input id="hp_conc" type="number" value="100"></div></div><button class="btn sm" onclick="calcHeparin()">Calculate rate</button><div class="calc-result" id="hp_out"></div></section>
+  <section class="calc-tool" data-tool="bmi"><h4>BMI</h4><p class="formula">BMI = weight kg / height m². Useful for dosing context, not a dosing rule by itself.</p><div class="row"><div><label>Weight kg</label><input id="bmi_wt" type="number" value="80"></div><div><label>Height cm</label><input id="bmi_ht" type="number" value="170"></div></div><button class="btn sm" onclick="calcBMI()">Calculate BMI</button><div class="calc-result" id="bmi_out"></div></section>
+</div><div class="calc-disclaimer">Simulation support only. These calculators are simplified teaching aids; local protocols, patient-specific assumptions, and pharmacist verification still govern final recommendations.</div></div>`; document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)closeClinicalCalculator();}; document.getElementById('gen_expr')?.addEventListener('keydown',e=>{if(e.key==='Enter')calcGeneral();}); if(focus){ setTimeout(()=>{document.querySelectorAll('.calc-tool.focus').forEach(x=>x.classList.remove('focus')); const card=document.querySelector(`.calc-tool[data-tool="${focus}"]`); if(card){card.classList.add('focus'); card.scrollIntoView({block:'center'});} },30); } }
+function generalCalcKey(k){ const el=document.getElementById('gen_expr'); if(!el)return; el.value+=(k==='%')?'/100':k; el.focus(); }
+function clearGeneralCalc(){ const el=document.getElementById('gen_expr'); if(el)el.value=''; setCalcResult('gen_out',''); }
+function calcGeneral(){ const el=document.getElementById('gen_expr'); const expr=String(el?.value||'').replace(/[×]/g,'*').replace(/[÷]/g,'/').trim(); if(!expr){setCalcResult('gen_out','Enter an expression.');return;} if(!/^[0-9+\-*/().\s%]+$/.test(expr)){setCalcResult('gen_out','Use numbers and arithmetic operators only.');return;} try{ const val=Function('"use strict"; return ('+expr.replace(/%/g,'/100')+')')(); if(!isFinite(val))throw new Error('bad'); setCalcResult('gen_out',`Result = <b>${fmtCalc(val,4)}</b>`); }catch(e){setCalcResult('gen_out','Could not calculate that expression.');} }
+function openBasicCalculator(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} closeBasicCalculator(); const ov=document.createElement('div'); ov.className='basic-calc-ov'; ov.id='basicCalcOv'; ov.innerHTML=`<div class="basic-calc-card"><div class="basic-calc-head"><div><h3>Basic Calculator</h3><p>Quick arithmetic without leaving the case.</p></div><button class="btn ghost sm" onclick="closeBasicCalculator()">Close</button></div><label>Expression</label><input id="gen_expr" class="gen-display" type="text" value="" placeholder="e.g., (140-72)*70/(72*1.9)"><div class="calc-result" id="gen_out"></div><div class="gen-pad"><button onclick="generalCalcKey('7')">7</button><button onclick="generalCalcKey('8')">8</button><button onclick="generalCalcKey('9')">9</button><button class="op" onclick="generalCalcKey('/')">÷</button><button onclick="generalCalcKey('4')">4</button><button onclick="generalCalcKey('5')">5</button><button onclick="generalCalcKey('6')">6</button><button class="op" onclick="generalCalcKey('*')">×</button><button onclick="generalCalcKey('1')">1</button><button onclick="generalCalcKey('2')">2</button><button onclick="generalCalcKey('3')">3</button><button class="op" onclick="generalCalcKey('-')">−</button><button onclick="generalCalcKey('0')">0</button><button onclick="generalCalcKey('.')">.</button><button class="clear" onclick="clearGeneralCalc()">C</button><button class="op" onclick="generalCalcKey('+')">+</button><button onclick="generalCalcKey('(')">(</button><button onclick="generalCalcKey(')')">)</button><button onclick="generalCalcKey('%')">%</button><button class="eq" onclick="calcGeneral()">=</button></div></div>`; document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)closeBasicCalculator();}; document.getElementById('gen_expr')?.addEventListener('keydown',e=>{if(e.key==='Enter')calcGeneral();}); setTimeout(()=>document.getElementById('gen_expr')?.focus(),30); }
+function closeBasicCalculator(){ const o=document.getElementById('basicCalcOv'); if(o)o.remove(); }
+function closeClinicalCalculator(){ const o=document.getElementById('calcToolOv'); if(o)o.remove(); }
+function calcCrCl(){ const age=nnum('cc_age'),wt=nnum('cc_wt'),scr=nnum('cc_scr'),sex=document.getElementById('cc_sex')?.value; if([age,wt,scr].some(v=>v===null)||scr<=0){setCalcResult('cc_out','Enter age, weight, and SCr.');return;} let cr=((140-age)*wt)/(72*scr); if(sex==='f')cr*=0.85; setCalcResult('cc_out',`CrCl ≈ <b>${fmtCalc(cr,0)} mL/min</b><br><span style="color:#475569">Use for renal dose adjustment when the protocol specifies Cockcroft-Gault.</span>`); }
+function calcAnionGap(){ const na=nnum('ag_na'),cl=nnum('ag_cl'),h=nnum('ag_hco3'),alb=nnum('ag_alb'); if([na,cl,h].some(v=>v===null)){setCalcResult('ag_out','Enter Na, Cl, and HCO₃/CO₂.');return;} const ag=na-(cl+h); const corr=alb===null?null:ag+2.5*(4-alb); setCalcResult('ag_out',`AG = <b>${fmtCalc(ag,1)} mEq/L</b>${corr!==null?`<br>Albumin-corrected AG ≈ <b>${fmtCalc(corr,1)}</b>`:''}`); }
+function calcCorrectedCa(){ const ca=nnum('ca_ca'),alb=nnum('ca_alb'); if([ca,alb].some(v=>v===null)){setCalcResult('ca_out','Enter calcium and albumin.');return;} const out=ca+0.8*(4-alb); setCalcResult('ca_out',`Corrected Ca ≈ <b>${fmtCalc(out,1)} mg/dL</b>`); }
+function calcPhenytoin(){ const lvl=nnum('pt_lvl'),alb=nnum('pt_alb'),rf=document.getElementById('pt_rf')?.value; if([lvl,alb].some(v=>v===null)){setCalcResult('pt_out','Enter total level and albumin.');return;} const denom=(rf==='y'?0.1:0.2)*alb+0.1; setCalcResult('pt_out',`Corrected phenytoin ≈ <b>${fmtCalc(lvl/denom,1)} mcg/mL</b>`); }
+function calcHeparin(){ const dose=nnum('hp_dose'),wt=nnum('hp_wt'),conc=nnum('hp_conc'); if([dose,wt,conc].some(v=>v===null)||conc<=0){setCalcResult('hp_out','Enter dose, weight, and concentration.');return;} const units=dose*wt,rate=units/conc; setCalcResult('hp_out',`${fmtCalc(units,0)} units/hr → <b>${fmtCalc(rate,1)} mL/hr</b>`); }
+function calcBMI(){ const wt=nnum('bmi_wt'),ht=nnum('bmi_ht'); if([wt,ht].some(v=>v===null)||ht<=0){setCalcResult('bmi_out','Enter weight and height.');return;} const bmi=wt/Math.pow(ht/100,2); setCalcResult('bmi_out',`BMI ≈ <b>${fmtCalc(bmi,1)} kg/m²</b>`); }
+
 function caseMethodHTML(){ return `<div class="case-method"><div class="label">Clinical pharmacist case method · ACCP-aligned</div><div class="grid">${ACCP_METHOD.map(x=>`<div class="step"><b>${x[0]}</b>${x[1]}</div>`).join('')}</div></div>`; }
 function labChip(l){ const cls=l.flag==='critical'?'crit':(l.flag==='abnormal'?'abn':''); return `<div class="lab-chip ${cls}"><span class="n">${l.name}</span><span class="v">${l.value}</span><span class="r">Ref: ${l.ref||labRef(l.name)||'see lab table'}</span></div>`; }
 function labRef(name){ const hit=LAB_VALUES.find(r=>r[1].toLowerCase()===String(name||'').toLowerCase()); return hit?`${hit[2]} ${hit[3]}`:''; }
@@ -651,14 +702,14 @@ function recordVNLog(area,name,textHTML,noteHTML){
   if(VNCTRL.log.length>80) VNCTRL.log.shift();
 }
 function typeHTML(el,html){ if(!el)return; el.innerHTML=''; VNTYPE.full=html; VNTYPE.el=el; VNTYPE.done=false;
-  clearInterval(VNTYPE.timer); clearTimeout(VNCTRL.autoTimer); var i=0; var speed=15;
+  clearInterval(VNTYPE.timer); clearTimeout(VNCTRL.autoTimer); VNCTRL.autoToken++; var i=0; var speed=15;
   VNTYPE.timer=setInterval(function(){ if(i>=html.length){clearInterval(VNTYPE.timer);VNTYPE.done=true;enhanceGlossary(el);scheduleAuto();return;}
     if(html[i]==='<'){var j=html.indexOf('>',i); if(j<0){i++;}else{el.innerHTML=html.slice(0,j+1); i=j+1;}}
     else{i++; el.innerHTML=html.slice(0,i);} },speed); }
 function finishType(){ if(VNTYPE.el){clearInterval(VNTYPE.timer);VNTYPE.el.innerHTML=VNTYPE.full;VNTYPE.done=true;enhanceGlossary(VNTYPE.el);scheduleAuto();} }
 function vnAdvance(){ if(VNTYPE.onBox){ try{(new Function(VNTYPE.onBox))();}catch(e){console.log(e);} } }
 function vnClick(){ if(!VNTYPE.done){finishType();return;} vnAdvance(); }
-function scheduleAuto(){ clearTimeout(VNCTRL.autoTimer); if(!VNCTRL.auto || !VNTYPE.done || !VNTYPE.onBox) return; VNCTRL.autoTimer=setTimeout(function(){ if(VNCTRL.auto && VNTYPE.done) vnAdvance(); },6000); }
+function scheduleAuto(){ clearTimeout(VNCTRL.autoTimer); const token=++VNCTRL.autoToken; if(!VNCTRL.auto || !VNTYPE.done || !VNTYPE.onBox) return; VNCTRL.autoTimer=setTimeout(function(){ if(token===VNCTRL.autoToken && VNCTRL.auto && VNTYPE.done && VNTYPE.onBox) vnAdvance(); },AUTO_DELAY_MS); }
 function updateCtrlState(){ document.querySelectorAll('[data-vnctrl="auto"]').forEach(b=>b.classList.toggle('on',VNCTRL.auto)); }
 function toggleAuto(ev){ if(ev)ev.stopPropagation(); VNCTRL.auto=!VNCTRL.auto; updateCtrlState(); if(!VNTYPE.done)finishType(); else scheduleAuto(); }
 function skipForward(ev){
@@ -685,6 +736,8 @@ document.addEventListener('keydown',function(e){
   if(e.key && e.key.toLowerCase()==='a')toggleAuto(e);
   if(e.key && e.key.toLowerCase()==='s')skipForward(e);
   if(e.key && e.key.toLowerCase()==='l')openVNLog(e);
+  if(e.key && e.key.toLowerCase()==='m')openBasicCalculator(e);
+  if(e.key && e.key.toLowerCase()==='c')openClinicalCalculator(e);
   if(e.key==='+' || e.key==='=')changeFontScale(0.1,e);
   if(e.key==='-' || e.key==='_')changeFontScale(-0.1,e);
 });
@@ -1513,7 +1566,7 @@ function drawScene(area, expr, name, textHTML, opts={}){
   const nameTab = name? `<div class="vn-name">${name}</div>`:"";
   const note = opts.note? `<div class="vn-note">${opts.note}</div>`:"";
   const adv = opts.advance? `<span class="adv">▼</span>`:"";
-  const ctrl = `<div class="vn-ctrl"><button type="button" data-vnctrl="auto" class="${VNCTRL.auto?'on':''}" onclick="toggleAuto(event)">AUTO</button><button type="button" onclick="skipForward(event)">SKIP</button><button type="button" onclick="openVNLog(event)">LOG</button><button type="button" onclick="showLabValues(event)">LABS</button>${fontControlsHTML()}</div>`;
+  const ctrl = `<div class="vn-ctrl"><button type="button" data-vnctrl="auto" class="${VNCTRL.auto?'on':''}" onclick="toggleAuto(event)">AUTO</button><button type="button" onclick="skipForward(event)">SKIP</button><button type="button" onclick="openVNLog(event)">LOG</button><button type="button" onclick="showLabValues(event)">LABS</button><button type="button" onclick="openBasicCalculator(event)">MATH</button><button type="button" onclick="openClinicalCalculator(event)">CALC</button>${fontControlsHTML()}</div>`;
   let below = opts.below||"";
   document.getElementById("app").innerHTML=`
     <div class="stage scene-photo ${AREA[area]?AREA[area].bg:'bg-title'}" id="stage" style="background-image:url('${bgFor(area)}')">${sceneDeco()}</div>
@@ -1717,6 +1770,8 @@ function goHub(){
         <div style="text-align:center;margin-top:18px">
           <span class="vn-ctrl" style="position:static;top:auto;right:auto;display:inline-flex;vertical-align:middle;margin-right:8px">${fontControlsHTML()}</span>
           <button class="btn ghost" onclick="showLabValues(event)">Lab Values</button>
+          <button class="btn ghost" onclick="openBasicCalculator(event)">Basic Calculator</button>
+          <button class="btn ghost" onclick="openClinicalCalculator(event)">Clinical Calculators</button>
           <button class="btn mint" onclick="showStudyCards()">Review Cards</button>
           <button class="btn ghost" onclick="exportStudyCardsTSV()">Download cards for spreadsheet</button>
           <button class="btn ghost" onclick="exportQuizletTXT()">Download cards for Quizlet</button>
@@ -1836,7 +1891,7 @@ function runCase(){
         <span class="calc-unit">${c.answer.unit||""}</span>
         <button class="btn sm" id="calcChk" onclick="answerCalc()">Check</button>
       </div>
-      ${c.hint?`<div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="document.getElementById('calcHint').style.display='block'">Formula hint</button></div><div id="calcHint" class="calc-hint" style="display:none">${c.hint}</div>`:""}`;
+      <div style="text-align:center;margin-top:8px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn ghost sm" onclick="openBasicCalculator(event)">Basic calculator</button><button class="btn ghost sm" onclick="openClinicalCalculator(event, calculatorForCase(curM.cases[caseIdx]))">Clinical calculator</button>${c.hint?`<button class="btn ghost sm" onclick="document.getElementById('calcHint').style.display='block'">Formula hint</button>`:""}</div>${c.hint?`<div id="calcHint" class="calc-hint" style="display:none">${c.hint}</div>`:""}`;
     document.getElementById("choiceLayer").appendChild(holder);
     enhanceGlossary(holder);
     const ci=document.getElementById("calcIn"); if(ci){ ci.focus(); ci.addEventListener("keydown",e=>{if(e.key==="Enter")answerCalc();}); }
@@ -1846,6 +1901,7 @@ function runCase(){
   } else if(c.type==="journal"){ renderJournal(c);
   }
 }
+function calculatorForCase(c){ const txt=((c&&[c.kick,c.q,c.hint,(c.given||[]).map(g=>g.label+' '+g.value).join(' ')].join(' '))||'').toLowerCase(); if(/crcl|cockcroft|creatinine clearance|scr/.test(txt))return 'crcl'; if(/heparin|units\/kg|infusion/.test(txt))return 'heparin'; if(/phenytoin/.test(txt))return 'phenytoin'; if(/anion|hco|bicarbonate/.test(txt))return 'anion'; if(/calcium|albumin/.test(txt))return 'calcium'; return ''; }
 function answerCalc(){
   const m=curM,c=m.cases[caseIdx]; if(G.results[m.id][caseIdx]!==null) return;
   const raw=(document.getElementById("calcIn").value||"").replace(/[, ]/g,"");
