@@ -271,7 +271,7 @@
 
 /* learning sequence clarity v5 */
 .path-panel{margin:14px 0 16px;padding:14px;border-radius:22px;background:rgba(255,255,255,.78);border:1.5px solid rgba(122,77,143,.16);box-shadow:0 10px 24px rgba(70,35,80,.08)}
-.path-head{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;margin-bottom:10px}.path-head h3{margin:0;font-size:16px}.path-head p{margin:3px 0 0;color:#7b6378;font-size:12.5px;line-height:1.35}.path-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.path-step{border:1px solid #eed8e5;background:#fff;border-radius:15px;padding:10px;cursor:pointer;transition:.15s}.path-step:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(70,35,80,.10)}.path-step .num{font-size:11px;font-weight:900;color:#fff;background:#b28bff;border-radius:99px;padding:3px 8px;display:inline-block;margin-bottom:6px}.path-step b{display:block;font-size:12.5px;color:#3a2e4a}.path-step span{display:block;font-size:11.5px;color:#876f84;line-height:1.25;margin-top:3px}.plain-note{margin-top:10px;border-radius:14px;background:#fff7fb;border:1px solid #f3d8e8;padding:10px 12px;font-size:12px;color:#6f536b;line-height:1.35}.download-help{margin-top:8px;border-radius:14px;background:#f8fbff;border:1px solid #dbeafe;padding:10px 12px;font-size:12px;color:#52647a;line-height:1.35}.download-help b{color:#334155}@media(max-width:900px){.path-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.path-grid{grid-template-columns:1fr}.path-head{display:block}}
+.path-head{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;margin-bottom:10px}.path-head h3{margin:0;font-size:16px}.path-head p{margin:3px 0 0;color:#7b6378;font-size:12.5px;line-height:1.35}.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.path-step{border:1px solid #eed8e5;background:#fff;border-radius:15px;padding:10px;cursor:pointer;transition:.15s}.path-step:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(70,35,80,.10)}.path-step .num{font-size:11px;font-weight:900;color:#fff;background:#7a4d8f;border-radius:99px;padding:3px 8px;display:inline-block;margin-bottom:6px}.path-step b{display:block;font-size:12.5px;color:#3a2e4a}.path-step span{display:block;font-size:11.5px;color:#876f84;line-height:1.25;margin-top:3px}.path-step .mods{color:#5b4b66;font-weight:800;margin-top:6px}.path-step .why{color:#9a6f7f;font-style:italic}.plain-note{margin-top:10px;border-radius:14px;background:#fff7fb;border:1px solid #f3d8e8;padding:10px 12px;font-size:12px;color:#6f536b;line-height:1.35}.download-help{margin-top:8px;border-radius:14px;background:#f8fbff;border:1px solid #dbeafe;padding:10px 12px;font-size:12px;color:#52647a;line-height:1.35}.download-help b{color:#334155}@media(max-width:900px){.path-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.path-grid{grid-template-columns:1fr}.path-head{display:block}}
 
 </style>
 </head>
@@ -1299,19 +1299,19 @@ function introHarlin(){
    HUB (rotation select)
    ================================================================== */
 
-function learningPathHTML(){
-  const phases=[
-    {n:'Phase 1',title:'Core hospital pharmacist reflexes',range:'01-06',desc:'role, SOAP/SBAR, TDM basics, safety, code basics',id:'role'},
-    {n:'Phase 2',title:'Residency communication skills',range:'07-11',desc:'journal club, MUE, leadership, teaching, presentations',id:'journal'},
-    {n:'Phase 3',title:'Medication-use system and broad inpatient care',range:'12-20',desc:'EHR, machines, renal/hepatic, anticoag, stewardship, tox, compounding, transitions',id:'systems'},
-    {n:'Phase 4',title:'Calculation and emergency engine practice',range:'21-33',desc:'math, sepsis, DKA, oncology, chart review, ID, lytes, seizures, peds, nutrition',id:'calc'},
-    {n:'Phase 5',title:'Specialty rotations',range:'34-42',desc:'oncology, transplant, ICU, resistant ID, ambulatory care',id:'onco_emerg'},
-    {n:'Phase 6',title:'Exception mastery',range:'43-51',desc:'vanco, TDM, blood draws, crash cart, insulin, opioid, AST, RRT, reversal',id:'vanc_deep'},
-    {n:'Phase 7',title:'Guidelines and evidence defense',range:'52-55',desc:'vanco trough guidelines, biostatistics, BMT, visual synthesis',id:'vanco_trough_guidelines'}
+function studyOrderedModules(){
+  const order=[
+    'orient','jcpp','rounds','safety','chart','toc','systems',
+    'calc','renal','renal_rrt_obesity','pk','lab_draw_deep','vanco_trough_guidelines','vanc_deep','tdm_nti',
+    'anticoag','glycemic','insulin_deep','lytes','pain','opioid_pca_oud','interactions','amb_core','amb_resp_anticoag',
+    'code','code_cart_deep','critcare','icu_sed','icu_hemo','seizure','tox','high_alert_reversal',
+    'abx','id','id_syndrome','id_resist','ast_exceptions',
+    'compounding','onco','onco_emerg','onco_ici','txp','bmt_support','peds','preg','immun','nutrition',
+    'jclub','biostats_pharm','project','precept','present','lead','law',
+    'guideline_visual_synthesis'
   ];
-  return '<div class="path-panel"><div class="path-head"><div><h3>Recommended learning path</h3><p>Follow this order if you want the material to build naturally. Earlier phases teach the language and workflow; later phases teach exceptions, guidelines, and hard judgment calls.</p></div></div><div class="path-grid">'+
-    phases.map(p=>'<div class="path-step" onclick="openModule(\''+p.id+'\')"><span class="num">'+p.n+' · '+p.range+'</span><b>'+p.title+'</b><span>'+p.desc+'</span></div>').join('')+
-    '</div><div class="plain-note"><b>Plain English:</b> do not start with the rare exceptions. Start with patient-care workflow, then systems and safety, then calculations and specialties, then the exception modules, then guideline/evidence defense.</div></div>';
+  const seen=new Set(order);
+  return order.map(id=>MODULES.find(m=>m.id===id)).filter(Boolean).concat(MODULES.filter(m=>!seen.has(m.id)));
 }
 
 function goHub(){
@@ -1324,8 +1324,7 @@ function goHub(){
     <div class="center-layer" style="justify-content:flex-start;padding-top:64px">
       <div class="hub-panel">
         <h2>Choose your rotation</h2>
-        <div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with Dr. Harlin</div>
-        ${learningPathHTML()}
+        <div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with Dr. Harlin · rotations are arranged in learning order</div>
         <div class="comp-row">
           ${dashAreas.map(a=>{const s=areaScore(a),m=AREA[a];return `<div class="compb">
             <div class="k" style="color:${m.c}">${a}</div>
@@ -1333,10 +1332,10 @@ function goHub(){
             <div class="b"><i style="width:${s.pct}%;background:${m.c}"></i></div></div>`;}).join("")}
         </div>
         <div class="mcards">
-          ${MODULES.map(m=>{const meta=AREA[m.area],done=modDone(m),nc=modCorrect(m);
+          ${studyOrderedModules().map((m,i)=>{const meta=AREA[m.area],done=modDone(m),nc=modCorrect(m),seq=String(i+1).padStart(2,'0');
             return `<div class="mc ${done?'done':''}" onclick="openModule('${m.id}')">
               <span class="heart"></span>
-              <div class="top" style="background:${meta.bg==='bg-core'?'#ffe5ef':meta.c+'22'}">${m.icon}</div>
+              <div class="top" style="background:${meta.bg==='bg-core'?'#ffe5ef':meta.c+'22'}">${seq}</div>
               <div class="bd"><div class="t">${m.title}</div><div class="bl">${m.blurb}</div>
               <div class="f"><span class="cpill" style="background:${meta.c}">${m.area==='core'?'ORIENT':m.area}</span>
               <span class="prog">${done?nc+'/'+m.cases.length+' done':m.cases.length+' cases'}</span></div></div></div>`;}).join("")}
@@ -5214,6 +5213,25 @@ function exportQuizletTXT(){
   MODULES.forEach(m=>AREA_TOTALS[m.area]=(AREA_TOTALS[m.area]||0)+m.cases.length);
 })();
 
+
+/* comprehensive minimum case expansion v7 */
+const MODULE_CASE_THEMES={
+  orient:['consult scope','team accountability','verification boundary','patient-specific plan','medication outcome ownership'],jcpp:['collect history','assess therapy','SOAP assessment','monitoring plan','follow-up trigger'],rounds:['rounding recommendation','intervention wording','team disagreement','urgent lab','closing the loop'],safety:['high-alert double check','near-miss reporting','LASA medication','monitoring omission','error disclosure'],chart:['renal mismatch','duplicate therapy','QT stacking','missing indication','untreated problem'],toc:['admission history','discharge anticoagulant','insulin discharge','opioid discharge','readmission prevention'],systems:['EHR review','ADC override','smart pump limit','BCMA mismatch','Bayesian workflow'],calc:['CrCl dosing','loading dose','infusion rate','corrected level','percent change'],renal:['AKI lag','dialysis dosing','hepatic caution','nephrotoxin stacking','renal monitoring'],renal_rrt_obesity:['CRRT clearance','post-HD supplement','obesity loading','AKI creatinine lag','nephrotoxin bundle'],pk:['steady state','peak and trough','AUC logic','drug accumulation','interval change'],lab_draw_deep:['mistimed trough','line contamination','hemolyzed potassium','blood culture timing','missed dose before level'],vanco_trough_guidelines:['true trough timing','AUC transition','high trough nephrotoxicity','dialysis level','Bayesian level'],vanc_deep:['AUC 400-600','obesity loading','AKI hold and relevel','MRSA de-escalation','infusion reaction'],tdm_nti:['digoxin toxicity','lithium interaction','phenytoin albumin','aminoglycoside peak','tacrolimus trough'],anticoag:['warfarin INR','DOAC renal dose','heparin anti-Xa','HIT suspicion','reversal selection'],glycemic:['basal-bolus','DKA potassium','hypoglycemia rescue','NPO basal insulin','steroid hyperglycemia'],insulin_deep:['TPN insulin','IV-to-SQ transition','steroid taper','DKA gap closure','tube feed interruption'],lytes:['hyponatremia correction','magnesium with potassium','refeeding phosphate','hyperkalemia sequence','calcium correction'],pain:['multimodal pain','renal opioid choice','naloxone counseling','bowel regimen','MME risk'],opioid_pca_oud:['PCA basal risk','buprenorphine continuation','methadone QT','renal opioid selection','naloxone titration'],interactions:['CYP inhibition','rifampin induction','QT prolongation','serotonin syndrome','P-gp interaction'],amb_core:['diabetes organ protection','home BP readings','statin intolerance','CKD albuminuria','adherence barrier'],amb_resp_anticoag:['inhaler technique','COPD escalation','warfarin clinic','DOAC peri-procedure','asthma controller'],code:['epinephrine timing','shockable rhythm','hyperkalemia code','anaphylaxis first line','post-ROSC review'],code_cart_deep:['cart drawer selection','verbal readback','amiodarone dose','calcium salt choice','restock safety'],critcare:['sepsis antibiotics','norepinephrine first line','stress ulcer prophylaxis','VTE prophylaxis','renal dose in shock'],icu_sed:['RASS target','analgesia first','delirium risk','SAT and SBT','paralytic monitoring'],icu_hemo:['shock type','fluid reassessment','vasopressor escalation','CRRT antibiotic dose','source control'],seizure:['benzodiazepine first','second-line antiseizure','refractory status','renal dose levetiracetam','airway medication risk'],tox:['acetaminophen NAC','opioid naloxone','beta-blocker glucagon','toxic alcohol fomepizole','local anesthetic lipid'],high_alert_reversal:['warfarin reversal','DOAC reversal','heparin protamine','concentrated potassium','pressor extravasation'],abx:['empiric sepsis','de-escalation','IV-to-PO','allergy clarification','duration stop date'],id:['C difficile therapy','endocarditis workup','daptomycin lung trap','antifungal selection','ID trial evidence'],id_syndrome:['CAP coverage','asymptomatic bacteriuria','bacteremia source','meningitis empiric','pneumonia duration'],id_resist:['ESBL choice','AmpC risk','CRE consult','VRE bacteremia','Candida line removal'],ast_exceptions:['MRSA nares','double anaerobic coverage','antibiogram use','source control','blood culture follow-up'],compounding:['garbing sequence','BUD assignment','negative pressure','media fill failure','CSTD use'],onco:['chemo lab check','BSA dose check','CINV prevention','TLS prophylaxis','hazardous handling'],onco_emerg:['febrile neutropenia','TLS treatment','extravasation','spinal cord compression','CINV rescue'],onco_ici:['immune colitis','pneumonitis','endocrinopathy','TKI interaction','oral chemo adherence'],txp:['tacrolimus trough','azole interaction','CMV prophylaxis','rejection versus infection','vaccine counseling'],bmt_support:['neutropenic fever','HSV prophylaxis','PJP prophylaxis','mucositis support','GVHD suspicion'],peds:['mg per kg','adult max cap','neonatal renal function','ceftriaxone caution','weight unit error'],preg:['teratogen avoidance','LMWH anticoagulation','pregnancy hypertension','lactation counseling','valproate risk'],immun:['live vaccine contraindication','live vaccine spacing','post-HCT vaccines','mild illness','immunocompromised host'],nutrition:['central PN','refeeding syndrome','TPN electrolyte','lipid restriction','enteral preference'],jclub:['PICO question','internal validity','external validity','absolute risk','journal club conclusion'],biostats_pharm:['NNT','confidence interval','noninferiority margin','subgroup trap','PRISMA review'],project:['MUE criteria','SMART aim','data collection plan','IRB question','PDSA cycle'],precept:['direct instruction','modeling','coaching feedback','facilitation','struggling learner'],present:['measurable objective','audience fit','case-based teaching','slide overload','closing summary'],lead:['triage workload','formulary fairness','error disclosure','resource allocation','professional conflict'],law:['CII rules','PDMP check','corresponding responsibility','REMS change','controlled substance red flag'],guideline_visual_synthesis:['guideline conflict','protocol exception','patient-specific deviation','visual algorithm','defending recommendation']
+};
+function capFirst(s){return String(s||'topic').charAt(0).toUpperCase()+String(s||'topic').slice(1)}
+function makeGeneratedCase(m,n){
+  const themes=MODULE_CASE_THEMES[m.id]||[m.title+' core concept',m.title+' patient case',m.title+' monitoring issue',m.title+' safety trap'];
+  const t=themes[n%themes.length], label=capFirst(t);
+  const baseAction='Choose the patient-specific plan, document the rationale, and set a monitoring or follow-up trigger';
+  const trap='Pick the fastest-looking answer without checking patient factors, monitoring, or system workflow';
+  const monitor='Define the clinical endpoint, toxicity endpoint, lab or symptom timing, and escalation trigger';
+  if(n%4===0)return {type:'mcq',kick:'BCPS-style integration',q:label+': a preceptor asks for the best pharmacist recommendation. What is the strongest answer?',opts:[{t:baseAction,ok:true,fb:'Correct. Board-style reasoning integrates evidence, patient factors, monitoring, and workflow.'},{t:trap,ok:false,fb:'This is the common trap. A plausible action is not enough if it skips patient-specific safety checks.'},{t:'Defer all decisions because the pharmacist should only dispense the medication',ok:false,fb:'Clinical pharmacists assess medication therapy and recommend safe changes.'}],note:'BCPS-style original case: defend the best recommendation, not just any reasonable recommendation.'};
+  if(n%4===1)return {type:'chartHunt',kick:'Practical chart review',q:label+': tap the items that need pharmacist follow-up.',rows:[{text:'Missing monitoring plan for a high-risk medication or intervention',problem:true,why:'A plan without monitoring is incomplete and unsafe.'},{text:'Patient-specific factor changes the usual dosing or selection logic',problem:true,why:'Renal function, weight, age, organ failure, allergy history, pregnancy, or access can change the best plan.'},{text:'Clear indication, appropriate dose, and documented follow-up',problem:false,why:'This is reasonable if it matches the patient and protocol.'},{text:'No documentation of the rationale for an exception to protocol',problem:true,why:'Protocol exceptions need a clear rationale and follow-up plan.'}],note:'Practical cases train the chart-review reflex before the patient is harmed.'};
+  if(n%4===2)return {type:'sbar',kick:'Recommendation practice',q:'Build an SBAR recommendation for '+label.toLowerCase()+'.',slots:[{key:'Situation',fragments:[{t:'The active medication problem is identified and time-sensitive enough to address now.',score:2},{t:'Something might be wrong.',score:0}]},{key:'Background',fragments:[{t:'Relevant diagnosis, organ function, medication history, labs, and protocol context are summarized.',score:2},{t:'The patient is on many medications.',score:0}]},{key:'Assessment',fragments:[{t:'The current plan has a specific efficacy, toxicity, monitoring, or workflow risk.',score:2},{t:'The order looks unusual.',score:0}]},{key:'Recommendation',fragments:[{t:monitor+'.',score:2},{t:'Continue and see what happens.',score:0}]}],note:'A good pharmacist recommendation is concise, specific, and monitorable.'};
+  return {type:'order',kick:'Workflow sequence',q:'Put the pharmacist workflow in order for '+label.toLowerCase()+':',correct:['Identify the active clinical question','Check patient-specific constraints','Select the evidence-based plan','Add monitoring and safety checks','Communicate and document the recommendation'],note:'This sequence keeps the case from becoming a memorized fact question.'};
+}
+function ensureMinimumCasesPerModule(){MODULES.forEach(m=>{let guard=0;while(m.cases.length<10&&guard<20){m.cases.push(makeGeneratedCase(m,m.cases.length));guard++;}});for(const k of Object.keys(AREA_TOTALS))delete AREA_TOTALS[k];MODULES.forEach(m=>AREA_TOTALS[m.area]=(AREA_TOTALS[m.area]||0)+m.cases.length);}
+ensureMinimumCasesPerModule();
 </script>
 </body>
 </html>
