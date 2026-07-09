@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Clinical Path — PGY-1 with Dr. Harlin</title>
+<title>The Clinical Path — PGY-1 with Your Preceptor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
@@ -390,6 +390,17 @@
   .essay-case{max-width:920px;margin:0 auto 12px;background:#fff;border:1px solid #cbd5e1;border-radius:14px;padding:14px;color:#111827;box-shadow:0 10px 28px rgba(15,23,42,.12)}
   .essay-case h4{margin:0 0 8px;font-size:15px;font-weight:900;color:#0f172a;letter-spacing:.01em}.essay-stem{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #0d9488;border-radius:10px;padding:11px 12px;font-size:14px;line-height:1.5;font-weight:750;color:#1f2937;margin-bottom:12px}.essay-q{border-top:1px solid #e5e7eb;padding:12px 0}.essay-q:first-of-type{border-top:0}.essay-q .qhead{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:#475569;font-weight:900;margin-bottom:5px}.essay-q .prompt{font-size:14px;line-height:1.45;font-weight:850;color:#111827;margin-bottom:8px}.essay-q textarea{width:100%;min-height:70px;border:1px solid #cbd5e1;border-radius:10px;padding:9px 10px;font-family:"Nunito",system-ui,sans-serif;font-size:14px;line-height:1.45;font-weight:700;color:#0f172a;background:#fff;resize:vertical}.essay-q textarea:focus{outline:2px solid rgba(13,148,136,.22);border-color:#0d9488}.essay-answer{display:none;margin-top:8px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:10px;padding:9px 10px;font-size:13px;line-height:1.45;font-weight:750;color:#134e4a}.essay-answer b{color:#0f766e}.essay-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;border-top:1px solid #e5e7eb;margin-top:10px;padding-top:12px}.essay-msg{text-align:center;color:#991b1b;font-size:12px;font-weight:850;margin-top:8px;min-height:18px}.essay-meta{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 2px}.essay-tag{font-size:11px;font-weight:900;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:999px;padding:4px 7px}
 
+
+
+  /* Unified calculation case card v17 */
+  .calc-card{max-width:820px;margin:0 auto 12px;background:#fff;border:1px solid #cbd5e1;border-radius:14px;padding:14px 16px;color:#111827;box-shadow:0 10px 28px rgba(15,23,42,.12)}
+  .calc-card .calc-question{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #475569;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:15px;line-height:1.45;font-weight:900;color:#111827}.calc-card .calc-question b{color:#7c3f99}.calc-card .calc-given{justify-content:flex-start;max-width:none;margin:0 0 10px}.calc-card .calc-row{max-width:none;justify-content:flex-start;margin:0;flex-wrap:wrap}.calc-card .calc-actions{display:flex;gap:8px;justify-content:flex-start;flex-wrap:wrap;margin-top:10px}.calc-card .calc-hint{max-width:none;margin:10px 0 0}.calc-card .calc-unit{color:#334155}.calc-card .calc-input{border-color:#cbd5e1;border-radius:10px}.calc-card .calc-input:focus{border-color:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,.12)}
+
+
+
+  /* Preceptor and dialogue layout v18 */
+  .dialogue-stack{position:relative;max-width:920px;margin:0 auto;z-index:22}.dialogue-stack .vn-name{display:inline-block;margin:0 0 0 22px;transform:translateY(1px)}.dialogue-stack .vn-box{margin:0}.preceptor-select{background:rgba(255,255,255,.94);border:1px solid #cbd5e1;border-radius:14px;padding:12px 14px;max-width:760px;margin:10px auto 0;box-shadow:0 10px 28px rgba(15,23,42,.12)}.preceptor-select h3{margin:0 0 8px;font-size:16px;color:#0f172a;font-weight:900}.preceptor-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.preceptor-card{display:flex;gap:10px;align-items:center;text-align:left;border:1px solid #cbd5e1;background:#fff;border-radius:12px;padding:10px;cursor:pointer;color:#1f2937}.preceptor-card:hover{border-color:#0d9488;background:#f0fdfa}.preceptor-card.on{border-color:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,.12)}.preceptor-card img{width:58px;height:58px;border-radius:12px;object-fit:cover;object-position:top;background:#f8fafc}.preceptor-card b{display:block;font-size:14px;color:#0f172a}.preceptor-card span{display:block;font-size:12px;color:#475569;font-weight:750;line-height:1.3}.case-context{margin-bottom:12px!important}
+
 </style>
 </head>
 <body>
@@ -407,18 +418,22 @@ const BG_URLS={core:'https://images.unsplash.com/photo-1580281657529-557a6abb638
 Object.assign(SPRITE_URLS,{
   patient:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044454_bceef426-09d9-4a26-b13e-96a4ad6b66b2.png"},
   nurse:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044505_f592aeb4-2e72-481c-909a-d6b73ed818ea.png"},
-  attending:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044519_de99d4b1-9c84-4bf9-8cae-8289e81f6c38.png"}
+  attending:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044519_de99d4b1-9c84-4bf9-8cae-8289e81f6c38.png"},
+  preceptor_male:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260709_065635_bb879b84-87e4-4af3-bfd7-e0f4647a145c.png"},
+  preceptor_female:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260709_065636_2530a225-47ff-4d35-87a2-0171d0b89adb.png"}
 });
 
 function faceImg(expr, who){
-  who = who||'harlin';
+  who = who||'female';
   var SETS={
     harlin:{dir:'assets/harlin/harlin_', has:['neutral','happy','think','worry','proud','laugh','encourage','alarmed','wink','surprised','sad','stern'], alias:{smile:'neutral'}},
     belle:{dir:'assets/belle/belle_', has:['neutral','proud','think','warm'], alias:{happy:'warm',smile:'neutral',encourage:'warm',laugh:'warm',wink:'warm',surprised:'neutral',worry:'think',sad:'think',stern:'neutral',alarmed:'think'}},
     joey:{dir:'assets/joey/joey_', has:['neutral','happy','think','worry','proud'], alias:{smile:'neutral',wink:'happy'}},
     patient:{dir:'assets/cameo/patient_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
     nurse:{dir:'assets/cameo/nurse_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
-    attending:{dir:'assets/cameo/attending_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}}
+    attending:{dir:'assets/cameo/attending_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
+    preceptor_male:{dir:'assets/preceptor/male_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral',laugh:'neutral',wink:'neutral',surprised:'neutral'}},
+    preceptor_female:{dir:'assets/preceptor/female_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral',laugh:'neutral',wink:'neutral',surprised:'neutral'}}
   };
   var s=SETS[who]||SETS.harlin; var e=expr; if(s.alias&&s.alias[e])e=s.alias[e]; if(s.has.indexOf(e)<0)e='neutral';
   var url=(SPRITE_URLS[who]&&SPRITE_URLS[who][e])||SPRITE_URLS.harlin.neutral;
@@ -551,6 +566,18 @@ function fontControlsHTML(){
   return `<button type="button" onclick="changeFontScale(-0.1,event)" title="Decrease font size">A-</button><button type="button" onclick="changeFontScale(0.1,event)" title="Increase font size">A+</button><button type="button" data-font-label onclick="changeFontScale(0,event)" title="Current font size">${Math.round(getFontScale()*100)}%</button>`;
 }
 applyFontScale(getFontScale());
+const PRECEPTORS={
+  female:{id:'female',name:'Dr. Mina Seo',label:'Female preceptor',who:'preceptor_female',sprite:'neutral',tone:'Warm pharmacotherapy preceptor'},
+  male:{id:'male',name:'Dr. Daniel Park',label:'Male preceptor',who:'preceptor_male',sprite:'neutral',tone:'ICU-trained clinical mentor'}
+};
+function selectedPreceptor(){ const id=(G&&G.preceptor)||localStorage.getItem('clinicalPathPreceptor')||'female'; return PRECEPTORS[id]||PRECEPTORS.female; }
+function preceptorName(){ return selectedPreceptor().name; }
+function preceptorWho(){ return selectedPreceptor().who; }
+function preceptorExpr(expr){ const p=selectedPreceptor(); if(p.who==='belle'){ return {happy:'warm',smile:'warm',proud:'proud',laugh:'warm',encourage:'warm',wink:'warm',stern:'think',worry:'think',alarmed:'think',surprised:'neutral'}[expr]||expr; } return expr; }
+function choosePreceptor(id){ const p=PRECEPTORS[id]||PRECEPTORS.female; if(!G)G={name:'Joey Han',avatar:pickedAv,results:initResults()}; G.preceptor=p.id; try{localStorage.setItem('clinicalPathPreceptor',p.id);}catch(e){} document.querySelectorAll('.preceptor-card').forEach(x=>x.classList.toggle('on',x.dataset.id===p.id)); }
+function preceptorSelectHTML(){ const cur=(G&&G.preceptor)||localStorage.getItem('clinicalPathPreceptor')||'female'; return `<div class="preceptor-select"><h3>Choose your preceptor</h3><div class="preceptor-options">${Object.values(PRECEPTORS).map(p=>`<button type="button" class="preceptor-card ${cur===p.id?'on':''}" data-id="${p.id}" onclick="choosePreceptor('${p.id}')"><img src="${SPRITE_URLS[p.who][p.sprite]||SPRITE_URLS[p.who].neutral}" alt="${p.name}"><span><b>${p.name}</b>${p.label}<br>${p.tone}</span></button>`).join('')}</div></div>`; }
+function preceptorNote(){ return `${preceptorName()} selected`; }
+
 
 const GLOSSARY={
   MAR:['Medication Administration Record','The part of the chart that shows what was actually administered, held, refused, and when.'],
@@ -1440,7 +1467,7 @@ MODULES.push({id:"clinical_workup_labs_pk",icon:"13",area:"R1",title:"Clinical P
 {type:"calc",kick:"Infusion-rate calculation",patient:"Heparin infusion is ordered using a weight-based protocol.",labs:[{name:"Platelets",value:"190 ×10³/mm³",ref:"150–450 ×10³/mm³"},{name:"aPTT",value:"29 sec",ref:"25–35 sec"}],tasks:["Calculate infusion rate","Verify high-alert medication setup","Recommend monitoring"],q:"Heparin 18 units/kg/hr for 80 kg; bag concentration is 25,000 units/250 mL. Rate in mL/hr?",given:[{label:"Dose",value:"18 units/kg/hr"},{label:"Weight",value:"80 kg"},{label:"Concentration",value:"100 units/mL"}],answer:{value:14.4,tolerance:0.6,unit:"mL/hr"},hint:"18 x 80 = units/hr; divide by units/mL.",note:"18 x 80 = 1440 units/hr; 1440 / 100 = 14.4 mL/hr. High-alert infusions need pump/monitoring checks."},
 {type:"mcq",kick:"Evidence-based pharmacotherapy recommendation",patient:"Patient with HFrEF is near discharge after decompensation. Blood pressure is stable.",labs:[{name:"Potassium",value:"4.4 mEq/L",ref:"3.5–5.0 mEq/L"},{name:"Serum creatinine",value:"1.1 mg/dL",ref:"0.6–1.2 mg/dL"},{name:"BUN",value:"20 mg/dL",ref:"8–23 mg/dL"}],tasks:["Interpret labs for GDMT safety","Assess medication gaps","Recommend evidence-based plan with monitoring"],q:"What is the strongest pharmacist recommendation?",opts:[{t:"Identify missing HFrEF GDMT opportunities, recommend tolerated evidence-based therapy, and set renal/BP/potassium follow-up",ok:true,fb:"Correct. The recommendation integrates evidence, labs, safety, access, and monitoring."},{t:"Avoid all medication optimization because discharge is soon",ok:false,fb:"Discharge is a key opportunity for medication optimization."},{t:"Recommend only a loop diuretic and no follow-up labs",ok:false,fb:"Diuretics treat congestion but do not replace disease-modifying therapy or monitoring."}]}]});
 
-const TEACH = {"orient":["Welcome — I'm Dr. Harlin, your preceptor. Let's make you a great clinical pharmacist.","A clinical pharmacist is accountable for safe, effective medication therapy — the right decision for THIS patient, not just an accurate product.","Order review, rounds, drug info, TDM and renal dosing, med rec, ADR prevention, stewardship — and precepting students. That's the job.","Residency is graded on four ASHP competencies: R1 Patient Care, R2 Practice Advancement, R3 Leadership, R4 Teaching.","Don't worry — we'll learn it one rotation at a time. Ready?"],"jcpp":["Always work patients up the same way. We call it the JCPP.","Collect, Assess, Plan, Implement, Follow-up — burn those five steps into muscle memory.","Document with SOAP: Subjective, Objective, Assessment, Plan.","Quick tip: if you can measure or verify it, it's objective. If the patient reports it, it's subjective."],"rounds":["On rounds, turn your assessment into an intervention the team will actually accept.","Use SBAR: Situation, Background, Assessment, Recommendation.","Be vague and you'll be ignored — name the drug, dose, route, frequency, and monitoring.","Frame it around the patient's goal, not 'the guideline says'."],"pk":["TDM is our signature service.","Check renal function (CrCl) first — vanco, DOACs, and enoxaparin all hinge on it.","Vancomycin is AUC/MIC-guided now (400-600), not trough-only.","Respect the NTI drugs — a small change tips them from useless to toxic. Always double-check."],"safety":["We're the safety net of the medication-use system.","The five rights aren't enough — verify indication, duration, and monitoring too.","Antibiotics: broad and early in sepsis, then de-escalate on cultures.","New clonus, fever, and sweating after adding a serotonergic agent? Think serotonin syndrome."],"code":["We respond to codes too — prepping drugs, advising doses, documenting.","Arrest: epinephrine 1 mg every 3-5 minutes. Shockable rhythm? Defibrillate plus amiodarone.","Hyperkalemia has an order: stabilize (calcium), shift (insulin/dextrose), then eliminate.","Anaphylaxis first-line is IM epinephrine, into the anterolateral thigh."],"jclub":["Evidence-based practice is core to R2. Let me show you how to run a journal club.","Frame the question with PICO: Population, Intervention, Comparison, Outcome.","Judge validity: internal (is it free of bias?) and external (does it apply to your patients?).","Don't be fooled by relative risk. 8% to 4% is ARR 4% and NNT 25."],"project":["R2 is about improving the system — an MUE or QI project.","Flow: find the gap, review the literature, write aims and methods, get IRB approval, collect data, then present and publish.","Approvals come before you pull any data. Don't flip that order.","For a formulary decision, bring a monograph or class review, not a single case."],"lead":["R3 is running the practice well — managing time and resources, and acting like a professional.","Triage by patient risk and urgency. An unstable patient or a critical lab comes first.","The P&T committee owns the formulary. Support it with evidence and run it fairly.","Made an error? Disclose it, fix it, monitor, and report. That's professionalism."],"precept":["R4 — finally, teaching. You'll precept students in a layered-learning model.","Four preceptor roles, in order: Direct Instruction, Modeling, Coaching, Facilitation.","No foundation? Instruct. Then model out loud, then coach with feedback, then let them fly.","Stay flexible — if a learner struggles in coaching, step back to modeling."],"present":["Presenting is an R4 skill too. Start from the audience and objectives, not the slides.","Write measurable objectives — 'select', not 'understand'.","One idea per slide, minimal text, and engage them with cases or polling.","Structure: objectives, background, content, summary, references."]};
+const TEACH = {"orient":["Welcome — I'm your preceptor. Let's make you a great clinical pharmacist.","A clinical pharmacist is accountable for safe, effective medication therapy — the right decision for THIS patient, not just an accurate product.","Order review, rounds, drug info, TDM and renal dosing, med rec, ADR prevention, stewardship — and precepting students. That's the job.","Residency is graded on four ASHP competencies: R1 Patient Care, R2 Practice Advancement, R3 Leadership, R4 Teaching.","Don't worry — we'll learn it one rotation at a time. Ready?"],"jcpp":["Always work patients up the same way. We call it the JCPP.","Collect, Assess, Plan, Implement, Follow-up — burn those five steps into muscle memory.","Document with SOAP: Subjective, Objective, Assessment, Plan.","Quick tip: if you can measure or verify it, it's objective. If the patient reports it, it's subjective."],"rounds":["On rounds, turn your assessment into an intervention the team will actually accept.","Use SBAR: Situation, Background, Assessment, Recommendation.","Be vague and you'll be ignored — name the drug, dose, route, frequency, and monitoring.","Frame it around the patient's goal, not 'the guideline says'."],"pk":["TDM is our signature service.","Check renal function (CrCl) first — vanco, DOACs, and enoxaparin all hinge on it.","Vancomycin is AUC/MIC-guided now (400-600), not trough-only.","Respect the NTI drugs — a small change tips them from useless to toxic. Always double-check."],"safety":["We're the safety net of the medication-use system.","The five rights aren't enough — verify indication, duration, and monitoring too.","Antibiotics: broad and early in sepsis, then de-escalate on cultures.","New clonus, fever, and sweating after adding a serotonergic agent? Think serotonin syndrome."],"code":["We respond to codes too — prepping drugs, advising doses, documenting.","Arrest: epinephrine 1 mg every 3-5 minutes. Shockable rhythm? Defibrillate plus amiodarone.","Hyperkalemia has an order: stabilize (calcium), shift (insulin/dextrose), then eliminate.","Anaphylaxis first-line is IM epinephrine, into the anterolateral thigh."],"jclub":["Evidence-based practice is core to R2. Let me show you how to run a journal club.","Frame the question with PICO: Population, Intervention, Comparison, Outcome.","Judge validity: internal (is it free of bias?) and external (does it apply to your patients?).","Don't be fooled by relative risk. 8% to 4% is ARR 4% and NNT 25."],"project":["R2 is about improving the system — an MUE or QI project.","Flow: find the gap, review the literature, write aims and methods, get IRB approval, collect data, then present and publish.","Approvals come before you pull any data. Don't flip that order.","For a formulary decision, bring a monograph or class review, not a single case."],"lead":["R3 is running the practice well — managing time and resources, and acting like a professional.","Triage by patient risk and urgency. An unstable patient or a critical lab comes first.","The P&T committee owns the formulary. Support it with evidence and run it fairly.","Made an error? Disclose it, fix it, monitor, and report. That's professionalism."],"precept":["R4 — finally, teaching. You'll precept students in a layered-learning model.","Four preceptor roles, in order: Direct Instruction, Modeling, Coaching, Facilitation.","No foundation? Instruct. Then model out loud, then coach with feedback, then let them fly.","Stay flexible — if a learner struggles in coaching, step back to modeling."],"present":["Presenting is an R4 skill too. Start from the audience and objectives, not the slides.","Write measurable objectives — 'select', not 'understand'.","One idea per slide, minimal text, and engage them with cases or polling.","Structure: objectives, background, content, summary, references."]};
 Object.assign(TEACH, {"clinical_workup_labs_pk":["This rotation is the core of clinical pharmacy: interpret the patient, not the isolated fact.","ACCP frames the clinical pharmacist around medication optimization, team-based care, and a repeatable process of care.","For each case, first identify abnormal labs, then connect them to medication safety/effectiveness, PK, and monitoring.","Your answer must be a pharmacotherapy recommendation with dose or action, rationale, and follow-up trigger."],"systems":["Before the clinical stuff — you have to master the tools we run on.","The EHR is home base: labs, notes, the MAR, and every order you verify. CPOE feeds it; you're the safety check.","On the floor: automated cabinets (Pyxis, Omnicell) store meds, and smart pumps carry a drug library with hard and soft dose limits.","And for dosing? Bayesian software like DoseMeRx gives you a vancomycin AUC from just one or two levels. Let's make sure you know what each system is for."],"renal":["Honestly, most dosing catches you'll make are renal. So estimate function first, every time.","Cockcroft-Gault gives you the CrCl we dose off of. eGFR is for staging kidney disease, not the same thing.","Enoxaparin, the DOACs, gabapentin, tons of antibiotics, vanco — all renally cleared. Low CrCl means adjust.","And watch the combos that stack on the kidney. Let's practice spotting them."],"anticoag":["Anticoagulation is high-alert, and you'll touch it every single day.","Warfarin you follow by INR. Heparin by aPTT or anti-Xa. The DOACs you dose right and don't routinely monitor.","Know the reversal for each: idarucizumab for dabigatran, andexanet for the Xa inhibitors, PCC plus vitamin K for warfarin, protamine for heparin.","And never miss HIT — platelets crash, you stop all heparin and switch agents. Ready?"],"abx":["Stewardship is one of our proudest jobs — the right drug, dose, route, and duration.","Go broad and early in sepsis, then narrow the moment cultures come back. That's de-escalation.","Most 'penicillin allergies' aren't real, and vancomycin flushing isn't an allergy at all. Don't let a label drive bad therapy.","And switch IV to PO as soon as the patient's improving and the gut works. Let's dig in."],"tox":["In an overdose, everyone looks to the pharmacist for the antidote. So let's own that table.","Acetaminophen gets N-acetylcysteine, opioids get naloxone, digoxin gets DigiFab, beta-blockers get glucagon.","The rescue ones save lives: lipid emulsion for local-anesthetic toxicity, dantrolene for malignant hyperthermia, fomepizole for methanol.","Half of the skill is timing and re-dosing. Let's run some cases."],"interactions":["Interactions are where you quietly prevent a disaster nobody ever sees.","Learn the CYP players: inhibitors like azoles and clarithromycin raise levels; inducers like rifampin drop them.","Stack two QT-prolongers and you flirt with torsades — check the ECG and the potassium and magnesium.","And serotonergic combos — an SSRI plus linezolid — can tip into serotonin syndrome. Let's spot them."],"law":["Law isn't just paperwork — it protects your patient and your license.","Schedule II: no refills, ever. Three through five: up to five refills in six months. Check the PDMP.","You carry corresponding responsibility — only fill a controlled prescription that's legitimate.","And keep current: clozapine's REMS ended but ANC monitoring didn't, and the buprenorphine X-waiver is gone. Let's go."],"compounding":["Sterile compounding keeps IVs sterile and keeps us safe. Two chapters run it: 797 and 800.","Under 797, you compound in an ISO 5 hood inside a cleaner room, and you pass a zero-CFU fingertip test three times plus a media fill.","Under 800, hazardous drugs go in a containment hood under negative pressure, with double chemo gloves, a gown, and a closed-system transfer device.","And a beyond-use date is not a manufacturer expiration — it's usually much shorter. Let's get it right."],"toc":["Most errors happen at the seams — admission, transfer, discharge. Reconciliation is how we close them.","Build a best-possible med history from two or more sources — not just what the patient remembers.","At discharge, make the list clear: what changed, what to watch, and counsel on the high-risk ones.","Anticoagulants, insulin, opioids — those are the readmission-makers. Let's practice."]});
 
 
@@ -1582,10 +1609,12 @@ function drawScene(area, expr, name, textHTML, opts={}){
     ${below}
     <div class="vn-wrap">
       <div class="vn-choices" id="choiceLayer"></div>
-      ${nameTab}
-      <div class="vn-box ${name?'':'nameless'}" onclick="vnClick()">
-        ${ctrl}
-        <div class="vn-text" id="vnText"></div>${note}${adv}
+      <div class="dialogue-stack">
+        ${nameTab}
+        <div class="vn-box ${name?'':'nameless'}" onclick="vnClick()">
+          ${ctrl}
+          <div class="vn-text" id="vnText"></div>${note}${adv}
+        </div>
       </div>
     </div>`;
   window.fx=document.getElementById("fx2");
@@ -1681,7 +1710,7 @@ function showTitle(){
       <div class="logo title-plate">
         <span class="small">A Hospital Clinical Pharmacist Sim</span>
         <span class="big">The Clinical Path</span>
-        <span class="small">~ A PGY-1 Year with Dr. Harlin ~</span>
+        <span class="small">~ A PGY-1 Year with Your Preceptor ~</span>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
         ${hasSavedProgress()?'<button class="btn mint" onclick="resumeProgress()">Continue saved progress</button>':''}
@@ -1704,7 +1733,8 @@ function showIntro(){
   inp.innerHTML=`
     <input id="nm" placeholder="Enter your name" maxlength="16" value="Joey Han"
       style="font-family:'Nunito';font-weight:700;padding:12px 16px;border:2.5px solid #ffd0e0;border-radius:16px;font-size:16px;text-align:center;outline:none"/>
-    <button class="btn mint" id="goBtn">Start</button>`;
+    ${preceptorSelectHTML()}
+    <button class="btn mint" id="goBtn">Start with selected preceptor</button>`;
   document.getElementById("choiceLayer").appendChild(inp);
   document.getElementById("goBtn").onclick=beginGame;
   document.getElementById("nm").addEventListener("keydown",e=>{if(e.key==="Enter")beginGame();});
@@ -1712,18 +1742,19 @@ function showIntro(){
 function beginGame(){
   const nm=(document.getElementById("nm").value||"Joey Han").trim().slice(0,16);
   clearSavedProgress();
-  G={name:nm,avatar:pickedAv,results:initResults()};
+  G={name:nm,avatar:pickedAv,preceptor:localStorage.getItem('clinicalPathPreceptor')||'female',results:initResults()};
   saveProgress("intro");
   drawScene("core","worry","Joey Han (you)",
     `<b>I'm ${nm}, PGY-1.</b><br>A little nervous, but ready to learn.`,
-    {advance:true, hud:false, who:'joey', pop:true, onBox:"introHarlin()"});
+    {advance:true, hud:false, who:'joey', pop:true, onBox:"introPreceptor()"});
   burst("good");
 }
-function introHarlin(){
+function introPreceptor(){
   saveProgress("intro");
-  drawScene("core","happy","Dr. Harlin",
-    `Great to meet you, <b>${G.name}</b>! I'm <b>Dr. Harlin</b>, your preceptor.<br>Pick a rotation and we'll learn it step by step.`,
-    {advance:true, who:'harlin', pop:true, onBox:"goHub()"});
+  const p=selectedPreceptor();
+  drawScene("core",preceptorExpr("happy"),p.name,
+    `Great to meet you, <b>${G.name}</b>! I'm <b>${p.name}</b>, your preceptor.<br>Pick a rotation and we'll learn it step by step.`,
+    {advance:true, who:p.who, pop:true, onBox:"goHub()"});
   burst("good");
 }
 
@@ -1757,7 +1788,7 @@ function goHub(){
     <div class="center-layer" style="justify-content:flex-start;padding-top:64px">
       <div class="hub-panel">
         <h2>Choose your rotation</h2>
-        <div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with Dr. Harlin · rotations are arranged in learning order</div>
+        <div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with ${preceptorName()} · rotations are arranged in learning order</div>
         <div class="comp-row">
           ${dashAreas.map(a=>{const s=areaScore(a),m=AREA[a];return `<div class="compb">
             <div class="k" style="color:${m.c}">${a}</div>
@@ -1800,7 +1831,7 @@ function runLearn(){
   const lines=TEACH[m.id]||[];
   const last=learnIdx>=lines.length-1;
   const expr = learnIdx===0?"smile":(learnIdx%2?"think":"smile");
-  drawScene(m.area, expr,"Dr. Harlin", lines[learnIdx], {
+  drawScene(m.area, preceptorExpr(expr),preceptorName(), lines[learnIdx], {
     advance:true, onBox:"learnNext()",
     below:`<div style="position:absolute;top:60px;right:18px;z-index:18">
       <button class="btn ghost sm" onclick="openNotes()">Notes</button></div>`
@@ -1839,7 +1870,7 @@ function caseGuide(m,c,introLine,introExpr){
   if(c.type==='journal' || m.id==='id') return {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',text:`Dr. Chen hands you the paper. <b>${c.kick}</b> — don't let the abstract do the thinking for you.`};
   if(c.type==='sbar' || m.id==='pain') return {who:'nurse',name:'Nurse Vance',expr:'neutral',text:`Nurse Vance catches you after rounds. <b>${c.kick}</b>. Turn the concern into a clean recommendation.`};
   if(['preg','immun','peds'].includes(m.id)) return {who:'patient',name:'Patient Case',expr:'neutral',text:`Your patient has a question. <b>${c.kick}</b> — answer clearly and safely.`};
-  return {who:'harlin',name:'Dr. Harlin',expr:introExpr,text:introLine};
+  return {who:preceptorWho(),name:preceptorName(),expr:preceptorExpr(introExpr),text:introLine};
 }
 
 function runCase(){
@@ -1848,7 +1879,7 @@ function runCase(){
   const already=G.results[m.id][caseIdx];
   if(already!==null){
     const last = caseIdx===m.cases.length-1;
-    drawScene(m.area, already?"proud":"think", "Dr. Harlin",
+    drawScene(m.area, preceptorExpr(already?"proud":"think"), preceptorName(),
       already?"You already completed this case. Let's keep moving." : "You already attempted this case. Review it later if you want — for now, let's continue.",
       {advance:false, note:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`, below:caseProgress()});
     const cta=document.createElement("div"); cta.className="choices";
@@ -1868,10 +1899,10 @@ function runCase(){
   drawScene(m.area,guide.expr,guide.name,
     guide.text,
     { advance:false, who:guide.who,
-      note:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`,
+      note:c.type==="calc"?`<b style="color:#7a4d8f">Calculation task.</b> Use the case card.`:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`,
       below: caseProgress() });
   const wrap=document.querySelector(".vn-wrap");
-  const pre=document.createElement("div"); pre.innerHTML=caseMethodHTML()+clinicalContextHTML(c); document.getElementById("choiceLayer").appendChild(pre); enhanceGlossary(pre);
+  const pre=document.createElement("div"); pre.innerHTML=clinicalContextHTML(c); if(pre.innerHTML.trim()){document.getElementById("choiceLayer").appendChild(pre); enhanceGlossary(pre);}
   const holder=document.createElement("div");holder.id="caseHolder";
   if(c.type==="essay"){
     renderEssayCase(c, holder);
@@ -1892,15 +1923,16 @@ function runCase(){
     enhanceGlossary(holder);
     holder.querySelectorAll("#ordSrc .oitem").forEach(b=>b.onclick=()=>placeOrder(b));
   } else if(c.type==="calc"){
-    holder.className="choices";
+    holder.className="calc-card";
     holder.innerHTML=`
+      <div class="calc-question"><b>Q${caseIdx+1}.</b> ${c.q}</div>
       <div class="calc-given">${(c.given||[]).map(g=>`<span class="cg"><b>${g.label}:</b> ${g.value}</span>`).join("")}</div>
       <div class="calc-row">
-        <input id="calcIn" class="calc-input" type="text" inputmode="decimal" placeholder="?" autocomplete="off"/>
+        <input id="calcIn" class="calc-input" type="text" inputmode="decimal" placeholder="Answer" autocomplete="off"/>
         <span class="calc-unit">${c.answer.unit||""}</span>
         <button class="btn sm" id="calcChk" onclick="answerCalc()">Check</button>
       </div>
-      <div style="text-align:center;margin-top:8px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn ghost sm" onclick="openBasicCalculator(event)">Basic calculator</button><button class="btn ghost sm" onclick="openClinicalCalculator(event, calculatorForCase(curM.cases[caseIdx]))">Clinical calculator</button>${c.hint?`<button class="btn ghost sm" onclick="document.getElementById('calcHint').style.display='block'">Formula hint</button>`:""}</div>${c.hint?`<div id="calcHint" class="calc-hint" style="display:none">${c.hint}</div>`:""}`;
+      <div class="calc-actions"><button class="btn ghost sm" onclick="openBasicCalculator(event)">Basic calculator</button><button class="btn ghost sm" onclick="openClinicalCalculator(event, calculatorForCase(curM.cases[caseIdx]))">Clinical calculator</button>${c.hint?`<button class="btn ghost sm" onclick="document.getElementById('calcHint').style.display='block'">Formula hint</button>`:""}</div>${c.hint?`<div id="calcHint" class="calc-hint" style="display:none">${c.hint}</div>`:""}`;
     document.getElementById("choiceLayer").appendChild(holder);
     enhanceGlossary(holder);
     const ci=document.getElementById("calcIn"); if(ci){ ci.focus(); ci.addEventListener("keydown",e=>{if(e.key==="Enter")answerCalc();}); }
@@ -1990,7 +2022,7 @@ function feedback(ok, expl){
   if(ok && (m.id==='safety'||m.id==='code')) okExpr='stern';
   if(ok && bond()>=14 && Math.random()<0.4) okExpr='surprised';
   const last = caseIdx===m.cases.length-1;
-  drawScene(m.area, ok?okExpr:badExpr,"Dr. Harlin", line, {
+  drawScene(m.area, preceptorExpr(ok?okExpr:badExpr),preceptorName(), line, {
     advance:false, note:`<b>${ok?'Correct':'Not quite'}</b> · ${cleanExpl}` });
   burst(ok?"good":"bad");
   const wrap=document.querySelector(".vn-wrap");
@@ -2007,7 +2039,7 @@ function moduleComplete(){
   saveProgress("complete");
   const m=curM,nc=modCorrect(m),meta=AREA[m.area];
   const perfect=nc===m.cases.length;
-  drawScene(m.area, perfect?"wink":"smile","Dr. Harlin",
+  drawScene(m.area, preceptorExpr(perfect?"wink":"smile"),preceptorName(),
     perfect? `Amazing, Dr. ${G.name}! You got all ${m.cases.length} right.<br>You are really good at this — I am proud `
            : `Rotation complete! You got ${nc} of ${m.cases.length}. Nice work.<br>Review the notes and retry anytime.`,
     {advance:true, onBox:"goHub()", pop:true,
