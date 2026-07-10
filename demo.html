@@ -423,6 +423,125 @@
 /* VN hub journey and simulated shift polish */
 .hub-journey{display:grid;grid-template-columns:1.1fr 1.9fr;gap:12px;margin:12px 0 14px}.next-card,.stage-map,.shift-panel{background:rgba(255,255,255,.92);border:1px solid #f1d8e8;border-radius:20px;padding:14px;box-shadow:0 10px 24px rgba(120,60,100,.10)}.next-card h3,.stage-map h3,.shift-panel h2{font-family:"Jua";font-weight:400;color:#c23b6b;margin:0 0 6px}.next-card p,.stage-map p,.shift-card p{font-size:12.5px;line-height:1.45;color:#7b6378;font-weight:800;margin:4px 0 10px}.stage-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.stage-tab{border:1px solid #f2d8e8;background:#fff;border-radius:14px;padding:9px;text-align:left;cursor:pointer;color:#4b3450}.stage-tab:hover{border-color:#ff9db8;box-shadow:0 6px 16px rgba(120,60,100,.10)}.stage-tab.on{background:#fff0f6;border-color:#ff7fa8}.stage-tab b{display:block;font-size:12.5px}.stage-tab span{display:block;font-size:11px;color:#8b6f82;font-weight:800;margin-top:2px}.hub-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}.hub-tools{position:absolute;inset:0;background:rgba(30,18,40,.45);z-index:60;display:flex;align-items:center;justify-content:center;padding:20px}.hub-tools-card{width:min(560px,92vw);background:#fff;border:1px solid #f0d8e6;border-radius:22px;padding:18px;box-shadow:0 24px 70px rgba(30,18,40,.35)}.hub-tools-card h3{font-family:"Jua";color:#c23b6b;margin:0 0 8px}.hub-tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.shift-wrap{position:absolute;inset:0;z-index:55;padding:64px 18px 18px;display:flex;justify-content:center;align-items:flex-start}.shift-panel{width:min(1040px,94vw);max-height:86vh;overflow:auto;background:linear-gradient(180deg,rgba(255,252,255,.97),rgba(248,250,255,.97))}.shift-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}@media(max-width:820px){.hub-journey{grid-template-columns:1fr}.stage-tabs{grid-template-columns:repeat(2,1fr)}.shift-grid{grid-template-columns:1fr}.hub-tools-grid{grid-template-columns:1fr}}.shift-card{background:#fff;border:1px solid #e8d9ef;border-radius:18px;padding:13px;box-shadow:0 10px 22px rgba(70,35,90,.08)}.shift-card h3{font-family:"Jua";font-weight:400;color:#7a4d8f;margin:0 0 4px}.shift-meta{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.shift-meta span{border-radius:999px;background:#f3e8ff;color:#71448a;font-size:11px;font-weight:900;padding:4px 8px}.shift-task{font-size:12.5px;color:#4b3b4c;line-height:1.45;font-weight:800;background:#fff8fc;border:1px solid #f5d8e8;border-radius:12px;padding:8px;margin-top:8px}
 
+
+/* ===== VN romance polish v11 — dating-sim inspired gamification layer ===== */
+:root{--rose:#ff5f92;--rose2:#ff8fb1;--lav:#8e77c9;--roseline:#ffd0e0}
+/* dialogue frame */
+.vn-name{background:linear-gradient(120deg,#ff6f9c,#c86dd7);color:#fff;font-weight:900;font-size:14.5px;letter-spacing:.01em;padding:7px 18px;border-radius:12px 12px 0 0;box-shadow:0 6px 16px rgba(200,60,120,.28)}
+.vn-box{background:linear-gradient(180deg,rgba(255,255,255,.985),rgba(255,246,250,.985));border:1.5px solid #ffc9dc;border-radius:0 16px 16px 16px;box-shadow:0 18px 44px rgba(120,40,90,.20)}
+.vn-box.nameless{border-radius:16px}
+.vn-box .adv{color:var(--rose)}
+.dialogue-stack{animation:boxIn .26s ease}
+@keyframes boxIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.char-layer img{animation:spriteIn .3s ease}
+@keyframes spriteIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* choices */
+.choice{border:1.6px solid #f3d3e2;border-radius:14px;box-shadow:0 4px 14px rgba(120,40,90,.08);background:#fff}
+.choice:hover{border-color:var(--rose);background:#fff5f9;transform:translateX(6px)}
+.choice .k{color:#fff;background:linear-gradient(120deg,#ff7fa8,#c86dd7);border-radius:8px;padding:2px 8px;margin-right:10px;font-size:12px;font-family:"Nunito",sans-serif;font-weight:900}
+.choice.correct{border-color:#2bb7a8;background:#e9fbf7}
+.choice.wrong{border-color:#ff8fa8;background:#fff0f4}
+/* buttons */
+.btn{border-radius:14px}
+.btn.tmain{background:linear-gradient(120deg,#ff6f9c,#c86dd7);box-shadow:0 10px 26px rgba(200,80,140,.35);font-size:17px;padding:13px 30px}
+.btn.tmain:hover{box-shadow:0 14px 30px rgba(200,80,140,.45)}
+/* HUD bond hearts */
+.bond{gap:9px;padding:6px 12px 6px 14px;border:1px solid var(--roseline)!important;background:rgba(255,255,255,.94)!important}
+.bond .lbl{color:#c2427c!important;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.hearts{display:inline-flex;gap:3px;align-items:center}
+.hrt{position:relative;width:16px;height:16px;display:inline-block}
+.hrt svg{position:absolute;inset:0;width:100%;height:100%}
+.hrt .bgp{fill:#f2dce7}
+.hrt .fgp{fill:#ff4f86}
+.bond .bcount{font-size:11.5px;font-weight:900;color:#a86a8b;background:#fff0f6;border-radius:8px;padding:2px 7px}
+.menu-btn{width:auto;padding:0 14px;font-weight:900;font-size:12.5px;color:#5a3d55;border:1px solid var(--roseline)!important;background:rgba(255,255,255,.94)!important;border-radius:12px;height:37px;cursor:pointer}
+.menu-btn:hover{color:var(--rose)}
+/* particles */
+.fx .p{position:absolute;width:22px;height:22px;animation:rise 1.5s ease-out forwards;opacity:0;transform:scale(var(--s,1))}
+.fx .p svg{width:100%;height:100%}
+.fx .p.ph svg path{fill:#ff6f9c;opacity:.92}
+.fx .p.pd svg circle{fill:#a9bfff;opacity:.75}
+/* stat toasts */
+.stat-toasts{position:fixed;top:64px;right:18px;z-index:90;display:flex;flex-direction:column;gap:6px;pointer-events:none;align-items:flex-end}
+.stat-toast{background:#fff;border:1.6px solid var(--c,#ff5f92);color:var(--c,#ff5f92);font-weight:900;font-size:13px;border-radius:999px;padding:7px 14px;box-shadow:0 10px 24px rgba(120,40,90,.16);animation:toastIn .3s ease backwards,toastOut .45s ease 1.6s forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-8px)}}
+/* rank up banner */
+.rank-banner{position:absolute;top:62px;left:0;right:0;display:flex;justify-content:center;z-index:19;pointer-events:none}
+.rank-banner .rk-k{background:#3f2a46;color:#ffd9e6;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:14px 0 0 14px}
+.rank-banner .rk-v{background:linear-gradient(120deg,#ff6f9c,#c86dd7);color:#fff;font-size:13px;font-weight:900;padding:7px 16px;border-radius:0 14px 14px 0;box-shadow:0 10px 26px rgba(200,80,140,.35)}
+/* chapter title card */
+.chapter-ov{position:fixed;inset:0;background:rgba(34,16,40,.82);backdrop-filter:blur(7px);z-index:160;display:flex;align-items:center;justify-content:center;animation:chapIn .32s ease;cursor:pointer}
+@keyframes chapIn{from{opacity:0}to{opacity:1}}
+.chapter-card{text-align:center;color:#fff;padding:34px 52px;border:1.5px solid rgba(255,255,255,.32);border-radius:22px;background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.03));box-shadow:0 30px 90px rgba(0,0,0,.45);animation:chapCard .5s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes chapCard{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.chapter-card .ch-stage{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#ffc9dc;font-weight:900}
+.chapter-card .ch-no{display:block;margin-top:14px;font-size:12.5px;color:#e2d3f7;font-weight:800;letter-spacing:.06em}
+.chapter-card h2{font-size:clamp(26px,5vw,38px);margin:6px 0 12px;font-weight:900}
+.chapter-card .ch-area{display:inline-block;color:#fff;border-radius:999px;font-size:12px;font-weight:900;padding:5px 13px}
+.chapter-card .ch-tap{display:block;margin-top:18px;font-size:11px;color:rgba(255,255,255,.72);font-weight:800;letter-spacing:.1em;text-transform:uppercase;animation:tapBlink 1.4s infinite}
+@keyframes tapBlink{0%,100%{opacity:.9}50%{opacity:.35}}
+/* title screen */
+.title-layer{justify-content:center;gap:20px;padding:6vh 24px}
+.title-duo{position:absolute;inset:0;pointer-events:none;z-index:6}
+.title-duo .td{position:absolute;bottom:-4vh;height:76vh;filter:drop-shadow(0 22px 30px rgba(90,50,90,.3));animation:duoIn .6s ease backwards}
+.title-duo .td img{height:100%;width:auto}
+.title-duo .tbelle{left:3vw;animation-delay:.1s}
+.title-duo .tharlin{right:3vw;animation-delay:.22s}
+@keyframes duoIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.title-menu{display:flex;flex-direction:column;gap:10px;min-width:270px;z-index:8}
+.title-menu .btn{width:100%;text-align:center}
+.title-save{font-size:12px;font-weight:800;color:#6b5262;background:rgba(255,255,255,.78);border-radius:999px;padding:7px 14px;z-index:8}
+@media(max-width:980px){.title-duo .tbelle{left:-16vw}.title-duo .tharlin{right:-16vw}}
+@media(max-width:640px){.title-duo .tbelle{display:none}.title-duo .tharlin{right:-24vw;opacity:.5}}
+/* character creation */
+.create-panel{background:rgba(255,255,255,.95);border:1.5px solid var(--roseline);border-radius:22px;padding:22px 24px;max-width:660px;width:100%;box-shadow:0 24px 60px rgba(90,40,80,.30);max-height:88vh;overflow:auto}
+.create-panel .cp-head{text-align:center;margin-bottom:14px}
+.create-panel .cp-ep{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#c2427c;background:#fff0f6;border-radius:999px;padding:5px 12px}
+.create-panel h2{font-size:24px;margin:8px 0 4px;color:#3f2a46;font-weight:900}
+.create-panel .cp-head p{margin:0;color:#8a6f82;font-size:13px;font-weight:700}
+.cp-sec{margin:14px 0}
+.cp-sec h3{display:flex;align-items:center;gap:8px;font-size:14px;color:#3f2a46;margin:0 0 8px;font-weight:900}
+.cp-sec .stp{width:22px;height:22px;border-radius:8px;background:linear-gradient(120deg,#ff7fa8,#c86dd7);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px}
+.cp-sec input{width:100%;box-sizing:border-box;font-family:'Nunito',sans-serif;font-weight:800;padding:12px 16px;border:1.6px solid var(--roseline);border-radius:14px;font-size:16px;text-align:center;outline:none;color:#3f2a46;background:#fffafc}
+.cp-sec input:focus{border-color:var(--rose)}
+.resident-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.resident-card,.preceptor-card{display:flex;gap:12px;align-items:center;text-align:left;border:1.6px solid #f3d3e2;background:#fff;border-radius:16px;padding:10px 12px;cursor:pointer;color:#3f2a46;transition:.14s;font-family:'Nunito',sans-serif}
+.resident-card:hover,.preceptor-card:hover{border-color:var(--rose);background:#fff5f9;transform:translateY(-1px)}
+.resident-card.on,.preceptor-card.on{border-color:var(--rose);background:#fff0f6;box-shadow:0 0 0 3px rgba(255,95,146,.15)}
+.resident-card img,.preceptor-card img{width:66px;height:66px;border-radius:14px;object-fit:cover;object-position:top;background:#fdf3f8;border:1px solid #f6dfeb}
+.resident-card span,.preceptor-card span{font-size:12px;color:#8a6f82;font-weight:700;line-height:1.35}
+.resident-card b,.preceptor-card b{display:block;font-size:14.5px;color:#3f2a46;margin-bottom:2px}
+.preceptor-select{border:none;background:transparent;box-shadow:none;padding:0;margin:0;max-width:none}
+.preceptor-options{gap:10px}
+/* cast screen */
+.cast-panel{background:rgba(255,255,255,.95);border:1.5px solid var(--roseline);border-radius:22px;padding:24px 26px;max-width:860px;width:100%;box-shadow:0 24px 60px rgba(90,40,80,.30);max-height:88vh;overflow:auto;text-align:center}
+.cast-panel h2{margin:0 0 16px;font-size:24px;color:#3f2a46;font-weight:900}
+.cast-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.cast-card{background:#fffafc;border:1.5px solid #f6dfeb;border-radius:18px;padding:14px;text-align:center}
+.cast-card .cimg{height:170px;display:flex;align-items:flex-start;justify-content:center;overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#ffeef5,#fdf3f8);margin-bottom:10px}
+.cast-card .cimg img{height:230px;width:auto;object-fit:cover}
+.cast-card b{display:block;font-size:15px;color:#3f2a46}
+.cast-card .crole{display:block;font-size:11px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#c2427c;margin:3px 0 6px}
+.cast-card p{margin:0;font-size:12.5px;font-weight:700;color:#8a6f82;line-height:1.45}
+.cast-note{font-size:12px;color:#9a8393;font-weight:700;margin:14px 0 4px}
+/* hub cards: done heart */
+.mc .heart{position:absolute;top:9px;right:10px;width:19px;height:19px;z-index:2;background:#f0dbe6;-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 21s-6.7-4.4-9.3-8C.8 10.4 1.9 6.5 5 5.3c2-.8 4.3-.2 5.8 1.5L12 8l1.2-1.2c1.5-1.7 3.8-2.3 5.8-1.5 3.1 1.2 4.2 5.1 2.3 7.7-2.6 3.6-9.3 8-9.3 8z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 21s-6.7-4.4-9.3-8C.8 10.4 1.9 6.5 5 5.3c2-.8 4.3-.2 5.8 1.5L12 8l1.2-1.2c1.5-1.7 3.8-2.3 5.8-1.5 3.1 1.2 4.2 5.1 2.3 7.7-2.6 3.6-9.3 8-9.3 8z'/></svg>") center/contain no-repeat}
+.mc.done .heart{background:#ff4f86}
+.mc:hover{border-color:var(--roseline)}
+/* vn ctrl active state */
+.vn-ctrl button.on{background:linear-gradient(120deg,#ff7fa8,#c86dd7);color:#fff;border-color:transparent}
+
+
+/* nameplate per-character colors */
+.vn-name[data-who="harlin"]{background:linear-gradient(120deg,#ff6f9c,#c86dd7)}
+.vn-name[data-who="dpark"]{background:linear-gradient(120deg,#4f7cd9,#38b6a5)}
+.vn-name[data-who="belle"]{background:linear-gradient(120deg,#9d78c8,#c86dd7)}
+.vn-name[data-who="joey"],.vn-name[data-who="riley"]{background:linear-gradient(120deg,#5a6b8c,#7d90b4)}
+.vn-name[data-who="nurse"]{background:linear-gradient(120deg,#2fa89a,#4fc3b0)}
+.vn-name[data-who="attending"]{background:linear-gradient(120deg,#33415c,#5a6b8c)}
+.vn-name[data-who="patient"]{background:linear-gradient(120deg,#b08968,#c9a273)}
+
 </style>
 </head>
 <body>
@@ -435,7 +554,9 @@
 /* ==================================================================
    CHARACTER — hand-drawn SVG"Dr. Harlin" with swappable expressions
    ================================================================== */
-const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064549_2db7df05-8adb-4513-b376-d8fbf55b8252.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064630_7f17c76d-9931-4830-b923-fcb206958254.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064644_8ebe04b9-71c7-4e4b-8d52-06f46b4aadcc.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064654_40b050a1-2c3b-4718-a04c-53ccccf8d798.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064705_c9c8e658-dbef-4940-af13-a0349791a9fa.png","laugh":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064716_425a8704-d2a1-4b8f-bf1f-a9a11e543c3b.png","encourage":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064727_0447f1ef-7361-4d24-820a-91cd859e95d1.png","alarmed":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064738_bf27a5a3-2d27-48e3-9907-ae44a53d08b0.png","wink":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073136_8d32b6ba-d7e3-468a-97b2-92b8ab9e62db.png","surprised":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073144_23d5d2c7-1edb-4537-94cb-f03bfe2f9d23.png","sad":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073151_17572a6f-2a9c-4a92-b80f-2925dec83185.png","stern":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073216_5e029e41-3351-4109-8c94-d274de85c32d.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064851_6e4f850a-dafa-4f93-917f-f361593b4753.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064901_c3bf8edd-8794-441b-ad49-5fbf1837ff35.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073240_b828f88d-acdf-4711-87eb-1c17dd09c13f.png","warm":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073308_65a806d3-39ee-4b24-b1b2-595fcc019a9c.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073315_54ee7db9-0169-44ae-ab09-58ec5225280b.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073325_a1f2feea-4d3e-48eb-90d3-d6bb7ff2a2b9.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073332_1539b31c-c65d-42e0-823e-d6adb90f5aa7.png"}};
+const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064549_2db7df05-8adb-4513-b376-d8fbf55b8252.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064630_7f17c76d-9931-4830-b923-fcb206958254.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064644_8ebe04b9-71c7-4e4b-8d52-06f46b4aadcc.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064654_40b050a1-2c3b-4718-a04c-53ccccf8d798.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064705_c9c8e658-dbef-4940-af13-a0349791a9fa.png","laugh":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064716_425a8704-d2a1-4b8f-bf1f-a9a11e543c3b.png","encourage":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064727_0447f1ef-7361-4d24-820a-91cd859e95d1.png","alarmed":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064738_bf27a5a3-2d27-48e3-9907-ae44a53d08b0.png","wink":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073136_8d32b6ba-d7e3-468a-97b2-92b8ab9e62db.png","surprised":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073144_23d5d2c7-1edb-4537-94cb-f03bfe2f9d23.png","sad":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073151_17572a6f-2a9c-4a92-b80f-2925dec83185.png","stern":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073216_5e029e41-3351-4109-8c94-d274de85c32d.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064851_6e4f850a-dafa-4f93-917f-f361593b4753.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064901_c3bf8edd-8794-441b-ad49-5fbf1837ff35.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073240_b828f88d-acdf-4711-87eb-1c17dd09c13f.png","warm":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073308_65a806d3-39ee-4b24-b1b2-595fcc019a9c.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073315_54ee7db9-0169-44ae-ab09-58ec5225280b.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073325_a1f2feea-4d3e-48eb-90d3-d6bb7ff2a2b9.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073332_1539b31c-c65d-42e0-823e-d6adb90f5aa7.png"},
+"riley":{"neutral":"assets/riley_neutral.png","happy":"assets/riley_happy.png","think":"assets/riley_think.png","worry":"assets/riley_worry.png","proud":"assets/riley_proud.png"},
+"dpark":{"neutral":"assets/dpark_neutral.png","happy":"assets/dpark_happy.png","think":"assets/dpark_think.png","worry":"assets/dpark_worry.png","proud":"assets/dpark_proud.png","stern":"assets/dpark_stern.png"}};
 const BG_URLS={core:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R1:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80', R2:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R3:'https://images.unsplash.com/photo-1584451049700-ec9b394f3805?w=1600&q=80', R4:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80'};
 Object.assign(SPRITE_URLS,{
   patient:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044454_bceef426-09d9-4a26-b13e-96a4ad6b66b2.png"},
@@ -450,7 +571,9 @@ function faceImg(expr, who){
   var SETS={
     harlin:{dir:'assets/harlin/harlin_', has:['neutral','happy','think','worry','proud','laugh','encourage','alarmed','wink','surprised','sad','stern'], alias:{smile:'neutral'}},
     belle:{dir:'assets/belle/belle_', has:['neutral','proud','think','warm'], alias:{happy:'warm',smile:'neutral',encourage:'warm',laugh:'warm',wink:'warm',surprised:'neutral',worry:'think',sad:'think',stern:'neutral',alarmed:'think'}},
-    joey:{dir:'assets/joey/joey_', has:['neutral','happy','think','worry','proud'], alias:{smile:'neutral',wink:'happy'}},
+    joey:{dir:'assets/joey/joey_', has:['neutral','happy','think','worry','proud'], alias:{smile:'neutral',wink:'happy',laugh:'happy',encourage:'happy',warm:'happy',surprised:'happy',alarmed:'worry',sad:'worry',stern:'think'}},
+    riley:{dir:'assets/riley/riley_', has:['neutral','happy','think','worry','proud'], alias:{smile:'neutral',wink:'happy',laugh:'happy',encourage:'happy',warm:'happy',surprised:'happy',alarmed:'worry',sad:'worry',stern:'think'}},
+    dpark:{dir:'assets/dpark/dpark_', has:['neutral','happy','think','worry','proud','stern'], alias:{smile:'neutral',wink:'happy',laugh:'happy',encourage:'happy',warm:'happy',surprised:'happy',alarmed:'worry',sad:'worry'}},
     patient:{dir:'assets/cameo/patient_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
     nurse:{dir:'assets/cameo/nurse_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
     attending:{dir:'assets/cameo/attending_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
@@ -566,7 +689,28 @@ function face(expr, who){ return faceImg(expr, who);
 
 
 var VNTYPE={timer:null,full:'',el:null,done:true,onBox:null};
+document.addEventListener('keydown',function(e){
+  const tag=(e.target&&e.target.tagName||'').toLowerCase();
+  if(tag==='input'||tag==='textarea'||tag==='select'||tag==='button'||e.metaKey||e.ctrlKey||e.altKey)return;
+  const list=Array.prototype.slice.call(document.querySelectorAll('#choiceLayer .choice:not([disabled])'));
+  let idx=-1;
+  const n=parseInt(e.key,10);
+  if(n>=1&&n<=9)idx=n-1;
+  else if(/^[a-f]$/i.test(e.key))idx=e.key.toLowerCase().charCodeAt(0)-97;
+  if(idx>=0&&list[idx]){e.preventDefault();list[idx].click();return;}
+  if((e.key===' '||e.key==='Enter')&&document.getElementById('vnText')){e.preventDefault();vnClick();}
+});
 var VNCTRL={auto:false,autoTimer:null,autoToken:0,log:[]};
+var SND={ctx:null,on:(function(){try{return localStorage.getItem('clinicalPathSound')!=='off';}catch(e){return true;}})()};
+function sndCtx(){ if(!SND.ctx){ try{SND.ctx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} } if(SND.ctx&&SND.ctx.state==='suspended'){try{SND.ctx.resume();}catch(e){}} return SND.ctx; }
+function tone(f,t0,dur,type,gain){ const c=sndCtx(); if(!c)return; try{ const o=c.createOscillator(),g=c.createGain(); o.type=type||'sine'; o.frequency.value=f; const T=c.currentTime+t0; g.gain.setValueAtTime(0.0001,T); g.gain.exponentialRampToValueAtTime(gain||0.045,T+0.012); g.gain.exponentialRampToValueAtTime(0.0001,T+dur); o.connect(g); g.connect(c.destination); o.start(T); o.stop(T+dur+0.05);}catch(e){} }
+function sfx(kind){ if(!SND.on)return;
+  if(kind==='click')tone(760,0,0.05,'triangle',0.022);
+  else if(kind==='ok'){tone(659,0,0.09,'sine',0.04);tone(880,0.07,0.1,'sine',0.038);tone(1109,0.14,0.16,'sine',0.032);}
+  else if(kind==='bad'){tone(196,0,0.16,'sawtooth',0.024);tone(147,0.09,0.2,'sawtooth',0.02);}
+  else if(kind==='rank'){[523,659,784,1047].forEach((f,i)=>tone(f,i*0.09,0.22,'sine',0.042));}
+}
+function toggleSound(ev){ if(ev)ev.stopPropagation(); SND.on=!SND.on; try{localStorage.setItem('clinicalPathSound',SND.on?'on':'off');}catch(e){} document.querySelectorAll('[data-vnctrl="sound"]').forEach(b=>{b.classList.toggle('on',SND.on); const sp=b.querySelector('span'); if(sp)sp.textContent=SND.on?'on':'off';}); if(SND.on)sfx('click'); }
 const AUTO_DELAY_MS=2500;
 const FONT_KEY="clinicalPathFontScale.v1";
 function getFontScale(){
@@ -589,15 +733,15 @@ function fontControlsHTML(){
 }
 applyFontScale(getFontScale());
 const PRECEPTORS={
-  female:{id:'female',name:'Dr. Mina Seo',label:'Female preceptor',who:'preceptor_female',sprite:'neutral',tone:'Warm pharmacotherapy preceptor'},
-  male:{id:'male',name:'Dr. Daniel Park',label:'Male preceptor',who:'preceptor_male',sprite:'neutral',tone:'ICU-trained clinical mentor'}
+  female:{id:'female',name:'Dr. Harlin',label:'Female preceptor route',who:'harlin',sprite:'happy',tone:'Playful ICU mentor. Teases, teaches, never lets you coast.'},
+  male:{id:'male',name:'Dr. Daniel Park',label:'Male preceptor route',who:'dpark',sprite:'neutral',tone:'Calm EM-trained mentor. Quiet standards, steady encouragement.'}
 };
 function selectedPreceptor(){ const id=(G&&G.preceptor)||localStorage.getItem('clinicalPathPreceptor')||'female'; return PRECEPTORS[id]||PRECEPTORS.female; }
 function preceptorName(){ return selectedPreceptor().name; }
 function preceptorWho(){ return selectedPreceptor().who; }
 function preceptorExpr(expr){ const p=selectedPreceptor(); if(p.who==='belle'){ return {happy:'warm',smile:'warm',proud:'proud',laugh:'warm',encourage:'warm',wink:'warm',stern:'think',worry:'think',alarmed:'think',surprised:'neutral'}[expr]||expr; } return expr; }
 function choosePreceptor(id){ const p=PRECEPTORS[id]||PRECEPTORS.female; if(!G)G={name:'Joey Han',avatar:pickedAv,results:initResults()}; G.preceptor=p.id; try{localStorage.setItem('clinicalPathPreceptor',p.id);}catch(e){} document.querySelectorAll('.preceptor-card').forEach(x=>x.classList.toggle('on',x.dataset.id===p.id)); }
-function preceptorSelectHTML(){ const cur=(G&&G.preceptor)||localStorage.getItem('clinicalPathPreceptor')||'female'; return `<div class="preceptor-select"><h3>Choose your preceptor</h3><div class="preceptor-options">${Object.values(PRECEPTORS).map(p=>`<button type="button" class="preceptor-card ${cur===p.id?'on':''}" data-id="${p.id}" onclick="choosePreceptor('${p.id}')"><img src="${SPRITE_URLS[p.who][p.sprite]||SPRITE_URLS[p.who].neutral}" alt="${p.name}"><span><b>${p.name}</b>${p.label}<br>${p.tone}</span></button>`).join('')}</div></div>`; }
+function preceptorSelectHTML(){ const cur=(G&&G.preceptor)||localStorage.getItem('clinicalPathPreceptor')||'female'; return `<div class="preceptor-options">${Object.values(PRECEPTORS).map(p=>`<button type="button" class="preceptor-card ${cur===p.id?'on':''}" data-id="${p.id}" onclick="sfx('click');choosePreceptor('${p.id}')"><img src="${(SPRITE_URLS[p.who]&&(SPRITE_URLS[p.who][p.sprite]||SPRITE_URLS[p.who].neutral))||SPRITE_URLS.harlin.neutral}" alt="${p.name}"><span><b>${p.name}</b>${p.tone}</span></button>`).join('')}</div>`; }
 function preceptorNote(){ return `${preceptorName()} selected`; }
 
 
@@ -763,7 +907,7 @@ function typeHTML(el,html){ if(!el)return; el.innerHTML=''; VNTYPE.full=html; VN
     else{i++; el.innerHTML=html.slice(0,i);} },speed); }
 function finishType(){ if(VNTYPE.el){clearInterval(VNTYPE.timer);VNTYPE.el.innerHTML=VNTYPE.full;VNTYPE.done=true;enhanceGlossary(VNTYPE.el);scheduleAuto();} }
 function vnAdvance(){ if(VNTYPE.onBox){ try{(new Function(VNTYPE.onBox))();}catch(e){console.log(e);} } }
-function vnClick(){ if(!VNTYPE.done){finishType();return;} vnAdvance(); }
+function vnClick(){ if(!VNTYPE.done){finishType();return;} if(VNTYPE.onBox)sfx('click'); vnAdvance(); }
 function scheduleAuto(){ clearTimeout(VNCTRL.autoTimer); const token=++VNCTRL.autoToken; if(!VNCTRL.auto || !VNTYPE.done || !VNTYPE.onBox) return; VNCTRL.autoTimer=setTimeout(function(){ if(token===VNCTRL.autoToken && VNCTRL.auto && VNTYPE.done && VNTYPE.onBox) vnAdvance(); },AUTO_DELAY_MS); }
 function updateCtrlState(){ document.querySelectorAll('[data-vnctrl="auto"]').forEach(b=>b.classList.toggle('on',VNCTRL.auto)); }
 function toggleAuto(ev){ if(ev)ev.stopPropagation(); VNCTRL.auto=!VNCTRL.auto; updateCtrlState(); if(!VNTYPE.done)finishType(); else scheduleAuto(); }
@@ -1508,7 +1652,11 @@ const CONSOLE_T=[
   ["Ah, so close! Look here with me for a sec.","Eh, not this time — but I see how you got there.","That's alright, we learn these by tripping on them.","Hmm, off by a bit. Let's fix the logic."],
   ["Okay okay, even I mix that one up — here's the trick.","Nope, but don't sweat it. You'll never forget it now.","Ha, gotcha — this is exactly the kind we learn the hard way.","Missed it, but hey, that's what I'm here for. Look."]
 ];
-function bondTier(){ const c=bond(); return c>=10?2 : c>=4?1 : 0; }
+const TIER_NAMES=["New resident","Warming up","Trusted partner"];
+const TIER_AT=[0,8,24];
+function tierOf(c){ return c>=TIER_AT[2]?2 : c>=TIER_AT[1]?1 : 0; }
+function bondTier(){ return tierOf(bond()); }
+function bondTierName(){ return TIER_NAMES[bondTier()]; }
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 
 /* ==================================================================
@@ -1539,6 +1687,7 @@ function saveProgress(mode){
   try{
     localStorage.setItem(SAVE_KEY, JSON.stringify({
       v:2, savedAt:new Date().toISOString(), name:G.name||"Joey Han", avatar:G.avatar||"",
+      player:G.player||pickedResident||"male", preceptor:G.preceptor||"female",
       results:G.results, mode:mode||"hub", curModuleId:curM?curM.id:null, learnIdx:learnIdx||0, caseIdx:caseIdx||0
     }));
   }catch(e){ console.log('save failed',e); }
@@ -1552,7 +1701,11 @@ function clearSavedProgress(){
 function resumeProgress(){
   const d=loadProgress();
   if(!d||!d.results){ showIntro(); return; }
-  G={name:(d.name||"Joey Han"), avatar:d.avatar||"", results:normalizeResults(d.results)};
+  G={name:(d.name||"Joey Han"), avatar:d.avatar||"",
+     player:d.player||(function(){try{return localStorage.getItem('clinicalPathResident')||'male';}catch(e){return 'male';}})(),
+     preceptor:d.preceptor||(function(){try{return localStorage.getItem('clinicalPathPreceptor')||'female';}catch(e){return 'female';}})(),
+     results:normalizeResults(d.results)};
+  if(RESIDENTS[G.player])pickedResident=G.player;
   const m=d.curModuleId?MODULES.find(x=>x.id===d.curModuleId):null;
   curM=m||null;
   learnIdx=Math.max(0,parseInt(d.learnIdx||0,10)||0);
@@ -1594,40 +1747,61 @@ function modCorrect(m){return G.results[m.id].filter(r=>r===true).length;}
 
 /* particles */
 function burst(kind){
-  const ic = [];
-  for(let i=0;i<10;i++){
-    const p=document.createElement("div");p.className="p";
-    p.textContent=ic[Math.floor(Math.random()*ic.length)];
-    p.style.left=(38+Math.random()*24)+"%";p.style.bottom=(28+Math.random()*22)+"%";
-    p.style.animationDelay=(Math.random()*.4)+"s";p.style.fontSize=(18+Math.random()*18)+"px";
-    fx.appendChild(p);setTimeout(()=>p.remove(),1600);
+  if(!window.fx)return;
+  const n=kind==="good"?12:7;
+  const heart='<svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.4-9.3-8C.8 10.4 1.9 6.5 5 5.3c2-.8 4.3-.2 5.8 1.5L12 8l1.2-1.2c1.5-1.7 3.8-2.3 5.8-1.5 3.1 1.2 4.2 5.1 2.3 7.7-2.6 3.6-9.3 8-9.3 8z"/></svg>';
+  const drop='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>';
+  for(let i=0;i<n;i++){
+    const p=document.createElement("div");
+    p.className="p "+(kind==="good"?"ph":"pd");
+    p.style.left=(34+Math.random()*32)+"%";
+    p.style.bottom=(26+Math.random()*26)+"%";
+    p.style.animationDelay=(Math.random()*.35)+"s";
+    p.style.setProperty('--s',(0.65+Math.random()*0.9).toFixed(2));
+    p.innerHTML=kind==="good"?heart:drop;
+    fx.appendChild(p);setTimeout(()=>p.remove(),1700);
   }
 }
 
 /* ---- HUD ---- */
+function heartsHTML(){
+  const b=bond(), t=tierOf(b);
+  const lo=TIER_AT[t], hi=t===2?Math.max(TIER_AT[2]*3,48):TIER_AT[t+1];
+  const frac=t===2?1:Math.max(0,Math.min(1,(b-lo)/(hi-lo)));
+  const H='M12 21s-6.7-4.4-9.3-8C.8 10.4 1.9 6.5 5 5.3c2-.8 4.3-.2 5.8 1.5L12 8l1.2-1.2c1.5-1.7 3.8-2.3 5.8-1.5 3.1 1.2 4.2 5.1 2.3 7.7-2.6 3.6-9.3 8-9.3 8z';
+  let out='';
+  for(let i=0;i<5;i++){
+    const fill=Math.round(Math.max(0,Math.min(1,frac*5-i))*100);
+    out+=`<span class="hrt"><svg viewBox="0 0 24 24"><path class="bgp" d="${H}"/></svg><svg viewBox="0 0 24 24" style="clip-path:inset(0 ${100-fill}% 0 0)"><path class="fgp" d="${H}"/></svg></span>`;
+  }
+  return out;
+}
 function hudHTML(area){
-  const b=bond(),bm=bondMax();
+  const b=bond(), t=bondTier();
   return `<div class="hud">
     <div class="area-pill" style="color:${AREA[area]?AREA[area].c:'#ff7fa8'}">${AREA[area]?AREA[area].name:'Title'}</div>
     <div class="spacer"></div>
-    <div class="bond"><span class="lbl">Bond</span><div class="hbar"><i style="width:${bm?Math.round(b/bm*100):0}%"></i></div></div>
-    <button class="menu-btn" onclick="goHub()"></button>
+    <div class="bond" title="${b} correct decisions with ${preceptorName()}">
+      <span class="lbl">${bondTierName()}</span><span class="hearts">${heartsHTML()}</span><span class="bcount">${b}</span>
+    </div>
+    <button class="menu-btn" onclick="sfx('click');goHub()" aria-label="Back to Resident Year Map">Map</button>
   </div>`;
 }
 
 /* ---- character + dialogue frame ---- */
 function drawScene(area, expr, name, textHTML, opts={}){
   const showChar = opts.char!==false;
-  const nameTab = name? `<div class="vn-name">${name}</div>`:"";
+  const nameWho=(opts.who||preceptorWho());
+  const nameTab = name? `<div class="vn-name" data-who="${nameWho}">${name}</div>`:"";
   const note = opts.note? `<div class="vn-note">${opts.note}</div>`:"";
   const adv = opts.advance? `<span class="adv">▼</span>`:"";
-  const ctrl = `<div class="vn-ctrl"><button type="button" data-vnctrl="auto" class="${VNCTRL.auto?'on':''}" onclick="toggleAuto(event)">AUTO</button><button type="button" onclick="skipForward(event)">SKIP</button><button type="button" onclick="openVNLog(event)">LOG</button><button type="button" onclick="showLabValues(event)">LABS</button><button type="button" onclick="openBasicCalculator(event)">MATH</button><button type="button" onclick="openClinicalCalculator(event)">CALC</button>${fontControlsHTML()}</div>`;
+  const ctrl = `<div class="vn-ctrl"><button type="button" data-vnctrl="auto" class="${VNCTRL.auto?'on':''}" onclick="toggleAuto(event)">AUTO</button><button type="button" onclick="skipForward(event)">SKIP</button><button type="button" onclick="openVNLog(event)">LOG</button><button type="button" data-vnctrl="sound" class="${SND.on?'on':''}" onclick="toggleSound(event)">SOUND</button><button type="button" onclick="showLabValues(event)">LABS</button><button type="button" onclick="openBasicCalculator(event)">MATH</button><button type="button" onclick="openClinicalCalculator(event)">CALC</button>${fontControlsHTML()}</div>`;
   let below = opts.below||"";
   document.getElementById("app").innerHTML=`
     <div class="stage scene-photo ${AREA[area]?AREA[area].bg:'bg-title'}" id="stage" style="background-image:url('${bgFor(area)}')">${sceneDeco()}</div>
     <div class="fx" id="fx2"></div>
     ${opts.hud!==false? hudHTML(area):""}
-    ${showChar? `<div class="char-glow"></div><div class="char-layer ${opts.pop?'char-pop':''}">${face(expr, opts.who)}</div>`:""}
+    ${showChar? `<div class="char-glow"></div><div class="char-layer ${opts.pop?'char-pop':''}">${face(expr, opts.who||preceptorWho())}</div>`:""}
     ${below}
     <div class="vn-wrap">
       <div class="vn-choices" id="choiceLayer"></div>
@@ -1727,55 +1901,105 @@ function showTitle(){
   document.getElementById("app").innerHTML=`
     <div class="stage bg-title" id="stage">${bokehHTML()}</div>
     <div class="fx" id="fx2"></div>
-    <div class="char-layer" style="opacity:.97;height:60vh;bottom:96px">${face("smile")}</div>
-    <div class="center-layer" style="justify-content:space-between;padding:6vh 24px 6vh">
+    <div class="title-duo"><div class="td tbelle">${face("happy","harlin")}</div><div class="td tharlin">${face("neutral","dpark")}</div></div>
+    <div class="center-layer title-layer">
       <div class="logo title-plate">
-        <span class="small">A Hospital Clinical Pharmacist Sim</span>
+        <span class="small">St. Aurelia Medical Center · A Clinical Pharmacist Story</span>
         <span class="big">The Clinical Path</span>
-        <span class="small">~ A PGY-1 Year with Your Preceptor ~</span>
+        <span class="small">~ Your PGY-1 year, one patient at a time ~</span>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-        ${hasSavedProgress()?'<button class="btn mint" onclick="resumeProgress()">Continue saved progress</button>':''}
-        <button class="btn" onclick="showIntro()">Start new resident</button>
+      <div class="title-menu">
+        ${hasSavedProgress()?'<button class="btn tmain" onclick="sfx(\'click\');resumeProgress()">Continue</button>':''}
+        <button class="btn ${hasSavedProgress()?'ghost':'tmain'}" onclick="sfx('click');showIntro()">New resident</button>
+        <button class="btn ghost" onclick="sfx('click');showCast()">Meet the team</button>
+        <button class="btn ghost" onclick="sfx('click');showStudyCards()">Study Cards</button>
+        <button class="btn ghost sm ${SND.on?'on':''}" data-vnctrl="sound" onclick="toggleSound(event)">Sound: <span>${SND.on?'on':'off'}</span></button>
       </div>
-      <div style="font-size:12px;font-weight:800;color:#6b5262;background:rgba(255,255,255,.7);border-radius:999px;padding:7px 13px">${saveStatusText()}</div>
+      <div class="title-save">${saveStatusText()}</div>
     </div>`;
+  window.fx=document.getElementById("fx2");
+}
+function showCast(){
+  const rWho=playerWho();
+  const cast=[
+    {img:SPRITE_URLS.harlin.happy,name:'Dr. Harlin',role:'ICU pharmacist · female preceptor route',bio:'Fast, funny, allergic to vague answers. Earn her trust and she lets you run the pager.'},
+    {img:SPRITE_URLS.dpark.neutral,name:'Dr. Daniel Park',role:'EM pharmacist · male preceptor route',bio:'Calm voice in loud moments. He asks one more question until your reasoning is airtight.'},
+    {img:SPRITE_URLS.belle.warm,name:'Dr. Belle Deans',role:'Residency program director',bio:'Runs the program, welcomes you on day one, and hands you your final evaluation in June.'},
+    {img:(SPRITE_URLS[rWho]||SPRITE_URLS.joey).neutral,name:'You',role:'PGY-1 resident · pick your look and name',bio:'Fresh badge, clean coat, everything to prove. Your decisions shape how this year goes.'}
+  ];
+  document.getElementById("app").innerHTML=`
+    <div class="stage bg-title" id="stage">${bokehHTML()}</div><div class="fx" id="fx2"></div>
+    <div class="center-layer" style="justify-content:center;padding:4vh 18px">
+      <div class="cast-panel">
+        <h2>Meet the team</h2>
+        <div class="cast-grid">${cast.map(c=>`<div class="cast-card"><div class="cimg"><img src="${c.img}" alt="${c.name}"></div><b>${c.name}</b><span class="crole">${c.role}</span><p>${c.bio}</p></div>`).join('')}</div>
+        <p class="cast-note">Also on shift: Nurse Vance, Dr. Chen (ICU attending), and the patients of St. Aurelia — all fictional.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+          <button class="btn" onclick="sfx('click');showIntro()">Start your year</button>
+          <button class="btn ghost" onclick="sfx('click');showTitle()">Back to title</button>
+        </div>
+      </div>
+    </div>`;
+  window.fx=document.getElementById("fx2");
 }
 
 /* ==================================================================
    INTRO / name + avatar
    ================================================================== */
+const RESIDENTS={
+  male:{id:'male',who:'joey',name:'Male resident',desc:'Calm, methodical, triple-checks the MAR.'},
+  female:{id:'female',who:'riley',name:'Female resident',desc:'Sharp, upbeat, first to volunteer on rounds.'}
+};
+var pickedResident=(function(){try{return localStorage.getItem('clinicalPathResident')||'male';}catch(e){return 'male';}})();
+function playerWho(){ const r=RESIDENTS[(G&&G.player)||pickedResident]||RESIDENTS.male; return SPRITE_URLS[r.who]?r.who:'joey'; }
+function chooseResident(id){ pickedResident=RESIDENTS[id]?id:'male'; try{localStorage.setItem('clinicalPathResident',pickedResident);}catch(e){} if(G)G.player=pickedResident; document.querySelectorAll('.resident-card').forEach(x=>x.classList.toggle('on',x.dataset.id===pickedResident)); }
+function residentSelectHTML(){ return `<div class="resident-options">${Object.values(RESIDENTS).map(r=>`<button type="button" class="resident-card ${pickedResident===r.id?'on':''}" data-id="${r.id}" onclick="sfx('click');chooseResident('${r.id}')"><img src="${(SPRITE_URLS[r.who]||SPRITE_URLS.joey).neutral}" alt="${r.name}"><span><b>${r.name}</b>${r.desc}</span></button>`).join('')}</div>`; }
 function showIntro(){
-  drawScene("core","warm","Dr. Belle Deans",
-"<b>Welcome to St. Aurelia Medical Center.</b><br>I'm <b>Dr. Belle Deans</b>, your PGY-1 Residency Program Director.<br>Before your first rotation — what should we call you?",
-    {advance:false, hud:false, who:'belle'});
-  const wrap=document.querySelector(".vn-wrap");
-  const inp=document.createElement("div");
-  inp.className="choices";
-  inp.innerHTML=`
-    <input id="nm" placeholder="Enter your name" maxlength="16" value="Joey Han"
-      style="font-family:'Nunito';font-weight:700;padding:12px 16px;border:2.5px solid #ffd0e0;border-radius:16px;font-size:16px;text-align:center;outline:none"/>
-    ${preceptorSelectHTML()}
-    <button class="btn mint" id="goBtn">Start with selected preceptor</button>`;
-  document.getElementById("choiceLayer").appendChild(inp);
+  setBG("core");
+  let nmDefault='Joey Han'; try{nmDefault=localStorage.getItem('clinicalPathName')||'Joey Han';}catch(e){}
+  document.getElementById("app").innerHTML=`
+    <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div>
+    <div class="fx" id="fx2"></div>
+    <div class="center-layer" style="justify-content:center;padding:3vh 16px">
+      <div class="create-panel">
+        <div class="cp-head"><span class="cp-ep">Episode 0 · Orientation week</span><h2>Create your resident</h2>
+        <p>Your badge and your first schedule are waiting in the pharmacy office.</p></div>
+        <div class="cp-sec"><h3><span class="stp">1</span>Your name</h3>
+          <input id="nm" placeholder="Type your name" maxlength="16" value="${nmDefault}"/></div>
+        <div class="cp-sec"><h3><span class="stp">2</span>Your resident</h3>${residentSelectHTML()}</div>
+        <div class="cp-sec"><h3><span class="stp">3</span>Your preceptor</h3>${preceptorSelectHTML()}</div>
+        <button class="btn tmain" id="goBtn" style="width:100%">Begin orientation</button>
+      </div>
+    </div>`;
+  window.fx=document.getElementById("fx2");
   document.getElementById("goBtn").onclick=beginGame;
   document.getElementById("nm").addEventListener("keydown",e=>{if(e.key==="Enter")beginGame();});
 }
 function beginGame(){
-  const nm=(document.getElementById("nm").value||"Joey Han").trim().slice(0,16);
+  const nm=((document.getElementById("nm")||{}).value||"Joey Han").trim().slice(0,16)||"Joey Han";
+  try{localStorage.setItem('clinicalPathName',nm);}catch(e){}
   clearSavedProgress();
-  G={name:nm,avatar:pickedAv,preceptor:localStorage.getItem('clinicalPathPreceptor')||'female',results:initResults()};
+  G={name:nm,avatar:pickedAv,player:pickedResident,preceptor:localStorage.getItem('clinicalPathPreceptor')||'female',results:initResults()};
   saveProgress("intro");
-  drawScene("core","worry","Joey Han (you)",
-    `<b>I'm ${nm}, PGY-1.</b><br>A little nervous, but ready to learn.`,
-    {advance:true, hud:false, who:'joey', pop:true, onBox:"introPreceptor()"});
+  sfx('click');
+  drawScene("core","worry",`${nm} (you)`,
+    `<b>I'm ${nm}, PGY-1.</b><br>New badge, new coat… okay. Deep breath. One patient at a time.`,
+    {advance:true, hud:false, who:playerWho(), pop:true, onBox:"introBelle()"});
   burst("good");
+}
+function introBelle(){
+  saveProgress("intro");
+  drawScene("core","warm","Dr. Belle Deans",
+    `Welcome to <b>St. Aurelia Medical Center</b>, ${G.name}. I'm <b>Dr. Belle Deans</b>, your residency program director.<br>Your preceptor is waiting to meet you — make us proud this year.`,
+    {advance:true, who:'belle', pop:true, onBox:"introPreceptor()"});
 }
 function introPreceptor(){
   saveProgress("intro");
   const p=selectedPreceptor();
-  drawScene("core",preceptorExpr("happy"),p.name,
-    `Great to meet you, <b>${G.name}</b>! I'm <b>${p.name}</b>, your preceptor.<br>Pick a rotation and we'll learn it step by step.`,
+  const hello=p.id==='female'
+    ? `So you're <b>${G.name}</b>! I'm <b>Dr. Harlin</b> — ICU pharmacist, your preceptor, and the reason the coffee disappears on this floor.<br>Rule one: patients first. Rule two: ask me anything. Ready?`
+    : `Good to meet you, <b>${G.name}</b>. I'm <b>Dr. Daniel Park</b>, your preceptor.<br>I won't rush you, and I won't let you coast. We'll take it one patient at a time.`;
+  drawScene("core",preceptorExpr("happy"),p.name,hello,
     {advance:true, who:p.who, pop:true, onBox:"goHub()"});
   burst("good");
 }
@@ -1871,7 +2095,25 @@ function showShiftBoard(){ saveProgress('shift'); setBG('core'); document.getEle
    MODULE — LEARN (dialogue) then CASES
    ================================================================== */
 let curM=null, learnIdx=0, caseIdx=0;
-function openModule(id){ curM=MODULES.find(m=>m.id===id); learnIdx=0; saveProgress("learn"); runLearn(); }
+function openModule(id){
+  curM=MODULES.find(m=>m.id===id); learnIdx=0; saveProgress("learn");
+  sfx('click');
+  const m=curM, meta=AREA[m.area];
+  const stage=(hubStageDefs().find(st=>st.ids&&st.ids.includes(m.id))||{}).title||'PGY-1 year';
+  const seq=String(studyOrderedModules().indexOf(m)+1).padStart(2,'0');
+  const old=document.getElementById('chapterOv'); if(old)old.remove();
+  const ov=document.createElement('div'); ov.className='chapter-ov'; ov.id='chapterOv';
+  ov.innerHTML=`<div class="chapter-card" style="--c:${meta.c}">
+      <span class="ch-stage">${stage}</span>
+      <span class="ch-no">Rotation ${seq}</span>
+      <h2>${m.title}</h2>
+      <span class="ch-area" style="background:${meta.c}">${meta.name}</span>
+      <span class="ch-tap">Tap to begin</span></div>`;
+  document.body.appendChild(ov);
+  let went=false;
+  const go=()=>{ if(went)return; went=true; const o=document.getElementById('chapterOv'); if(o)o.remove(); runLearn(); };
+  ov.onclick=go; setTimeout(go,2000);
+}
 
 function runLearn(){
   saveProgress("learn");
@@ -2057,28 +2299,58 @@ function checkOrder(){
 }
 
 /* feedback dialogue */
+var pendingRank=-1;
+function spawnStatToast(area, ok){
+  const meta=AREA[area]||{name:'Practice',c:'#ff5f92'};
+  const label=String(meta.name||'Practice').replace('· ','');
+  const host=document.createElement('div'); host.className='stat-toasts';
+  host.innerHTML= ok
+    ? `<span class="stat-toast" style="--c:${meta.c}">+1 ${label}</span><span class="stat-toast" style="--c:#ff4f86;animation-delay:.12s,1.62s">Bond +1</span>`
+    : `<span class="stat-toast" style="--c:#8e77c9">Saved to review later</span>`;
+  document.body.appendChild(host); setTimeout(()=>host.remove(),2300);
+}
 function feedback(ok, expl){
   ordSeq=[];
   const m=curM;
   const cleanExpl = String(expl || '').replace(/^(Correct\.|Not quite\.)\s*/i, '');
   const t = bondTier();
   const line = ok? pick(PRAISE_T[t]) : pick(CONSOLE_T[t]);
-  // expression varies by correctness + how close you and Harlin are
+  // expression varies by correctness + how close you and your preceptor are
   let okExpr =   ["proud","happy","laugh"][t];
   let badExpr =  ["think","worry","encourage"][t];
   if(!ok && (m.id==='safety'||m.id==='code')) badExpr='alarmed';
   if(ok && (m.id==='safety'||m.id==='code')) okExpr='stern';
   if(ok && bond()>=14 && Math.random()<0.4) okExpr='surprised';
+  if(ok && tierOf(bond()-1)<tierOf(bond())) pendingRank=tierOf(bond());
   const last = caseIdx===m.cases.length-1;
   drawScene(m.area, preceptorExpr(ok?okExpr:badExpr),preceptorName(), line, {
     advance:false, note:`<b>${ok?'Correct':'Not quite'}</b> · ${cleanExpl}` });
   burst(ok?"good":"bad");
+  sfx(ok?'ok':'bad');
+  spawnStatToast(m.area, ok);
   const wrap=document.querySelector(".vn-wrap");
   const c=document.createElement("div");c.className="choices";
   c.innerHTML=`<button class="btn mint" onclick="nextCase()">${last?'Finish rotation ':'Next case ▶'}</button>`;
   document.getElementById("choiceLayer").appendChild(c);
 }
+function rankUpScene(t){
+  const p=selectedPreceptor();
+  const lines=[null,
+    `You know what, <b>${G.name}</b>? You've stopped second-guessing every step — and you keep getting them right. I'm starting to trust your instincts.`,
+    `Honestly, <b>${G.name}</b> — at this point I'd put you on rounds without me. Patients are safer because you're careful. I'm proud to be your preceptor.`];
+  drawScene(curM?curM.area:'core', preceptorExpr(t===2?'laugh':'happy'), p.name, lines[t]||lines[1],
+    {advance:false, who:p.who, pop:true,
+     below:`<div class="rank-banner"><span class="rk-k">Bond rank up</span><span class="rk-v">${TIER_NAMES[t]}</span></div>`});
+  burst('good'); sfx('rank');
+  const c=document.createElement('div'); c.className='choices';
+  c.innerHTML=`<button class="btn mint" onclick="sfx('click');nextCaseCore()">Keep going</button>`;
+  document.getElementById('choiceLayer').appendChild(c);
+}
 function nextCase(){
+  if(pendingRank>0){ const t=pendingRank; pendingRank=-1; rankUpScene(t); return; }
+  nextCaseCore();
+}
+function nextCaseCore(){
   const m=curM;
   if(caseIdx<m.cases.length-1){caseIdx++;saveProgress("case");runCase();}
   else moduleComplete();
