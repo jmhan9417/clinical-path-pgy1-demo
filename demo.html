@@ -542,6 +542,31 @@
 .vn-name[data-who="attending"]{background:linear-gradient(120deg,#33415c,#5a6b8c)}
 .vn-name[data-who="patient"]{background:linear-gradient(120deg,#b08968,#c9a273)}
 
+
+/* ===== Pip helper bot ===== */
+#pipBtn{position:fixed;left:16px;bottom:16px;z-index:150;width:58px;height:58px;border-radius:50%;border:2px solid #ffd0e0;background:#fff;cursor:pointer;box-shadow:0 10px 26px rgba(120,40,90,.28);padding:0;overflow:hidden;transition:.15s}
+#pipBtn:hover{transform:translateY(-2px);border-color:#ff5f92}
+#pipBtn.on{border-color:#ff5f92;box-shadow:0 12px 30px rgba(255,95,146,.4)}
+#pipBtn img{width:100%;height:100%;object-fit:cover;object-position:center 18%}
+#pipBtn .pip-fallback{display:none;font-weight:900;font-size:22px;color:#ff5f92}
+#pipBtn.noimg .pip-fallback{display:block}
+#pipBtn.noimg img{display:none}
+#pipPanel{position:fixed;left:16px;bottom:84px;z-index:150;width:min(320px,calc(100vw - 32px));background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,246,250,.98));border:1.6px solid #ffc9dc;border-radius:18px;box-shadow:0 22px 54px rgba(120,40,90,.30);opacity:0;pointer-events:none;transform:translateY(10px);transition:.2s ease}
+#pipPanel.on{opacity:1;pointer-events:auto;transform:none}
+.pip-head{display:flex;gap:10px;align-items:center;padding:12px 14px 8px}
+.pip-head img{width:44px;height:44px;border-radius:12px;object-fit:cover;object-position:center 14%;background:#fff0f6;border:1px solid #f6dfeb}
+.pip-head b{display:block;font-size:14.5px;color:#3f2a46}
+.pip-head span{display:block;font-size:11px;font-weight:800;color:#c2427c;text-transform:uppercase;letter-spacing:.05em}
+.pip-x{margin-left:auto;background:#fff;border:1px solid #f3d3e2;border-radius:10px;width:28px;height:28px;font-size:15px;color:#a86a8b;cursor:pointer;font-weight:900;line-height:1}
+.pip-x:hover{color:#ff5f92;border-color:#ff5f92}
+.pip-body{padding:4px 14px 12px;font-size:13px;font-weight:700;color:#5d4a5c;line-height:1.55}
+.pip-body b{color:#3f2a46}
+.pip-hint{display:block;margin-top:8px;font-size:11px;font-weight:800;color:#b58aa6}
+.pip-actions{display:flex;gap:6px;padding:0 14px 14px;flex-wrap:wrap}
+.pip-actions button{flex:1;min-width:64px;background:#fff;border:1.4px solid #f3d3e2;border-radius:10px;padding:8px 6px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#5d4a5c;cursor:pointer;transition:.12s}
+.pip-actions button:hover{border-color:#ff5f92;color:#ff5f92;background:#fff5f9}
+@media print{#pipBtn,#pipPanel{display:none!important}}
+
 </style>
 </head>
 <body>
@@ -556,7 +581,8 @@
    ================================================================== */
 const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064549_2db7df05-8adb-4513-b376-d8fbf55b8252.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064630_7f17c76d-9931-4830-b923-fcb206958254.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064644_8ebe04b9-71c7-4e4b-8d52-06f46b4aadcc.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064654_40b050a1-2c3b-4718-a04c-53ccccf8d798.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064705_c9c8e658-dbef-4940-af13-a0349791a9fa.png","laugh":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064716_425a8704-d2a1-4b8f-bf1f-a9a11e543c3b.png","encourage":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064727_0447f1ef-7361-4d24-820a-91cd859e95d1.png","alarmed":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064738_bf27a5a3-2d27-48e3-9907-ae44a53d08b0.png","wink":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073136_8d32b6ba-d7e3-468a-97b2-92b8ab9e62db.png","surprised":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073144_23d5d2c7-1edb-4537-94cb-f03bfe2f9d23.png","sad":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073151_17572a6f-2a9c-4a92-b80f-2925dec83185.png","stern":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073216_5e029e41-3351-4109-8c94-d274de85c32d.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064851_6e4f850a-dafa-4f93-917f-f361593b4753.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064901_c3bf8edd-8794-441b-ad49-5fbf1837ff35.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073240_b828f88d-acdf-4711-87eb-1c17dd09c13f.png","warm":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073308_65a806d3-39ee-4b24-b1b2-595fcc019a9c.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073315_54ee7db9-0169-44ae-ab09-58ec5225280b.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073325_a1f2feea-4d3e-48eb-90d3-d6bb7ff2a2b9.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073332_1539b31c-c65d-42e0-823e-d6adb90f5aa7.png"},
 "riley":{"neutral":"assets/riley_neutral.png","happy":"assets/riley_happy.png","think":"assets/riley_think.png","worry":"assets/riley_worry.png","proud":"assets/riley_proud.png"},
-"dpark":{"neutral":"assets/dpark_neutral.png","happy":"assets/dpark_happy.png","think":"assets/dpark_think.png","worry":"assets/dpark_worry.png","proud":"assets/dpark_proud.png","stern":"assets/dpark_stern.png"}};
+"dpark":{"neutral":"assets/dpark_neutral.png","happy":"assets/dpark_happy.png","think":"assets/dpark_think.png","worry":"assets/dpark_worry.png","proud":"assets/dpark_proud.png","stern":"assets/dpark_stern.png"},
+"pip":{"neutral":"assets/pip_neutral.png","happy":"assets/pip_neutral.png"}};
 const BG_URLS={core:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R1:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80', R2:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R3:'https://images.unsplash.com/photo-1584451049700-ec9b394f3805?w=1600&q=80', R4:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80'};
 Object.assign(SPRITE_URLS,{
   patient:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044454_bceef426-09d9-4a26-b13e-96a4ad6b66b2.png"},
@@ -689,6 +715,93 @@ function face(expr, who){ return faceImg(expr, who);
 
 
 var VNTYPE={timer:null,full:'',el:null,done:true,onBox:null};
+/* ===== Pip — the resident helper bot ===== */
+var PIP={open:false};
+function pipIntroSeen(){ try{return localStorage.getItem('clinicalPathPipIntro')==='done';}catch(e){return true;} }
+function pipMarkIntro(){ try{localStorage.setItem('clinicalPathPipIntro','done');}catch(e){} }
+function pipScreen(){
+  if(document.getElementById('chapterOv'))return 'chapter';
+  if(document.querySelector('.create-panel'))return 'create';
+  if(document.querySelector('.title-menu'))return 'title';
+  if(document.querySelector('.hub-panel'))return 'hub';
+  if(document.querySelector('.cast-panel'))return 'cast';
+  if(document.querySelector('.study-panel'))return 'cards';
+  if(document.querySelector('.shift-panel'))return 'shift';
+  if(document.querySelector('.report-panel'))return 'review';
+  if(document.getElementById('caseHolder'))return 'case';
+  if(document.querySelector('.vn-note'))return 'feedback';
+  if(document.getElementById('vnText'))return 'scene';
+  return 'other';
+}
+var PIP_TYPE_TIPS={
+  mcq:"Read the stem twice, then eliminate. You can answer with keys 1-9 or A-F.",
+  order:"Tap the steps in the order you would actually do them on shift, then hit Check order.",
+  calc:"Open MATH for arithmetic or CALC for clinical formulas. Write the formula down before plugging in numbers.",
+  chartHunt:"Scan the chart like a pharmacist: allergies, renal function, duplicates, interactions, high-alert drugs.",
+  sbar:"Strong SBARs are specific — drug, dose, route, frequency, and a monitoring plan.",
+  code:"Fast and safe beats fast. Right drug and dose first, then timing.",
+  journal:"Check the population, comparator, and primary endpoint before you trust an abstract.",
+  essay:"Structure it like a consult note: problem, data, assessment, recommendation."
+};
+function pipTip(){
+  const sc=pipScreen();
+  if(sc==='case'&&typeof curM!=='undefined'&&curM){
+    const c=curM.cases[caseIdx]||{};
+    const t=PIP_TYPE_TIPS[c.type]||"Take it one finding at a time — the case card has everything you need.";
+    return {h:curM.title, b:t};
+  }
+  const tips={
+    title:{h:"Welcome to St. Aurelia",b:"Continue picks up your saved year. New resident starts fresh — you choose your name, your look, and your preceptor."},
+    create:{h:"Make it yours",b:"Pick the resident and preceptor you want to spend the year with. Both routes teach the same clinical content."},
+    hub:{h:"Resident Year Map",b:"Work the month blocks left to right. The recommended Next shift is the fastest good choice. The hearts up top grow every time you get a case right."},
+    scene:{h:"Story scene",b:"Click the dialogue box or press Space to continue. AUTO advances for you. Dotted-underline terms show plain-English tooltips."},
+    feedback:{h:"After the answer",b:"The note under the dialogue is the teaching point — that exact concept becomes a Study Card for later review."},
+    review:{h:"Preceptor Review",b:"This is your end-of-shift debrief: what you practiced, what is strong, and what to revisit next."},
+    cards:{h:"Study Cards",b:"Grade yourself honestly. Again brings a card back sooner; Easy pushes it further out. Cards come from cases you have seen."},
+    shift:{h:"Simulated Shift",b:"Pick the patient who worries you most — each one opens the matching rotation, just like triaging a real board."},
+    cast:{h:"The team",b:"Dr. Harlin and Dr. Park teach the same cases with different personalities. Dr. Deans runs the program."},
+    chapter:{h:"New rotation",b:"Tap anywhere to walk in."},
+    other:{h:"Pip here",b:"I'm your rounds bot. Open me anytime with H if you are not sure what to do next."}
+  };
+  return tips[sc]||tips.other;
+}
+function pipPanelHTML(intro){
+  const tip=pipTip();
+  const inGame=!!(typeof G!=='undefined'&&G&&G.results);
+  const body=intro
+    ? `<b>Hi! I'm Pip, your rounds bot.</b><br>Three quick things:<br>1 · Follow the <b>month blocks</b> top to bottom — or just take the recommended <b>Next shift</b>.<br>2 · Answer cases to fill your <b>bond hearts</b> — your preceptor remembers how you practice.<br>3 · Anything you miss becomes a <b>Study Card</b>. Nothing is wasted.<br><span class="pip-hint">Press H to call me anytime.</span>`
+    : `<b>${tip.h}</b><br>${tip.b}<span class="pip-hint">Press H to open or close me.</span>`;
+  const acts=inGame? `<div class="pip-actions">
+      <button onclick="sfx('click');showLabValues(event)">Labs</button>
+      <button onclick="sfx('click');openBasicCalculator(event)">Math</button>
+      <button onclick="sfx('click');openClinicalCalculator(event)">Calc</button>
+      <button onclick="sfx('click');togglePip();goHub()">Year map</button>
+    </div>`:"";
+  return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>rounds bot · here to help</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
+  <div class="pip-body">${body}</div>${acts}`;
+}
+function togglePip(force){
+  const panel=document.getElementById('pipPanel');
+  const btn=document.getElementById('pipBtn');
+  if(!panel)return;
+  PIP.open=(typeof force==='boolean')?force:!PIP.open;
+  if(PIP.open){ panel.innerHTML=pipPanelHTML(false); panel.classList.add('on'); btn.classList.add('on'); sfx('click'); }
+  else{ panel.classList.remove('on'); btn.classList.remove('on'); }
+}
+function pipIntroShow(){
+  const panel=document.getElementById('pipPanel');
+  const btn=document.getElementById('pipBtn');
+  if(!panel||pipIntroSeen())return;
+  PIP.open=true; panel.innerHTML=pipPanelHTML(true); panel.classList.add('on'); btn.classList.add('on'); pipMarkIntro();
+}
+function initPip(){
+  if(document.getElementById('pipBtn'))return;
+  const b=document.createElement('button'); b.id='pipBtn'; b.type='button'; b.setAttribute('aria-label','Open Pip, the helper bot');
+  b.innerHTML=`<img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.happy:''}" alt="" onerror="this.parentNode.classList.add('noimg')"><span class="pip-fallback">?</span>`;
+  b.onclick=function(){togglePip();};
+  const pnl=document.createElement('div'); pnl.id='pipPanel';
+  document.body.appendChild(pnl); document.body.appendChild(b);
+}
 document.addEventListener('keydown',function(e){
   const tag=(e.target&&e.target.tagName||'').toLowerCase();
   if(tag==='input'||tag==='textarea'||tag==='select'||tag==='button'||e.metaKey||e.ctrlKey||e.altKey)return;
@@ -698,6 +811,7 @@ document.addEventListener('keydown',function(e){
   if(n>=1&&n<=9)idx=n-1;
   else if(/^[a-f]$/i.test(e.key))idx=e.key.toLowerCase().charCodeAt(0)-97;
   if(idx>=0&&list[idx]){e.preventDefault();list[idx].click();return;}
+  if(e.key==='h'||e.key==='H'){e.preventDefault();togglePip();return;}
   if((e.key===' '||e.key==='Enter')&&document.getElementById('vnText')){e.preventDefault();vnClick();}
 });
 var VNCTRL={auto:false,autoTimer:null,autoToken:0,log:[]};
@@ -2025,6 +2139,7 @@ function studyOrderedModules(){
 
 function goHub(){
   saveProgress("hub");
+  setTimeout(pipIntroShow,700);
   setBG("core");
   const dashAreas=["R1","R2","R3","R4"];
   const activeStage=window.__clinicalPathStage||'orientation';
@@ -2421,6 +2536,7 @@ function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor
 deBiasGeneratedMCQs();
 balanceMCQOptionLengths();
 showTitle();
+initPip();
 
 /* --- calc + specialty modules --- */
 MODULES.push({"id":"calc","icon":"21","area":"R1","title":"Pharmacy Calculations","blurb":"The math you must do fast and right — CrCl, loading doses, infusion rates, corrections, conversions.","brief":"<p class=\"lead\">A clinical pharmacist calculates all day. Type the number; answers are graded with a small tolerance.</p>\n  <table class=\"ref\"><tr><th>Calc</th><th>Formula</th></tr>\n  <tr><td><b>Cockcroft-Gault CrCl</b></td><td>[(140−age) × wt × (0.85 if F)] / (72 × SCr)</td></tr>\n  <tr><td><b>Infusion rate</b></td><td>mL/hr = (units/hr) ÷ (units/mL); or volume ÷ time</td></tr>\n  <tr><td><b>Corrected phenytoin</b></td><td>measured / (0.2 × albumin + 0.1)</td></tr>\n  <tr><td><b>Corrected calcium</b></td><td>measured Ca + 0.8 × (4.0 − albumin)</td></tr></table>","cases":[{"type":"calc","kick":"Cockcroft-Gault","q":"Estimate CrCl (mL/min). Round to the nearest whole number.","given":[{"label":"Sex","value":"Male"},{"label":"Age","value":"65 yr"},{"label":"Weight","value":"80 kg"},{"label":"SCr","value":"1.2 mg/dL"}],"answer":{"value":69,"tolerance":3,"unit":"mL/min"},"hint":"CrCl = [(140 − age) × weight × (0.85 if female)] / (72 × SCr)","note":"(140−65)×80 ÷ (72×1.2) = 6000 ÷ 86.4 ≈ 69 mL/min. Male, so no 0.85 factor."},{"type":"calc","kick":"Vancomycin loading dose","q":"Loading dose at 25 mg/kg for a 90 kg patient (mg)?","given":[{"label":"Dose","value":"25 mg/kg"},{"label":"Weight","value":"90 kg"}],"answer":{"value":2250,"tolerance":50,"unit":"mg"},"hint":"Loading dose = mg/kg × actual body weight (cap ~3000 mg).","note":"25 × 90 = 2250 mg (within the ~3000 mg cap). Loading doses use actual body weight in critically ill patients."},{"type":"calc","kick":"Heparin infusion rate","q":"Heparin 18 units/kg/hr for 80 kg; bag is 25,000 units in 250 mL. Rate in mL/hr?","given":[{"label":"Rate","value":"18 units/kg/hr"},{"label":"Weight","value":"80 kg"},{"label":"Bag","value":"25,000 units / 250 mL"}],"answer":{"value":14.4,"tolerance":0.6,"unit":"mL/hr"},"hint":"units/hr = 18 × weight; concentration = 25000/250; mL/hr = (units/hr) ÷ concentration.","note":"18×80 = 1440 units/hr; 25000/250 = 100 units/mL; 1440 ÷ 100 = 14.4 mL/hr."},{"type":"calc","kick":"Infusion time to rate","q":"Give 1 g in 100 mL over 30 minutes. Pump rate in mL/hr?","given":[{"label":"Volume","value":"100 mL"},{"label":"Time","value":"30 min"}],"answer":{"value":200,"tolerance":5,"unit":"mL/hr"},"hint":"mL/hr = volume ÷ time(hours). 30 min = 0.5 h.","note":"100 mL ÷ 0.5 h = 200 mL/hr."},{"type":"calc","kick":"Corrected phenytoin","q":"Measured phenytoin 8 mcg/mL, albumin 2.0 g/dL, normal renal function. Corrected level?","given":[{"label":"Measured","value":"8 mcg/mL"},{"label":"Albumin","value":"2.0 g/dL"}],"answer":{"value":16,"tolerance":1,"unit":"mcg/mL"},"hint":"Corrected = measured / (0.2 × albumin + 0.1).","note":"8 ÷ (0.2×2.0 + 0.1) = 8 ÷ 0.5 = 16 mcg/mL — actually therapeutic, not low. Hypoalbuminemia falsely lowers the measured total level."},{"type":"calc","kick":"Corrected calcium","q":"Total calcium 7.6 mg/dL, albumin 2.0 g/dL. Corrected calcium?","given":[{"label":"Total Ca","value":"7.6 mg/dL"},{"label":"Albumin","value":"2.0 g/dL"}],"answer":{"value":9.2,"tolerance":0.3,"unit":"mg/dL"},"hint":"Corrected Ca = measured + 0.8 × (4.0 − albumin).","note":"7.6 + 0.8×(4.0−2.0) = 7.6 + 1.6 = 9.2 mg/dL — normal once corrected for low albumin."},{"type":"calc","kick":"Opioid conversion (MME)","q":"Oxycodone 30 mg/day. Approximate morphine milligram equivalents (MME)?","given":[{"label":"Oxycodone","value":"30 mg/day"},{"label":"Factor","value":"~1.5"}],"answer":{"value":45,"tolerance":3,"unit":"MME"},"hint":"MME = oxycodone dose × 1.5.","note":"30 × 1.5 = 45 MME/day. MME thresholds guide overdose risk and naloxone co-prescribing."}]},
