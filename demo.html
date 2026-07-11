@@ -567,6 +567,43 @@
 .pip-actions button:hover{border-color:#ff5f92;color:#ff5f92;background:#fff5f9}
 @media print{#pipBtn,#pipPanel{display:none!important}}
 
+
+/* ===== v12: bond rewards, calendar, achievements ===== */
+.day-chip{background:rgba(255,255,255,.94);border:1px solid var(--roseline);border-radius:20px;padding:6px 13px;font-weight:900;font-size:12px;color:#7a5a72;box-shadow:0 4px 12px rgba(15,23,42,.08)}
+.hint-row{display:flex;justify-content:flex-end;margin-bottom:2px}
+.hint-btn{background:linear-gradient(120deg,#fff,#fff6fa);border:1.5px dashed #e8b9cf;border-radius:12px;padding:8px 14px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12.5px;color:#c2427c;cursor:pointer;transition:.13s}
+.hint-btn:hover{border-style:solid;border-color:#ff5f92}
+.hint-btn:disabled{opacity:.75;cursor:default;border-style:solid;color:#8a6f82}
+.choice.faded{opacity:.32;text-decoration:line-through;pointer-events:none}
+.react-chip{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 12%;border:2px solid #ffd0e0;background:#fff0f6;float:left;margin:0 10px 4px 0}
+.streak-tag{display:inline-block;background:linear-gradient(120deg,#ff9b6a,#ff5f92);color:#fff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 9px;margin-right:8px;vertical-align:2px}
+.unlock-line{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:900;color:#b0792c;background:#fff6e3;border:1px solid #f3ddb0;border-radius:10px;padding:5px 10px}
+/* break room */
+.break-panel{background:rgba(255,255,255,.95);border:1.5px solid var(--roseline);border-radius:22px;padding:22px 24px;max-width:640px;width:100%;box-shadow:0 24px 60px rgba(90,40,80,.30);text-align:center;max-height:86vh;overflow:auto}
+.break-panel h2{margin:0 0 4px;font-size:23px;color:#3f2a46;font-weight:900}
+.break-sub{margin:0 0 14px;color:#8a6f82;font-size:13px;font-weight:700}
+.story-list{display:flex;flex-direction:column;gap:10px}
+.story-card{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fffafc;border:1.5px solid #f3d3e2;border-radius:14px;padding:14px 16px;cursor:pointer;font-family:'Nunito',sans-serif;transition:.13s;text-align:left}
+.story-card:hover{border-color:#ff5f92;background:#fff5f9;transform:translateY(-1px)}
+.story-card.locked{opacity:.55;cursor:default}
+.story-card.locked:hover{transform:none;border-color:#f3d3e2;background:#fffafc}
+.story-card.seen .st-title{color:#8a6f82}
+.story-card .st-title{font-size:15px;font-weight:900;color:#3f2a46}
+.story-card .st-meta{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#c2427c;white-space:nowrap}
+.story-card.locked .st-meta{color:#a89aa4}
+.new-dot{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;border-radius:9px;background:#ff4f86;color:#fff;font-size:11px;font-weight:900;padding:0 5px;margin-left:4px;vertical-align:1px}
+/* achievements */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.ach-card{position:relative;background:#faf7f2;border:1.5px solid #eee2d0;border-radius:14px;padding:12px 14px 12px 34px;opacity:.55}
+.ach-card.got{background:#fffdf5;border-color:#e7c98a;opacity:1;box-shadow:0 6px 16px rgba(176,121,44,.12)}
+.ach-card b{display:block;font-size:13.5px;color:#5b4a33}
+.ach-card span:not(.ach-dot){font-size:11.5px;font-weight:700;color:#8d7c64;line-height:1.35}
+.ach-dot{position:absolute;left:12px;top:15px;width:12px;height:12px;border-radius:50%;background:#d8cbb6}
+.ach-card.got .ach-dot{background:linear-gradient(120deg,#e7b54e,#b0792c);box-shadow:0 0 0 3px rgba(231,181,78,.25)}
+.stat-toast.ach{background:#fffdf5}
+.grad-quote{margin-top:10px;font-size:13px;font-weight:800;color:#7a5a72;background:#fff5f9;border:1px solid #ffd9e6;border-radius:12px;padding:9px 12px;font-style:italic}
+@media(max-width:640px){.day-chip{display:none}}
+
 </style>
 </head>
 <body>
@@ -715,6 +752,107 @@ function face(expr, who){ return faceImg(expr, who);
 
 
 var VNTYPE={timer:null,full:'',el:null,done:true,onBox:null};
+/* ===== Break room stories (bond-tier unlocks) ===== */
+const STORIES={
+  female:[
+    {id:'h1',tier:1,title:'Why the ICU',beats:[
+      {expr:'think',t:"You want to know why I picked the ICU? Fourth year, I watched a code as a student. Everyone moved so fast — except the pharmacist. She was the calmest person in the room."},
+      {expr:'happy',t:"She had the epi drawn up before anyone asked, and when the attending called for amiodarone she said 'already primed.' I thought: that. I want to be <b>that</b>."},
+      {expr:'proud',t:"Calm is a skill, ${NAME}. You build it one worked-up patient at a time. That's why I make you slow down on the easy ones."}]},
+    {id:'h2',tier:2,title:'The near miss',beats:[
+      {expr:'worry',t:"I'll tell you about my worst week. Second year in, a septic patient, and I verified vanc 'per protocol' without checking the newest creatinine. It had doubled overnight."},
+      {expr:'think',t:"The nurse caught it at the pump. Not me — the nurse. Patient was fine. I wasn't, for a while."},
+      {expr:'stern',t:"That's why I ask you 'what changed since yesterday?' on every single patient. The chart from this morning is already history."},
+      {expr:'warm',t:"You'll have your own near miss someday, ${NAME}. When it happens, tell people. Loudly. That's how the next one gets caught."}]},
+    {id:'h3',tier:2,title:'Coffee rules',beats:[
+      {expr:'laugh',t:"Okay, confession: the coffee thing. I do drink the last cup. Every time. There's a system, though."},
+      {expr:'wink',t:"Whoever survives rounds with zero interventions missed buys the next bag. You're on the hook twice already, Dr. ${NAME}."},
+      {expr:'happy',t:"Keep practicing like you have been and I'll be buying yours by spring. That's the deal."}]}
+  ],
+  male:[
+    {id:'p1',tier:1,title:'Why emergency medicine',beats:[
+      {expr:'think',t:"People assume I chose the ED for the adrenaline. It's the opposite. I chose it because chaos needs one quiet person."},
+      {expr:'neutral',t:"In a code, the loudest thing I do is put the right syringe in the right hand. The room can be on fire — the math can't be."},
+      {expr:'proud',t:"You have more calm in you than you think, ${NAME}. I've seen it when you slow down mid-case. Protect that."}]},
+    {id:'p2',tier:2,title:'The heparin bag',beats:[
+      {expr:'worry',t:"My first year out, I found a heparin drip running at twice the ordered rate. Pump was programmed from the old bag. Nobody had done anything 'wrong' — five small things lined up."},
+      {expr:'stern',t:"I said something, we fixed it, aPTT never even drifted. The part that stays with me is how <b>normal</b> that shift felt right up until it didn't."},
+      {expr:'neutral',t:"That's the whole job, ${NAME}. Systems fail quietly. You are the person who notices quiet things."}]},
+    {id:'p3',tier:2,title:'Why I precept',beats:[
+      {expr:'happy',t:"You asked why I take residents. Honest answer? A preceptor once spent his lunch re-teaching me vanc kinetics after I bombed a consult. He didn't have to."},
+      {expr:'warm',t:"I never got to pay him back. So I pay it forward — one resident, one year at a time."},
+      {expr:'proud',t:"Someday a student will ask you the same question, Dr. ${NAME}. I already know what you'll say."}]}
+  ]
+};
+function storiesForRoute(){ const id=(G&&G.preceptor)||'female'; return STORIES[id]||STORIES.female; }
+function storyUnlocked(st){ return bondTier()>=st.tier; }
+function storiesSeen(){ if(!G)return []; G.storiesSeen=G.storiesSeen||[]; return G.storiesSeen; }
+function showBreakRoom(){
+  const list=storiesForRoute(); const seen=storiesSeen();
+  document.getElementById("app").innerHTML=`
+    <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div>
+    <div class="fx" id="fx2"></div>
+    ${hudHTML('core')}
+    <div class="center-layer" style="justify-content:center;padding:4vh 18px">
+      <div class="break-panel">
+        <h2>Break room</h2>
+        <p class="break-sub">Moments with ${preceptorName()} unlock as your bond grows. Stories, not tests — grab a coffee.</p>
+        <div class="story-list">
+          ${list.map(st=>{const un=storyUnlocked(st); const sn=seen.includes(st.id);
+            return `<button class="story-card ${un?'':'locked'} ${sn?'seen':''}" ${un?`onclick="sfx('click');playStory('${st.id}')"`:'disabled'}>
+              <span class="st-title">${st.title}</span>
+              <span class="st-meta">${un?(sn?'Read again':'New story'):'Unlocks at '+TIER_NAMES[st.tier]}</span>
+            </button>`;}).join('')}
+        </div>
+        <div style="display:flex;gap:9px;justify-content:center;margin-top:14px">
+          <button class="btn ghost sm" onclick="sfx('click');goHub()">Back to year map</button>
+        </div>
+      </div>
+    </div>`;
+  window.fx=document.getElementById("fx2");
+}
+var STORYQ=null;
+function playStory(id){
+  const st=storiesForRoute().find(x=>x.id===id); if(!st||!storyUnlocked(st))return;
+  const seen=storiesSeen(); if(!seen.includes(id)){seen.push(id); saveProgress('hub'); award('story');}
+  STORYQ={beats:st.beats.slice(), idx:0};
+  storyBeat();
+}
+function storyBeat(){
+  if(!STORYQ||STORYQ.idx>=STORYQ.beats.length){ STORYQ=null; showBreakRoom(); return; }
+  const b=STORYQ.beats[STORYQ.idx]; STORYQ.idx++;
+  const txt=b.t.replace(/\$\{NAME\}/g, (G&&G.name)||'Resident');
+  drawScene('core', preceptorExpr(b.expr), preceptorName(), txt, {advance:true, who:preceptorWho(), pop:STORYQ.idx===1, onBox:'storyBeat()', hud:true});
+}
+/* ===== Achievements ===== */
+const ACH_DEFS=[
+  {id:'first_shift',name:'First Shift',desc:'Finish your first rotation'},
+  {id:'perfect',name:'Clean Sweep',desc:'Finish a rotation with every case correct'},
+  {id:'streak5',name:'Sharp Eye',desc:'5 correct decisions in a row'},
+  {id:'streak10',name:'On Fire',desc:'10 correct decisions in a row'},
+  {id:'bond1',name:'Warming Up',desc:'Reach bond rank: Warming up'},
+  {id:'bond2',name:'Trusted Partner',desc:'Reach bond rank: Trusted partner'},
+  {id:'fifty',name:'Half Century',desc:'50 correct decisions'},
+  {id:'hundred',name:'Centurion',desc:'100 correct decisions'},
+  {id:'story',name:'Break Room Regular',desc:'Read your first break room story'},
+  {id:'shiftboard',name:'Board Runner',desc:'Work a patient from the Simulated Shift'}
+];
+function achMap(){ if(!G)return {}; G.ach=G.ach||{}; return G.ach; }
+function award(id){
+  const a=achMap(); if(a[id])return; a[id]=new Date().toISOString(); saveProgress('hub');
+  const def=ACH_DEFS.find(x=>x.id===id)||{name:id};
+  const host=document.createElement('div'); host.className='stat-toasts';
+  host.innerHTML=`<span class="stat-toast ach" style="--c:#b0792c">Achievement · ${def.name}</span>`;
+  document.body.appendChild(host); setTimeout(()=>host.remove(),2600);
+  sfx('rank');
+}
+function showAchievements(){
+  const a=achMap();
+  const ov=document.createElement('div'); ov.className='hub-tools'; ov.id='achOv';
+  ov.innerHTML=`<div class="hub-tools-card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h3>Achievements</h3><p style="margin:0 0 12px;color:#725c70;font-weight:800;font-size:13px">${Object.keys(a).length} of ${ACH_DEFS.length} earned</p></div><button class="btn ghost sm" onclick="document.getElementById('achOv').remove()">Close</button></div>
+    <div class="ach-grid">${ACH_DEFS.map(d=>`<div class="ach-card ${a[d.id]?'got':''}"><span class="ach-dot"></span><b>${d.name}</b><span>${d.desc}</span></div>`).join('')}</div></div>`;
+  document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();};
+}
 /* ===== Pip — the resident helper bot ===== */
 var PIP={open:false};
 function pipIntroSeen(){ try{return localStorage.getItem('clinicalPathPipIntro')==='done';}catch(e){return true;} }
@@ -1065,7 +1203,20 @@ const AREA={
   R3:{name:"R3 · Leadership", c:"#b28bff", bg:"bg-R3"},
   R4:{name:"R4 · Teaching", c:"#ffb36b", bg:"bg-R4"},
 };
+const STAGE_BGS={
+  orientation:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80',
+  acute:'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1600&q=80',
+  critical:'https://images.unsplash.com/photo-1551076805-e1869033e561?w=1600&q=80',
+  id_onc:'https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=1600&q=80',
+  ambulatory:'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1600&q=80',
+  advancement:'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=80'
+};
+function stageOfModule(id){ const st=hubStageDefs().find(x=>x.id!=='all'&&x.ids&&x.ids.includes(id)); return st?st.id:null; }
 function bgFor(area){ return BG_URLS[area]||BG_URLS.core; }
+function sceneBgFor(area){
+  if(typeof curM!=='undefined'&&curM&&curM.area===area){ const st=stageOfModule(curM.id); if(st&&STAGE_BGS[st])return STAGE_BGS[st]; }
+  return bgFor(area);
+}
 const PRELOADED_IMAGES=new Map();
 function preloadImage(url){
   if(!url || PRELOADED_IMAGES.has(url)) return;
@@ -1802,6 +1953,7 @@ function saveProgress(mode){
     localStorage.setItem(SAVE_KEY, JSON.stringify({
       v:2, savedAt:new Date().toISOString(), name:G.name||"Joey Han", avatar:G.avatar||"",
       player:G.player||pickedResident||"male", preceptor:G.preceptor||"female",
+      hints:G.hints||{}, ach:G.ach||{}, streak:G.streak||{cur:0,best:0}, storiesSeen:G.storiesSeen||[],
       results:G.results, mode:mode||"hub", curModuleId:curM?curM.id:null, learnIdx:learnIdx||0, caseIdx:caseIdx||0
     }));
   }catch(e){ console.log('save failed',e); }
@@ -1818,6 +1970,7 @@ function resumeProgress(){
   G={name:(d.name||"Joey Han"), avatar:d.avatar||"",
      player:d.player||(function(){try{return localStorage.getItem('clinicalPathResident')||'male';}catch(e){return 'male';}})(),
      preceptor:d.preceptor||(function(){try{return localStorage.getItem('clinicalPathPreceptor')||'female';}catch(e){return 'female';}})(),
+     hints:d.hints||{}, ach:d.ach||{}, streak:d.streak||{cur:0,best:0}, storiesSeen:Array.isArray(d.storiesSeen)?d.storiesSeen:[],
      results:normalizeResults(d.results)};
   if(RESIDENTS[G.player])pickedResident=G.player;
   const m=d.curModuleId?MODULES.find(x=>x.id===d.curModuleId):null;
@@ -1890,10 +2043,15 @@ function heartsHTML(){
   }
   return out;
 }
+function attemptedCount(){ let c=0; MODULES.forEach(m=>G.results[m.id].forEach(r=>{if(r!==null)c++;})); return c; }
 function hudHTML(area){
   const b=bond(), t=bondTier();
+  const shiftNo=Math.max(1, attemptedCount()+ (typeof curM!=='undefined'&&curM?0:0) );
+  const stTitle=(typeof curM!=='undefined'&&curM&&stageOfModule(curM.id))?(hubStageDefs().find(x=>x.id===stageOfModule(curM.id))||{}).title:'';
+  const monthLbl=stTitle?stTitle.split(' · ')[0]:'PGY-1';
   return `<div class="hud">
     <div class="area-pill" style="color:${AREA[area]?AREA[area].c:'#ff7fa8'}">${AREA[area]?AREA[area].name:'Title'}</div>
+    <div class="day-chip">${monthLbl} · Shift ${shiftNo}</div>
     <div class="spacer"></div>
     <div class="bond" title="${b} correct decisions with ${preceptorName()}">
       <span class="lbl">${bondTierName()}</span><span class="hearts">${heartsHTML()}</span><span class="bcount">${b}</span>
@@ -1912,7 +2070,7 @@ function drawScene(area, expr, name, textHTML, opts={}){
   const ctrl = `<div class="vn-ctrl"><button type="button" data-vnctrl="auto" class="${VNCTRL.auto?'on':''}" onclick="toggleAuto(event)">AUTO</button><button type="button" onclick="skipForward(event)">SKIP</button><button type="button" onclick="openVNLog(event)">LOG</button><button type="button" data-vnctrl="sound" class="${SND.on?'on':''}" onclick="toggleSound(event)">SOUND</button><button type="button" onclick="showLabValues(event)">LABS</button><button type="button" onclick="openBasicCalculator(event)">MATH</button><button type="button" onclick="openClinicalCalculator(event)">CALC</button>${fontControlsHTML()}</div>`;
   let below = opts.below||"";
   document.getElementById("app").innerHTML=`
-    <div class="stage scene-photo ${AREA[area]?AREA[area].bg:'bg-title'}" id="stage" style="background-image:url('${bgFor(area)}')">${sceneDeco()}</div>
+    <div class="stage scene-photo ${AREA[area]?AREA[area].bg:'bg-title'}" id="stage" style="background-image:url('${sceneBgFor(area)}')">${sceneDeco()}</div>
     <div class="fx" id="fx2"></div>
     ${opts.hud!==false? hudHTML(area):""}
     ${showChar? `<div class="char-glow"></div><div class="char-layer ${opts.pop?'char-pop':''}">${face(expr, opts.who||preceptorWho())}</div>`:""}
@@ -2039,7 +2197,8 @@ function showCast(){
     {img:SPRITE_URLS.harlin.happy,name:'Dr. Harlin',role:'ICU pharmacist · female preceptor route',bio:'Fast, funny, allergic to vague answers. Earn her trust and she lets you run the pager.'},
     {img:SPRITE_URLS.dpark.neutral,name:'Dr. Daniel Park',role:'EM pharmacist · male preceptor route',bio:'Calm voice in loud moments. He asks one more question until your reasoning is airtight.'},
     {img:SPRITE_URLS.belle.warm,name:'Dr. Belle Deans',role:'Residency program director',bio:'Runs the program, welcomes you on day one, and hands you your final evaluation in June.'},
-    {img:(SPRITE_URLS[rWho]||SPRITE_URLS.joey).neutral,name:'You',role:'PGY-1 resident · pick your look and name',bio:'Fresh badge, clean coat, everything to prove. Your decisions shape how this year goes.'}
+    {img:(SPRITE_URLS[rWho]||SPRITE_URLS.joey).neutral,name:'You',role:'PGY-1 resident · pick your look and name',bio:'Fresh badge, clean coat, everything to prove. Your decisions shape how this year goes.'},
+    {img:SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:'',name:'Pip',role:'Rounds bot · always on shift',bio:'Lives in the corner of your screen. Explains any screen, hints at how to approach a case, never spoils the answer.'}
   ];
   document.getElementById("app").innerHTML=`
     <div class="stage bg-title" id="stage">${bokehHTML()}</div><div class="fx" id="fx2"></div>
@@ -2171,7 +2330,8 @@ function goHub(){
         </div>
         <div class="hub-actions">
           <span class="vn-ctrl" style="position:static;top:auto;right:auto;display:inline-flex;vertical-align:middle;margin-right:4px">${fontControlsHTML()}</span>
-          <button class="btn mint" onclick="showShiftBoard()">Start simulated shift</button>
+          <button class="btn mint" onclick="sfx('click');showShiftBoard()">Start simulated shift</button>
+          <button class="btn ghost" onclick="sfx('click');showBreakRoom()">Break room${(function(){const un=storiesForRoute().filter(st=>storyUnlocked(st)&&!storiesSeen().includes(st.id)).length; return un>0?' <span class=\'new-dot\'>'+un+'</span>':'';})()}</button>
           <button class="btn ghost" onclick="showStudyCards()">Study Cards</button>
           <button class="btn ghost" onclick="showCompetencyReport()">Review with Preceptor</button>
           <button class="btn" onclick="graduate()">Final Evaluation</button>
@@ -2196,14 +2356,14 @@ function hubStageModules(stage){ const def=hubStageDefs().find(x=>x.id===stage)|
 function setHubStage(stage){ window.__clinicalPathStage=stage; goHub(); }
 function nextRecommendedModule(){ return studyOrderedModules().find(m=>!modDone(m))||studyOrderedModules()[0]; }
 function hubJourneyHTML(active,nextMod){ const defs=hubStageDefs(); const def=defs.find(x=>x.id===active)||defs[0]; return `<div class="hub-journey"><div class="next-card"><h3>Next shift</h3><p>${nextMod?`Your next best rotation is <b>${nextMod.title}</b>. Start there if you want the guided path.`:'All rotations are complete.'}</p>${nextMod?`<button class="btn mint sm" onclick="openModule('${nextMod.id}')">Start next rotation</button>`:''}<button class="btn ghost sm" style="margin-left:6px" onclick="showShiftBoard()">Simulated shift</button></div><div class="stage-map"><h3>Rotation blocks</h3><p>${def.why}</p><div class="stage-tabs">${defs.map(d=>`<button class="stage-tab ${d.id===active?'on':''}" onclick="setHubStage('${d.id}')"><b>${d.title}</b><span>${hubStageModules(d.id).length} rotations</span></button>`).join('')}</div></div></div>`; }
-function showResidentTools(){ const ov=document.createElement('div'); ov.className='hub-tools'; ov.id='hubTools'; ov.innerHTML=`<div class="hub-tools-card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h3>Resident Tools</h3><p style="margin:0 0 12px;color:#725c70;font-weight:800;font-size:13px">Use these during cases when you need references or math support.</p></div><button class="btn ghost sm" onclick="document.getElementById('hubTools').remove()">Close</button></div><div class="hub-tools-grid"><button class="btn ghost" onclick="showLabValues(event)">Lab Values</button><button class="btn ghost" onclick="openBasicCalculator(event)">Basic Math</button><button class="btn ghost" onclick="openClinicalCalculator(event)">Clinical Calculators</button><button class="btn ghost" onclick="resetSavedProgress()">Start Over</button></div></div>`; document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();}; }
+function showResidentTools(){ const ov=document.createElement('div'); ov.className='hub-tools'; ov.id='hubTools'; ov.innerHTML=`<div class="hub-tools-card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h3>Resident Tools</h3><p style="margin:0 0 12px;color:#725c70;font-weight:800;font-size:13px">Use these during cases when you need references or math support.</p></div><button class="btn ghost sm" onclick="document.getElementById('hubTools').remove()">Close</button></div><div class="hub-tools-grid"><button class="btn ghost" onclick="showLabValues(event)">Lab Values</button><button class="btn ghost" onclick="openBasicCalculator(event)">Basic Math</button><button class="btn ghost" onclick="openClinicalCalculator(event)">Clinical Calculators</button><button class="btn ghost" onclick="showAchievements()">Achievements</button><button class="btn ghost" onclick="resetSavedProgress()">Start Over</button></div></div>`; document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();}; }
 const SHIFT_PATIENTS=[
  {name:'Mr. Alvarez',unit:'ED to ICU',risk:'Septic shock',module:'icu_hemo',task:'Review cultures, renal function, pressors, and broad-spectrum antibiotic timing before rounds.'},
  {name:'Ms. Chen',unit:'Oncology floor',risk:'Febrile neutropenia',module:'onco_emerg',task:'Check ANC, fever timing, allergy history, antipseudomonal coverage, and hazardous-drug precautions.'},
  {name:'Mr. Williams',unit:'Cardiology',risk:'HF plus AKI',module:'cardiology_core',task:'Reconcile GDMT, renal labs, diuretics, anticoagulation, and discharge monitoring needs.'},
  {name:'Baby Kim',unit:'NICU',risk:'Weight-based dosing',module:'nicu_picu',task:'Verify weight, postnatal age, renal maturity, concentration, route, and caregiver instructions.'}
 ];
-function showShiftBoard(){ saveProgress('shift'); setBG('core'); document.getElementById('app').innerHTML=`<div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('R1')}')">${sceneDeco()}</div>${hudHTML('core')}<div class="shift-wrap"><div class="shift-panel"><div class="report-head"><div><h2>Simulated Shift</h2><div class="report-sub">A pre-rounding board for your hospital pharmacist shift. Choose the patient you want to work up first.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="goHub()">Back to year map</button></div></div><div class="shift-grid">${SHIFT_PATIENTS.map(p=>`<div class="shift-card"><h3>${p.name}</h3><p>${p.unit}</p><div class="shift-meta"><span>${p.risk}</span><span>Medication review</span></div><div class="shift-task">${p.task}</div><button class="btn mint sm" style="margin-top:10px" onclick="openModule('${p.module}')">Review this patient</button></div>`).join('')}</div><div class="report-note"><b>Preceptor note:</b> Use this board like your pre-round huddle: identify the highest-risk patient, name the medication problem, then practice the matching rotation.</div></div></div>`; }
+function showShiftBoard(){ saveProgress('shift'); setBG('core'); document.getElementById('app').innerHTML=`<div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('R1')}')">${sceneDeco()}</div>${hudHTML('core')}<div class="shift-wrap"><div class="shift-panel"><div class="report-head"><div><h2>Simulated Shift</h2><div class="report-sub">A pre-rounding board for your hospital pharmacist shift. Choose the patient you want to work up first.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="goHub()">Back to year map</button></div></div><div class="shift-grid">${SHIFT_PATIENTS.map(p=>`<div class="shift-card"><h3>${p.name}</h3><p>${p.unit}</p><div class="shift-meta"><span>${p.risk}</span><span>Medication review</span></div><div class="shift-task">${p.task}</div><button class="btn mint sm" style="margin-top:10px" onclick="award('shiftboard');openModule('${p.module}')">Review this patient</button></div>`).join('')}</div><div class="report-note"><b>Preceptor note:</b> Use this board like your pre-round huddle: identify the highest-risk patient, name the medication problem, then practice the matching rotation.</div></div></div>`; }
 
 
 /* ==================================================================
@@ -2314,7 +2474,8 @@ function runCase(){
   } else if(c.type==="mcq"){
     holder.className="choices";
     const opts=prepareMCQOptions(c);
-    holder.innerHTML=opts.map((o,i)=>`<button class="choice" data-i="${i}"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("");
+    const hintHTML=(bondTier()>=1&&hintsLeft()>0)?`<div class="hint-row"><button type="button" class="hint-btn" id="hintBtn" onclick="useFiftyFifty()">Ask ${preceptorName()} · narrow it down (${hintsLeft()} left)</button></div>`:"";
+    holder.innerHTML=hintHTML+opts.map((o,i)=>`<button class="choice" data-i="${i}"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("");
     document.getElementById("choiceLayer").appendChild(holder);
     enhanceGlossary(holder);
     holder.querySelectorAll(".choice").forEach(b=>b.onclick=()=>answerMcq(parseInt(b.dataset.i)));
@@ -2378,6 +2539,24 @@ function caseProgress(){
   return `<div style="position:absolute;top:58px;left:0;right:0;text-align:center;z-index:18">${dots}</div>`;
 }
 
+function hintsLeft(){ if(!G)return 0; G.hints=G.hints||{}; const used=G.hints[curM?curM.id:'x']||0; return Math.max(0, 2-used); }
+function useFiftyFifty(){
+  if(!curM||hintsLeft()<=0)return;
+  const c=curM.cases[caseIdx]; if(!c||c.type!=='mcq')return;
+  const opts=c._renderOpts||c.opts;
+  const wrongIdx=opts.map((o,i)=>o.ok?null:i).filter(i=>i!==null);
+  if(wrongIdx.length<2)return;
+  const keepWrong=wrongIdx[Math.floor(Math.random()*wrongIdx.length)];
+  const toFade=wrongIdx.filter(i=>i!==keepWrong).slice(0, Math.max(1, wrongIdx.length-1));
+  const btns=[...document.querySelectorAll('#caseHolder .choice')];
+  toFade.forEach(i=>{ if(btns[i]){ btns[i].disabled=true; btns[i].classList.add('faded'); } });
+  G.hints=G.hints||{}; G.hints[curM.id]=(G.hints[curM.id]||0)+1; saveProgress("case");
+  const hb=document.getElementById('hintBtn'); if(hb){hb.disabled=true; hb.textContent=preceptorName()+': "Focus on what is left."';}
+  sfx('click');
+  const host=document.createElement('div'); host.className='stat-toasts';
+  host.innerHTML=`<span class="stat-toast" style="--c:#8e77c9">${preceptorName()} narrowed it down</span>`;
+  document.body.appendChild(host); setTimeout(()=>host.remove(),2000);
+}
 /* MCQ answer */
 function answerMcq(i){
   const m=curM,c=m.cases[caseIdx];
@@ -2437,12 +2616,23 @@ function feedback(ok, expl){
   if(ok && (m.id==='safety'||m.id==='code')) okExpr='stern';
   if(ok && bond()>=14 && Math.random()<0.4) okExpr='surprised';
   if(ok && tierOf(bond()-1)<tierOf(bond())) pendingRank=tierOf(bond());
+  G.streak=G.streak||{cur:0,best:0};
+  if(ok){ G.streak.cur++; G.streak.best=Math.max(G.streak.best,G.streak.cur); } else { G.streak.cur=0; }
   const last = caseIdx===m.cases.length-1;
+  const pWho=playerWho();
+  const reactSrc=(SPRITE_URLS[pWho]||SPRITE_URLS.joey)[ok?'proud':'worry'];
+  const streakTag=(ok&&G.streak.cur>=3)?`<span class="streak-tag">${G.streak.cur} in a row</span>`:'';
   drawScene(m.area, preceptorExpr(ok?okExpr:badExpr),preceptorName(), line, {
-    advance:false, note:`<b>${ok?'Correct':'Not quite'}</b> · ${cleanExpl}` });
+    advance:false, note:`<img class="react-chip" src="${reactSrc}" alt="you">${streakTag}<b>${ok?'Correct':'Not quite'}</b> · ${cleanExpl}` });
   burst(ok?"good":"bad");
   sfx(ok?'ok':'bad');
   spawnStatToast(m.area, ok);
+  if(ok){ const b=bond();
+    if(G.streak.cur>=5)award('streak5');
+    if(G.streak.cur>=10)award('streak10');
+    if(b>=50)award('fifty');
+    if(b>=100)award('hundred');
+  }
   const wrap=document.querySelector(".vn-wrap");
   const c=document.createElement("div");c.className="choices";
   c.innerHTML=`<button class="btn mint" onclick="nextCase()">${last?'Finish rotation ':'Next case ▶'}</button>`;
@@ -2453,7 +2643,8 @@ function rankUpScene(t){
   const lines=[null,
     `You know what, <b>${G.name}</b>? You've stopped second-guessing every step — and you keep getting them right. I'm starting to trust your instincts.`,
     `Honestly, <b>${G.name}</b> — at this point I'd put you on rounds without me. Patients are safer because you're careful. I'm proud to be your preceptor.`];
-  drawScene(curM?curM.area:'core', preceptorExpr(t===2?'laugh':'happy'), p.name, lines[t]||lines[1],
+  award(t===2?'bond2':'bond1');
+  drawScene(curM?curM.area:'core', preceptorExpr(t===2?'laugh':'happy'), p.name, (lines[t]||lines[1])+'<br><span class="unlock-line">A new break room story unlocked. Find it on the year map.</span>',
     {advance:false, who:p.who, pop:true,
      below:`<div class="rank-banner"><span class="rk-k">Bond rank up</span><span class="rk-v">${TIER_NAMES[t]}</span></div>`});
   burst('good'); sfx('rank');
@@ -2474,6 +2665,8 @@ function moduleComplete(){
   saveProgress("complete");
   const m=curM,nc=modCorrect(m),meta=AREA[m.area];
   const perfect=nc===m.cases.length;
+  award('first_shift');
+  if(perfect)award('perfect');
   drawScene(m.area, preceptorExpr(perfect?"wink":"smile"),preceptorName(),
     perfect? `Amazing, Dr. ${G.name}! You got all ${m.cases.length} right.<br>You are really good at this — I am proud `
            : `Rotation complete! You got ${nc} of ${m.cases.length}. Nice work.<br>Review the notes and retry anytime.`,
@@ -2511,6 +2704,9 @@ function graduate(){
         <div class="medal">${medal}</div>
         <h2>${title}</h2>
         <div class="rk">Dr. ${G.name} — ${rk}</div>
+        <div class="grad-quote">${(function(){const fem=(G.preceptor||'female')==='female'; const done=MODULES.filter(m=>modDone(m)).length===MODULES.length;
+          if(!done) return fem?'Dr. Harlin: "Year is not over yet. Back to the floor — I will save you a coffee."':'Dr. Park: "We are not done. One more rotation, then we talk."';
+          return fem?'Dr. Harlin: "I would page you for my own family. Go be somebody\'s calm, Dr. '+G.name+'."':'Dr. Park: "You notice quiet things now. That is the whole job. It was an honor, Dr. '+G.name+'."';})()}</div>
         <div class="sgrid">
           <div><span>Orientation</span><b>${core.c}/${core.t}</b></div>
           <div><span>R1 Patient Care</span><b>${r1.c}/${r1.t}</b></div>
