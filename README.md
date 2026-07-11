@@ -11,9 +11,9 @@ You are a new PGY-1 resident at the fictional **St. Aurelia Medical Center**. Pi
 ## What's inside
 
 **The clinical content**
-- 65 guided rotations that mirror a real PGY-1 year, from Badge Day to precepting a student
-- 652 original clinical cases across nine formats: case decisions, chart review, SBAR building, verification queues, dose calculations, code blue, journal club, sequencing, and consult-style essays
-- 1,864 auto-built study cards with spaced review and Quizlet-compatible export
+- 69 guided rotations that mirror a real PGY-1 year, from Badge Day to precepting a student
+- 692 original clinical cases across nine formats: case decisions, chart review, SBAR building, verification queues, dose calculations, code blue, journal club, sequencing, and consult-style essays
+- 1,949 auto-built study cards with spaced review and Quizlet-compatible export
 - A mock EHR chart-review window: patient banner, Orders/MAR, Labs, and Snapshot tabs, with flag-based pharmacist verification
 
 ![EHR chart review](docs/ehr.png)
