@@ -621,6 +621,61 @@
 .grad-quote.rival-q{background:#f7f4ff;border-color:#e4d9f2;color:#5d4a7c}
 @media(max-width:640px){.rival-strip{flex-wrap:wrap}.rival-strip .rv-next{white-space:normal}}
 
+
+/* ===== v14: mock EHR + patient journeys ===== */
+.ehr-win{background:#f4f7fb;border:1px solid #c6d3e3;border-radius:14px;overflow:hidden;box-shadow:0 16px 40px rgba(30,45,70,.18);text-align:left;font-family:'Nunito',sans-serif}
+.ehr-top{display:flex;justify-content:space-between;align-items:center;background:#243b55;color:#dce8f7;padding:8px 14px;font-size:11.5px;font-weight:900;letter-spacing:.04em}
+.ehr-top .ehr-mod{color:#9db8d8;text-transform:uppercase;font-size:10.5px}
+.ehr-banner{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#e9f0f8;border-bottom:1px solid #c6d3e3;padding:9px 14px;flex-wrap:wrap}
+.ehr-id b{font-size:14.5px;color:#1d2f45}
+.ehr-id span{display:block;font-size:11px;font-weight:800;color:#5b7392}
+.ehr-flags{display:flex;gap:6px;flex-wrap:wrap}
+.ehr-chip{background:#fff;border:1px solid #c6d3e3;border-radius:999px;font-size:10.5px;font-weight:900;color:#3c5878;padding:4px 10px}
+.ehr-chip.warn{background:#fff4e0;border-color:#eccf9a;color:#8a5a00}
+.ehr-tabs{display:flex;gap:2px;background:#dde7f2;padding:6px 8px 0}
+.ehr-tab{border:1px solid #c6d3e3;border-bottom:none;background:#cfdceb;border-radius:8px 8px 0 0;padding:7px 14px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#51698a;cursor:pointer}
+.ehr-tab.on{background:#f8fafc;color:#1d2f45}
+.ehr-pane{display:none;background:#f8fafc;padding:12px 14px}
+.ehr-pane.on{display:block}
+.ehr-snap{font-size:13px;font-weight:700;color:#33465e;line-height:1.55;background:#fff;border:1px solid #dbe5f0;border-radius:10px;padding:10px 12px}
+.ehr-orders .hunt-row{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;border:1px solid #dbe5f0;border-radius:10px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;color:#243447;transition:.12s}
+.ehr-orders .hunt-row:hover{border-color:#7ba3d4}
+.ehr-orders .ord-status{font-size:10px;font-weight:900;letter-spacing:.05em;color:#2e7d5b;background:#e2f5ec;border-radius:6px;padding:3px 7px;white-space:nowrap}
+.ehr-orders .ord-text{flex:1;font-size:12.8px;line-height:1.4}
+.ehr-orders .ord-flag{font-size:10px;font-weight:900;letter-spacing:.06em;color:#b34a6b;border:1.5px dashed #e5b9c8;border-radius:7px;padding:3px 8px;opacity:.55;white-space:nowrap}
+.ehr-orders .hunt-row.sel{border-color:#ff5f92;background:#fff5f9}
+.ehr-orders .hunt-row.sel .ord-flag{opacity:1;background:#ff5f92;color:#fff;border-style:solid;border-color:#ff5f92}
+.ehr-orders .hunt-row.correct{border-color:#2bb7a8;background:#e9fbf7}
+.ehr-orders .hunt-row.wrong{border-color:#ff8fa8;background:#fff0f4}
+.ehr-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#e9f0f8;border-top:1px solid #c6d3e3;padding:8px 14px}
+.ehr-user{font-size:11px;font-weight:900;color:#51698a}
+.ehr-win .hunt-hint{color:#51698a;background:none;font-size:12px;font-weight:800;margin:0 0 8px}
+/* journeys */
+.arc-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin:0 0 12px}
+.arc-chip{display:flex;flex-direction:column;align-items:flex-start;gap:4px;background:#fffdfa;border:1.5px solid #f0e2cf;border-radius:14px;padding:9px 12px;cursor:pointer;font-family:'Nunito',sans-serif;text-align:left;transition:.13s}
+.arc-chip:hover{border-color:#d8a760;transform:translateY(-1px)}
+.arc-chip.done{background:#fbfff9;border-color:#cfe8cd}
+.arc-chip b{font-size:12.5px;color:#59431f}
+.arc-chip.done b{color:#2e5d33}
+.arc-chip .dots{display:inline-flex;gap:4px}
+.arc-chip .dots i{width:9px;height:9px;border-radius:50%;background:#eadfce;display:inline-block}
+.arc-chip .dots i.on{background:#d8a760}
+.arc-chip.done .dots i.on{background:#5c9e63}
+.arc-chip .arc-next{font-size:10.5px;font-weight:800;color:#9b8763;line-height:1.3}
+.journey-block{background:#fffdfa;border:1.5px solid #f0e2cf;border-radius:16px;padding:12px 14px;margin:0 0 10px;text-align:left}
+.jb-head b{font-size:15px;color:#59431f}
+.jb-head span{margin-left:8px;font-size:11.5px;font-weight:800;color:#9b8763}
+.jb-stage{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed #efe3d0}
+.jb-stage:first-of-type{border-top:none}
+.jb-dot{width:11px;height:11px;border-radius:50%;background:#eadfce;flex:none}
+.jb-stage.seen .jb-dot{background:#5c9e63}
+.jb-stage.next .jb-dot{background:#d8a760;box-shadow:0 0 0 3px rgba(216,167,96,.25)}
+.jb-t{font-size:13px;font-weight:900;color:#4b3a24;min-width:0}
+.jb-m{flex:1;font-size:11px;font-weight:800;color:#a08e6e;text-align:right}
+.jb-lock{font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#c3b394}
+.jb-stage.locked{opacity:.6}
+@media(max-width:640px){.jb-m{display:none}}
+
 </style>
 </head>
 <body>
@@ -771,6 +826,121 @@ function face(expr, who){ return faceImg(expr, who);
 
 
 var VNTYPE={timer:null,full:'',el:null,done:true,onBox:null};
+/* ===== Longitudinal patient journeys ===== */
+const ARCS=[
+ {id:'alvarez',patient:'Mr. Alvarez',line:'Septic shock, all the way home',
+  stages:[
+   {module:'critcare',title:'Night one in the ICU',beats:[
+     {who:'attending',name:'Dr. Chen, ICU Attending',expr:'think',t:"Alvarez, 62 — septic shock, urinary source. Pressors up, first antibiotic dose hung twenty minutes ago. Pharmacy, own the timing tonight."},
+     {who:'patient',name:'Mr. Alvarez',expr:'neutral',t:"You're the medication one? My wife keeps my pill list in her purse… and don't give me that one that made my kidneys angry last year. The nurse wrote it down somewhere."},
+     {who:'preceptor',expr:'think',t:"Good instinct going to the bedside, ${NAME}. A home med list and a renal history — that one conversation just changed how we dose everything tonight."}]},
+   {module:'id',title:'Culture day',beats:[
+     {who:'nurse',name:'Nurse Vance',expr:'neutral',t:"Your ICU friend Mr. Alvarez is on your list again — floor bed now, and his cultures finalized overnight."},
+     {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',t:"E. coli, pan-sensitive. Off pressors since yesterday. Rounds will ask one simple question: why is he still on the broad-spectrum?"},
+     {who:'preceptor',expr:'happy',t:"De-escalation is a decision, not a default, ${NAME}. Make the recommendation out loud and put your name on it."}]},
+   {module:'toc',title:'Going home',beats:[
+     {who:'patient',name:'Mr. Alvarez',expr:'neutral',t:"They say I go home tomorrow. Fourteen days of the antibiotic… or was it ten? And do I keep the water pill, or was that just a hospital thing?"},
+     {who:'preceptor',expr:'warm',t:"This conversation is where readmissions are born or prevented, ${NAME}. Reconcile every list he's touched — ICU, floor, home — and make the plan say one thing."},
+     {who:'patient',name:'Mr. Alvarez',expr:'neutral',t:"My wife says thank you, by the way. For listening about my kidneys that first night. Most people don't."}]}]},
+ {id:'chen',patient:'Ms. Chen',line:'First cycle to steady ground',
+  stages:[
+   {module:'onco',title:'Cycle one',beats:[
+     {who:'nurse',name:'Nurse Vance',expr:'neutral',t:"Ms. Chen starts her first chemo cycle today. She's nervous, her daughter is more nervous, and they have printed… a lot of internet."},
+     {who:'patient',name:'Ms. Chen',expr:'neutral',t:"Twelve pages, actually. My daughter highlights things. Just — tell me which side effects mean I call someone, and which ones I just… have."},
+     {who:'preceptor',expr:'encourage',t:"That's the perfect question, ${NAME} — teach the red flags, then have her teach them back. If she can say it, she'll do it at home."}]},
+   {module:'onco_emerg',title:'Day ten fever',beats:[
+     {who:'attending',name:'Dr. Chen, ICU Attending',expr:'think',t:"Ms. Chen, day ten post cycle one. 38.4 at home, ANC 300 in triage. You know what the clock says."},
+     {who:'preceptor',expr:'stern',t:"Febrile neutropenia is a timing diagnosis, ${NAME}. Antibiotics within the hour — everything else can politely wait."},
+     {who:'patient',name:'Ms. Chen',expr:'neutral',t:"It's just a little fever… isn't it? My daughter said to come in anyway. She was right again, wasn't she."}]},
+   {module:'pain',title:'Sleeping through the night',beats:[
+     {who:'nurse',name:'Nurse Vance',expr:'neutral',t:"Ms. Chen again — mucositis pain is winning. She's rating it an eight and barely eating. The team wants a pharmacy plan."},
+     {who:'preceptor',expr:'think',t:"Multimodal first, ${NAME} — topical, scheduled, then the smallest effective opioid with a bowel plan. Comfort and safety are the same conversation."},
+     {who:'patient',name:'Ms. Chen',expr:'neutral',t:"I slept through the night for the first time this week. My daughter finally slept too. Thank you — write that in my twelve pages."}]}]},
+ {id:'kim',patient:'Baby Kim',line:'NICU to first vaccines',
+  stages:[
+   {module:'nicu_picu',title:'Two kilograms of trust',beats:[
+     {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',t:"Baby Kim, born at 31 weeks, now two kilograms of very loud opinions. Every dose on this unit is weight-based and double-checked. Pharmacy is the second check."},
+     {who:'nurse',name:'Nurse Vance',expr:'neutral',t:"Mom is at the bedside doing kangaroo care. She asks what every syringe is. Honestly? Keep answering — it keeps us all honest."},
+     {who:'preceptor',expr:'think',t:"In the NICU, ${NAME}, a decimal point is a clinical event. Slow is smooth, smooth is safe."}]},
+   {module:'peds',title:'Graduation to the floor',beats:[
+     {who:'nurse',name:'Nurse Vance',expr:'neutral',t:"Good news — Baby Kim graduated to the peds floor. Full feeds, gaining weight, and a mother who now reads syringes better than some students."},
+     {who:'none',name:"Baby Kim's mother",expr:'neutral',t:"She took the whole bottle today. The NICU nurses told me you double-checked every single dose she ever got. I didn't know that was a person. Thank you for being that person."},
+     {who:'preceptor',expr:'warm',t:"Families remember safety they never saw, ${NAME}. That's the quiet part of this job — and you're getting good at it."}]},
+   {module:'immun',title:'First shots, then home',beats:[
+     {who:'nurse',name:'Nurse Vance',expr:'neutral',t:"Discharge planning for Baby Kim — she's due for her first vaccines before she goes. Mom has questions. Several."},
+     {who:'preceptor',expr:'happy',t:"Preterm babies vaccinate by chronological age, ${NAME} — walk mom through the catch-up schedule and what a sore leg versus a real problem looks like."},
+     {who:'none',name:"Baby Kim's mother",expr:'neutral',t:"First shots, then home. We're ready. …We're actually ready. Look after the next family like you looked after us."}]}]}
+];
+function arcProgress(id){ if(!G)return 0; G.arcs=G.arcs||{}; return G.arcs[id]||0; }
+function arcStageFor(moduleId){
+  for(const a of ARCS){ const p=arcProgress(a.id); if(p<a.stages.length && a.stages[p].module===moduleId) return {arc:a, idx:p}; }
+  return null;
+}
+var ARCQ=null;
+function playArcStage(arcId, idx, replay){
+  const a=ARCS.find(x=>x.id===arcId); if(!a||!a.stages[idx])return;
+  ARCQ={arcId, idx, replay:!!replay, beats:a.stages[idx].beats.slice(), b:0, bridge:false};
+  arcBeat();
+}
+function arcBeat(){
+  if(!ARCQ)return;
+  const a=ARCS.find(x=>x.id===ARCQ.arcId);
+  if(ARCQ.b>=ARCQ.beats.length){ arcStageEnd(a); return; }
+  const bt=ARCQ.beats[ARCQ.b]; ARCQ.b++;
+  const txt=String(bt.t).replace(/\$\{NAME\}/g,(G&&G.name)||'Resident');
+  const first=ARCQ.b===1;
+  const stTitle=a.stages[ARCQ.idx].title;
+  const below=first?`<div class="rank-banner"><span class="rk-k">${a.patient}</span><span class="rk-v">${stTitle}</span></div>`:'';
+  if(bt.who==='preceptor'||bt.who==null){
+    drawScene('core', preceptorExpr(bt.expr||'neutral'), preceptorName(), txt, {advance:true, who:preceptorWho(), onBox:'arcBeat()', pop:first, below});
+  } else if(bt.who==='none'){
+    drawScene('core','neutral', bt.name||'', txt, {advance:true, char:false, onBox:'arcBeat()', below});
+  } else {
+    drawScene('core', bt.expr||'neutral', bt.name||bt.who, txt, {advance:true, who:bt.who, onBox:'arcBeat()', pop:first, below});
+  }
+}
+function arcStageEnd(a){
+  const wasReplay=ARCQ.replay; const idx=ARCQ.idx; ARCQ=null;
+  if(!wasReplay){
+    G.arcs=G.arcs||{}; G.arcs[a.id]=Math.max(arcProgress(a.id), idx+1);
+    if(arcProgress(a.id)>=a.stages.length){ award('arc1'); if(ARCS.every(x=>arcProgress(x.id)>=x.stages.length))award('arcs_all'); }
+    saveProgress('hub');
+    const p=arcProgress(a.id);
+    const nextArcMod=p<a.stages.length?MODULES.find(m=>m.id===a.stages[p].module):null;
+    if(nextArcMod && modDone(nextArcMod)){
+      drawScene('core','neutral','', `<i>A little later in the year…</i>`, {advance:true, char:false, onBox:`playArcStage('${a.id}',${p})`});
+      return;
+    }
+  }
+  goHub();
+}
+function showJourneys(){
+  document.getElementById("app").innerHTML=`
+    <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div>
+    <div class="fx" id="fx2"></div>
+    ${hudHTML('core')}
+    <div class="center-layer" style="justify-content:center;padding:4vh 18px">
+      <div class="break-panel journeys-panel">
+        <h2>Patient journeys</h2>
+        <p class="break-sub">Patients you keep meeting across the year. Finish their linked rotations to follow the story.</p>
+        ${ARCS.map(a=>{const p=arcProgress(a.id);
+          return `<div class="journey-block"><div class="jb-head"><b>${a.patient}</b><span>${a.line}</span></div>
+          ${a.stages.map((st,i)=>{const mod=MODULES.find(m=>m.id===st.module)||{title:st.module};
+            const state=i<p?'seen':(i===p?'next':'locked');
+            return `<div class="jb-stage ${state}">
+              <span class="jb-dot"></span>
+              <span class="jb-t">${st.title}</span>
+              <span class="jb-m">${mod.title}</span>
+              ${state==='seen'?`<button class="btn ghost sm" onclick="sfx('click');playArcStage('${a.id}',${i},true)">Replay</button>`
+               :state==='next'?`<button class="btn sm" onclick="sfx('click');openModule('${st.module}')">Open rotation</button>`
+               :`<span class="jb-lock">Later</span>`}</div>`;}).join('')}</div>`;}).join('')}
+        <div style="display:flex;gap:9px;justify-content:center;margin-top:14px">
+          <button class="btn ghost sm" onclick="sfx('click');goHub()">Back to year map</button>
+        </div>
+      </div>
+    </div>`;
+  window.fx=document.getElementById("fx2");
+}
 /* ===== Rival: Dr. Elliot Kang ===== */
 const RIVAL={name:'Dr. Elliot Kang', who:'elliot'};
 function modulesDoneCount(){ return MODULES.filter(m=>modDone(m)).length; }
@@ -950,7 +1120,9 @@ const ACH_DEFS=[
   {id:'shiftboard',name:'Board Runner',desc:'Work a patient from the Simulated Shift'},
   {id:'faceoff1',name:'Challenge Accepted',desc:'Finish a rounds face-off with Elliot'},
   {id:'faceoffwin',name:'Printer Immunity',desc:'Win a rounds face-off'},
-  {id:'faceoff3',name:'Worthy Rival',desc:'Go three face-offs deep with Elliot'}
+  {id:'faceoff3',name:'Worthy Rival',desc:'Go three face-offs deep with Elliot'},
+  {id:'arc1',name:'Continuity of Care',desc:'Follow one patient journey to the end'},
+  {id:'arcs_all',name:'Full Panel',desc:'Complete all three patient journeys'}
 ];
 function achMap(){ if(!G)return {}; G.ach=G.ach||{}; return G.ach; }
 function award(id){
@@ -980,6 +1152,7 @@ function pipScreen(){
   if(document.querySelector('.hub-panel'))return 'hub';
   if(document.querySelector('.cast-panel'))return 'cast';
   if(document.querySelector('.study-panel'))return 'cards';
+  if(document.querySelector('.journeys-panel'))return 'journeys';
   if(document.querySelector('.shift-panel'))return 'shift';
   if(document.querySelector('.report-panel'))return 'review';
   if(document.getElementById('caseHolder'))return 'case';
@@ -1015,6 +1188,7 @@ function pipTip(){
     shift:{h:"Simulated Shift",b:"Pick the patient who worries you most — each one opens the matching rotation, just like triaging a real board."},
     cast:{h:"The team",b:"Dr. Harlin and Dr. Park teach the same cases with different personalities. Dr. Deans runs the program."},
     faceoff:{h:"Rounds face-off",b:"Pride match with Elliot — same clinical rules apply. Read the whole stem; he rushes, you don't have to."},
+    journeys:{h:"Patient journeys",b:"Three patients you keep meeting all year. Finish their linked rotations and their stories continue on their own."},
     chapter:{h:"New rotation",b:"Tap anywhere to walk in."},
     other:{h:"Pip here",b:"I'm your rounds bot. Open me anytime with H if you are not sure what to do next."}
   };
@@ -2070,7 +2244,7 @@ function saveProgress(mode){
     localStorage.setItem(SAVE_KEY, JSON.stringify({
       v:2, savedAt:new Date().toISOString(), name:G.name||"Joey Han", avatar:G.avatar||"",
       player:G.player||pickedResident||"male", preceptor:G.preceptor||"female",
-      hints:G.hints||{}, ach:G.ach||{}, streak:G.streak||{cur:0,best:0}, storiesSeen:G.storiesSeen||[], rival:G.rival||{fights:0,wins:0,losses:0,draws:0,availAt:1},
+      hints:G.hints||{}, ach:G.ach||{}, streak:G.streak||{cur:0,best:0}, storiesSeen:G.storiesSeen||[], rival:G.rival||{fights:0,wins:0,losses:0,draws:0,availAt:1}, arcs:G.arcs||{},
       results:G.results, mode:mode||"hub", curModuleId:curM?curM.id:null, learnIdx:learnIdx||0, caseIdx:caseIdx||0
     }));
   }catch(e){ console.log('save failed',e); }
@@ -2087,7 +2261,7 @@ function resumeProgress(){
   G={name:(d.name||"Joey Han"), avatar:d.avatar||"",
      player:d.player||(function(){try{return localStorage.getItem('clinicalPathResident')||'male';}catch(e){return 'male';}})(),
      preceptor:d.preceptor||(function(){try{return localStorage.getItem('clinicalPathPreceptor')||'female';}catch(e){return 'female';}})(),
-     hints:d.hints||{}, ach:d.ach||{}, streak:d.streak||{cur:0,best:0}, storiesSeen:Array.isArray(d.storiesSeen)?d.storiesSeen:[], rival:d.rival||{fights:0,wins:0,losses:0,draws:0,availAt:1},
+     hints:d.hints||{}, ach:d.ach||{}, streak:d.streak||{cur:0,best:0}, storiesSeen:Array.isArray(d.storiesSeen)?d.storiesSeen:[], rival:d.rival||{fights:0,wins:0,losses:0,draws:0,availAt:1}, arcs:d.arcs||{},
      results:normalizeResults(d.results)};
   if(RESIDENTS[G.player])pickedResident=G.player;
   const m=d.curModuleId?MODULES.find(x=>x.id===d.curModuleId):null;
@@ -2441,6 +2615,9 @@ function goHub(){
             <div class="rv-txt"><b>Dr. Elliot Kang · co-resident</b><span>Correct decisions — You ${bond()} · Elliot ${rs}${rst.fights?` · record ${recordLine()}`:''}</span></div>
             ${fo?`<button class="btn sm rv-btn" onclick="sfx('click');startFaceoff()">Rounds face-off<span class="new-dot">!</span></button>`:`<span class="rv-next">Face-off after ${left} more rotation${left===1?'':'s'}</span>`}
           </div>`;})()}
+        ${(function(){return `<div class="arc-strip">${ARCS.map(a=>{const p=arcProgress(a.id); const done=p>=a.stages.length; const next=a.stages[p];
+          const nextMod2=next?(MODULES.find(m=>m.id===next.module)||{title:next.module}):null;
+          return `<button class="arc-chip ${done?'done':''}" onclick="sfx('click');showJourneys()"><b>${a.patient}</b><span class="dots">${a.stages.map((_,i)=>`<i class="${i<p?'on':''}"></i>`).join('')}</span><span class="arc-next">${done?'Journey complete':'Continues in '+nextMod2.title}</span></button>`;}).join('')}</div>`;})()}
         ${hubJourneyHTML(activeStage,nextMod)}
         <div class="mcards">
           ${visibleModules.map((m,i)=>{const meta=AREA[m.area],done=modDone(m),nc=modCorrect(m),seq=String(studyOrderedModules().indexOf(m)+1).padStart(2,'0');
@@ -2590,7 +2767,7 @@ function runCase(){
       note:c.type==="calc"?`<b style="color:#7a4d8f">Calculation task.</b> Use the case card.`:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`,
       below: caseProgress() });
   const wrap=document.querySelector(".vn-wrap");
-  const pre=document.createElement("div"); pre.innerHTML=clinicalContextHTML(c); if(pre.innerHTML.trim()){document.getElementById("choiceLayer").appendChild(pre); enhanceGlossary(pre);}
+  if(c.type!=='chartHunt'){ const pre=document.createElement("div"); pre.innerHTML=clinicalContextHTML(c); if(pre.innerHTML.trim()){document.getElementById("choiceLayer").appendChild(pre); enhanceGlossary(pre);} }
   const holder=document.createElement("div");holder.id="caseHolder";
   if(c.type==="essay"){
     renderEssayCase(c, holder);
@@ -2790,13 +2967,21 @@ function moduleComplete(){
   const perfect=nc===m.cases.length;
   award('first_shift');
   if(perfect)award('perfect');
+  const arcHit=arcStageFor(m.id);
+  window.__arcHit=arcHit?{id:arcHit.arc.id, idx:arcHit.idx}:null;
+  const arcLine=arcHit?`<br><span class="unlock-line">${arcHit.arc.patient}'s story continues…</span>`:'';
   drawScene(m.area, preceptorExpr(perfect?"wink":"smile"),preceptorName(),
-    perfect? `Amazing, Dr. ${G.name}! You got all ${m.cases.length} right.<br>You are really good at this — I am proud `
-           : `Rotation complete! You got ${nc} of ${m.cases.length}. Nice work.<br>Review the notes and retry anytime.`,
-    {advance:true, onBox:"goHub()", pop:true,
+    (perfect? `Amazing, Dr. ${G.name}! You got all ${m.cases.length} right.<br>You are really good at this — I am proud `
+           : `Rotation complete! You got ${nc} of ${m.cases.length}. Nice work.<br>Review the notes and retry anytime.`)+arcLine,
+    {advance:true, onBox:"afterModuleComplete()", pop:true,
      below:`<div style="position:absolute;top:66px;left:0;right:0;text-align:center;z-index:18">
        <span class="area-pill" style="color:${meta.c};font-size:15px">${m.title} · ${nc}/${m.cases.length}</span></div>`});
   if(perfect)burst("good");
+}
+function afterModuleComplete(){
+  const hit=window.__arcHit; window.__arcHit=null;
+  if(hit){ playArcStage(hit.id, hit.idx); return; }
+  goHub();
 }
 
 /* ==================================================================
@@ -2866,14 +3051,42 @@ MODULES.push({"id":"calc","icon":"21","area":"R1","title":"Pharmacy Calculations
 Object.assign(TEACH, {"calc":["Alright — the part people fear and shouldn't: the math. You'll do this all day.","Cockcroft-Gault for kidney function, mg/kg for doses, and unit-per-hour to mL/hr for drips.","Corrections matter too — phenytoin and calcium both need adjusting for a low albumin.","Type your number and I'll check it. Small rounding is fine. Let's go."],"critcare":["The ICU is where our pharmacology gets tested in real time.","In septic shock: cultures and antibiotics fast, fluids, then norepinephrine first-line.","For sedation, treat pain first and keep it light — benzodiazepines breed delirium.","Every hour counts here. Let's work through it."],"glycemic":["Insulin is one of the highest-alert drugs we touch — precision both ways.","In DKA, check the potassium before you start insulin. Under 3.3 and you replete first.","Keep the insulin running to close the gap, and add dextrose once glucose drops.","And for the ward, scheduled basal-bolus beats sliding-scale alone. Ready?"],"onco":["Oncology is unforgiving — we double-check everything, twice.","Verify the regimen, the dose against BSA, cumulative limits, and the labs before anything leaves.","Prevent the emergencies: tumor lysis with hydration and rasburicase, and strong CINV prophylaxis.","And we compound these hazardous drugs under strict containment. Let's practice."]});
 
 /* ===== new interactive engines ===== */
+function ehrMRN(seed){ let h=7; String(seed||'x').split('').forEach(ch=>{h=(h*31+ch.charCodeAt(0))>>>0;}); return 'SA-'+String(100000+(h%900000)); }
+function ehrPatientName(c){
+  if(c._ehrName)return c._ehrName;
+  const names=['Alvarez, R.','Chen, M.','Williams, D.','Kim, S.','Okafor, T.','Nguyen, L.','Brooks, J.','Patel, A.','Garcia, E.','Ivanov, P.'];
+  let h=0; String(c.q||c.kick||'pt').split('').forEach(ch=>{h=(h*33+ch.charCodeAt(0))>>>0;});
+  c._ehrName=names[h%names.length]; return c._ehrName;
+}
+function ehrTab(which){
+  document.querySelectorAll('.ehr-tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===which));
+  document.querySelectorAll('.ehr-pane').forEach(pn=>pn.classList.toggle('on',pn.dataset.pane===which));
+}
 function renderHunt(c){
   const holder=document.createElement("div"); holder.id="caseHolder"; holder.className="choices";
-  holder.innerHTML='<div class="hunt-hint">Tap every problem you spot, then Submit.</div>'+
-    '<div class="hunt-list">'+c.rows.map((r,i)=>'<button class="hunt-row" data-i="'+i+'">'+r.text+'</button>').join("")+'</div>'+
-    '<div style="text-align:center"><button class="btn sm" onclick="submitHunt()">Submit</button></div>';
+  const hasLabs=Array.isArray(c.labs)&&c.labs.length>0;
+  const hasSnap=!!c.patient;
+  const nm=ehrPatientName(c), mrn=ehrMRN(c.q||c.kick);
+  holder.innerHTML=
+    '<div class="ehr-win">'+
+      '<div class="ehr-top"><span class="ehr-app">St. Aurelia EHR</span><span class="ehr-mod">Pharmacist Verification · Chart Review</span></div>'+
+      '<div class="ehr-banner"><div class="ehr-id"><b>'+nm+'</b><span>MRN '+mrn+' · Inpatient</span></div><div class="ehr-flags"><span class="ehr-chip">Allergies: see chart</span><span class="ehr-chip warn">Pharmacy review due</span></div></div>'+
+      '<div class="ehr-tabs">'+
+        '<button type="button" class="ehr-tab on" data-tab="orders" onclick="ehrTab(\'orders\')">Active Orders / MAR</button>'+
+        (hasLabs?'<button type="button" class="ehr-tab" data-tab="labs" onclick="ehrTab(\'labs\')">Labs</button>':'')+
+        (hasSnap?'<button type="button" class="ehr-tab" data-tab="snap" onclick="ehrTab(\'snap\')">Snapshot</button>':'')+
+      '</div>'+
+      '<div class="ehr-pane on" data-pane="orders">'+
+        '<div class="hunt-hint">Flag every order with a problem, then send your review.</div>'+
+        '<div class="hunt-list ehr-orders">'+c.rows.map((r,i)=>'<button class="hunt-row" data-i="'+i+'"><span class="ord-status">Active</span><span class="ord-text">'+r.text+'</span><span class="ord-flag">FLAG</span></button>').join("")+'</div>'+
+      '</div>'+
+      (hasLabs?'<div class="ehr-pane" data-pane="labs"><div class="lab-grid">'+c.labs.map(labChip).join('')+'</div></div>':'')+
+      (hasSnap?'<div class="ehr-pane" data-pane="snap"><div class="ehr-snap">'+c.patient+'</div></div>':'')+
+      '<div class="ehr-foot"><span class="ehr-user">'+((G&&G.name)||'Resident')+', PGY-1 (pharmacy)</span><button class="btn sm" onclick="submitHunt()">Send pharmacist review</button></div>'+
+    '</div>';
   document.getElementById("choiceLayer").appendChild(holder);
-    enhanceGlossary(holder);
-  holder.querySelectorAll(".hunt-row").forEach(b=>b.onclick=()=>b.classList.toggle("sel"));
+  enhanceGlossary(holder);
+  holder.querySelectorAll(".hunt-row").forEach(b=>b.onclick=()=>{b.classList.toggle("sel"); sfx('click');});
 }
 function submitHunt(){
   const m=curM,c=m.cases[caseIdx]; if(G.results[m.id][caseIdx]!==null) return;
