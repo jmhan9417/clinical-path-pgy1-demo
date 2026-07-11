@@ -604,6 +604,23 @@
 .grad-quote{margin-top:10px;font-size:13px;font-weight:800;color:#7a5a72;background:#fff5f9;border:1px solid #ffd9e6;border-radius:12px;padding:9px 12px;font-style:italic}
 @media(max-width:640px){.day-chip{display:none}}
 
+
+/* ===== v13: rival ===== */
+.rival-strip{display:flex;align-items:center;gap:12px;background:linear-gradient(120deg,#f7f4ff,#fff5f9);border:1.5px solid #e4d9f2;border-radius:16px;padding:9px 12px;margin:10px 0 12px}
+.rival-strip img{width:46px;height:46px;border-radius:12px;object-fit:cover;object-position:center 10%;background:#efe9f8;border:1px solid #e0d4ef}
+.rival-strip .rv-txt{flex:1;min-width:0}
+.rival-strip .rv-txt b{display:block;font-size:13px;color:#4b3a5e}
+.rival-strip .rv-txt span{display:block;font-size:11.5px;font-weight:800;color:#8a7a9b;line-height:1.35}
+.rival-strip .rv-btn{white-space:nowrap}
+.rival-strip .rv-next{font-size:11px;font-weight:900;color:#a89ab8;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.fo-score{position:absolute;top:62px;left:0;right:0;display:flex;justify-content:center;gap:10px;z-index:19;pointer-events:none;align-items:center}
+.fo-score span{font-weight:900;font-size:13px;border-radius:999px;padding:6px 14px;box-shadow:0 6px 16px rgba(70,35,90,.14)}
+.fo-score .fs-you{background:#fff;color:#c2427c;border:1.5px solid #ffc9dc}
+.fo-score .fs-vs{background:none;box-shadow:none;color:#fff;font-size:11px;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.fo-score .fs-him{background:#4b3a5e;color:#e9ddfb;border:1.5px solid #6b5787}
+.grad-quote.rival-q{background:#f7f4ff;border-color:#e4d9f2;color:#5d4a7c}
+@media(max-width:640px){.rival-strip{flex-wrap:wrap}.rival-strip .rv-next{white-space:normal}}
+
 </style>
 </head>
 <body>
@@ -619,7 +636,8 @@
 const SPRITE_URLS={"harlin":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064549_2db7df05-8adb-4513-b376-d8fbf55b8252.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064630_7f17c76d-9931-4830-b923-fcb206958254.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064644_8ebe04b9-71c7-4e4b-8d52-06f46b4aadcc.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064654_40b050a1-2c3b-4718-a04c-53ccccf8d798.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064705_c9c8e658-dbef-4940-af13-a0349791a9fa.png","laugh":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064716_425a8704-d2a1-4b8f-bf1f-a9a11e543c3b.png","encourage":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064727_0447f1ef-7361-4d24-820a-91cd859e95d1.png","alarmed":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064738_bf27a5a3-2d27-48e3-9907-ae44a53d08b0.png","wink":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073136_8d32b6ba-d7e3-468a-97b2-92b8ab9e62db.png","surprised":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073144_23d5d2c7-1edb-4537-94cb-f03bfe2f9d23.png","sad":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073151_17572a6f-2a9c-4a92-b80f-2925dec83185.png","stern":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073216_5e029e41-3351-4109-8c94-d274de85c32d.png"},"belle":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064851_6e4f850a-dafa-4f93-917f-f361593b4753.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_064901_c3bf8edd-8794-441b-ad49-5fbf1837ff35.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073240_b828f88d-acdf-4711-87eb-1c17dd09c13f.png","warm":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073308_65a806d3-39ee-4b24-b1b2-595fcc019a9c.png"},"joey":{"neutral":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055331_f6f753bc-13c1-44c6-b449-a666a9692c80.png","happy":"https://d8j0ntlcm91z4.cloudfront.net/user_3F1GKFSOo29K70AThgRl3A2spWr/hf_20260706_055349_6bd8adc3-faf7-49e2-ac65-9d72b9a1638a.png","think":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073315_54ee7db9-0169-44ae-ab09-58ec5225280b.png","worry":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073325_a1f2feea-4d3e-48eb-90d3-d6bb7ff2a2b9.png","proud":"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260706_073332_1539b31c-c65d-42e0-823e-d6adb90f5aa7.png"},
 "riley":{"neutral":"assets/riley_neutral.png","happy":"assets/riley_happy.png","think":"assets/riley_think.png","worry":"assets/riley_worry.png","proud":"assets/riley_proud.png"},
 "dpark":{"neutral":"assets/dpark_neutral.png","happy":"assets/dpark_happy.png","think":"assets/dpark_think.png","worry":"assets/dpark_worry.png","proud":"assets/dpark_proud.png","stern":"assets/dpark_stern.png"},
-"pip":{"neutral":"assets/pip_neutral.png","happy":"assets/pip_neutral.png"}};
+"pip":{"neutral":"assets/pip_neutral.png","happy":"assets/pip_neutral.png"},
+"elliot":{"neutral":"assets/elliot_neutral.png","smug":"assets/elliot_smug.png","annoyed":"assets/elliot_annoyed.png","impressed":"assets/elliot_impressed.png","happy":"assets/elliot_happy.png"}};
 const BG_URLS={core:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R1:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80', R2:'https://images.unsplash.com/photo-1580281657529-557a6abb6387?w=1600&q=80', R3:'https://images.unsplash.com/photo-1584451049700-ec9b394f3805?w=1600&q=80', R4:'https://images.unsplash.com/photo-1648224394432-8830fec15349?w=1600&q=80'};
 Object.assign(SPRITE_URLS,{
   patient:{neutral:"https://d8j0ntlcm91z4.cloudfront.net/user_3G7UL9pP2bKeh854dJPpJF6dbqw/hf_20260707_044454_bceef426-09d9-4a26-b13e-96a4ad6b66b2.png"},
@@ -637,6 +655,7 @@ function faceImg(expr, who){
     joey:{dir:'assets/joey/joey_', has:['neutral','happy','think','worry','proud'], alias:{smile:'neutral',wink:'happy',laugh:'happy',encourage:'happy',warm:'happy',surprised:'happy',alarmed:'worry',sad:'worry',stern:'think'}},
     riley:{dir:'assets/riley/riley_', has:['neutral','happy','think','worry','proud'], alias:{smile:'neutral',wink:'happy',laugh:'happy',encourage:'happy',warm:'happy',surprised:'happy',alarmed:'worry',sad:'worry',stern:'think'}},
     dpark:{dir:'assets/dpark/dpark_', has:['neutral','happy','think','worry','proud','stern'], alias:{smile:'neutral',wink:'happy',laugh:'happy',encourage:'happy',warm:'happy',surprised:'happy',alarmed:'worry',sad:'worry'}},
+    elliot:{dir:'assets/elliot/elliot_', has:['neutral','smug','annoyed','impressed','happy'], alias:{smile:'neutral',proud:'smug',think:'annoyed',worry:'annoyed',stern:'annoyed',sad:'annoyed',laugh:'happy',encourage:'impressed',warm:'impressed',surprised:'impressed',wink:'smug',alarmed:'annoyed'}},
     patient:{dir:'assets/cameo/patient_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
     nurse:{dir:'assets/cameo/nurse_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
     attending:{dir:'assets/cameo/attending_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
@@ -752,6 +771,99 @@ function face(expr, who){ return faceImg(expr, who);
 
 
 var VNTYPE={timer:null,full:'',el:null,done:true,onBox:null};
+/* ===== Rival: Dr. Elliot Kang ===== */
+const RIVAL={name:'Dr. Elliot Kang', who:'elliot'};
+function modulesDoneCount(){ return MODULES.filter(m=>modDone(m)).length; }
+function rivalScore(){ const att=attemptedCount(); return Math.max(0, 3 + Math.round(att*0.76 + (((att*7)%5)-2)*0.6)); }
+function rivalState(){ if(!G)return {fights:0,wins:0,losses:0,draws:0,availAt:1}; G.rival=G.rival||{fights:0,wins:0,losses:0,draws:0,availAt:1}; return G.rival; }
+function faceoffAvailable(){ return G&&modulesDoneCount()>=rivalState().availAt; }
+function recordLine(){ const r=rivalState(); return `you ${r.wins} · Elliot ${r.losses}${r.draws?' · draws '+r.draws:''}`; }
+function introRival(){
+  saveProgress("intro");
+  drawScene('core','smug',RIVAL.name,
+    `Oh — you're the other PGY-1. <b>Elliot Kang.</b> Ranked first in my class, already finished the orientation packet, and yes, the good coffee is mine.<br>Hope you're not the type who needs a preceptor to hold your hand.`,
+    {advance:true, who:'elliot', pop:true, hud:false, onBox:'introRival2()'});
+}
+function introRival2(){
+  drawScene('core','neutral',RIVAL.name,
+    `We start on the same floor Monday. Try to keep up, ${G.name} — it's more fun when it's close.<br><i>You can't quite tell if that grin is a threat or an invitation.</i>`,
+    {advance:true, who:'elliot', hud:false, onBox:'goHub()'});
+}
+var FACEOFF=null;
+function faceoffScoreHTML(){ const f=FACEOFF; return `<div class="fo-score"><span class="fs-you">You ${f.you}</span><span class="fs-vs">vs</span><span class="fs-him">Elliot ${f.him}</span></div>`; }
+function startFaceoff(){
+  if(!faceoffAvailable())return;
+  const pool=[]; MODULES.forEach(m=>m.cases.forEach((c,i)=>{ if(c.type==='mcq'&&G.results[m.id][i]===null)pool.push({m,c,i}); }));
+  let src=pool;
+  if(src.length<3){ src=[]; MODULES.forEach(m=>m.cases.forEach((c,i)=>{ if(c.type==='mcq')src.push({m,c,i}); })); }
+  FACEOFF={qs:shuffle(src).slice(0,3), idx:0, you:0, him:0};
+  const first=rivalState().fights===0;
+  drawScene('core','smug',RIVAL.name,
+    first? `There you are. Three questions, quick-fire. No notes, no preceptor. Loser restocks the printer paper for a month.<br>Try to make it interesting, ${G.name}.`
+         : `Rematch time. Current record: <b>${recordLine()}</b>. I've been reading.<br>Three questions. Go.`,
+    {advance:false, who:'elliot', pop:true});
+  const c=document.createElement('div'); c.className='choices';
+  c.innerHTML=`<button class="btn mint" onclick="sfx('click');faceoffQ()">Bring it on</button><button class="btn ghost" onclick="sfx('click');goHub()">Not now, Elliot</button>`;
+  document.getElementById('choiceLayer').appendChild(c);
+}
+function faceoffQ(){
+  const f=FACEOFF; if(!f)return;
+  if(f.idx>=f.qs.length){ faceoffVerdict(); return; }
+  const q=f.qs[f.idx], c=q.c;
+  drawScene(q.m.area,'neutral',RIVAL.name,
+    ['First one.','Second. Keep up.','Last one — for the printer duty.'][f.idx]+(c.kick?` <b>${c.kick}</b>`:''),
+    {advance:false, who:'elliot', note:`<b style="color:#7a4d8f">Q${f.idx+1} of 3.</b> ${c.q}`, below:faceoffScoreHTML()});
+  const pre=document.createElement('div'); pre.innerHTML=clinicalContextHTML(c);
+  if(pre.innerHTML.trim()){ document.getElementById('choiceLayer').appendChild(pre); enhanceGlossary(pre); }
+  const holder=document.createElement('div'); holder.className='choices'; holder.id='foHolder';
+  const opts=prepareMCQOptions(c);
+  holder.innerHTML=opts.map((o,i)=>`<button class="choice" data-i="${i}"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join('');
+  document.getElementById('choiceLayer').appendChild(holder); enhanceGlossary(holder);
+  holder.querySelectorAll('.choice').forEach(b=>b.onclick=()=>faceoffAnswer(parseInt(b.dataset.i)));
+}
+function faceoffAnswer(i){
+  const f=FACEOFF; if(!f)return;
+  const q=f.qs[f.idx], c=q.c, opts=c._renderOpts||c.opts;
+  const ok=!!opts[i].ok; if(ok)f.you++;
+  const him=Math.random()<0.72; if(him)f.him++;
+  const btns=[...document.querySelectorAll('#foHolder .choice')];
+  btns.forEach((b,bi)=>{ b.disabled=true; if(opts[bi].ok)b.classList.add('correct'); if(bi===i&&!ok)b.classList.add('wrong'); });
+  sfx(ok?'ok':'bad'); if(ok)burst('good');
+  const fb=String(opts[i].fb||'').replace(/^(Correct\.|Not quite\.)\s*/i,'');
+  const line= ok&&him? pick(["Tie on that one. Fine.","We both got it. Obviously."])
+            : ok&&!him? pick(["...Okay. That was clean. Don't gloat.","Hm. I blanked that one. Noted."])
+            : !ok&&him? pick(["Mine. Read the whole chart next time.","That one's mine, resident."])
+            : pick(["Neither of us. We speak of this to no one.","Nobody. Ugh. Moving on."]);
+  const expr= ok&&!him?'annoyed' : !ok&&him?'smug' : ok&&him?'neutral' : 'annoyed';
+  f.idx++;
+  drawScene(q.m.area, expr, RIVAL.name, line, {advance:false, who:'elliot',
+    note:`<b>${ok?'You got it':'You missed'}</b> · Elliot ${him?'got it':'missed'} · ${fb}`, below:faceoffScoreHTML()});
+  const cta=document.createElement('div'); cta.className='choices';
+  cta.innerHTML=`<button class="btn mint" onclick="sfx('click');faceoffQ()">${f.idx>=3?'Final tally':'Next question'}</button>`;
+  document.getElementById('choiceLayer').appendChild(cta);
+}
+function faceoffVerdict(){
+  const f=FACEOFF, st=rivalState();
+  st.fights++;
+  let expr, line, res;
+  if(f.you>f.him){ st.wins++; res='win'; expr='impressed';
+    line= st.fights>=3? `${f.you}–${f.him}. You know what, ${G.name}? You've gotten genuinely good. I hate it.<br>...Coffee's on me this week. Don't make it weird.`
+                      : `${f.you}–${f.him}. Fine. <b>Fine.</b> You win this one. Enjoy your printer immunity.`; }
+  else if(f.you<f.him){ st.losses++; res='loss'; expr='smug';
+    line=`${f.him}–${f.you}. As expected. Paper's in the supply room, second shelf.<br>...You were closer than last time, though. Annoyingly.`; }
+  else { st.draws++; res='draw'; expr='neutral';
+    line=`${f.you}–${f.him}. A tie. Unsatisfying for literally everyone. Rematch after your next rotation.`; }
+  st.availAt=modulesDoneCount()+2;
+  award('faceoff1'); if(res==='win')award('faceoffwin'); if(st.fights>=3)award('faceoff3');
+  FACEOFF=null;
+  saveProgress('hub');
+  drawScene('core', expr, RIVAL.name, line, {advance:false, who:'elliot', pop:true,
+    below:`<div class="rank-banner"><span class="rk-k">Rounds face-off</span><span class="rk-v">${res==='win'?'You win':res==='loss'?'Elliot wins':'Draw'} · ${recordLine()}</span></div>`});
+  if(res==='win'){ burst('good'); sfx('rank'); }
+  const c=document.createElement('div'); c.className='choices';
+  c.innerHTML=`<button class="btn mint" onclick="sfx('click');goHub()">Back to the year map</button>`;
+  document.getElementById('choiceLayer').appendChild(c);
+}
 /* ===== Break room stories (bond-tier unlocks) ===== */
 const STORIES={
   female:[
@@ -835,7 +947,10 @@ const ACH_DEFS=[
   {id:'fifty',name:'Half Century',desc:'50 correct decisions'},
   {id:'hundred',name:'Centurion',desc:'100 correct decisions'},
   {id:'story',name:'Break Room Regular',desc:'Read your first break room story'},
-  {id:'shiftboard',name:'Board Runner',desc:'Work a patient from the Simulated Shift'}
+  {id:'shiftboard',name:'Board Runner',desc:'Work a patient from the Simulated Shift'},
+  {id:'faceoff1',name:'Challenge Accepted',desc:'Finish a rounds face-off with Elliot'},
+  {id:'faceoffwin',name:'Printer Immunity',desc:'Win a rounds face-off'},
+  {id:'faceoff3',name:'Worthy Rival',desc:'Go three face-offs deep with Elliot'}
 ];
 function achMap(){ if(!G)return {}; G.ach=G.ach||{}; return G.ach; }
 function award(id){
@@ -858,6 +973,7 @@ var PIP={open:false};
 function pipIntroSeen(){ try{return localStorage.getItem('clinicalPathPipIntro')==='done';}catch(e){return true;} }
 function pipMarkIntro(){ try{localStorage.setItem('clinicalPathPipIntro','done');}catch(e){} }
 function pipScreen(){
+  if(typeof FACEOFF!=='undefined'&&FACEOFF)return 'faceoff';
   if(document.getElementById('chapterOv'))return 'chapter';
   if(document.querySelector('.create-panel'))return 'create';
   if(document.querySelector('.title-menu'))return 'title';
@@ -898,6 +1014,7 @@ function pipTip(){
     cards:{h:"Study Cards",b:"Grade yourself honestly. Again brings a card back sooner; Easy pushes it further out. Cards come from cases you have seen."},
     shift:{h:"Simulated Shift",b:"Pick the patient who worries you most — each one opens the matching rotation, just like triaging a real board."},
     cast:{h:"The team",b:"Dr. Harlin and Dr. Park teach the same cases with different personalities. Dr. Deans runs the program."},
+    faceoff:{h:"Rounds face-off",b:"Pride match with Elliot — same clinical rules apply. Read the whole stem; he rushes, you don't have to."},
     chapter:{h:"New rotation",b:"Tap anywhere to walk in."},
     other:{h:"Pip here",b:"I'm your rounds bot. Open me anytime with H if you are not sure what to do next."}
   };
@@ -1953,7 +2070,7 @@ function saveProgress(mode){
     localStorage.setItem(SAVE_KEY, JSON.stringify({
       v:2, savedAt:new Date().toISOString(), name:G.name||"Joey Han", avatar:G.avatar||"",
       player:G.player||pickedResident||"male", preceptor:G.preceptor||"female",
-      hints:G.hints||{}, ach:G.ach||{}, streak:G.streak||{cur:0,best:0}, storiesSeen:G.storiesSeen||[],
+      hints:G.hints||{}, ach:G.ach||{}, streak:G.streak||{cur:0,best:0}, storiesSeen:G.storiesSeen||[], rival:G.rival||{fights:0,wins:0,losses:0,draws:0,availAt:1},
       results:G.results, mode:mode||"hub", curModuleId:curM?curM.id:null, learnIdx:learnIdx||0, caseIdx:caseIdx||0
     }));
   }catch(e){ console.log('save failed',e); }
@@ -1970,7 +2087,7 @@ function resumeProgress(){
   G={name:(d.name||"Joey Han"), avatar:d.avatar||"",
      player:d.player||(function(){try{return localStorage.getItem('clinicalPathResident')||'male';}catch(e){return 'male';}})(),
      preceptor:d.preceptor||(function(){try{return localStorage.getItem('clinicalPathPreceptor')||'female';}catch(e){return 'female';}})(),
-     hints:d.hints||{}, ach:d.ach||{}, streak:d.streak||{cur:0,best:0}, storiesSeen:Array.isArray(d.storiesSeen)?d.storiesSeen:[],
+     hints:d.hints||{}, ach:d.ach||{}, streak:d.streak||{cur:0,best:0}, storiesSeen:Array.isArray(d.storiesSeen)?d.storiesSeen:[], rival:d.rival||{fights:0,wins:0,losses:0,draws:0,availAt:1},
      results:normalizeResults(d.results)};
   if(RESIDENTS[G.player])pickedResident=G.player;
   const m=d.curModuleId?MODULES.find(x=>x.id===d.curModuleId):null;
@@ -2198,7 +2315,8 @@ function showCast(){
     {img:SPRITE_URLS.dpark.neutral,name:'Dr. Daniel Park',role:'EM pharmacist · male preceptor route',bio:'Calm voice in loud moments. He asks one more question until your reasoning is airtight.'},
     {img:SPRITE_URLS.belle.warm,name:'Dr. Belle Deans',role:'Residency program director',bio:'Runs the program, welcomes you on day one, and hands you your final evaluation in June.'},
     {img:(SPRITE_URLS[rWho]||SPRITE_URLS.joey).neutral,name:'You',role:'PGY-1 resident · pick your look and name',bio:'Fresh badge, clean coat, everything to prove. Your decisions shape how this year goes.'},
-    {img:SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:'',name:'Pip',role:'Rounds bot · always on shift',bio:'Lives in the corner of your screen. Explains any screen, hints at how to approach a case, never spoils the answer.'}
+    {img:SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:'',name:'Pip',role:'Rounds bot · always on shift',bio:'Lives in the corner of your screen. Explains any screen, hints at how to approach a case, never spoils the answer.'},
+    {img:SPRITE_URLS.elliot?SPRITE_URLS.elliot.neutral:'',name:'Dr. Elliot Kang',role:'Co-resident · your rival',bio:'Started the same day, finished the orientation packet early, and will absolutely challenge you to quick-fire questions on rounds.'}
   ];
   document.getElementById("app").innerHTML=`
     <div class="stage bg-title" id="stage">${bokehHTML()}</div><div class="fx" id="fx2"></div>
@@ -2273,7 +2391,7 @@ function introPreceptor(){
     ? `So you're <b>${G.name}</b>! I'm <b>Dr. Harlin</b> — ICU pharmacist, your preceptor, and the reason the coffee disappears on this floor.<br>Rule one: patients first. Rule two: ask me anything. Ready?`
     : `Good to meet you, <b>${G.name}</b>. I'm <b>Dr. Daniel Park</b>, your preceptor.<br>I won't rush you, and I won't let you coast. We'll take it one patient at a time.`;
   drawScene("core",preceptorExpr("happy"),p.name,hello,
-    {advance:true, who:p.who, pop:true, onBox:"goHub()"});
+    {advance:true, who:p.who, pop:true, onBox:"introRival()"});
   burst("good");
 }
 
@@ -2318,6 +2436,11 @@ function goHub(){
             <div class="n">${m.name.split('· ')[1]}</div>
             <div class="b"><i style="width:${s.pct}%;background:${m.c}"></i></div></div>`;}).join("")}
         </div>
+        ${(function(){const rs=rivalScore(), rst=rivalState(); const fo=faceoffAvailable(); const left=Math.max(0,rst.availAt-modulesDoneCount());
+          return `<div class="rival-strip"><img src="${(SPRITE_URLS.elliot||{}).neutral||''}" alt="Dr. Elliot Kang" onerror="this.style.display='none'">
+            <div class="rv-txt"><b>Dr. Elliot Kang · co-resident</b><span>Correct decisions — You ${bond()} · Elliot ${rs}${rst.fights?` · record ${recordLine()}`:''}</span></div>
+            ${fo?`<button class="btn sm rv-btn" onclick="sfx('click');startFaceoff()">Rounds face-off<span class="new-dot">!</span></button>`:`<span class="rv-next">Face-off after ${left} more rotation${left===1?'':'s'}</span>`}
+          </div>`;})()}
         ${hubJourneyHTML(activeStage,nextMod)}
         <div class="mcards">
           ${visibleModules.map((m,i)=>{const meta=AREA[m.area],done=modDone(m),nc=modCorrect(m),seq=String(studyOrderedModules().indexOf(m)+1).padStart(2,'0');
@@ -2704,6 +2827,7 @@ function graduate(){
         <div class="medal">${medal}</div>
         <h2>${title}</h2>
         <div class="rk">Dr. ${G.name} — ${rk}</div>
+        <div class="grad-quote rival-q">${(function(){const r=(G.rival||{wins:0,losses:0,draws:0,fights:0}); if(!r.fights)return 'Elliot: "We never settled who buys the coffee. Next year, Dr. '+G.name+'."'; if(r.wins>r.losses)return 'Elliot: "'+r.wins+'–'+r.losses+', your series. You earned it. Call me when you pick a specialty — first rounds are on me."'; if(r.wins<r.losses)return 'Elliot: "I take the year '+r.losses+'–'+r.wins+'. But honestly? You made me better. Rematch at BCPS."'; return 'Elliot: "Dead even. Of course it is. See you at BCPS, partner."';})()}</div>
         <div class="grad-quote">${(function(){const fem=(G.preceptor||'female')==='female'; const done=MODULES.filter(m=>modDone(m)).length===MODULES.length;
           if(!done) return fem?'Dr. Harlin: "Year is not over yet. Back to the floor — I will save you a coffee."':'Dr. Park: "We are not done. One more rotation, then we talk."';
           return fem?'Dr. Harlin: "I would page you for my own family. Go be somebody\'s calm, Dr. '+G.name+'."':'Dr. Park: "You notice quiet things now. That is the whole job. It was an honor, Dr. '+G.name+'."';})()}</div>
