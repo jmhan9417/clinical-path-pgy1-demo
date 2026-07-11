@@ -21,6 +21,12 @@ add('Code Stroke validation present', demo.includes('code_stroke_validation'));
 add('P&T committee module present', demo.includes('pt_med_safety_committee'));
 add('Informatics module present', demo.includes('informatics_surveillance'));
 add('Equity/reflection module present', demo.includes('communication_equity_reflection'));
+add('Hub guard prevents no-game trap', demo.includes("if(typeof G==='undefined'||!G||!G.results){showTitle();return;}"));
+add('Study Cards back label is context-aware', demo.includes("?'Back to year map':'Back to title'"));
+add('Competency CSV export wired to UI', demo.includes('onclick="sfx(\'click\');exportCompetencyCSV()"'));
+add('Competency JSON export wired to UI', demo.includes('onclick="sfx(\'click\');exportCompetencyJSON()"'));
+add('CSV export includes critical-miss column', demo.includes("'critical_misses'"));
+add('Readiness cards use per-area critical status', demo.includes('critByArea'));
 
 for (const c of checks) console.log(`${c.pass ? 'PASS' : 'FAIL'}  ${c.name}${c.detail ? ` — ${c.detail}` : ''}`);
 const failed = checks.filter(c => !c.pass);

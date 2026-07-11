@@ -2717,6 +2717,7 @@ function studyOrderedModules(){
 }
 
 function goHub(){
+  if(typeof G==='undefined'||!G||!G.results){showTitle();return;}
   saveProgress("hub");
   setTimeout(pipIntroShow,700);
   setBG("core");
@@ -3398,7 +3399,7 @@ function renderStudyCards(){
     <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div><div class="fx" id="fx2"></div>
     <div class="center-layer" style="justify-content:center;padding:4vh 18px"><div class="study-panel">
       <div class="study-head"><div><h2>Study Cards</h2><div class="study-sub">Built from ${MODULES.length} rotations · ${STUDY.cards.length} cards · review what is due today</div><div class="download-help"><b>Want to study outside the demo?</b> Save a Quizlet-ready import file from this deck.</div></div>
-        <div class="study-actions"><button class="btn ghost sm" onclick="goHub()">Back to year map</button><button class="btn ghost sm" onclick="exportQuizletTXT()">Save Quizlet import file</button><button class="btn ghost sm" onclick="resetCardProgress()">Reset card progress</button></div></div>
+        <div class="study-actions"><button class="btn ghost sm" onclick="goHub()">${(typeof G!=='undefined'&&G&&G.results)?'Back to year map':'Back to title'}</button><button class="btn ghost sm" onclick="exportQuizletTXT()">Save Quizlet import file</button><button class="btn ghost sm" onclick="resetCardProgress()">Reset card progress</button></div></div>
       <div class="study-grid"><div>${c?cardHTML(c):'<div class="flash-empty">No due cards in this filter. Switch rotation blocks or reset card progress.</div>'}</div><div class="study-side">
         <div class="study-stat"><div class="statbox"><b>${pool.length}</b><span>Due</span></div><div class="statbox"><b>${all.length}</b><span>Filtered</span></div><div class="statbox"><b>${STUDY.cards.length}</b><span>Total</span></div><div class="statbox"><b>${Math.round((STUDY.cards.filter(x=>x.seen).length/Math.max(STUDY.cards.length,1))*100)}%</b><span>Seen</span></div></div>
         <div class="due-note">Cards come from lessons, cases, rationales, calculations, SBAR practice, journal-club critiques, and guideline diagrams.</div>
@@ -6954,8 +6955,8 @@ function moduleReportRows(){
 function reportSummary(){ const rows=moduleReportRows(); const totalCases=rows.reduce((n,r)=>n+r.total,0); const attempted=rows.reduce((n,r)=>n+r.attempted,0); const correct=rows.reduce((n,r)=>n+r.correct,0); return {modules:MODULES.length,doneModules:rows.filter(r=>r.status==='Completed').length,totalCases,attempted,correct,pct:safePct(correct,totalCases),attemptPct:safePct(attempted,totalCases),cards:typeof buildStudyCards==='function'?buildStudyCards().length:0,criticalRemediation:criticalMisses().length}; }
 function reportReadinessCards(){
   const rows=areaReportRows();
-  const hasCritical=criticalMisses().length>0;
-  return rows.map(r=>{ const pass = !hasCritical && (r.area==='core' ? r.attemptPct>=80 : (r.attemptPct>=70 && r.pct>=60)); const label = hasCritical?'Critical remediation due':(pass?'Ready to discuss':'Keep practicing'); return `<div class="ready-card ${pass?'good':'warn'}"><b>${r.area==='core'?'Core':r.area}</b><span>${label}<br>${r.correct}/${r.total} correct · ${r.doneMods}/${r.modules} modules complete</span></div>`; }).join('');
+  const critByArea={}; criticalMisses().forEach(x=>{const m=MODULES.find(mm=>mm.id===x.module); if(m)critByArea[m.area]=(critByArea[m.area]||0)+1;});
+  return rows.map(r=>{ const areaCrit=critByArea[r.area]||0; const pass = !areaCrit && (r.area==='core' ? r.attemptPct>=80 : (r.attemptPct>=70 && r.pct>=60)); const label = areaCrit?'Critical remediation due':(pass?'Ready to discuss':'Keep practicing'); return `<div class="ready-card ${pass?'good':'warn'}"><b>${r.area==='core'?'Core':r.area}</b><span>${label}<br>${r.correct}/${r.total} correct · ${r.doneMods}/${r.modules} modules complete</span></div>`; }).join('');
 }
 function typeMixHTML(types){ return Object.entries(types).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span class="report-pill">${caseTypeName(t)} ${n}</span>`).join(''); }
 function showCompetencyReport(){
@@ -6968,7 +6969,7 @@ function showCompetencyReport(){
     ${hudHTML('core')}
     <div class="center-layer" style="justify-content:flex-start;padding-top:64px">
       <div class="report-panel">
-        <div class="report-head"><div><h2>Preceptor Review</h2><div class="report-sub">Resident: ${learner} · PGY-1 onboarding · ${new Date().toLocaleDateString()}<br>A clean review scene for your rotation progress, strengths, and next practice targets.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="goHub()">Back to rotations</button></div></div>
+        <div class="report-head"><div><h2>Preceptor Review</h2><div class="report-sub">Resident: ${learner} · PGY-1 onboarding · ${new Date().toLocaleDateString()}<br>A clean review scene for your rotation progress, strengths, and next practice targets.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="sfx('click');exportCompetencyCSV()">Export CSV</button><button class="btn ghost sm" onclick="sfx('click');exportCompetencyJSON()">Export JSON</button><button class="btn ghost sm" onclick="goHub()">Back to rotations</button></div></div>
         <div class="report-grid"><div class="report-metric"><b>${s.doneModules}/${s.modules}</b><span>Rotations finished</span></div><div class="report-metric"><b>${s.correct}/${s.totalCases}</b><span>Cases correct</span></div><div class="report-metric"><b>${s.attemptPct}%</b><span>Cases practiced</span></div><div class="report-metric"><b>${s.cards}</b><span>Study cards ready</span></div></div><div class="report-note"><b>Preceptor note:</b> This page is your end-of-shift coaching record, not a residency evaluation or credential. Use it to identify practice targets.${s.criticalRemediation?` <b>${s.criticalRemediation} critical-response checkoff${s.criticalRemediation===1?' requires':'s require'} remediation.</b>`:' No failed critical-response checkoffs are currently recorded.'}</div>
         <div class="report-section"><h3>Readiness snapshot</h3><div class="readiness-grid">${reportReadinessCards()}</div><div class="report-note">This is a simulation review for coaching only. Real residency evaluation still comes from your preceptor, site policy, and observed practice.</div></div>
         <div class="report-section"><h3>Competency map</h3><table class="report-table"><thead><tr><th>Area</th><th>Progress</th><th>Practice record</th><th>Practice styles</th></tr></thead><tbody>${areas.map(r=>`<tr><td><b>${r.area}</b><br>${r.label}</td><td><div class="report-bar"><i style="width:${r.pct}%"></i></div><small>${r.pct}% correct · ${r.attemptPct}% attempted</small></td><td>${r.correct}/${r.total} correct<br>${r.doneMods}/${r.modules} modules complete</td><td>${typeMixHTML(r.types)}</td></tr>`).join('')}</tbody></table></div>
@@ -6978,7 +6979,7 @@ function showCompetencyReport(){
 }
 function csvCell(v){ return '"'+String(v??'').replace(/"/g,'""').replace(/\s+/g,' ').trim()+'"'; }
 function downloadTextFile(name, text, type){ const blob=new Blob([text],{type:type||'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},500); }
-function exportCompetencyCSV(){ const rows=[['sequence','module_id','module_title','area','status','cases_total','cases_attempted','cases_correct','score_percent','question_formats']].concat(moduleReportRows().map(r=>[r.seq,r.id,r.title,r.area,r.status,r.total,r.attempted,r.correct,r.pct,r.types.join('; ')])); downloadTextFile('clinical-path-pgy1-competency-report.csv', rows.map(row=>row.map(csvCell).join(',')).join('\n'), 'text/csv;charset=utf-8'); }
+function exportCompetencyCSV(){ const cm=criticalMisses(); const rows=[['sequence','module_id','module_title','area','status','cases_total','cases_attempted','cases_correct','score_percent','critical_misses','question_formats']].concat(moduleReportRows().map(r=>[r.seq,r.id,r.title,r.area,r.status,r.total,r.attempted,r.correct,r.pct,cm.filter(x=>x.module===r.id).length,r.types.join('; ')])); downloadTextFile('clinical-path-pgy1-competency-report.csv', rows.map(row=>row.map(csvCell).join(',')).join('\n'), 'text/csv;charset=utf-8'); }
 function exportCompetencyJSON(){ const payload={product:'The Clinical Path: PGY-1', learner:(G&&G.name)||'Joey Han', generatedAt:new Date().toISOString(), summary:reportSummary(), areas:areaReportRows(), modules:moduleReportRows()}; downloadTextFile('clinical-path-pgy1-competency-report.json', JSON.stringify(payload,null,2), 'application/json;charset=utf-8'); }
 
 </script>
