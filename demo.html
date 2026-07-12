@@ -1069,10 +1069,23 @@ var FACEOFF=null;
 function faceoffScoreHTML(){ const f=FACEOFF; return `<div class="fo-score"><span class="fs-you">You ${f.you}</span><span class="fs-vs">vs</span><span class="fs-him">Elliot ${f.him}</span></div>`; }
 function startFaceoff(){
   if(!faceoffAvailable())return;
-  const pool=[]; MODULES.forEach(m=>m.cases.forEach((c,i)=>{ if(c.type==='mcq'&&G.results[m.id][i]===null)pool.push({m,c,i}); }));
-  let src=pool;
-  if(src.length<3){ src=[]; MODULES.forEach(m=>m.cases.forEach((c,i)=>{ if(c.type==='mcq')src.push({m,c,i}); })); }
-  FACEOFF={qs:shuffle(src).slice(0,3), idx:0, you:0, him:0};
+  // Face-off reviews cases you have ALREADY answered, never previews unseen ones
+  // (previewing unseen questions made them repeat later in the graded rotation).
+  const served=rivalState().served||{};
+  const attempted=[]; MODULES.forEach(m=>m.cases.forEach((c,i)=>{ if(c.type==='mcq'&&G.results[m.id][i]!==null){ attempted.push({m,c,i,key:m.id+'|'+i,wrong:G.results[m.id][i]===false}); } }));
+  // Prefer reviewing questions you MISSED and have not been quizzed on yet; this
+  // makes the duel purposeful remediation instead of random repetition.
+  let src=attempted.filter(x=>x.wrong&&!served[x.key]);
+  if(src.length<3) src=attempted.filter(x=>!served[x.key]);
+  if(src.length<3) src=attempted;
+  if(src.length<3){
+    drawScene('core','neutral',RIVAL.name, `Not yet, ${G.name}. Clear a few more rotations and I'll quiz you on what you've actually seen — no previews.`, {advance:false, who:'elliot', pop:true});
+    const cc=document.createElement('div'); cc.className='choices'; cc.innerHTML=`<button class="btn ghost" onclick="sfx('click');goHub()">Back to the year map</button>`;
+    document.getElementById('choiceLayer').appendChild(cc); return;
+  }
+  const chosen=shuffle(src).slice(0,3);
+  const rr=rivalState(); rr.served=rr.served||{}; chosen.forEach(q=>{ rr.served[q.key]=true; });
+  FACEOFF={qs:chosen, idx:0, you:0, him:0};
   const first=rivalState().fights===0;
   drawScene('core','smug',RIVAL.name,
     first? `There you are. Three questions, quick-fire. No notes, no preceptor. Loser restocks the printer paper for a month.<br>Try to make it interesting, ${G.name}.`
@@ -7473,6 +7486,19 @@ const REPETITION_REWRITES_3={
 };
 function applyRepetitionRewrites3(){Object.entries(REPETITION_REWRITES_3).forEach(([id,rows])=>{const m=MODULES.find(x=>x.id===id);if(!m)throw new Error('Missing rewrite3 module '+id);Object.entries(rows).forEach(([index,c])=>{const i=+index;if(!m.cases[i])throw new Error('Missing rewrite3 case '+id+'['+i+']');m.cases[i]=c;});});}
 applyRepetitionRewrites3();
+const ORDER_PROMPT_DIVERSIFY={
+ immun:{3:'A pharmacist is about to administer an adult vaccine. Put the immunization safety steps in the order they should happen:'},
+ cardiology_core:{3:'A patient presents with new atrial fibrillation. Put the pharmacist stroke-prevention workup in order:'},
+ code_stroke_validation:{2:'The code has ended with ROSC. Put the pharmacist post-code closeout steps in order:'},
+ emergency_medicine:{4:'An ED patient arrives with suspected opioid overdose. Put the pharmacist response in order:'},
+ operations_staffing_oncall:{3:'The EHR goes down mid-shift. Put the pharmacist downtime response in order:'},
+ di_formulary_orderset:{8:'A prescriber sends a complex drug-information question. Put the pharmacist response in order:',3:'You are preparing a formulary monograph for a new agent. Put the review steps in order:'},
+ ids:{3:'An investigational-drug shipment arrives at the research pharmacy. Put the receipt and accountability steps in order:'},
+ rca_fmea:{2:'After a serious medication event, put the root-cause-analysis steps in order:'},
+ research_irb_manuscript:{2:'You are designing a retrospective outcomes study. Put the research project steps in order:',8:'Peer reviewers returned comments on your manuscript. Put the revision steps in order:'}
+};
+function applyOrderPromptDiversify(){Object.entries(ORDER_PROMPT_DIVERSIFY).forEach(([id,rows])=>{const m=MODULES.find(x=>x.id===id);if(!m)throw new Error('Missing order-prompt module '+id);Object.entries(rows).forEach(([index,q])=>{const c=m.cases[+index];if(!c||c.type!=='order')throw new Error('Order-prompt target not an order case '+id+'['+index+']');c.q=q;});});}
+applyOrderPromptDiversify();
 applyMarExhibits();
 deBiasGeneratedMCQs();
 enrichMCQOptions();
