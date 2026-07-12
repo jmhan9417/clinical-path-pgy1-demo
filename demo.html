@@ -74,7 +74,8 @@
 
   /* ---------- VN dialogue box ---------- */
   .vn-wrap{position:absolute;left:0;right:0;bottom:0;z-index:15;padding:0 16px 18px}
-  body.case-active .vn-wrap{top:54px;bottom:0;overflow-y:auto;overscroll-behavior:contain;padding:18px 20px 28px;scrollbar-gutter:stable}
+  body.case-active .vn-wrap{top:84px;bottom:0;overflow-y:auto;overscroll-behavior:contain;padding:18px 20px 28px;scrollbar-gutter:stable}
+  @media(max-width:900px){body.case-active .vn-wrap{top:104px}}
   body.case-active .vn-choices{max-width:1180px;width:100%;margin:0 auto}
   body.case-active .dialogue-stack{max-width:1180px;margin:14px auto 0;position:relative}
   body.case-active .char-layer{opacity:.18;pointer-events:none}
@@ -88,7 +89,11 @@
   .case-ref{display:block;border-top:1px solid #e2e8f0;padding:7px 0;color:#075985;font-size:12px;font-weight:850;text-decoration:none}.case-ref:hover{text-decoration:underline}
   .case-side-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.case-side-actions .btn{padding:8px 9px;font-size:12px}
   .case-context{max-width:none!important;margin:0!important}
-  .mcq-submit-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}.mcq-help{font-size:12px;color:#475569;font-weight:800}.mcq-retry{border:1px solid #f59e0b;background:#fffbeb;color:#92400e;border-radius:10px;padding:9px 11px;font-size:12.5px;font-weight:850}
+  .mcq-submit-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}.mcq-help{font-size:12px;color:#334155;font-weight:800;background:rgba(255,255,255,.94);border:1px solid #cbd5e1;border-radius:999px;padding:6px 12px;box-shadow:0 4px 14px rgba(15,23,42,.10)}.mcq-submit-row .btn:disabled{opacity:1;background:#eef1f6;color:#8494ab;border:1.5px solid #c3cddb;box-shadow:none;cursor:not-allowed}.mcq-retry{border:1px solid #f59e0b;background:#fffbeb;color:#92400e;border-radius:10px;padding:9px 11px;font-size:12.5px;font-weight:850}
+  .case-question-card{background:rgba(255,255,255,.97);border:1px solid #cbd5e1;border-left:4px solid #0d9488;border-radius:12px;padding:12px 15px;box-shadow:0 8px 22px rgba(15,23,42,.10);text-align:left}
+  .case-question-card .cq-kick{display:inline-block;font-size:10.5px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:#0f766e;margin-bottom:4px}
+  .case-question-card .cq-q{font-size:14.5px;line-height:1.5;color:#0f172a;font-weight:800}
+  .mar-exhibit{margin:2px 0 4px}.mar-exhibit .hunt-row.static{cursor:default}.mar-exhibit .hunt-row.static:hover{border-color:#dbe5f0}.mar-note{font-size:10.5px;color:#5b7392;font-weight:750;line-height:1.35}.mar-status.missed{background:#fee2e2;color:#991b1b}.mar-exhibit .mar-grid{grid-template-columns:92px minmax(200px,1fr) 88px minmax(140px,1fr)}
   .choice.selected{border-color:#2563eb;background:#eff6ff;box-shadow:0 0 0 3px rgba(37,99,235,.14)}
   @media(max-width:860px){body.case-active .vn-wrap{padding:12px 12px 24px}.case-workspace{grid-template-columns:1fr}.case-side{position:static;max-height:none;order:-1}.case-side-card{padding:10px}.case-side-actions{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.case-side-actions{grid-template-columns:1fr}.mcq-submit-row{align-items:stretch;flex-direction:column}.choice{font-size:14px;padding:11px 12px}}
@@ -146,7 +151,7 @@
 
   /* order UI */
   .ord-dst{max-width:760px;margin:0 auto 8px;min-height:46px;background:rgba(255,255,255,.85);
-    border:2.5px dashed #ffc4d8;border-radius:16px;padding:8px;display:flex;flex-wrap:wrap;gap:7px}
+    border:2.5px dashed #e8a9c2;border-radius:16px;padding:8px;display:flex;flex-wrap:wrap;gap:7px}
   .ord-src{max-width:760px;margin:0 auto 10px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
   .calc-given{max-width:760px;margin:0 auto 10px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
   .calc-given .cg{background:rgba(255,255,255,.9);border:2px solid #ffe0ec;border-radius:12px;padding:6px 12px;font-size:13.5px;font-weight:700;color:#5a3a48}
@@ -588,7 +593,6 @@
 .pip-actions button:hover{border-color:#ff5f92;color:#ff5f92;background:#fff5f9}
 .pip-chat{margin:6px 14px 0;max-height:200px;overflow:auto;display:none;flex-direction:column;gap:6px;padding:8px;background:#fff;border:1px solid #f3d9e4;border-radius:12px}
 .pip-chat.has{display:flex}
-.pip-msg{font-size:12px;line-height:1.5;font-weight:700;border-radius:10px;padding:7px 9px;max-width:96%}
 .pip-msg.you{align-self:flex-end;background:#ffeef5;color:#8c3b60}
 .pip-msg.pip{align-self:flex-start;background:#f6f2ff;color:#4b3a5e}
 .pip-msg.pip b{color:#3f2a46}
@@ -685,7 +689,7 @@
 .ehr-orders .hunt-row:hover{border-color:#7ba3d4}
 .ehr-orders .ord-status{font-size:10px;font-weight:900;letter-spacing:.05em;color:#2e7d5b;background:#e2f5ec;border-radius:6px;padding:3px 7px;white-space:nowrap}
 .ehr-orders .ord-text{flex:1;font-size:12.8px;line-height:1.4}
-.ehr-orders .ord-flag{font-size:10px;font-weight:900;letter-spacing:.06em;color:#b34a6b;border:1.5px dashed #e5b9c8;border-radius:7px;padding:3px 8px;opacity:.55;white-space:nowrap}
+.ehr-orders .ord-flag{font-size:10px;font-weight:900;letter-spacing:.06em;color:#9d2c55;border:1.5px dashed #d48ba6;border-radius:7px;padding:3px 8px;opacity:.9;white-space:nowrap}
 .ehr-orders .hunt-row.sel{border-color:#ff5f92;background:#fff5f9}
 .ehr-orders .hunt-row.sel .ord-flag{opacity:1;background:#ff5f92;color:#fff;border-style:solid;border-color:#ff5f92}
 .ehr-orders .hunt-row.correct{border-color:#2bb7a8;background:#e9fbf7}
@@ -1310,6 +1314,46 @@ function pipTip(){
 }
 function pipEsc(x){return String(x||'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
 function pipGoBtn(label,code){ return '<button type="button" class="pip-go" onclick="'+String(code).replace(/"/g,'&quot;')+'">'+label+'</button>'; }
+function pipChatLoad(){try{PIP.chat=JSON.parse(localStorage.getItem('clinicalPathPipChat')||'[]').slice(-14);}catch(e){PIP.chat=[];}}
+function pipChatSave(){try{localStorage.setItem('clinicalPathPipChat',JSON.stringify((PIP.chat||[]).slice(-14)));}catch(e){}}
+function pipCurrentCase(){const sc=pipScreen();return ((sc==='case'||sc==='feedback')&&typeof curM!=='undefined'&&curM&&curM.cases)?curM.cases[caseIdx]:null;}
+function pipHint(c){
+  if(!c)return 'Open a case first and I can help you narrow it down.';
+  const type=c.type||'mcq';
+  if(type==='mcq'){
+    const answered=(typeof G!=='undefined'&&G&&G.results&&curM)?G.results[curM.id][caseIdx]!==null:false;
+    if(answered)return 'This one is already answered \u2014 ask me <b>why</b> and I will walk through the rationale.';
+    const sup=caseSupport(c);
+    const focus=sup.drugs.length?` Watch the <b>${sup.drugs[0]}</b> details \u2014 dose, timing, and monitoring.`:'';
+    const fifty=(typeof bondTier==='function'&&bondTier()>=1&&typeof hintsLeft==='function'&&hintsLeft()>0)?` You also have a preceptor <b>narrow it down</b> hint available above the options.`:'';
+    return `Cross off anything that skips verification, ignores this patient's organ function, or has no monitoring plan. Time-sensitive problems need action now \u2014 not observation.${focus}${fifty}`;
+  }
+  const steps=PIP_TYPE_STEPS[type]||PIP_TYPE_STEPS.mcq;
+  return `${PIP_TYPE_TIPS[type]||''}<ul>${steps.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+}
+function pipWhy(c){
+  if(!c)return 'Open a case and answer it \u2014 then I can break down the why.';
+  const answered=(typeof G!=='undefined'&&G&&G.results&&curM)?G.results[curM.id][caseIdx]!==null:false;
+  if(!answered)return 'Give it your best answer first \u2014 then ask me <b>why</b> and I will explain the reasoning.';
+  if(c.type==='mcq'){const ok=(c.opts||[]).find(o=>o.ok);if(ok)return `<b>Best answer:</b> ${ok.t}<br>${String(ok.fb||'').replace(/^(Correct\.)\s*/i,'')}${c.note?`<br><br>${c.note}`:''}`;}
+  return c.note?`<b>Teaching point:</b> ${c.note}`:'Review the feedback note under the dialogue \u2014 that is the teaching point for this case.';
+}
+function pipDrugInfo(c){
+  if(!c)return 'Open a case and I will pull its medication focus \u2014 or just type a drug name like "vancomycin".';
+  const sup=caseSupport(c);
+  if(!sup.drugs.length&&!sup.classes.length&&!sup.rules.length)return 'No specific medication is attached to this case \u2014 it is testing process and judgment. You can still type any drug name for a summary.';
+  const drugs=sup.drugs.length?`<b>Drugs:</b> ${sup.drugs.join(', ')}<br>`:'';
+  const classes=sup.classes.length?`<b>Classes:</b> ${sup.classes.join(', ')}<br>`:'';
+  const facts=sup.rules.slice(0,2).map(r=>`<b>${r.title}</b><ul>${r.facts.map(f=>`<li>${f}</li>`).join('')}</ul>`).join('');
+  const dm=sup.drugs.length?`<a href="https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=${encodeURIComponent(sup.drugs[0])}" target="_blank" rel="noopener">FDA label on DailyMed \u2197</a>`:'';
+  return drugs+classes+facts+dm;
+}
+function pipRefs(c){
+  if(!c)return 'Open a case and I will list its references.';
+  const refs=caseReferences(c);
+  if(!refs.length)return 'Use the current institutional policy and the governing specialty guideline for this scenario.';
+  return `<b>References for this case:</b><ul>${refs.map(r=>`<li><a href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a></li>`).join('')}</ul>`;
+}
 function pipAnswer(raw){
   var q=String(raw||'').trim(); var ql=q.toLowerCase().replace(/[?.!]+\s*$/,'').trim();
   if(!ql) return 'Ask me about an acronym ("SSC"), a drug ("warfarin"), a lab ("potassium"), a topic ("sepsis"), or say "what next".';
@@ -1317,7 +1361,10 @@ function pipAnswer(raw){
   var gKey=Object.keys(GLOSSARY).find(function(k){return k.toLowerCase()===ql;});
   if(!gKey){ var defM=ql.match(/^(?:what(?:'s| is| does)? |define |meaning of |explain )([a-z0-9&/\- ]{2,24}?)(?: stand for| mean)?$/); if(defM){ var cand=defM[1].trim(); gKey=Object.keys(GLOSSARY).find(function(k){return k.toLowerCase()===cand;}); } }
   if(gKey){ var info=GLOSSARY[gKey]; var extra=(gKey==='MAP'&&inGame)?('<br>'+pipGoBtn('Open year map',"togglePip(false);openYearMap()")):''; return '<b>'+gKey+'</b> = '+info[0]+'<br>'+info[1]+extra; }
-  if(/(^| )(hint|stuck|help)( |$)/.test(ql)&&!/help me (find|with)/.test(ql)){ if(pipScreen()==='case'&&typeof curM!=='undefined'&&curM){ var cc=curM.cases[caseIdx]||{}; return pipCaseBody(cc); } return 'Open a case first, then ask me for a hint.'+(inGame?'<br>'+pipGoBtn('Year map','togglePip(false);openYearMap()'):''); }
+  if(/(^| )(hint|stuck|help)( |$)/.test(ql)&&!/help me (find|with)/.test(ql)){ var hc=pipCurrentCase(); if(hc) return pipHint(hc); return 'Open a case first, then ask me for a hint.'+(inGame?'<br>'+pipGoBtn('Year map','togglePip(false);openYearMap()'):''); }
+  if(/^why\b|rationale|explain (the )?(answer|why)|why (is|was|did)/.test(ql)) return pipWhy(pipCurrentCase());
+  if(/drug info|medication (info|focus)|about (the|this) (drug|med)\b/.test(ql)) return pipDrugInfo(pipCurrentCase());
+  if(/\brefs?\b|references?|\bguidelines?\b|\bsources?\b/.test(ql)) return pipRefs(pipCurrentCase());
   if(/explain (this )?screen|where am i|what is this/.test(ql)){ var t=pipTip(); return '<b>'+t.h+'</b><br>'+t.b; }
   if(/what next|what should i do|where should i go|next rotation|recommend/.test(ql)){ if(!inGame)return 'Start a resident first — choose "New resident" on the title screen.'; var nm=nextRecommendedModule(); return nm?('Your recommended next rotation is <b>'+nm.title+'</b>.<br>'+pipGoBtn('Open '+pipEsc(nm.title),"togglePip(false);openModule('"+nm.id+"')")+pipGoBtn('Year map','togglePip(false);openYearMap()')):'All rotations are complete — run the Readiness Review from the year map.'; }
   if(/volume|mute|too loud|quieter|louder|^sound$/.test(ql)) return 'Adjust the effect volume here (also in Settings):<br>'+volumeSliderHTML()+'<br>'+pipGoBtn('Toggle sound on/off','toggleSound(event)');
@@ -1328,26 +1375,27 @@ function pipAnswer(raw){
   if(/reset|start over|delete (my )?save/.test(ql)) return 'Use <b>Resident Tools → Start Over</b> on the year map, or manage save slots from the title screen under <b>Residency files</b>.';
   if(/report|preceptor review|readiness|my progress|my score/.test(ql)) return inGame?('Two review surfaces: <b>Review with Preceptor</b> (coaching record) and <b>Readiness Review</b> (end of year).<br>'+pipGoBtn('Preceptor Review','togglePip(false);showCompetencyReport()')):'Start a resident first.';
   if(/settings|text speed|auto.?advance/.test(ql)) return 'Settings covers text speed, auto-advance pause, sound, and volume.'+(inGame?'<br>'+pipGoBtn('Open Settings','showSettings()'):'<br>Open Settings from the title screen.');
-  if(/who are you|what can you do|^help$/.test(ql)) return 'I can define acronyms (try "MAP"), summarize drugs (try "vancomycin"), give lab ranges (try "potassium"), find rotations (try "sepsis"), hint the current case, open Labs/Math/Calc, and point you to your next rotation.';
+  if(/who are you|what can you do|^help$/.test(ql)) return 'I can give a case <b>hint</b>, explain <b>why</b> after you answer, list case <b>refs</b>, define acronyms (try "MAP"), summarize drugs (try "vancomycin"), give lab ranges (try "potassium"), find rotations (try "sepsis"), hint the current case, open Labs/Math/Calc, and point you to your next rotation.';
   var drug=DRUG_TERMS.find(function(d){return ql===d||ql.includes(d)||(ql.length>=4&&d.includes(ql));});
   if(drug){ var rules=CASE_REFERENCE_RULES.filter(function(r){return r.re.test(drug)||r.re.test(q);}).slice(0,2); var out='<b>'+drug.charAt(0).toUpperCase()+drug.slice(1)+'</b>'; rules.forEach(function(r){ out+='<br><b>'+r.title+'</b><ul style="margin:4px 0 4px 16px;padding:0">'+r.facts.map(function(f){return '<li>'+f+'</li>';}).join('')+'</ul>'; }); var drugLabs=LAB_VALUES.filter(function(r){return r[1].toLowerCase().includes(drug);}).slice(0,2); if(drugLabs.length) out+='<br>'+drugLabs.map(function(r){return '<b>'+r[1]+'</b>: '+r[2]+' '+r[3];}).join('<br>'); rules.forEach(function(r){ out+=r.refs.map(function(x){return '<a class="case-ref" style="border:0;padding:2px 0" href="'+x[1]+'" target="_blank" rel="noopener">'+x[0]+'</a>';}).join(''); }); out+='<a class="case-ref" style="border:0;padding:2px 0" href="https://dailymed.nlm.nih.gov/dailymed/search.cfm?query='+encodeURIComponent(drug)+'" target="_blank" rel="noopener">FDA label on DailyMed</a><br><span class="pip-hint">Educational summary — the current label and institutional protocol govern.</span>'; return out; }
   if(ql.length>=3){ var labs=LAB_VALUES.filter(function(r){return r[1].toLowerCase().includes(ql);}).slice(0,4); if(labs.length) return labs.map(function(r){return '<b>'+r[1]+'</b>: '+r[2]+' '+r[3];}).join('<br>')+'<br><span class="pip-hint">Simulation reference ranges — institutional ranges govern.</span>'; }
   if(ql.length>=3){ var mods=MODULES.filter(function(m){return (m.title+' '+(m.blurb||'')).toLowerCase().includes(ql);}).slice(0,3); if(mods.length) return 'Rotations matching "'+pipEsc(q)+'":<br>'+mods.map(function(m){return pipGoBtn(pipEsc(m.title),"togglePip(false);openModule('"+m.id+"')");}).join(''); }
   var near=Object.keys(GLOSSARY).filter(function(k){return k.toLowerCase().includes(ql)||GLOSSARY[k][0].toLowerCase().includes(ql);}).slice(0,4);
   if(near.length&&ql.length>=2) return near.map(function(k){return '<b>'+k+'</b> = '+GLOSSARY[k][0];}).join('<br>');
-  return 'I could not match that. Try an acronym ("SSC"), a drug ("warfarin"), a lab ("potassium"), a topic ("sepsis"), or "what next".';
+  return 'I could not match that. Try <b>hint</b>, <b>why</b>, <b>refs</b>, an acronym ("SSC"), a drug ("warfarin"), a lab ("potassium"), or "what next".';
 }
 function pipChatHTML(){ if(!PIP.chat.length) return ''; return PIP.chat.map(function(m){return '<div class="pip-msg '+m.who+'">'+(m.who==='you'?pipEsc(m.text):m.text)+'</div>';}).join(''); }
-function pipAsk(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} var inp=document.getElementById('pipAskInput'); var q=String(inp&&inp.value||'').trim(); if(!q)return false; PIP.chat.push({who:'you',text:q}); PIP.chat.push({who:'pip',text:pipAnswer(q)}); PIP.chat=PIP.chat.slice(-14); var log=document.getElementById('pipChat'); if(log){ log.innerHTML=pipChatHTML(); log.classList.add('has'); log.scrollTop=log.scrollHeight; } if(inp){inp.value='';inp.focus();} sfx('click'); return false; }
+function pipAsk(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} var inp=document.getElementById('pipAskInput'); var q=String(inp&&inp.value||'').trim(); if(!q)return false; PIP.chat.push({who:'you',text:q}); PIP.chat.push({who:'pip',text:pipAnswer(q)}); PIP.chat=PIP.chat.slice(-14); pipChatSave(); var log=document.getElementById('pipChat'); if(log){ log.innerHTML=pipChatHTML(); log.classList.add('has'); log.scrollTop=log.scrollHeight; } if(inp){inp.value='';inp.focus();} sfx('click'); return false; }
 function pipQuick(q){ var inp=document.getElementById('pipAskInput'); if(inp)inp.value=q; pipAsk(); }
-function pipChipsHTML(){ var sc=pipScreen(); var chips=[]; chips.push(['Explain this screen','explain screen']); if(sc==='case')chips.push(['Hint','hint']); chips.push(['What next?','what next']); chips.push(['MAP?','MAP']); return '<div class="pip-chips">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'</div>'; }
+function pipChipsHTML(){ var sc=pipScreen(); var chips=[]; if(sc==='case'||sc==='feedback'){ if(sc==='case')chips.push(['Hint','hint']); chips.push(['Why?','why']); chips.push(['Drug info','drug info']); chips.push(['References','refs']); } else { chips.push(['Explain this screen','explain screen']); chips.push(['What next?','what next']); chips.push(['MAP?','MAP']); } return '<div class="pip-chips">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'</div>'; }
 function pipPanelHTML(intro){
   const tip=pipTip();
   const inGame=!!(typeof G!=='undefined'&&G&&G.results);
   const body=intro
     ? `<b>Hi! I'm Pip, your rounds bot.</b><br>Follow the <b>month blocks</b>, answer cases to grow your <b>bond hearts</b>, and anything you miss becomes a <b>Study Card</b>.<br><span class="pip-hint">You can also ask me anything below — drugs, acronyms, labs, rotations. Press H anytime.</span>`
     : `<b>${tip.h}</b><br>${tip.b}`;
-  const inCase=pipScreen()==='case';
+  const inCase=['case','feedback'].includes(pipScreen());
+
   const acts=inGame? `<div class="pip-actions">
       ${inCase?'<button onclick="sfx(\'click\');focusCaseSupport()">Case info</button><button onclick="sfx(\'click\');pinCurrentCase()">Save card</button><button onclick="sfx(\'click\');downloadCurrentQuizlet()">Quizlet</button>':''}
       <button onclick="sfx('click');showLabValues(event)">Labs</button>
@@ -1367,7 +1415,7 @@ function togglePip(force){
   const btn=document.getElementById('pipBtn');
   if(!panel)return;
   PIP.open=(typeof force==='boolean')?force:!PIP.open;
-  if(PIP.open){ panel.innerHTML=pipPanelHTML(false); panel.classList.add('on'); btn.classList.add('on'); sfx('click'); }
+  if(PIP.open){ panel.innerHTML=pipPanelHTML(false); panel.classList.add('on'); btn.classList.add('on'); const th=document.getElementById('pipChat'); if(th)th.scrollTop=th.scrollHeight; sfx('click'); }
   else{ panel.classList.remove('on'); btn.classList.remove('on'); }
 }
 function pipIntroShow(){
@@ -1377,6 +1425,7 @@ function pipIntroShow(){
   PIP.open=true; panel.innerHTML=pipPanelHTML(true); panel.classList.add('on'); btn.classList.add('on'); pipMarkIntro();
 }
 function initPip(){
+  pipChatLoad();
   if(document.getElementById('pipBtn'))return;
   const b=document.createElement('button'); b.id='pipBtn'; b.type='button'; b.setAttribute('aria-label','Open Pip, the helper bot');
   b.innerHTML=`<img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.happy:''}" alt="" onerror="this.parentNode.classList.add('noimg')"><span class="pip-fallback">?</span>`;
@@ -1394,6 +1443,7 @@ document.addEventListener('keydown',function(e){
   else if(/^[a-f]$/i.test(e.key))idx=e.key.toLowerCase().charCodeAt(0)-97;
   if(idx>=0&&list[idx]){e.preventDefault();list[idx].click();return;}
   if(e.key==='h'||e.key==='H'){e.preventDefault();togglePip();return;}
+  if(e.key==='Enter'){const sub=document.getElementById('mcqSubmit');if(sub&&!sub.disabled&&document.querySelector('#caseHolder .choice.selected')){e.preventDefault();answerMcq();return;}}
   if((e.key===' '||e.key==='Enter')&&document.getElementById('vnText')){e.preventDefault();vnClick();}
 });
 var VNCTRL={auto:false,autoTimer:null,autoToken:0,log:[]};
@@ -1572,7 +1622,7 @@ function enhanceGlossary(root){
   root=root||document.getElementById('app')||document.body; const re=glossaryRegex();
   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
     if(!n.nodeValue||!re.test(n.nodeValue)){re.lastIndex=0;return NodeFilter.FILTER_REJECT;} re.lastIndex=0;
-    const p=n.parentElement; if(!p||p.closest('.abbr,.abbr-tip,.vn-ctrl,script,style'))return NodeFilter.FILTER_REJECT;
+    const p=n.parentElement; if(!p||p.closest('.abbr,.abbr-tip,.vn-ctrl,.ehr-top,.mar-status,script,style'))return NodeFilter.FILTER_REJECT;
     return NodeFilter.FILTER_ACCEPT;
   }});
   const nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
@@ -1625,7 +1675,9 @@ function labChip(l){ const cls=l.flag==='critical'?'crit':(l.flag==='abnormal'?'
 function labRef(name){ const hit=LAB_VALUES.find(r=>r[1].toLowerCase()===String(name||'').toLowerCase()); return hit?`${hit[2]} ${hit[3]}`:''; }
 function clinicalContextHTML(c){ if(!c.patient && !c.labs && !c.tasks)return ''; return `<div class="case-context"><h4>Clinical case problem</h4>${c.patient?`<div class="pt">${c.patient}</div>`:''}${c.labs?`<div class="lab-grid">${c.labs.map(labChip).join('')}</div>`:''}${c.tasks?`<div class="pt" style="margin-top:8px"><b>Evaluate:</b> ${c.tasks.join(' · ')}</div>`:''}</div>`; }
 
-const DRUG_TERMS=['acetaminophen','acyclovir','allopurinol','amiodarone','amlodipine','amoxicillin','apixaban','aspirin','azithromycin','cefepime','ceftriaxone','cisplatin','clopidogrel','daptomycin','dexamethasone','dexmedetomidine','dexrazoxane','digoxin','diltiazem','dopamine','doxorubicin','enoxaparin','epinephrine','fentanyl','fomepizole','gabapentin','gentamicin','glucagon','heparin','hydromorphone','insulin','levetiracetam','linezolid','lithium','lorazepam','magnesium','meropenem','methadone','metoprolol','morphine','naloxone','nitrofurantoin','norepinephrine','ondansetron','oxycodone','phenylephrine','phenytoin','piperacillin','potassium','propofol','protamine','rasburicase','rifampin','rivaroxaban','tacrolimus','tenecteplase','vancomycin','vasopressin','warfarin'];
+const DRUG_TERMS=['acetaminophen','acyclovir','albuterol','allopurinol','alteplase','amiodarone','amlodipine','amoxicillin','apixaban','aspirin','atorvastatin','azithromycin','bumetanide','calcium gluconate','carbamazepine','cefazolin','cefepime','ceftriaxone','ciprofloxacin','cisplatin','clindamycin','clopidogrel','cyclosporine','daptomycin','dexamethasone','dexmedetomidine','dexrazoxane','digoxin','diltiazem','diphenhydramine','dopamine','doxorubicin','enoxaparin','epinephrine','fentanyl','fluconazole','fluoxetine','fomepizole','fosphenytoin','furosemide','gabapentin','gentamicin','glucagon','haloperidol','heparin','hydralazine','hydrochlorothiazide','hydromorphone','insulin','ketamine','labetalol','levetiracetam','levofloxacin','levothyroxine','lidocaine','linezolid','lisinopril','lithium','lorazepam','magnesium','meropenem','metformin','methadone','methotrexate','methylprednisolone','metoprolol','metronidazole','micafungin','midazolam','morphine','mycophenolate','naloxone','nicardipine','nitrofurantoin','norepinephrine','ondansetron','oxycodone','pantoprazole','phenobarbital','phenylephrine','phenytoin','piperacillin','potassium','prednisone','pregabalin','propofol','protamine','quetiapine','rasburicase','rifampin','rivaroxaban','sertraline','simvastatin','sirolimus','sodium bicarbonate','tacrolimus','tenecteplase','tobramycin','tramadol','valproate','vancomycin','vasopressin','vincristine','voriconazole','warfarin'];
+const DRUG_CLASS_TERMS=[['ACE inhibitor',/ACE inhibitor|\bACEI\b/i],['aminoglycoside',/aminoglycoside/i],['antipsychotic',/antipsychotic/i],['ARB',/\bARB\b|angiotensin receptor/i],['azole antifungal',/\bazoles?\b|azole antifungal/i],['benzodiazepine',/benzodiazepine/i],['beta-blocker',/beta[- ]blocker/i],['carbapenem',/carbapenem/i],['cephalosporin',/cephalosporin/i],['DOAC',/\bDOACs?\b/i],['fluoroquinolone',/fluoroquinolone|\bquinolone/i],['GLP-1 agonist',/GLP-?1/i],['LMWH',/\bLMWH\b/i],['loop diuretic',/loop diuretic/i],['NSAID',/\bNSAIDs?\b/i],['opioid',/opioid/i],['PPI',/\bPPIs?\b|proton[- ]pump/i],['SGLT2 inhibitor',/SGLT-?2/i],['SSRI',/\bSSRIs?\b/i],['SNRI',/\bSNRIs?\b/i],['statin',/\bstatins?\b/i],['sulfonylurea',/sulfonylurea/i],['TCA',/\bTCAs?\b|tricyclic/i],['vasopressor',/vasopressor/i]];
+function drugClassesForCase(c){const txt=caseText(c);return DRUG_CLASS_TERMS.filter(x=>x[1].test(txt)).map(x=>x[0]);}
 const CASE_REFERENCE_RULES=[
   {re:/vancomycin|MRSA|AUC\/MIC/i,title:'Vancomycin monitoring',facts:['Use patient-specific exposure and renal-function data.','For serious MRSA infection, AUC-guided monitoring is preferred over trough-only targets.'],refs:[['ASHP/IDSA/PIDS/SIDP Vancomycin Consensus Guideline','https://www.idsociety.org/practice-guideline/vancomycin/']]},
   {re:/sepsis|septic|norepinephrine|vasopressin|MAP\b/i,title:'Sepsis and shock',facts:['Confirm infection timing, perfusion, fluids, vasopressor response, and source control.','Apply the institutional sepsis pathway when its operational details differ.'],refs:[['Surviving Sepsis Campaign Guidelines 2021','https://www.sccm.org/clinical-resources/surviving-sepsis-campaign-guidelines-2021']]},
@@ -1633,35 +1685,259 @@ const CASE_REFERENCE_RULES=[
   {re:/DKA|insulin|hypoglyc|hyperglyc/i,title:'Glucose management',facts:['Check potassium, nutrition status, glucose trend, and transition plan.','Insulin is a high-alert medication; use the local protocol and independent checks.'],refs:[['ADA Standards of Care in Diabetes','https://professional.diabetes.org/standards-of-care']]},
   {re:/warfarin|apixaban|rivaroxaban|heparin|enoxaparin|anticoag|HIT\b/i,title:'Anticoagulation',facts:['Verify indication, renal function, bleeding risk, interactions, dose, and duration.','Reversal and monitoring should follow the agent-specific guideline and local pathway.'],refs:[['CHEST Antithrombotic Therapy Guidelines','https://www.chestnet.org/Guidelines-and-Resources/CHEST-Guideline-Topic-Areas/Antithrombotic-Therapy']]},
   {re:/chemotherapy|cisplatin|doxorubicin|CINV|tumor lysis|rasburicase|extravasation/i,title:'Oncology medication safety',facts:['Confirm regimen, cycle, BSA, organ function, cumulative exposure, labs, and supportive care.','Use the current regimen protocol plus guideline- and agent-specific handling requirements.'],refs:[['ASCO Clinical Practice Guidelines','https://www.asco.org/guidelines']]},
-  {re:/antibiotic|antimicrobial|cef|penicillin|meropenem|daptomycin|linezolid|azithromycin/i,title:'Antimicrobial therapy',facts:['Review syndrome, cultures, allergies, organ function, source control, dose, and duration.','De-escalate when microbiology and clinical response support it.'],refs:[['IDSA Practice Guidelines','https://www.idsociety.org/practice-guideline/practice-guidelines/']]}
+  {re:/antibiotic|antimicrobial|cef|penicillin|meropenem|daptomycin|linezolid|azithromycin/i,title:'Antimicrobial therapy',facts:['Review syndrome, cultures, allergies, organ function, source control, dose, and duration.','De-escalate when microbiology and clinical response support it.'],refs:[['IDSA Practice Guidelines','https://www.idsociety.org/practice-guideline/practice-guidelines/']]},
+  {re:/serotonin|clonus/i,title:'Serotonin syndrome',facts:['Diagnose clinically — Hunter criteria: clonus, agitation, diaphoresis, hyperthermia after a serotonergic agent.','Stop serotonergic agents, give supportive care (± cyproheptadine), then rebuild the analgesic or antidepressant plan.'],refs:[['Hunter Serotonin Toxicity Criteria (Dunkley 2003)','https://pubmed.ncbi.nlm.nih.gov/12925718/']]},
+  {re:/\bQT|torsade/i,title:'QT prolongation',facts:['Risk stacks: interacting drugs, low potassium or magnesium, bradycardia, and structural heart disease.','Check the full regimen against a QT risk list and correct electrolytes before adding another agent.'],refs:[['CredibleMeds QTdrugs Lists','https://crediblemeds.org/']]},
+  {re:/statin|atorvastatin|simvastatin|rhabdomyolysis/i,title:'Statin safety and interactions',facts:['Strong CYP3A inhibitors (azoles, macrolides, protease inhibitors) raise statin exposure and myopathy risk.','Hold, switch, or dose-limit per label; ask about muscle symptoms and check CK when indicated.'],refs:[['ACC/AHA Cholesterol and Statin Guidance','https://www.acc.org/Guidelines']]},
+  {re:/opioid|naloxone|oxycodone|hydromorphone|morphine|fentanyl|tramadol|methadone|hydrocodone|codeine|overdose/i,title:'Opioid safety',facts:['Assess total opioid burden, sedation level, respiratory status, renal function, and co-sedatives.','Pair every regimen with a bowel plan and consider naloxone access for at-risk patients.'],refs:[['CDC Clinical Practice Guideline for Prescribing Opioids (2022)','https://www.cdc.gov/mmwr/volumes/71/rr/rr7103a1.htm']]},
+  {re:/buprenorphine|opioid use disorder|\bOUD\b/i,title:'Opioid use disorder therapy',facts:['Do not interrupt maintenance therapy during acute admissions without an addiction-medicine plan.','Treat acute pain on top of maintenance therapy; abrupt discontinuation risks relapse.'],refs:[['SAMHSA Medications for Substance Use Disorders','https://www.samhsa.gov/medications-substance-use-disorders']]},
+  {re:/antidote|poison|fomepizole|flumazenil|acetylcysteine|digoxin immune|toxic ingestion/i,title:'Toxicology and antidotes',facts:['Match the antidote to the confirmed toxin, timing, and severity; supportive care comes first.','Contact the poison center for real-time, case-specific dosing guidance.'],refs:[['Poison Help — America\'s Poison Centers','https://www.poisonhelp.org/']]},
+  {re:/USP|sterile compounding|beyond-use|garb|hazardous drug|cleanroom/i,title:'Compounding standards',facts:['USP <797> governs sterile preparation risk categories, beyond-use dating, and personnel competency.','USP <800> adds handling controls for hazardous drugs from receipt through disposal.'],refs:[['USP Compounding Standards (<797>/<800>)','https://www.usp.org/compounding']]},
+  {re:/parenteral nutrition|\bTPN\b/i,title:'Parenteral nutrition',facts:['Verify indication, access type, macronutrients, electrolytes, and daily labs against the PN order.','Refeeding risk requires gradual advancement with phosphorus, potassium, and magnesium monitoring.'],refs:[['ASPEN Clinical Guidelines','https://www.nutritioncare.org/Guidelines_and_Clinical_Resources/']]},
+  {re:/hyperkalemi/i,title:'Hyperkalemia',facts:['Stabilize the myocardium first (calcium), then shift (insulin with dextrose, beta-agonist), then eliminate.','Recheck potassium and glucose serially and address the cause — drugs and kidney function.'],refs:[['AHA ACLS — Electrolyte Emergencies','https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines']]},
+  {re:/\bAKI\b|acute kidney injury|nephrotoxi/i,title:'Kidney injury and nephrotoxins',facts:['Identify and stop stackable nephrotoxins; adjust renally cleared drugs to current function.','Trend creatinine and urine output; avoid double-hit combinations when alternatives exist.'],refs:[['KDIGO Clinical Practice Guidelines','https://kdigo.org/guidelines/']]},
+  {re:/heart failure|HFrEF|GDMT/i,title:'Heart failure therapy',facts:['Target all four GDMT pillars as tolerated: ARNI/ACEI/ARB, beta-blocker, MRA, and SGLT2 inhibitor.','Titrate with blood pressure, potassium, and kidney function monitoring.'],refs:[['2022 AHA/ACC/HFSA Heart Failure Guideline','https://www.ahajournals.org/doi/10.1161/CIR.0000000000001063']]},
+  {re:/atrial fib|AFib|CHA.DS/i,title:'Atrial fibrillation',facts:['Anticoagulate by validated stroke risk (CHA₂DS₂-VASc), not by rhythm status alone.','Rate-versus-rhythm strategy and agent choice follow the current joint guideline.'],refs:[['2023 ACC/AHA/ACCP/HRS Atrial Fibrillation Guideline','https://www.ahajournals.org/doi/10.1161/CIR.0000000000001193']]},
+  {re:/stroke|alteplase|tenecteplase|thrombolytic/i,title:'Acute stroke pharmacotherapy',facts:['Thrombolysis runs on strict time windows, blood pressure thresholds, and exclusion checks.','Meet the blood pressure threshold before lytics and follow the institutional stroke pathway.'],refs:[['AHA/ASA Acute Ischemic Stroke Guidelines','https://www.ahajournals.org/doi/10.1161/STR.0000000000000211']]},
+  {re:/\bHIT\b|heparin-induced/i,title:'Heparin-induced thrombocytopenia',facts:['Score with 4Ts; stop all heparin exposure — including flushes — at intermediate or high probability.','Start a non-heparin anticoagulant; avoid platelet transfusion unless bleeding.'],refs:[['ASH 2018 HIT Guidelines','https://ashpublications.org/bloodadvances/article/2/22/3360/16107']]},
+  {re:/pneumonia|\bCAP\b/i,title:'Pneumonia therapy',facts:['Classify severity and risk factors before agent selection; reassess at 48-72 hours with culture data.','De-escalate and set duration by clinical response, not by habit.'],refs:[['ATS/IDSA Community-Acquired Pneumonia Guideline','https://www.atsjournals.org/doi/full/10.1164/rccm.201908-1581ST']]},
+  {re:/difficile/i,title:'C. difficile infection',facts:['Review and stop unnecessary inciting antibiotics and acid suppression.','Treat by episode severity and recurrence history per current IDSA/SHEA guidance.'],refs:[['IDSA/SHEA C. difficile Guidelines','https://www.idsociety.org/practice-guideline/clostridioides-difficile/']]},
+  {re:/asthma|\bCOPD\b/i,title:'Airways disease',facts:['Verify inhaler technique and adherence before escalating therapy.','Step therapy by control assessment (GINA) or exacerbation and symptom burden (GOLD).'],refs:[['GINA Report','https://ginasthma.org/'],['GOLD Report','https://goldcopd.org/']]},
+  {re:/vaccin|immuniz/i,title:'Immunization practice',facts:['Screen for contraindications and interval rules before administering.','Document per registry requirements and follow the current ACIP schedule.'],refs:[['CDC ACIP Recommendations','https://www.cdc.gov/vaccines/hcp/acip-recs/']]},
+  {re:/pregnan|lactat|breastfeed/i,title:'Pregnancy and lactation',facts:['Weigh maternal benefit against fetal or infant exposure with drug-specific data, not blanket avoidance.','Use LactMed and the label\'s pregnancy and lactation sections for agent-specific decisions.'],refs:[['NIH LactMed Database','https://www.ncbi.nlm.nih.gov/books/NBK501922/']]},
+  {re:/PADIS|RASS|CPOT|CAM-ICU|sedation (target|level|vacation)/i,title:'ICU analgesia and sedation',facts:['Analgesia-first sedation targeting light levels; assess with validated scales (RASS, CPOT).','Screen for delirium (CAM-ICU) and minimize deliriogenic medications.'],refs:[['SCCM PADIS Guidelines','https://www.sccm.org/clinical-resources/guidelines']]},
+  {re:/stewardship|de-escalat/i,title:'Antimicrobial stewardship',facts:['Review indication, spectrum, dose, route, and duration at every touchpoint.','Use 48-72 hour timeout points tied to culture data.'],refs:[['CDC Core Elements of Hospital Antibiotic Stewardship','https://www.cdc.gov/antibiotic-use/core-elements/hospital.html']]},
+  {re:/high-alert|independent double|near miss|medication error|look-alike/i,title:'High-alert medication safety',facts:['Apply forcing functions and independent double checks where the institution requires them.','Report errors and near misses through the safety system so the process gets fixed.'],refs:[['ISMP High-Alert Medications List','https://www.ismp.org/recommendations/high-alert-medications-acute-list'],['ISMP Targeted Best Practices','https://www.ismp.org/guidelines/best-practices-hospitals']]},
+  {re:/reconciliation|med rec|transition of care|discharge counsel|best possible medication/i,title:'Medication reconciliation',facts:['Build a best-possible medication history from at least two sources plus the patient interview.','Resolve every discrepancy at each transition; reconciliation is a National Patient Safety Goal.'],refs:[['The Joint Commission National Patient Safety Goals','https://www.jointcommission.org/standards/national-patient-safety-goals/']]},
+  {re:/\bREMS\b/i,title:'REMS programs',facts:['Confirm enrollment, monitoring, and documentation requirements before dispensing.','REMS elements are enforceable FDA conditions of the drug\'s approval.'],refs:[['FDA REMS Information','https://www.fda.gov/drugs/drug-safety-and-availability/risk-evaluation-and-mitigation-strategies-rems']]},
+  {re:/controlled substance|\bDEA\b|diversion|schedule II/i,title:'Controlled substances',facts:['Follow DEA and stricter state rules for ordering, storage, records, and discrepancy reporting.','Corresponding responsibility applies to every controlled prescription.'],refs:[['DEA Diversion Control Division','https://www.deadiversion.usdoj.gov/'],['NABP Resources','https://nabp.pharmacy/']]},
+  {re:/geriatric|older adult|Beers/i,title:'Geriatric pharmacotherapy',facts:['Screen against Beers criteria: anticholinergics, benzodiazepines, sliding-scale-only insulin, duplicates.','Start low, go slow, and deprescribe what no longer serves a goal of care.'],refs:[['AGS Beers Criteria','https://geriatricscareonline.org/']]},
+  {re:/transplant|tacrolimus|mycophenolate|cyclosporine|sirolimus|graft/i,title:'Transplant immunosuppression',facts:['Protect trough timing, interacting drugs, and renal function around every regimen change.','Never interrupt immunosuppression without the transplant team.'],refs:[['AST Guidelines and Resources','https://www.myast.org/']]},
+  {re:/seizure|status epilepticus|levetiracetam|fosphenytoin/i,title:'Seizure pharmacotherapy',facts:['Benzodiazepine first for status epilepticus, then a loading antiseizure medication without delay.','Check levels, interactions, and renal or hepatic adjustments for maintenance agents.'],refs:[['Neurocritical Care Society Guidelines','https://www.neurocriticalcare.org/']]}
 ];
-function caseText(c){return stripHTML([c.kick,c.q,c.patient,(c.given||[]).map(x=>x.label+' '+x.value).join(' '),(c.opts||[]).map(x=>x.t).join(' ')].filter(Boolean).join(' '));}
+const AREA_DEFAULT_REFS={
+ R1:[['ACCP Clinical Resources','https://www.accp.com/'],['ASHP Clinical Guidelines','https://www.ashp.org/pharmacy-practice/policy-positions-and-guidelines']],
+ R2:[['ASHP Practice Advancement Initiative','https://www.ashp.org/pharmacy-practice/pai'],['ISMP Safety Resources','https://www.ismp.org/']],
+ R3:[['ASHP Professional Development','https://www.ashp.org/professional-development'],['The Joint Commission Standards','https://www.jointcommission.org/standards/']],
+ R4:[['ASHP Preceptor Toolkit','https://www.ashp.org/professional-development/preceptor-toolkit'],['ACCP Academy','https://www.accp.com/academy/']]
+};
+function caseText(c){return stripHTML([c.kick,c.q,c.patient,(c.given||[]).map(x=>x.label+' '+x.value).join(' '),(c.opts||[]).filter(x=>!x.gen).map(x=>x.t).join(' ')].filter(Boolean).join(' '));}
 function drugNamesForCase(c){const txt=caseText(c).toLowerCase();return DRUG_TERMS.filter(d=>txt.includes(d.toLowerCase()));}
-function caseReferences(c){const txt=caseText(c);const refs=[];CASE_REFERENCE_RULES.forEach(r=>{if(r.re.test(txt))r.refs.forEach(x=>refs.push(x));});const drugs=drugNamesForCase(c);if(drugs.length)refs.push(['FDA prescribing information via DailyMed',`https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=${encodeURIComponent(drugs[0])}`]);const seen=new Set();return refs.filter(x=>{if(seen.has(x[0]))return false;seen.add(x[0]);return true;});}
-function caseSupport(c){const txt=caseText(c);const rules=CASE_REFERENCE_RULES.filter(r=>r.re.test(txt));const drugs=drugNamesForCase(c);return {drugs,rules,refs:caseReferences(c)};}
+function caseReferences(c){const txt=caseText(c);const refs=[];CASE_REFERENCE_RULES.forEach(r=>{if(r.re.test(txt))r.refs.forEach(x=>refs.push(x));});const drugs=drugNamesForCase(c);if(drugs.length)refs.push(['FDA prescribing information via DailyMed',`https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=${encodeURIComponent(drugs[0])}`]);if(!refs.length){const area=(typeof curM!=='undefined'&&curM&&curM.area)||'R1';(AREA_DEFAULT_REFS[area]||AREA_DEFAULT_REFS.R1).forEach(x=>refs.push(x));}const seen=new Set();return refs.filter(x=>{if(seen.has(x[0]))return false;seen.add(x[0]);return true;}).slice(0,5);}
+function caseSupport(c){const txt=caseText(c);const rules=CASE_REFERENCE_RULES.filter(r=>r.re.test(txt));const drugs=drugNamesForCase(c);const classes=drugClassesForCase(c);return {drugs,classes,rules,refs:caseReferences(c)};}
 function currentCaseCard(){if(!curM)return null;const c=curM.cases[caseIdx];if(!c)return null;return {id:cardId([curM.id,'case',caseIdx]),front:(c.kick?c.kick+': ':'')+stripHTML(c.q),back:answerText(c),tags:[curM.area,curM.id,c.type||'case']};}
 function pinnedCaseIds(){try{return JSON.parse(localStorage.getItem('clinicalPathPinnedCards')||'[]')}catch(e){return []}}
 function pinCurrentCase(){const card=currentCaseCard();if(!card)return;const ids=pinnedCaseIds();if(!ids.includes(card.id))ids.unshift(card.id);localStorage.setItem('clinicalPathPinnedCards',JSON.stringify(ids.slice(0,100)));showCaseToast('Saved to your Study Cards');}
 function downloadCurrentQuizlet(){const card=currentCaseCard();if(!card)return;const blob=new Blob([escQuizlet(card.front)+'\t'+escQuizlet(card.back)],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clinical-path-current-quizlet-card.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);showCaseToast('Quizlet import card downloaded');}
 function showCaseToast(msg){const host=document.createElement('div');host.className='stat-toasts';host.innerHTML=`<span class="stat-toast" style="--c:#0f766e">${msg}</span>`;document.body.appendChild(host);setTimeout(()=>host.remove(),2200);}
-function caseSideHTML(c){const sup=caseSupport(c);const context=clinicalContextHTML(c);const drug=sup.drugs.length||sup.rules.length?`<section class="case-side-card"><h4>Medication focus</h4>${sup.drugs.length?`<p><b>Drugs:</b> ${sup.drugs.join(', ')}</p>`:''}${sup.rules.map(r=>`<p><b>${r.title}</b></p><ul>${r.facts.map(f=>`<li>${f}</li>`).join('')}</ul>`).join('')}</section>`:'';const refs=`<section class="case-side-card"><h4>References</h4>${sup.refs.length?sup.refs.map(r=>`<a class="case-ref" href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a>`).join(''):'<p>Use the current institutional policy and the governing specialty guideline for this scenario.</p>'}<div class="case-side-actions"><button class="btn ghost sm" onclick="pinCurrentCase()">Save study card</button><button class="btn ghost sm" onclick="downloadCurrentQuizlet()">Quizlet card</button></div></section>`;return (context?`<section class="case-side-card">${context}</section>`:'')+drug+refs;}
+function caseSideHTML(c){const sup=caseSupport(c);const context=clinicalContextHTML(c);const drug=sup.drugs.length||sup.classes.length||sup.rules.length?`<section class="case-side-card"><h4>Medication focus</h4>${sup.drugs.length?`<p><b>Drugs:</b> ${sup.drugs.join(', ')}</p>`:''}${sup.classes.length?`<p><b>Classes:</b> ${sup.classes.join(', ')}</p>`:''}${sup.rules.slice(0,3).map(r=>`<p><b>${r.title}</b></p><ul>${r.facts.map(f=>`<li>${f}</li>`).join('')}</ul>`).join('')}</section>`:'';const refs=`<section class="case-side-card"><h4>References</h4>${sup.refs.length?sup.refs.map(r=>`<a class="case-ref" href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a>`).join(''):'<p>Use the current institutional policy and the governing specialty guideline for this scenario.</p>'}<div class="case-side-actions"><button class="btn ghost sm" onclick="pinCurrentCase()">Save study card</button><button class="btn ghost sm" onclick="downloadCurrentQuizlet()">Quizlet card</button></div></section>`;return (context?`<section class="case-side-card">${context}</section>`:'')+drug+refs;}
+function caseStemHTML(c){const n=(typeof caseIdx!=='undefined'?caseIdx:0)+1;return `<div class="case-question-card">${c.kick?`<span class="cq-kick">${c.kick}</span>`:''}<div class="cq-q"><b>Q${n}.</b> ${c.q||''}</div></div>`;}
+function marExhibitHTML(c){if(!c.mar||!c.mar.length)return '';return `<div class="ehr-win mar-exhibit"><div class="ehr-top"><span class="ehr-app">St. Aurelia EHR</span><span class="ehr-mod">MAR · fictional training extract</span></div><div class="mar-grid mar-head"><span>Time</span><span>Medication / event</span><span>Status</span><span>Note</span></div><div class="hunt-list ehr-orders">${c.mar.map(r=>`<div class="hunt-row mar-grid static"><span class="mar-time">${r.time}</span><span class="ord-text">${r.med}</span><span class="mar-status ${String(r.status).toLowerCase()}">${r.status}</span><span class="mar-note">${r.note||''}</span></div>`).join('')}</div></div>`;}
+const MAR_EXHIBITS=[
+ {match:/tacrolimus trough is low.*(vomited|missed)/i,rows:[
+  {time:'Day 2 06:04',med:'Tacrolimus 2 mg PO q12h',status:'Given',note:'Administered with morning labs'},
+  {time:'Day 2 06:45',med:'Emesis documented by nursing',status:'Held',note:'Vomited ~40 min after dose; not re-administered'},
+  {time:'Day 2 18:00',med:'Tacrolimus 2 mg PO q12h',status:'Missed',note:'Patient off unit for imaging; dose not given'},
+  {time:'Day 3 05:45',med:'Trough drawn (pre-dose)',status:'Scheduled',note:'Level resulted low this morning'},
+  {time:'Day 3 06:10',med:'Tacrolimus 2 mg PO q12h',status:'Given',note:'Administered after trough draw'}]}
+];
+function applyMarExhibits(){MAR_EXHIBITS.forEach(x=>{MODULES.forEach(m=>(m.cases||[]).forEach(c=>{if(c.type!=='chartHunt'&&!c.mar&&x.match.test(String(c.q||'')))c.mar=x.rows;}));});}
 function createCaseWorkspace(c){document.body.classList.add('case-active');const layer=document.getElementById('choiceLayer');const shell=document.createElement('div');shell.className='case-workspace';shell.innerHTML=`<main class="case-main" id="caseMain"></main><aside class="case-side" id="caseSide" aria-label="Case information and references">${caseSideHTML(c)}</aside>`;layer.appendChild(shell);enhanceGlossary(shell);return document.getElementById('caseMain');}
 function caseMount(node){(document.getElementById('caseMain')||document.getElementById('choiceLayer')).appendChild(node);}
 
 function mcqHash(text){let h=0;String(text||'').split('').forEach(ch=>h=(h*31+ch.charCodeAt(0))>>>0);return h;}
-const MCQ_REASONING_DISTRACTORS=[
- ['Proceed with the familiar default without checking whether this patient meets the protocol criteria','A familiar default is not patient-specific clinical reasoning.'],
- ['Delay the medication decision until every nonessential detail is available, even if the issue is time-sensitive','Waiting for nonessential data can create avoidable harm.'],
- ['Make the change but omit a monitoring endpoint and reassessment time','A medication plan is incomplete without monitoring and follow-up.'],
- ['Use the same dose and plan for every patient regardless of organ function, indication, or interactions','Medication decisions must account for patient-specific factors.'],
- ['Document the concern in the chart but do not communicate it to the care team','Time-sensitive medication problems require closed-loop communication.'],
- ['Focus on the medication name alone and skip verification of dose, route, timing, and indication','Complete order verification requires all medication-use elements.'],
- ['Choose the most aggressive intervention without first weighing benefit, toxicity, and reversibility','More treatment is not automatically safer or more effective.'],
- ['Assume the order is correct because it passed through the electronic ordering system','Electronic entry does not replace pharmacist assessment.'],
- ['Apply a guideline headline without checking exclusions, contraindications, or local protocol details','Guidelines still require patient-specific interpretation.'],
- ['Wait for the next routine review even though the case describes a new high-risk change','A new high-risk change requires timely reassessment.']
+/* Topic-aware distractor engine.
+   Pads MCQs to five options with clinically-voiced, safely-wrong choices. Every
+   generated option embeds an explicit reasoning flaw (skips verification, ignores
+   patient factors, defers a time-sensitive issue, drops monitoring) so it can never
+   be the best answer, while reading like a real clinical option. {D} slots take the
+   case's own detected drug so option text stays specific and rarely repeats. */
+const DISTRACTOR_BANKS=[
+ {id:'anticoag',ph:'the anticoagulant',re:/warfarin|INR\b|apixaban|rivaroxaban|dabigatran|enoxaparin|heparin|anticoagul|DOAC|LMWH|VTE\b|thrombo|bridge/i,opts:[
+  [`Resume {D} at the prior dose once labs look better, without addressing what triggered the problem`,`Restarting unchanged leaves the original trigger — interaction, illness, or dosing — unaddressed.`],
+  [`Add daily aspirin for extra protection while the {D} question is worked out`,`Layering an antiplatelet raises bleeding risk and does not solve the anticoagulation problem.`],
+  [`Order serial coagulation labs but make no change to the current orders today`,`Monitoring without an action plan leaves the patient exposed to the active risk.`],
+  [`Switch to another anticoagulant class before the treatment goal is clarified`,`Class switching without a defined goal creates coverage gaps and new interaction risks.`],
+  [`Hold {D} indefinitely and defer the restart decision to the outpatient team`,`An open-ended hold ignores the thrombotic indication; the plan needs a timed reassessment.`],
+  [`Give a catch-up dose of {D} now to make up for the missed anticoagulant effect`,`Catch-up or doubled anticoagulant dosing is a classic high-alert medication error.`]]},
+ {id:'abx',ph:'the antibiotic',re:/antibiotic|antimicrobial|cephalosporin|cefazolin|cefepime|ceftriaxone|penicillin|meropenem|vancomycin|daptomycin|linezolid|azithromycin|culture|MIC\b|stewardship|piperacillin/i,opts:[
+  [`Continue {D} unchanged and reassess only if the fever returns`,`Passive continuation ignores culture data, renal function, and stewardship review.`],
+  [`Broaden empiric coverage even though the culture results support narrowing`,`Escalating against microbiology drives resistance and adds toxicity without benefit.`],
+  [`Stop all antimicrobials immediately based on a single improved vital sign`,`Discontinuation needs source, culture, and duration review — not one data point.`],
+  [`Choose the newest broad-spectrum agent on formulary as the safest default`,`Newer and broader is not safer; agent choice must match the syndrome and organism.`],
+  [`Dose {D} the same way regardless of the patient's renal function`,`Most antimicrobials need renal assessment; fixed dosing risks toxicity or failure.`],
+  [`Defer the antibiotic review to the next shift since the patient looks stable`,`Antimicrobial optimization is time-sensitive; deferral delays de-escalation and safety checks.`]]},
+ {id:'renal',ph:'the medication',re:/CrCl|eGFR|renal|dialysis|nephro|AKI\b|creatinine|kidney/i,opts:[
+  [`Verify the ordered dose as written because the lab already resulted the creatinine`,`A resulted lab still requires the pharmacist to act on the kidney function it shows.`],
+  [`Apply the usual adult dose of {D} and adjust only if toxicity appears`,`Waiting for toxicity in renal impairment is exactly what dose adjustment prevents.`],
+  [`Estimate kidney function from age alone instead of calculating it`,`Renal dosing requires a calculated, documented estimate — not an age-based guess.`],
+  [`Round the dose of {D} up to the nearest convenient vial size`,`Rounding up in renal impairment increases accumulation and toxicity risk.`],
+  [`Hold every renally cleared medication until nephrology calls back`,`A blanket hold interrupts needed therapy; adjust doses drug by drug instead.`],
+  [`Dose from last year's baseline creatinine since today's value may be transient`,`Dosing must reflect current kidney function, with reassessment as it changes.`]]},
+ {id:'tdm',ph:'the monitored drug',re:/trough|serum level|drug level|AUC\b|tacrolimus|phenytoin|digoxin|lithium|theophylline|aminoglycoside|gentamicin|tobramycin/i,opts:[
+  [`Accept the level without checking when it was drawn relative to the dose`,`Timing against the dose determines whether a level is interpretable at all.`],
+  [`Adjust the dose of {D} from the level alone without examining the patient`,`Levels guide, but the clinical picture — response and toxicity — decides the change.`],
+  [`Repeat the level tomorrow and leave the current regimen untouched today`,`A time-sensitive exposure problem needs an action now, not observation alone.`],
+  [`Correct the dose in one large jump to reach the target level faster`,`Aggressive jumps overshoot; titrate with kinetics and recheck appropriately.`],
+  [`Stop monitoring {D} once a single level lands in range`,`One in-range level does not end monitoring for a narrow-therapeutic-index drug.`],
+  [`Treat the reference range as the goal without confirming the indication-specific target`,`Targets differ by indication; the range on the report is not automatically the goal.`]]},
+ {id:'ivroom',ph:'the preparation',re:/compound|USP|sterile|beyond-use|BUD\b|garb|hazardous|infusion rate|drip|compatib|Y-site|diluent|admixture/i,opts:[
+  [`Prepare the product without a compatibility check because the line is already running`,`Compatibility and stability checks come before administration, not after it.`],
+  [`Extend the beyond-use date so the prepared bag is not wasted`,`Beyond-use limits are safety limits; convenience never extends them.`],
+  [`Shorten garbing steps while the pharmacy is short-staffed to keep the queue moving`,`Sterile technique does not flex with workload; contamination risk stays the same.`],
+  [`Run the infusion faster than labeled to finish before shift change`,`Rate limits protect the patient; schedule pressure never overrides them.`],
+  [`Assume Y-site compatibility because both drugs are commonly used together`,`Familiar drugs still require verified compatibility data before co-infusion.`],
+  [`Use the closest stocked concentration and adjust the math mentally at the bedside`,`On-the-fly mental conversion at the bedside is a classic preparation error.`]]},
+ {id:'safety',ph:'the medication',re:/high-alert|error|near miss|override|alert|barcode|BCMA|verification|look-alike|wrong (drug|dose|patient|route)|independent double/i,opts:[
+  [`Override the alert since it fires frequently on this unit`,`Alert fatigue is a reason to review alerts, not a justification to override one.`],
+  [`Fix the immediate order quietly without reporting the near miss`,`Unreported near misses hide the system problem that will reach the next patient.`],
+  [`Assume the prescriber intended the safe option and verify the order as written`,`Assumed intent is not verification; ambiguous orders need direct clarification.`],
+  [`Focus the response on the individual who slipped and close the loop there`,`Just culture examines the system first; blame alone prevents nothing.`],
+  [`Wait for a second incident to confirm the pattern before escalating`,`One credible safety signal is enough to act on a high-alert process.`],
+  [`Rely on the electronic system to catch anything the review might miss`,`Technology supports, but the pharmacist check is an independent safeguard.`]]},
+ {id:'cc',ph:'the infusion',re:/ICU\b|code blue|arrest|vasopressor|norepinephrine|sedation|RSI\b|ventilat|septic|shock|MAP\b|resuscitat|hemodynamic|emergen|trauma|stroke code/i,opts:[
+  [`Wait for the complete lab panel before acting on the unstable patient`,`Resuscitation decisions run on the data available now; delay costs organ perfusion.`],
+  [`Choose the most potent agent available rather than the one matched to the physiology`,`Critical care therapy targets the mechanism, not maximal potency.`],
+  [`Titrate {D} on a fixed schedule instead of to the ordered physiologic target`,`Vasoactive and sedative drips titrate to a target, not to a clock.`],
+  [`Prepare the emergency medication from memory to save time`,`Codes are exactly when references and independent checks matter most.`],
+  [`Hold pharmacist input until the team asks for it directly`,`The bedside pharmacist verifies drug, dose, route, and timing proactively.`],
+  [`Continue every current drip unchanged through the acute deterioration`,`An acute change demands reassessment of every active infusion.`]]},
+ {id:'onc',ph:'the chemotherapy',re:/chemotherap|oncolog|cycle \d|neutropen|cisplatin|doxorubicin|methotrexate|vincristine|tumor lysis|rasburicase|mucositis|extravasat|hazardous drug/i,opts:[
+  [`Verify this cycle's dose by carrying forward the prior cycle without recalculating`,`Each cycle needs fresh body-surface area, labs, and toxicity review before verification.`],
+  [`Round the chemotherapy dose up so the full vial is used`,`Cytotoxic dose rounding follows protocol limits, never vial convenience.`],
+  [`Release the cycle despite the abnormal lab and flag it for review afterward`,`Pre-cycle labs are gates; verification happens before the dose, not after it.`],
+  [`Treat the supportive-care orders as optional extras to review later`,`Antiemetics, growth factors, and tumor-lysis prophylaxis are part of the regimen itself.`],
+  [`Handle the hazardous drug without precautions because the dose is small`,`Hazardous-drug precautions are exposure-based, not dose-based.`],
+  [`Adapt an adult protocol to the smaller patient with a simple fraction`,`Dosing uses validated parameters, not improvised fractions of adult regimens.`]]},
+ {id:'peds',ph:'the medication',re:/pediatric|neonat|NICU|PICU|infant|child|mg\/kg|weight-based/i,opts:[
+  [`Use the adult dose since the child is close to adult weight`,`Pediatric dosing is weight- or BSA-based with maximum limits checked, not approximated.`],
+  [`Calculate the dose from an estimated weight so the patient is not disturbed`,`A documented, current weight is the foundation of safe pediatric dosing.`],
+  [`Consolidate the total daily dose into one administration for convenience`,`Interval matters in pediatrics; collapsing doses changes exposure and toxicity.`],
+  [`Use the concentration stocked for adults without relabeling it`,`Concentration mix-ups are a leading pediatric error; match and label for the child.`],
+  [`Skip the independent double check because the dose looks small`,`Small volumes hide large errors; pediatric high-alert doses need independent checks.`],
+  [`Round the dose to the nearest adult tablet strength`,`Pediatric doses are not rounded to adult conveniences; use a measurable formulation.`]]},
+ {id:'cardio',ph:'the therapy',re:/heart failure|GDMT|atrial fibrillation|QT|statin|ACS\b|myocardial|hypertens|blood pressure|beta-blocker|amiodarone|diltiazem/i,opts:[
+  [`Start every indicated therapy at full target dose on day one`,`Guideline-directed therapy is initiated and titrated stepwise with monitoring.`],
+  [`Stop {D} at the first mild, expected effect without a mitigation plan`,`Expected effects are managed with a plan; premature discontinuation loses proven benefit.`],
+  [`Choose the regimen based on what the last similar patient received`,`Therapy is staged to this patient's phenotype, labs, and vitals — not to a memory.`],
+  [`Treat the number on the monitor without checking how it was measured`,`Verify measurement quality and context before treating a value.`],
+  [`Defer proven guideline additions to a future clinic visit despite current stability`,`The monitored inpatient window is often the safest time to optimize therapy.`],
+  [`Add the QT-prolonging option without reviewing the rest of the medication list`,`QT risk stacks across the regimen; review the full list and electrolytes first.`]]},
+ {id:'endo',ph:'insulin',re:/insulin|DKA\b|glucose|hypoglyc|hyperglyc|diabet|metformin|thyroid|levothyroxine/i,opts:[
+  [`Hold all insulin while the patient is not eating`,`Basal requirements persist while NPO; holding all insulin invites ketosis in type 1 diabetes.`],
+  [`Treat the glucose value without checking the insulin already on board`,`Stacked corrections cause hypoglycemia; the timing of prior doses matters.`],
+  [`Rely on correction-scale insulin alone for ongoing inpatient control`,`Reactive-only insulin chases glucose; scheduled basal coverage anticipates it.`],
+  [`Correct the potassium after starting the insulin rather than before`,`Insulin shifts potassium intracellularly; check and correct potassium first.`],
+  [`Stop the insulin infusion abruptly once the glucose normalizes`,`Transition requires overlapping subcutaneous coverage before the drip stops.`],
+  [`Double the correction dose after a single high reading`,`Insulin titration follows trends and protocol steps, not single-value jumps.`]]},
+ {id:'psychpain',ph:'the medication',re:/opioid|benzodiazepine|SSRI|serotonin|antipsychotic|analges|sedative|withdrawal|naloxone|agitation|delirium|pain regimen/i,opts:[
+  [`Escalate the opioid dose without adding sedation and bowel monitoring`,`Opioid changes travel with monitoring for sedation, respiratory status, and bowel function.`],
+  [`Discontinue the long-term benzodiazepine abruptly during this admission`,`Abrupt benzodiazepine discontinuation risks withdrawal; taper on a documented plan.`],
+  [`Add a sedative for the agitation before reviewing the current list for a cause`,`New symptoms get a medication-cause review before new medications are layered on.`],
+  [`Match the home regimen exactly even though the acute picture has changed`,`Continuity matters, but acute changes drive dose and interval reassessment.`],
+  [`Use two agents from the same class together for a faster effect`,`Same-class duplication stacks toxicity without adding meaningful benefit.`],
+  [`Reserve naloxone until the oxygen saturation falls further`,`Opioid-induced respiratory depression is treated when recognized, not later.`]]},
+ {id:'toc',ph:'the medication list',re:/reconciliation|med rec|discharge|transition|adherence|counsel|home medication|best possible/i,opts:[
+  [`Carry the home medication list forward without interviewing the patient`,`A best-possible history needs the patient or caregiver interview, not chart copying.`],
+  [`Accept the outside pharmacy list as complete and current`,`External lists miss OTC products, samples, and stopped drugs; verify each entry.`],
+  [`Leave the duplicate therapy for the outpatient provider to untangle`,`Discharge is the last reliable moment to fix duplications and coverage gaps.`],
+  [`Counsel only on the newest medication to keep the discharge brief`,`Teaching prioritizes the high-risk changes across the whole regimen.`],
+  [`Mark the reconciliation complete with the unresolved discrepancy noted for later`,`Reconciliation is complete when discrepancies are resolved, not just logged.`],
+  [`Skip teach-back because the patient sounds confident`,`Confidence is not comprehension; teach-back verifies real understanding.`]]},
+ {id:'law',ph:'the prescription',re:/DEA\b|controlled substance|board of pharmacy|REMS\b|regulation|statute|corresponding responsibility|buprenorphine|schedule II/i,opts:[
+  [`Dispense as written because the prescriber holds the license`,`Pharmacists hold corresponding responsibility; legitimacy questions must be resolved first.`],
+  [`Resolve the controlled-substance discrepancy informally within the shift`,`Controlled-substance discrepancies follow formal documentation and reporting rules.`],
+  [`Apply the federal rule alone where the state rule is stricter`,`The stricter applicable requirement governs pharmacy practice.`],
+  [`Treat the REMS requirement as optional because it slows dispensing`,`REMS elements are enforceable conditions of use, not suggestions.`],
+  [`Answer from memory of the regulation instead of checking the current text`,`Regulatory answers cite current law and policy, not recollection.`],
+  [`Hold the required report until the end of the month for batching`,`Reporting timelines are defined by regulation and are not elastic.`]]},
+ {id:'ops',ph:'the proposal',re:/committee|policy|formulary|budget|staffing|workflow|P&T\b|shortage|monograph|operations|order set|drug information|tertiary|primary literature/i,opts:[
+  [`Approve the formulary request on the strength of the sales presentation`,`Formulary review weighs evidence, safety, and cost — not marketing.`],
+  [`Set the policy from a single memorable case`,`Policy follows aggregated data and published evidence, not one anecdote.`],
+  [`Roll out the workflow change without notifying frontline staff`,`Adoption fails without communication, training, and a feedback loop.`],
+  [`Manage the shortage by quiet substitution without a documented plan`,`Shortages need an approved, communicated substitution and monitoring plan.`],
+  [`Judge the initiative by cost savings alone`,`Medication-use decisions track safety and outcome measures alongside cost.`],
+  [`Postpone the safety item because committee attendance was low`,`Time-sensitive safety items proceed through the defined quorum process.`]]},
+ {id:'teach',ph:'the learner',re:/student|learner|precept|feedback|journal club|presentation|teaching|APPE\b|rotation evaluation|abstract|slide|audience|poster/i,opts:[
+  [`Give the learner the answer immediately to keep rounds moving`,`Guided questioning builds the reasoning the learner has to own.`],
+  [`Bank all feedback for the final evaluation`,`Feedback works when it is timely, specific, and actionable — not archived.`],
+  [`Assign the same task regardless of the learner's level`,`Precepting matches the preceptor roles to the learner's development stage.`],
+  [`Correct the learner in front of the team for efficiency`,`Correct in private and praise in public; psychological safety enables learning.`],
+  [`Grade the presentation on polish rather than its objectives`,`Educational value is measured against learning objectives, not aesthetics.`],
+  [`Skip direct observation and rely on the learner's self-report`,`Competency assessment requires observed performance, not self-description.`]]},
+ {id:'qi',ph:'the project',re:/\bQI\b|MUE\b|audit|PDSA|IRB\b|research|data collection|quality improvement|baseline data|p-value|confidence interval|relative risk|odds ratio|\bNNT\b|randomized|clinical trial|study design|sensitivity|specificity|statistic/i,opts:[
+  [`Change several variables at once to speed up the improvement cycle`,`Multi-variable changes hide which intervention actually worked.`],
+  [`Report the favorable subset of the data`,`Selective reporting invalidates the analysis and every decision built on it.`],
+  [`Start data collection before the measure is defined`,`A defined numerator, denominator, and goal come before collection starts.`],
+  [`Treat the pilot's success as proof it will scale unchanged`,`Scale-up needs continued monitoring; context changes performance.`],
+  [`Skip the ethics determination because the project seems low risk`,`The QI-versus-research determination and required review come first.`],
+  [`Credit the improvement to the intervention without a baseline`,`Without baseline data, an improvement claim is untestable.`]]},
+ {id:'general',ph:'the medication',re:/./,opts:[
+  [`Handle it the way the last similar case was handled, without checking this patient's details`,`Pattern matching without verification misses patient-specific factors.`],
+  [`Take the requested action but leave no documentation for the next shift`,`Undocumented actions break continuity of care and accountability.`],
+  [`Escalate to the attending before gathering the basic facts`,`Escalation lands better with the relevant data assembled first.`],
+  [`Watch and wait to see whether the issue resolves on its own by tomorrow`,`A recognized, active problem needs a timed plan, not passive observation.`],
+  [`Address the surface symptom and skip the root-cause question`,`Durable fixes treat the cause, not only the presenting finding.`],
+  [`Choose the fastest option and quietly accept the safety tradeoff`,`Speed never silently outranks safety in the medication-use process.`],
+  [`Confirm the plan verbally and skip updating the order in the system`,`Verbal-only changes disappear; the order must reflect the actual plan.`],
+  [`Copy the plan from a similar patient on the same unit`,`Another patient's plan is not this patient's assessment.`],
+  [`Treat the alert as noise because the patient looks comfortable`,`Appearance does not rule out the risk the alert is flagging.`],
+  [`Delay clarification until rounds so the whole team hears it at once`,`Time-sensitive ambiguity is resolved now, not batched for later.`],
+  [`Accept the verbal report without checking the source data yourself`,`Verify primary data before acting on secondhand summaries.`],
+  [`Make the safest-sounding choice without confirming it fits the indication`,`Safe-sounding is not indication-specific; verify the actual clinical fit.`],
+  [`Prioritize clearing the queue over investigating the inconsistency`,`Throughput never outranks an unresolved inconsistency.`],
+  [`Rely on the previous shift's assessment without reviewing new results`,`New data invalidates old assessments; review before acting.`]]}
 ];
-function ensureFiveMCQOptions(c,m){if(c.type!=='mcq'||!Array.isArray(c.opts))return;const used=new Set(c.opts.map(o=>String(o.t).trim().toLowerCase()));const pool=MCQ_REASONING_DISTRACTORS;const focus=stripHTML(c.kick||m?.title||'clinical decision').replace(/[.:]+$/,'').toLowerCase();let cursor=mcqHash((m&&m.id)+' '+c.q)%pool.length,guard=0;while(c.opts.length<5&&guard<pool.length*2){const p=pool[cursor%pool.length];cursor+=3;guard++;if(!p)continue;const base=String(p[0]);const text=`For this ${focus} decision, ${base.charAt(0).toLowerCase()+base.slice(1)}`;if(used.has(text.trim().toLowerCase()))continue;c.opts.push({t:text,ok:false,fb:p[1]});used.add(text.trim().toLowerCase());}}
+var GEN_OPT_USAGE={};
+const GEN_TAILS=[
+ '',
+ ', and revisit only at the next scheduled review',
+ ', leaving the underlying question for a later shift',
+ ', assuming someone else will flag any problem',
+ ', without telling the team what changed',
+ ', and document nothing about the reasoning',
+ ', treating any follow-up as optional',
+ ', trusting the usual routine to cover the rest'
+];
+function normOptText(s){return String(s||'').toLowerCase().replace(/<[^>]*>/g,' ').replace(/[^a-z0-9]+/g,' ').trim();}
+function ensureFiveMCQOptions(c,m){
+ if(c.type!=='mcq'||!Array.isArray(c.opts)||c.opts.length>=5)return;
+ const txt=caseText(c);
+ const used=new Set(c.opts.map(o=>normOptText(o.t)));
+ const modUsed=(m&&(m._genUsed=m._genUsed||new Set()))||new Set();
+ const drugs=drugNamesForCase(c);
+ let banks=DISTRACTOR_BANKS.filter(b=>b.id!=='general'&&b.re.test(txt));
+ banks.push(DISTRACTOR_BANKS[DISTRACTOR_BANKS.length-1]);
+ const h=mcqHash((m&&m.id)+'|'+String(c.q));
+ const bases=[];
+ banks.forEach(b=>{const d=drugs.length?drugs[0]:b.ph;(b.opts||[]).forEach(p=>bases.push({base:String(p[0]).replace(/\{D\}/g,d),fb:p[1],key:normOptText(p[0])}));});
+ const realLens=c.opts.map(o=>stripHTML(String(o.t)).length);
+ const maxReal=Math.max.apply(null,realLens);
+ const okIdx=c.opts.findIndex(o=>o.ok);
+ const okIsLongest=okIdx>=0&&realLens[okIdx]===maxReal;
+ const med=realLens.slice().sort((a,b)=>a-b)[Math.floor(realLens.length/2)]||70;
+ let all=[];
+ bases.forEach((b,bi)=>{GEN_TAILS.forEach((tail,ti)=>{all.push({t:b.base+tail,fb:b.fb,baseKey:b.key,len:b.base.length+tail.length,ord:(mcqHash(b.base)^(h+ti*17+bi*7))%997});});});
+ const pickWith=(pred,sortFn)=>{const pool=all.filter(v=>pred(v)&&!used.has(normOptText(v.t))&&!modUsed.has(v.baseKey)&&(GEN_OPT_USAGE[normOptText(v.t)]||0)<2).sort(sortFn);return pool[0]||null;};
+ const commit=(v)=>{c.opts.push({t:v.t,ok:false,fb:v.fb,gen:true});const k=normOptText(v.t);used.add(k);modUsed.add(v.baseKey);GEN_OPT_USAGE[k]=(GEN_OPT_USAGE[k]||0)+1;};
+ if(okIsLongest&&(h%10)<7){
+  const long=pickWith(v=>v.len>maxReal&&v.len<=maxReal*1.6+40,(a,b)=>(a.len-b.len)||(a.ord-b.ord));
+  if(long)commit(long);
+ }
+ while(c.opts.length<5){
+  const next=pickWith(()=>true,(a,b)=>(Math.abs(a.len-med)-Math.abs(b.len-med))||(a.ord-b.ord));
+  if(!next)break;
+  commit(next);
+ }
+ if(c.opts.length<5){
+  const pool=all.filter(v=>!used.has(normOptText(v.t))&&(GEN_OPT_USAGE[normOptText(v.t)]||0)<2).sort((a,b)=>(Math.abs(a.len-med)-Math.abs(b.len-med))||(a.ord-b.ord));
+  for(const v of pool){if(c.opts.length>=5)break;commit(v);}
+ }
+ if(c.opts.length<5){
+  const pool=all.filter(v=>!used.has(normOptText(v.t))).sort((a,b)=>((GEN_OPT_USAGE[normOptText(a.t)]||0)-(GEN_OPT_USAGE[normOptText(b.t)]||0))||(a.ord-b.ord));
+  for(const v of pool){if(c.opts.length>=5)break;commit(v);}
+ }
+}
 function enrichMCQOptions(){MODULES.forEach(m=>(m.cases||[]).forEach(c=>ensureFiveMCQOptions(c,m)));}
 function prepareMCQOptions(c){ if(!c._renderOpts){ c._renderOpts=shuffle((c.opts||[]).map(o=>Object.assign({},o))); } return c._renderOpts; }
 function deBiasGeneratedMCQs(){
@@ -3090,6 +3366,7 @@ function runCase(){
       below: caseProgress() });
   const wrap=document.querySelector(".vn-wrap");
   createCaseWorkspace(c);
+  if(['mcq','order','chartHunt','sbar','journal','code'].includes(c.type||'mcq')){const stem=document.createElement('div');stem.className='case-stem-wrap';stem.innerHTML=caseStemHTML(c)+(c.type!=='chartHunt'?marExhibitHTML(c):'');caseMount(stem);enhanceGlossary(stem);}
   const holder=document.createElement("div");holder.id="caseHolder";
   if(c.type==="essay"){
     renderEssayCase(c, holder);
@@ -3103,7 +3380,7 @@ function runCase(){
     enhanceGlossary(holder);
   } else if(c.type==="order"){
     holder.innerHTML=`
-      <div class="ord-dst" id="ordDst"><span style="color:#b58aa6;font-size:12px;font-weight:700;padding:6px">Tap the steps in the correct order…</span></div>
+      <div class="ord-dst" id="ordDst"><span style="color:#64748b;font-size:12px;font-weight:800;padding:6px">Tap the steps in the correct order… Double-click a placed step to remove it.</span></div>
       <div class="ord-src" id="ordSrc">${shuffle(c.correct.map((t)=>t)).map(t=>`<button class="oitem" data-t="${encodeURIComponent(t)}">${t}</button>`).join("")}</div>
       <div class="ord-btns"><button class="btn sm" id="ordChk" disabled onclick="checkOrder()">Check order</button>
       <button class="btn ghost sm" onclick="resetOrder()">Reset</button></div>`;
@@ -3203,7 +3480,7 @@ function placeOrder(btn){
 }
 function removeOrder(btn,ev){if(ev){ev.preventDefault();ev.stopPropagation();}const t=decodeURIComponent(btn.dataset.t);const idx=ordSeq.lastIndexOf(t);if(idx>=0)ordSeq.splice(idx,1);btn.classList.remove('placed');const dst=document.getElementById('ordDst');dst.innerHTML=ordSeq.length?ordSeq.map((x,i)=>`<span class="oitem placed"><span class="idx">${i+1}</span>${x}</span>`).join(''):'<span style="color:#475569;font-size:12px;font-weight:800;padding:6px">Tap steps in order. Double-click a selected step to remove it.</span>';document.getElementById('ordChk').disabled=ordSeq.length!==curM.cases[caseIdx].correct.length;}
 function resetOrder(){ordSeq=[];const c=curM.cases[caseIdx];
-  document.getElementById("ordDst").innerHTML=`<span style="color:#b58aa6;font-size:12px;font-weight:700;padding:6px">Tap the steps in the correct order…</span>`;
+  document.getElementById("ordDst").innerHTML=`<span style="color:#64748b;font-size:12px;font-weight:800;padding:6px">Tap the steps in the correct order… Double-click a placed step to remove it.</span>`;
   document.querySelectorAll("#ordSrc .oitem").forEach(b=>b.classList.remove("placed"));
   document.getElementById("ordChk").disabled=true;}
 function checkOrder(){
@@ -7136,6 +7413,7 @@ const CURATED_DEPTH_CASES={"orient":[{"type":"chartHunt","kick":"Verification bo
 function applyCuratedDepthCases(){Object.entries(CURATED_DEPTH_CASES).forEach(([id,cases])=>{const m=MODULES.find(x=>x.id===id);if(!m)throw new Error('Missing depth module '+id);m.cases.push(...cases);});for(const k of Object.keys(AREA_TOTALS))delete AREA_TOTALS[k];MODULES.forEach(m=>AREA_TOTALS[m.area]=(AREA_TOTALS[m.area]||0)+(m.cases||[]).length);}
 /* CURATED_DEPTH_CASES_END */
 applyCuratedDepthCases();
+applyMarExhibits();
 deBiasGeneratedMCQs();
 enrichMCQOptions();
 balanceMCQOptionLengths();
