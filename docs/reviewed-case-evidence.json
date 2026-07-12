@@ -1,0 +1,356 @@
+{
+  "anticoag": [
+    {
+      "index": 4,
+      "evidence": [
+        "https://www.jacc.org/doi/10.1016/j.jacc.2020.04.053",
+        "https://www.fda.gov/media/85512/download"
+      ],
+      "risk": "reviewed-high-risk"
+    },
+    {
+      "index": 5,
+      "evidence": [
+        "https://journal.chestnet.org/article/S0012-3692(12)60143-7/fulltext",
+        "https://www.jacc.org/doi/10.1016/j.jacc.2020.04.053"
+      ],
+      "risk": "reviewed-high-risk"
+    },
+    {
+      "index": 6,
+      "evidence": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1365f864-b2a8-4f75-8cae-55e8d38d3926",
+        "https://www.accessdata.fda.gov/drugsatfda_docs/label/2021/202155s034lbl.pdf"
+      ],
+      "risk": "reviewed-high-risk"
+    },
+    {
+      "index": 7,
+      "evidence": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=53d2cf38-f08c-4e3f-9b87-527b5d1188f9",
+        "https://www.hematology.org/education/clinicians/guidelines-and-quality-care/clinical-practice-guidelines/venous-thromboembolism-guidelines/anticoagulation-therapy"
+      ],
+      "risk": "reviewed-high-risk"
+    },
+    {
+      "index": 8,
+      "evidence": [
+        "https://www.hematology.org/education/clinicians/guidelines-and-quality-care/clinical-practice-guidelines/venous-thromboembolism-guidelines/heparin-induced-thrombocytopenia",
+        "https://ashpublications.org/bloodadvances/article/2/22/3360/16129/American-Society-of-Hematology-2018-guidelines-for"
+      ],
+      "risk": "reviewed-high-risk"
+    },
+    {
+      "index": 9,
+      "evidence": [
+        "https://journal.chestnet.org/article/S0012-3692(22)01359-9/fulltext",
+        "https://www.acc.org/latest-in-cardiology/ten-points-to-remember/2024/08/15/15/36/perioperative-management-of"
+      ],
+      "risk": "reviewed-high-risk"
+    }
+  ],
+  "code": [
+    {
+      "index": 3,
+      "evidence": [
+        "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001380",
+        "https://www.aaaai.org/Aaaai/media/Media-Library-PDFs/Allergist%20Resources/Statements%20and%20Practice%20Parameters/Anaphylaxis-Practice-Paramaters-2023.pdf",
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e13f05f1-7d21-49bb-b8d5-24bf9301c3d7"
+      ],
+      "risk": "critical: Delayed IM epinephrine, reliance on antihistamines, or an erroneous IV bolus can allow rapid airway collapse, refractory shock, or a fatal dosing error."
+    },
+    {
+      "index": 4,
+      "evidence": [
+        "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001375",
+        "https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/PCAC-Algorithm-ACLS-PCAC-250527.pdf?sc_lang=en"
+      ],
+      "risk": "high: Waiting for neurologic recovery in a shocked post-VF patient with persistent ST elevation can delay definitive treatment of an occluded coronary artery."
+    },
+    {
+      "index": 5,
+      "evidence": [
+        "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support",
+        "https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/Algorithm-ACLS-CA-250527.pdf?sc_lang=en"
+      ],
+      "risk": "critical: Giving epinephrine before initial shocks, redosing too rapidly, or substituting vasopressin can distract from the interventions most strongly linked to survival in shockable arrest."
+    },
+    {
+      "index": 6,
+      "evidence": [
+        "https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/Algorithm-ACLS-CA-250527.pdf?sc_lang=en",
+        "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001376",
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d8d04647-8e25-4127-8ecf-360ce1991c2f"
+      ],
+      "risk": "critical: Using a perfusing-VT infusion regimen during pulseless VF, pausing CPR, or delaying defibrillation for drug administration can materially reduce resuscitation quality."
+    },
+    {
+      "index": 7,
+      "evidence": [
+        "https://kdigo.org/wp-content/uploads/2018/04/KDIGO-Acute-Hyperkalemia-conf-report-FINAL.pdf",
+        "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001380",
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8b77c3d2-992d-4261-8421-9cfd07328fbf"
+      ],
+      "risk": "critical: Delaying calcium in ECG-toxic hyperkalemia risks degeneration to VF or asystole; failing to monitor glucose or arrange dialysis leaves major treatment-related and rebound hazards."
+    },
+    {
+      "index": 8,
+      "evidence": [
+        "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001380",
+        "https://www.annallergy.org/article/S1081-1206%2823%2901304-2/fulltext",
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e13f05f1-7d21-49bb-b8d5-24bf9301c3d7"
+      ],
+      "risk": "critical: Treating beta-blocker exposure as a reason to delay IM epinephrine can permit rapid progression to airway obstruction, cardiovascular collapse, and cardiac arrest."
+    },
+    {
+      "index": 9,
+      "evidence": [
+        "https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/PCAC-Algorithm-ACLS-PCAC-250527.pdf?sc_lang=en",
+        "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001375"
+      ],
+      "risk": "high: Persistent hyperoxemia, untreated hypotension, uncontrolled fever, or missed seizures can compound neurologic and organ injury during the vulnerable post-arrest period."
+    }
+  ],
+  "code_stroke_validation": [
+    {
+      "index": 3,
+      "evidence": [
+        "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513",
+        "https://www.stroke.org/en/about-stroke/types-of-stroke/ischemic-stroke-clots/ais-top-things-to-know"
+      ],
+      "risk": "Blood-pressure agents, concentrations, and escalation paths vary by institution; the AHA/ASA thresholds are retained without prescribing a site-specific regimen."
+    },
+    {
+      "index": 4,
+      "evidence": [
+        "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines",
+        "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/algorithms"
+      ],
+      "risk": "AHA guidance defines resuscitation priorities and medication timing, but record ownership and correction workflows are local operational policies."
+    },
+    {
+      "index": 5,
+      "evidence": [
+        "https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/Algorithm-ACLS-CA-250527.pdf?sc_lang=en",
+        "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/algorithms"
+      ],
+      "risk": "Exact crash-cart inventory, sealing, beyond-use, and release requirements are institution-specific; the case tests observable readiness hazards without declaring a universal cart layout."
+    },
+    {
+      "index": 6,
+      "evidence": [
+        "https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/Algorithm-ACLS-CA-250527.pdf?sc_lang=en",
+        "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines"
+      ],
+      "risk": "The clinical dose is guideline-based, but competency scoring, event reporting, and the number or format of repeat attempts are local program decisions."
+    },
+    {
+      "index": 7,
+      "evidence": [
+        "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513",
+        "https://www.stroke.org/en/about-stroke/types-of-stroke/ischemic-stroke-clots/ais-top-things-to-know"
+      ],
+      "risk": "Reperfusion selection can incorporate advanced imaging and other patient factors; this case validates timeline accuracy rather than declaring treatment eligibility from time alone."
+    },
+    {
+      "index": 8,
+      "evidence": [
+        "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513",
+        "https://www.stroke.org/en/about-stroke/types-of-stroke/ischemic-stroke-clots/ais-top-things-to-know"
+      ],
+      "risk": "Tenecteplase is a bolus and cannot be stopped after administration; hemorrhage workup and reversal details depend on patient findings, product availability, and local protocol."
+    },
+    {
+      "index": 9,
+      "evidence": [
+        "https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/Algorithm-ACLS-CA-250527.pdf?sc_lang=en",
+        "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines"
+      ],
+      "risk": "AHA guidance supports high-quality CPR, short pauses, and team performance; local policy determines documentation ownership and formal remediation tracking."
+    }
+  ],
+  "glycemic": [
+    {
+      "index": 4,
+      "evidence": [
+        "https://diabetesjournals.org/care/article/47/Supplement_1/S295/153956/16-Diabetes-Care-in-the-Hospital-Standards-of-Care"
+      ],
+      "risk": "reviewed-high-alert-insulin"
+    },
+    {
+      "index": 5,
+      "evidence": [
+        "https://diabetesjournals.org/care/article/47/Supplement_1/S295/153956/16-Diabetes-Care-in-the-Hospital-Standards-of-Care"
+      ],
+      "risk": "reviewed-high-alert-insulin"
+    },
+    {
+      "index": 6,
+      "evidence": [
+        "https://diabetesjournals.org/care/article/47/8/1257/156400/Hyperglycemic-Crises-in-Adults-With-Diabetes-A"
+      ],
+      "risk": "reviewed-critical-potassium-threshold"
+    },
+    {
+      "index": 7,
+      "evidence": [
+        "https://diabetesjournals.org/care/article/47/Supplement_1/S295/153956/16-Diabetes-Care-in-the-Hospital-Standards-of-Care"
+      ],
+      "risk": "reviewed-emergency-hypoglycemia"
+    },
+    {
+      "index": 8,
+      "evidence": [
+        "https://diabetesjournals.org/care/article/47/Supplement_1/S295/153956/16-Diabetes-Care-in-the-Hospital-Standards-of-Care"
+      ],
+      "risk": "reviewed-dka-prevention"
+    },
+    {
+      "index": 9,
+      "evidence": [
+        "https://diabetesjournals.org/care/article/47/Supplement_1/S295/153956/16-Diabetes-Care-in-the-Hospital-Standards-of-Care"
+      ],
+      "risk": "reviewed-high-alert-insulin"
+    }
+  ],
+  "seizure": [
+    {
+      "index": 2,
+      "evidence": [
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/ENLS%205.0/ENLS%206.0/Protocol%20V6_0%20Status%20Epilepticus.pdf?ver=2beXp_6hIhevmW_aQFedPA%3D%3D",
+          "title": "Neurocritical Care Society ENLS Status Epilepticus Protocol, Version 6.0 (2024)",
+          "support": "Defines refractory status after emergent and urgent therapy and provides adult midazolam loading, repeat-bolus, infusion, intubation, and continuous-EEG recommendations."
+        },
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/Docs/Resources/SE_Guidelines_NCS_0412.pdf",
+          "title": "Neurocritical Care Society Guidelines for the Evaluation and Management of Status Epilepticus",
+          "support": "Supports continuous-infusion therapy titrated to electrographic seizure cessation and continued EEG monitoring in refractory status epilepticus."
+        }
+      ],
+      "risk": "high: refractory status escalation and anesthetic dosing"
+    },
+    {
+      "index": 3,
+      "evidence": [
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/ENLS%205.0/ENLS%206.0/Protocol%20V6_0%20Status%20Epilepticus.pdf?ver=2beXp_6hIhevmW_aQFedPA%3D%3D",
+          "title": "Neurocritical Care Society ENLS Status Epilepticus Protocol, Version 6.0 (2024)",
+          "support": "Emphasizes parallel emergency treatment, etiologic workup, and EEG assessment without delaying seizure control."
+        },
+        {
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2024/202543s024lbl.pdf",
+          "title": "FDA Levetiracetam in Sodium Chloride Injection Prescribing Information (2024)",
+          "support": "Provides adult renal-maintenance adjustment and the post-hemodialysis supplemental-dose requirement."
+        }
+      ],
+      "risk": "high: separation of emergency loading from dialysis-adjusted maintenance"
+    },
+    {
+      "index": 4,
+      "evidence": [
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/ENLS%205.0/ENLS%206.0/Protocol%20V6_0%20Status%20Epilepticus.pdf?ver=2beXp_6hIhevmW_aQFedPA%3D%3D",
+          "title": "Neurocritical Care Society ENLS Status Epilepticus Protocol, Version 6.0 (2024)",
+          "support": "States that EEG is needed to identify nonconvulsive status in patients who do not recover and that continuous EEG is essential during refractory-status treatment."
+        },
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/Docs/Resources/SE_Guidelines_NCS_0412.pdf",
+          "title": "Neurocritical Care Society Status Epilepticus Guideline",
+          "support": "Recommends continuous EEG to diagnose and monitor electrographic seizures, especially when clinical signs are absent or obscured."
+        }
+      ],
+      "risk": "high: occult ongoing seizure after neuromuscular blockade"
+    },
+    {
+      "index": 5,
+      "evidence": [
+        {
+          "url": "https://aesnet.org/clinical-care/clinical-guidance/guideline-prolonged-seizures",
+          "title": "American Epilepsy Society Guideline for Treatment of Prolonged Seizures",
+          "support": "Recommends an adequately dosed benzodiazepine in the 5- to 20-minute phase and prompt transition to fosphenytoin, valproate, or levetiracetam when seizures persist."
+        },
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/ENLS%205.0/ENLS%206.0/Protocol%20V6_0%20Status%20Epilepticus.pdf?ver=2beXp_6hIhevmW_aQFedPA%3D%3D",
+          "title": "Neurocritical Care Society ENLS Status Epilepticus Protocol, Version 6.0 (2024)",
+          "support": "Provides lorazepam 0.1 mg/kg IV up to 4 mg and levetiracetam 60 mg/kg IV up to 4,500 mg, and warns that first-line benzodiazepines are frequently underdosed."
+        }
+      ],
+      "risk": "high: benzodiazepine and urgent-control underdosing"
+    },
+    {
+      "index": 6,
+      "evidence": [
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/ENLS%205.0/ENLS%206.0/Protocol%20V6_0%20Status%20Epilepticus.pdf?ver=2beXp_6hIhevmW_aQFedPA%3D%3D",
+          "title": "Neurocritical Care Society ENLS Status Epilepticus Protocol, Version 6.0 (2024)",
+          "support": "Lists adult urgent-control options and doses, including levetiracetam 60 mg/kg up to 4,500 mg, with agent choice based on patient factors."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32203691/",
+          "title": "ESETT Randomized Trial by Age Group",
+          "support": "Supports levetiracetam, fosphenytoin, or valproate as potential second-line choices after adequate benzodiazepine therapy, without a universal efficacy winner."
+        },
+        {
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/020450s046lbl.pdf",
+          "title": "FDA CEREBYX Prescribing Information (2022)",
+          "support": "Contains the boxed cardiovascular warning for IV fosphenytoin and requires cardiac and blood-pressure monitoring during and after administration."
+        }
+      ],
+      "risk": "high: individualized second-line selection in shock and liver disease"
+    },
+    {
+      "index": 7,
+      "evidence": [
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/ENLS%205.0/ENLS%206.0/Protocol%20V6_0%20Status%20Epilepticus.pdf?ver=2beXp_6hIhevmW_aQFedPA%3D%3D",
+          "title": "Neurocritical Care Society ENLS Status Epilepticus Protocol, Version 6.0 (2024)",
+          "support": "Provides the current refractory-status sequence: intubation, continuous anesthetic, continuous EEG, continuation of second-line therapy, and parallel etiologic evaluation."
+        },
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/Docs/Resources/SE_Guidelines_NCS_0412.pdf",
+          "title": "Neurocritical Care Society Status Epilepticus Guideline",
+          "support": "Recommends continuous-infusion antiseizure therapy titrated to EEG goals and maintenance of electrographic control before slow withdrawal."
+        },
+        {
+          "url": "https://aesnet.org/clinical-care/clinical-guidance/guideline-prolonged-seizures",
+          "title": "American Epilepsy Society Convulsive Status Epilepticus Guidance",
+          "support": "Supports anesthetic-dose midazolam, propofol, pentobarbital, or thiopental with continuous EEG when second therapy fails."
+        }
+      ],
+      "risk": "high: refractory status sequencing and etiologic parallel workup"
+    },
+    {
+      "index": 8,
+      "evidence": [
+        {
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2024/202543s024lbl.pdf",
+          "title": "FDA Levetiracetam in Sodium Chloride Injection Prescribing Information (2024)",
+          "support": "Specifies adult ESRD maintenance dosing and a 250- to 500-mg supplemental dose after dialysis."
+        },
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/ENLS%205.0/ENLS%206.0/Protocol%20V6_0%20Status%20Epilepticus.pdf?ver=2beXp_6hIhevmW_aQFedPA%3D%3D",
+          "title": "Neurocritical Care Society ENLS Status Epilepticus Protocol, Version 6.0 (2024)",
+          "support": "Supports prompt emergency treatment followed by ongoing antiseizure therapy and patient-specific dosing review."
+        }
+      ],
+      "risk": "high: dialysis-related breakthrough seizure from omitted supplement"
+    },
+    {
+      "index": 9,
+      "evidence": [
+        {
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/019627s069lbl.pdf",
+          "title": "FDA DIPRIVAN Prescribing Information (2022)",
+          "support": "Describes propofol infusion syndrome manifestations and risk factors, including prolonged doses above 5 mg/kg/hour for more than 48 hours and concomitant vasoconstrictors."
+        },
+        {
+          "url": "https://www.neurocriticalcare.org/Portals/0/ENLS%205.0/ENLS%206.0/Protocol%20V6_0%20Status%20Epilepticus.pdf?ver=2beXp_6hIhevmW_aQFedPA%3D%3D",
+          "title": "Neurocritical Care Society ENLS Status Epilepticus Protocol, Version 6.0 (2024)",
+          "support": "Supports continuous anesthetic therapy with continuous EEG for refractory status and recognizes the need to individualize agent selection and monitoring."
+        }
+      ],
+      "risk": "high: propofol infusion syndrome during refractory-status therapy"
+    }
+  ]
+}
