@@ -41,6 +41,11 @@ add('Epic-style MAR training view is present', demo.includes('Fictional Epic-sty
 add('Pip helper is on the right', demo.includes('#pipBtn{position:fixed;right:16px;left:auto'));
 add('Map return-to-case path is present', demo.includes('resumeCurrentCase()') && demo.includes('Case paused:'));
 add('MAP and SSC glossary definitions are present', demo.includes("MAP:['Mean Arterial Pressure'") && demo.includes("SSC:['Surviving Sepsis Campaign'"));
+add('Sound volume is adjustable and persisted', demo.includes('clinicalPathVolume') && demo.includes('data-vol-range') && demo.includes('setVolume(this.value,event)'));
+add('Volume scales the audio engine gain', demo.includes('(gain||0.045)*SND.vol'));
+add('Pip has a free-text ask box', demo.includes('id="pipAskInput"') && demo.includes('return pipAsk(event)'));
+add('Pip local answer engine covers drugs, labs, glossary, rotations', demo.includes('function pipAnswer') && demo.includes('DRUG_TERMS.find') && demo.includes('LAB_VALUES.filter') && demo.includes('Rotations matching'));
+add('Pip escapes user input before echoing', demo.includes('function pipEsc'));
 
 for (const c of checks) console.log(`${c.pass ? 'PASS' : 'FAIL'}  ${c.name}${c.detail ? ` — ${c.detail}` : ''}`);
 const failed = checks.filter(c => !c.pass);
