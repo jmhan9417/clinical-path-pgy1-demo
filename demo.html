@@ -22,6 +22,7 @@
   .skip-link{position:fixed;left:12px;top:-60px;z-index:9999;background:#fff;color:#2f2633;border:2px solid #7a4d8f;border-radius:8px;padding:10px 14px;font-weight:900;transition:top .15s}.skip-link:focus{top:12px}
   button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #2563eb!important;outline-offset:3px!important}
   .sim-safety{position:fixed;left:12px;right:72px;bottom:8px;z-index:80;max-width:520px;font-size:10px;line-height:1.25;color:#584b55;background:rgba(255,255,255,.92);border:1px solid #dfd5dc;border-radius:7px;padding:5px 8px;pointer-events:none}
+  @media(max-width:520px){.sim-safety{left:6px;right:70px;bottom:4px;max-width:none;font-size:8px;line-height:1.1;padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
   .display{font-family:"Jua",sans-serif}
   #app{position:relative;width:100vw;height:100vh;overflow:hidden}
 
@@ -95,7 +96,7 @@
   .case-question-card .cq-q{font-size:14.5px;line-height:1.5;color:#0f172a;font-weight:800}
   .mar-exhibit{margin:2px 0 4px}.mar-exhibit .hunt-row.static{cursor:default}.mar-exhibit .hunt-row.static:hover{border-color:#dbe5f0}.mar-note{font-size:10.5px;color:#5b7392;font-weight:750;line-height:1.35}.mar-status.missed{background:#fee2e2;color:#991b1b}.mar-exhibit .mar-grid{grid-template-columns:92px minmax(200px,1fr) 88px minmax(140px,1fr)}
   .choice.selected{border-color:#2563eb;background:#eff6ff;box-shadow:0 0 0 3px rgba(37,99,235,.14)}
-  @media(max-width:860px){body.case-active .vn-wrap{padding:12px 12px 24px}.case-workspace{grid-template-columns:1fr}.case-side{position:static;max-height:none;order:-1}.case-side-card{padding:10px}.case-side-actions{grid-template-columns:1fr 1fr}}
+  @media(max-width:860px){body.case-active .vn-wrap{padding:12px 12px 24px}.case-workspace{grid-template-columns:1fr}.case-side{position:static;max-height:none;order:initial}.case-side-card{padding:10px}.case-side-actions{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.case-side-actions{grid-template-columns:1fr}.mcq-submit-row{align-items:stretch;flex-direction:column}.choice{font-size:14px;padding:11px 12px}}
   .vn-name{display:inline-block;background:linear-gradient(120deg,#ff7fa8,#ff4f86);color:#fff;
     font-family:"Jua",sans-serif;font-size:19px;padding:7px 26px;border-radius:18px 18px 4px 0;
@@ -1387,7 +1388,8 @@ function pipAnswer(raw){
 function pipChatHTML(){ if(!PIP.chat.length) return ''; return PIP.chat.map(function(m){return '<div class="pip-msg '+m.who+'">'+(m.who==='you'?pipEsc(m.text):m.text)+'</div>';}).join(''); }
 function pipAsk(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} var inp=document.getElementById('pipAskInput'); var q=String(inp&&inp.value||'').trim(); if(!q)return false; PIP.chat.push({who:'you',text:q}); PIP.chat.push({who:'pip',text:pipAnswer(q)}); PIP.chat=PIP.chat.slice(-14); pipChatSave(); var log=document.getElementById('pipChat'); if(log){ log.innerHTML=pipChatHTML(); log.classList.add('has'); log.scrollTop=log.scrollHeight; } if(inp){inp.value='';inp.focus();} sfx('click'); return false; }
 function pipQuick(q){ var inp=document.getElementById('pipAskInput'); if(inp)inp.value=q; pipAsk(); }
-function pipChipsHTML(){ var sc=pipScreen(); var chips=[]; if(sc==='case'||sc==='feedback'){ if(sc==='case')chips.push(['Hint','hint']); chips.push(['Why?','why']); chips.push(['Drug info','drug info']); chips.push(['References','refs']); } else { chips.push(['Explain this screen','explain screen']); chips.push(['What next?','what next']); chips.push(['MAP?','MAP']); } return '<div class="pip-chips">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'</div>'; }
+function pipClearChat(){PIP.chat=[];pipChatSave();const log=document.getElementById('pipChat');if(log){log.innerHTML='';log.classList.remove('has');}const inp=document.getElementById('pipAskInput');if(inp)inp.focus();}
+function pipChipsHTML(){ var sc=pipScreen(); var chips=[]; if(sc==='case'||sc==='feedback'){ if(sc==='case')chips.push(['Hint','hint']); chips.push(['Why?','why']); chips.push(['Drug info','drug info']); chips.push(['References','refs']); } else { chips.push(['Explain this screen','explain screen']); chips.push(['What next?','what next']); chips.push(['MAP?','MAP']); } return '<div class="pip-chips">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'<button type="button" onclick="pipClearChat()">Clear</button></div>'; }
 function pipPanelHTML(intro){
   const tip=pipTip();
   const inGame=!!(typeof G!=='undefined'&&G&&G.results);
@@ -3375,7 +3377,7 @@ function runCase(){
     const opts=prepareMCQOptions(c);
     const hintHTML=(bondTier()>=1&&hintsLeft()>0)?`<div class="hint-row"><button type="button" class="hint-btn" id="hintBtn" onclick="useFiftyFifty()">Ask ${preceptorName()} · narrow it down (${hintsLeft()} left)</button></div>`:"";
     c._attempts=c._attempts||0;
-    holder.innerHTML=hintHTML+opts.map((o,i)=>`<button class="choice" data-i="${i}" onclick="selectMcq(${i},this)" ondblclick="clearMcqSelection(event)"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("")+`<div id="mcqRetry"></div><div class="mcq-submit-row"><span class="mcq-help">Select one answer. Double-click it to cancel.</span><button class="btn sm" id="mcqSubmit" disabled onclick="answerMcq()">Submit answer</button></div>`;
+    holder.innerHTML=hintHTML+opts.map((o,i)=>`<button class="choice" data-i="${i}" aria-label="${String.fromCharCode(65+i)}. ${String(o.t).replace(/<[^>]*>/g,' ').replace(/&/g,'&amp;').replace(/\"/g,'&quot;')}" onclick="selectMcq(${i},this)" ondblclick="clearMcqSelection(event)"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("")+`<div id="mcqRetry"></div><div class="mcq-submit-row"><span class="mcq-help">Select one answer. Double-click it to cancel.</span><button class="btn sm" id="mcqSubmit" disabled onclick="answerMcq()">Submit answer</button></div>`;
     caseMount(holder);
     enhanceGlossary(holder);
   } else if(c.type==="order"){
