@@ -74,6 +74,24 @@
 
   /* ---------- VN dialogue box ---------- */
   .vn-wrap{position:absolute;left:0;right:0;bottom:0;z-index:15;padding:0 16px 18px}
+  body.case-active .vn-wrap{top:54px;bottom:0;overflow-y:auto;overscroll-behavior:contain;padding:18px 20px 28px;scrollbar-gutter:stable}
+  body.case-active .vn-choices{max-width:1180px;width:100%;margin:0 auto}
+  body.case-active .dialogue-stack{max-width:1180px;margin:14px auto 0;position:relative}
+  body.case-active .char-layer{opacity:.18;pointer-events:none}
+  .case-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,350px);gap:16px;align-items:start;margin:0 auto 14px}
+  .case-main{min-width:0;display:flex;flex-direction:column;gap:10px}
+  .case-side{position:sticky;top:0;display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 92px);overflow:auto}
+  .case-side-card{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:12px;color:#1f2937;box-shadow:0 8px 22px rgba(15,23,42,.10)}
+  .case-side-card h4{margin:0 0 7px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#334155}
+  .case-side-card p,.case-side-card li{font-size:12.5px;line-height:1.45;color:#334155;font-weight:700}
+  .case-side-card ul{padding-left:18px;margin:7px 0}.case-side-card p{margin:6px 0}
+  .case-ref{display:block;border-top:1px solid #e2e8f0;padding:7px 0;color:#075985;font-size:12px;font-weight:850;text-decoration:none}.case-ref:hover{text-decoration:underline}
+  .case-side-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.case-side-actions .btn{padding:8px 9px;font-size:12px}
+  .case-context{max-width:none!important;margin:0!important}
+  .mcq-submit-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}.mcq-help{font-size:12px;color:#475569;font-weight:800}.mcq-retry{border:1px solid #f59e0b;background:#fffbeb;color:#92400e;border-radius:10px;padding:9px 11px;font-size:12.5px;font-weight:850}
+  .choice.selected{border-color:#2563eb;background:#eff6ff;box-shadow:0 0 0 3px rgba(37,99,235,.14)}
+  @media(max-width:860px){body.case-active .vn-wrap{padding:12px 12px 24px}.case-workspace{grid-template-columns:1fr}.case-side{position:static;max-height:none;order:-1}.case-side-card{padding:10px}.case-side-actions{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.case-side-actions{grid-template-columns:1fr}.mcq-submit-row{align-items:stretch;flex-direction:column}.choice{font-size:14px;padding:11px 12px}}
   .vn-name{display:inline-block;background:linear-gradient(120deg,#ff7fa8,#ff4f86);color:#fff;
     font-family:"Jua",sans-serif;font-size:19px;padding:7px 26px;border-radius:18px 18px 4px 0;
     margin-left:26px;box-shadow:0 -2px 12px rgba(255,79,134,.35);position:relative;z-index:2}
@@ -121,7 +139,7 @@
     padding:13px 18px;font-size:calc(15px * var(--font-scale,1));font-weight:700;cursor:pointer;text-align:left;
     box-shadow:0 6px 18px rgba(90,50,90,.14);transition:.14s}
   .choice:hover{border-color:var(--pink);background:#fff4f8;transform:translateX(4px)}
-  .choice:disabled{cursor:default;opacity:.65}
+  .choice:disabled{cursor:default;opacity:1;color:#334155}
   .choice.correct{border-color:var(--teal);background:#dff9f3}
   .choice.wrong{border-color:#ff6b8a;background:#ffe4ea}
   .choice .k{color:var(--pink);font-family:"Jua";margin-right:8px}
@@ -141,7 +159,7 @@
   .oitem{background:#fff;border:2.5px solid #ffd0e0;border-radius:13px;padding:9px 14px;font-size:14px;
     font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(90,50,90,.12)}
   .oitem:hover{border-color:var(--pink);background:#fff4f8}
-  .oitem.placed{opacity:.45;cursor:default}
+  .oitem.placed{opacity:.72;cursor:default;color:#475569;background:#f1f5f9}
   .oitem .idx{color:var(--pink);font-family:"Jua";margin-right:5px}
   .ord-btns{max-width:760px;margin:0 auto 10px;display:flex;gap:9px;justify-content:center}
 
@@ -246,7 +264,7 @@
     display:flex;justify-content:space-between}
   .sgrid b{font-family:"Jua";color:var(--pink)}
 
-  .hunt-hint{max-width:760px;margin:0 auto 8px;text-align:center;font-size:12.5px;font-weight:700;color:#b58aa6}
+  .hunt-hint{max-width:760px;margin:0 auto 8px;text-align:center;font-size:12.5px;font-weight:800;color:#475569}
   .hunt-list{max-width:820px;margin:0 auto 10px;display:flex;flex-direction:column;gap:7px}
   .hunt-row{background:rgba(255,255,255,.96);border:2.5px solid #ffd0e0;border-radius:14px;padding:11px 16px;font-size:14.5px;font-weight:700;color:#4a3540;text-align:left;cursor:pointer;font-family:inherit;transition:.12s}
   .hunt-row:hover{border-color:#ff7fa8;background:#fff4f8}
@@ -381,7 +399,7 @@
 
 
   /* Acronym readability v14: no inline question-mark clutter */
-  .abbr{border-bottom:1px dotted #64748b;cursor:help;position:relative}.abbr.has-calc{border-bottom:2px solid #0d9488;cursor:pointer}.abbr-q{display:none!important}
+  .abbr{border-bottom:1px dotted #475569;cursor:help;position:relative}.abbr.has-calc{border-bottom:2px solid #0d9488;cursor:pointer}.abbr-q{display:inline-flex!important}.abbr-tip{left:50%!important;transform:translateX(-50%)}
 
 
 
@@ -547,14 +565,14 @@
 
 
 /* ===== Pip helper bot ===== */
-#pipBtn{position:fixed;left:16px;bottom:16px;z-index:150;width:58px;height:58px;border-radius:50%;border:2px solid #ffd0e0;background:#fff;cursor:pointer;box-shadow:0 10px 26px rgba(120,40,90,.28);padding:0;overflow:hidden;transition:.15s}
+#pipBtn{position:fixed;right:16px;left:auto;bottom:16px;z-index:150;width:58px;height:58px;border-radius:50%;border:2px solid #ffd0e0;background:#fff;cursor:pointer;box-shadow:0 10px 26px rgba(120,40,90,.28);padding:0;overflow:hidden;transition:.15s}
 #pipBtn:hover{transform:translateY(-2px);border-color:#ff5f92}
 #pipBtn.on{border-color:#ff5f92;box-shadow:0 12px 30px rgba(255,95,146,.4)}
 #pipBtn img{width:100%;height:100%;object-fit:cover;object-position:center 18%}
 #pipBtn .pip-fallback{display:none;font-weight:900;font-size:22px;color:#ff5f92}
 #pipBtn.noimg .pip-fallback{display:block}
 #pipBtn.noimg img{display:none}
-#pipPanel{position:fixed;left:16px;bottom:84px;z-index:150;width:min(320px,calc(100vw - 32px));background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,246,250,.98));border:1.6px solid #ffc9dc;border-radius:18px;box-shadow:0 22px 54px rgba(120,40,90,.30);opacity:0;pointer-events:none;transform:translateY(10px);transition:.2s ease}
+#pipPanel{position:fixed;right:16px;left:auto;bottom:84px;z-index:150;width:min(360px,calc(100vw - 32px));max-height:min(620px,calc(100vh - 110px));overflow:auto;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,246,250,.98));border:1.6px solid #ffc9dc;border-radius:18px;box-shadow:0 22px 54px rgba(120,40,90,.30);opacity:0;pointer-events:none;transform:translateY(10px);transition:.2s ease}
 #pipPanel.on{opacity:1;pointer-events:auto;transform:none}
 .pip-head{display:flex;gap:10px;align-items:center;padding:12px 14px 8px}
 .pip-head img{width:44px;height:44px;border-radius:12px;object-fit:cover;object-position:center 14%;background:#fff0f6;border:1px solid #f6dfeb}
@@ -577,7 +595,7 @@
 .hint-btn{background:linear-gradient(120deg,#fff,#fff6fa);border:1.5px dashed #e8b9cf;border-radius:12px;padding:8px 14px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12.5px;color:#c2427c;cursor:pointer;transition:.13s}
 .hint-btn:hover{border-style:solid;border-color:#ff5f92}
 .hint-btn:disabled{opacity:.75;cursor:default;border-style:solid;color:#8a6f82}
-.choice.faded{opacity:.32;text-decoration:line-through;pointer-events:none}
+.choice.faded{opacity:.62;text-decoration:line-through;pointer-events:none;color:#475569}
 .react-chip{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 12%;border:2px solid #ffd0e0;background:#fff0f6;float:left;margin:0 10px 4px 0}
 .streak-tag{display:inline-block;background:linear-gradient(120deg,#ff9b6a,#ff5f92);color:#fff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 9px;margin-right:8px;vertical-align:2px}
 .unlock-line{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:900;color:#b0792c;background:#fff6e3;border:1px solid #f3ddb0;border-radius:10px;padding:5px 10px}
@@ -650,6 +668,7 @@
 .ehr-orders .hunt-row.sel .ord-flag{opacity:1;background:#ff5f92;color:#fff;border-style:solid;border-color:#ff5f92}
 .ehr-orders .hunt-row.correct{border-color:#2bb7a8;background:#e9fbf7}
 .ehr-orders .hunt-row.wrong{border-color:#ff8fa8;background:#fff0f4}
+.mar-grid{display:grid!important;grid-template-columns:62px minmax(260px,1fr) 100px 66px;gap:10px;align-items:center}.mar-head{background:#e8eef7;border:1px solid #c6d3e4;border-radius:8px 8px 0 0;padding:8px 12px;color:#334155;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.ehr-orders .hunt-row.mar-grid{border-radius:0;margin:0;border-top:0}.mar-time{font-variant-numeric:tabular-nums;font-weight:900;color:#1e3a5f}.ord-text small{display:block;margin-top:3px;color:#64748b;font-size:10.5px}.mar-status{display:inline-flex;justify-content:center;border-radius:999px;padding:4px 7px;font-size:10px;font-weight:900}.mar-status.given{background:#dcfce7;color:#166534}.mar-status.due{background:#fef3c7;color:#92400e}.mar-status.scheduled{background:#e0f2fe;color:#075985}.mar-status.held{background:#fee2e2;color:#991b1b}@media(max-width:680px){.mar-grid{grid-template-columns:52px minmax(170px,1fr) 72px}.mar-grid>span:last-child{grid-column:3}.mar-head span:last-child{display:none}.ehr-win{min-width:620px}.case-main{overflow-x:auto}}
 .ehr-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#e9f0f8;border-top:1px solid #c6d3e3;padding:8px 14px}
 .ehr-user{font-size:11px;font-weight:900;color:#51698a}
 .ehr-win .hunt-hint{color:#51698a;background:none;font-size:12px;font-weight:800;margin:0 0 8px}
@@ -1231,12 +1250,23 @@ var PIP_TYPE_TIPS={
   journal:"Check the population, comparator, and primary endpoint before you trust an abstract.",
   essay:"Structure it like a consult note: problem, data, assessment, recommendation."
 };
+const PIP_TYPE_STEPS={
+  mcq:['Name the medication problem','Eliminate answers that ignore patient factors','Choose the plan with monitoring and follow-up'],
+  order:['Identify the safety-critical first step','Build the real clinical sequence','Check that follow-up closes the loop'],
+  calc:['Write the formula and units','Verify the patient-specific inputs','Sense-check the result before submitting'],
+  chartHunt:['Open MAR, labs, and snapshot','Flag only actionable discrepancies','Double-click any accidental selection'],
+  sbar:['State one clear problem','Support it with the relevant data','Recommend drug, dose, route, timing, and monitoring'],
+  code:['Confirm rhythm or emergency','Select the correct drug and dose','Use closed-loop communication and document'],
+  journal:['Check PICO and study design','Find the major validity threat','Translate effect size to this patient'],
+  essay:['Organize the problem list','Support each assessment with case data','Write an actionable plan and monitoring endpoint']
+};
+function pipCaseBody(c){const type=c.type||'mcq',steps=PIP_TYPE_STEPS[type]||PIP_TYPE_STEPS.mcq,sup=caseSupport(c);return `${PIP_TYPE_TIPS[type]||'Work one clinical decision at a time.'}<ol style="margin:8px 0 0;padding-left:19px">${steps.map(x=>`<li>${x}</li>`).join('')}</ol>${sup.drugs.length?`<span class="pip-hint">Medication focus: ${sup.drugs.join(', ')}</span>`:''}${type==='mcq'?'<span class="pip-hint">You get one coached retry after an incorrect first attempt.</span>':''}`;}
+function focusCaseSupport(){togglePip(false);document.getElementById('caseSide')?.scrollIntoView({behavior:'smooth',block:'start'});}
 function pipTip(){
   const sc=pipScreen();
   if(sc==='case'&&typeof curM!=='undefined'&&curM){
     const c=curM.cases[caseIdx]||{};
-    const t=PIP_TYPE_TIPS[c.type]||"Take it one finding at a time — the case card has everything you need.";
-    return {h:curM.title, b:t};
+    return {h:curM.title, b:pipCaseBody(c)};
   }
   const tips={
     title:{h:"Welcome to St. Aurelia",b:"Continue picks up your saved year. New resident starts fresh — you choose your name, your look, and your preceptor."},
@@ -1262,11 +1292,13 @@ function pipPanelHTML(intro){
   const body=intro
     ? `<b>Hi! I'm Pip, your rounds bot.</b><br>Three quick things:<br>1 · Follow the <b>month blocks</b> top to bottom — or just take the recommended <b>Next shift</b>.<br>2 · Answer cases to fill your <b>bond hearts</b> — your preceptor remembers how you practice.<br>3 · Anything you miss becomes a <b>Study Card</b>. Nothing is wasted.<br><span class="pip-hint">Press H to call me anytime.</span>`
     : `<b>${tip.h}</b><br>${tip.b}<span class="pip-hint">Press H to open or close me.</span>`;
+  const inCase=pipScreen()==='case';
   const acts=inGame? `<div class="pip-actions">
+      ${inCase?'<button onclick="sfx(\'click\');focusCaseSupport()">Case info</button><button onclick="sfx(\'click\');pinCurrentCase()">Save card</button><button onclick="sfx(\'click\');downloadCurrentQuizlet()">Quizlet</button>':''}
       <button onclick="sfx('click');showLabValues(event)">Labs</button>
       <button onclick="sfx('click');openBasicCalculator(event)">Math</button>
       <button onclick="sfx('click');openClinicalCalculator(event)">Calc</button>
-      <button onclick="sfx('click');togglePip();goHub()">Year map</button>
+      <button onclick="sfx('click');togglePip();openYearMap()">Year map</button>
     </div>`:"";
   return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>rounds bot · here to help</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
   <div class="pip-body">${body}</div>${acts}`;
@@ -1403,7 +1435,73 @@ const GLOSSARY={
   IRT:['Interactive Response Technology','Research-study system used for randomization and study-drug assignment.'],
   SAE:['Serious Adverse Event','Research safety event meeting seriousness criteria such as hospitalization, life threat, or death.'],
   AESI:['Adverse Event of Special Interest','Protocol-defined event requiring focused monitoring/reporting.'],
-  CYP3A:['Cytochrome P450 3A','Major drug-metabolizing enzyme family involved in many interactions.']
+  CYP3A:['Cytochrome P450 3A','Major drug-metabolizing enzyme family involved in many interactions.'],
+  MAP:['Mean Arterial Pressure','Average arterial pressure across one cardiac cycle; commonly used to guide organ-perfusion targets in shock.'],
+  SSC:['Surviving Sepsis Campaign','International evidence-based guidance for sepsis and septic shock care.'],
+  MRSA:['Methicillin-resistant Staphylococcus aureus','A resistant S. aureus pathogen that requires active therapy selected for infection site and susceptibility.'],
+  AKI:['Acute Kidney Injury','An acute decline in kidney function that can change drug clearance and toxicity risk.'],
+  SCr:['Serum Creatinine','Laboratory marker used with patient factors to estimate kidney function for medication dosing.'],
+  BSA:['Body Surface Area','A size estimate used for many oncology doses and selected other therapies.'],
+  CINV:['Chemotherapy-Induced Nausea and Vomiting','Nausea and vomiting caused by antineoplastic treatment; prophylaxis depends on emetogenic risk.'],
+  TLS:['Tumor Lysis Syndrome','Oncologic emergency caused by rapid tumor-cell breakdown and dangerous electrolyte and uric-acid changes.'],
+  CSTD:['Closed-System Transfer Device','Device designed to reduce environmental contamination and exposure during hazardous-drug handling.'],
+  ANC:['Absolute Neutrophil Count','Calculated neutrophil count used to assess infection risk and neutropenia severity.'],
+  PADIS:['Pain, Agitation/Sedation, Delirium, Immobility, and Sleep Disruption','Critical-care guideline framework for comfort, sedation, delirium, mobility, and sleep.'],
+  NPO:['Nothing by Mouth','Instruction that oral intake is withheld for a defined clinical reason.'],
+  IV:['Intravenous','Medication or fluid administered directly into a vein.'],
+  IM:['Intramuscular','Medication administered into muscle tissue.'],
+  SQ:['Subcutaneous','Medication administered into the tissue beneath the skin.'],
+  CBC:['Complete Blood Count','Blood test including white cells, hemoglobin/hematocrit, and platelets.'],
+  BMP:['Basic Metabolic Panel','Common chemistry panel including electrolytes, glucose, and kidney-function markers.'],
+  HPI:['History of Present Illness','Chronologic description of the symptoms and events leading to the current encounter.'],
+  PMH:['Past Medical History','Relevant prior diagnoses, procedures, and health conditions.'],
+  DVT:['Deep Vein Thrombosis','A venous blood clot, usually in a deep vein of the leg or pelvis.'],
+  PE:['Pulmonary Embolism','A clot obstructing pulmonary arterial circulation.'],
+  HIT:['Heparin-Induced Thrombocytopenia','Immune prothrombotic reaction to heparin associated with falling platelets and thrombosis risk.'],
+  CMV:['Cytomegalovirus','A herpesvirus that can cause serious infection in immunocompromised patients.'],
+  PJP:['Pneumocystis jirovecii Pneumonia','Opportunistic fungal pneumonia requiring prophylaxis in selected immunocompromised patients.'],
+  GVHD:['Graft-versus-Host Disease','Donor immune cells attack recipient tissues after allogeneic transplantation.'],
+  ESBL:['Extended-Spectrum Beta-Lactamase','Resistance enzyme that can inactivate many penicillins and cephalosporins.'],
+  CRE:['Carbapenem-Resistant Enterobacterales','Enterobacterales resistant to carbapenems and requiring susceptibility-guided therapy.'],
+  VRE:['Vancomycin-Resistant Enterococcus','Enterococcus resistant to vancomycin and requiring site- and susceptibility-specific therapy.'],
+  CAP:['Community-Acquired Pneumonia','Pneumonia acquired outside a hospital or long-term-care setting.'],
+  COPD:['Chronic Obstructive Pulmonary Disease','Chronic airflow limitation typically treated with inhaled therapy and risk reduction.'],
+  CKD:['Chronic Kidney Disease','Persistent kidney damage or reduced kidney function affecting medication selection and dosing.'],
+  BP:['Blood Pressure','Force of circulating blood against vessel walls, recorded as systolic and diastolic pressure.'],
+  PGY:['Postgraduate Year','Year of supervised postgraduate professional training after earning the qualifying degree.'],
+  ASHP:['American Society of Health-System Pharmacists','Professional organization that accredits pharmacy residency programs and publishes practice standards.'],
+  ACCP:['American College of Clinical Pharmacy','Professional organization focused on clinical pharmacy practice, education, and scholarship.'],
+  BCPS:['Board Certified Pharmacotherapy Specialist','Board certification in pharmacotherapy awarded by the Board of Pharmacy Specialties.'],
+  QT:['QT Interval','ECG interval representing ventricular depolarization and repolarization; prolongation can increase torsades risk.'],
+  PO:['By Mouth','Oral route of medication administration, from the Latin per os.'],
+  BID:['Twice Daily','Medication frequency meaning two times per day.'],
+  PCA:['Patient-Controlled Analgesia','Delivery system allowing a patient to self-administer programmed analgesic doses within safety limits.'],
+  HCT:['Hematopoietic Cell Transplant','Transplantation of blood-forming stem cells; context determines autologous versus allogeneic transplant.'],
+  CRRT:['Continuous Renal Replacement Therapy','Continuous extracorporeal kidney-support therapy used in critically ill patients.'],
+  PCC:['Prothrombin Complex Concentrate','Concentrated clotting factors used for urgent reversal in selected anticoagulation emergencies.'],
+  ECG:['Electrocardiogram','Recording of the heart’s electrical activity.'],
+  MME:['Morphine Milligram Equivalents','Standardized estimate used to compare total opioid exposure; not a direct conversion order by itself.'],
+  PK:['Pharmacokinetics','Study of drug absorption, distribution, metabolism, and elimination.'],
+  MSSA:['Methicillin-Susceptible Staphylococcus aureus','S. aureus susceptible to antistaphylococcal beta-lactam therapy.'],
+  PRISMA:['Preferred Reporting Items for Systematic Reviews and Meta-Analyses','Reporting framework for transparent systematic reviews and meta-analyses.'],
+  DI:['Drug Information','Systematic evaluation and communication of medication evidence.'],
+  RCA:['Root Cause Analysis','Structured review of contributing factors after a safety event.'],
+  FMEA:['Failure Mode and Effects Analysis','Prospective method for identifying how a process might fail and reducing risk before harm occurs.'],
+  CNS:['Central Nervous System','Brain and spinal cord.'],
+  REMS:['Risk Evaluation and Mitigation Strategy','FDA-required safety program for selected medications with serious risks.'],
+  BMT:['Blood and Marrow Transplant','Clinical term commonly used for hematopoietic cell transplantation services.'],
+  HTN:['Hypertension','Persistently elevated blood pressure.'],
+  RASS:['Richmond Agitation-Sedation Scale','Ten-point scale used to assess agitation and sedation in critically ill patients.'],
+  MMR:['Measles, Mumps, and Rubella','Live attenuated combination vaccine.'],
+  HD:['Hemodialysis','Intermittent extracorporeal removal of solutes and fluid in kidney failure.'],
+  CPR:['Cardiopulmonary Resuscitation','Chest compressions, ventilation, defibrillation, and related interventions for cardiac arrest.'],
+  SSRI:['Selective Serotonin Reuptake Inhibitor','Antidepressant class that increases serotonergic signaling.'],
+  CII:['Schedule II Controlled Substance','U.S. controlled-substance category with accepted medical use and high misuse potential.'],
+  PDMP:['Prescription Drug Monitoring Program','State database used to review controlled-substance dispensing history.'],
+  PPE:['Personal Protective Equipment','Protective clothing and equipment used to reduce occupational exposure.'],
+  HF:['Heart Failure','Clinical syndrome in which the heart cannot meet circulatory needs without elevated filling pressures.'],
+  ACE:['Angiotensin-Converting Enzyme','Enzyme targeted by ACE inhibitors in hypertension, heart failure, and kidney disease.'],
+  ICI:['Immune Checkpoint Inhibitor','Cancer immunotherapy that can cause immune-related adverse events.']
 };
 let GLOSSARY_RE=null;
 const CALC_TERM_MAP={CrCl:"crcl",INR:"none",aPTT:"none"};
@@ -1466,6 +1564,44 @@ function labChip(l){ const cls=l.flag==='critical'?'crit':(l.flag==='abnormal'?'
 function labRef(name){ const hit=LAB_VALUES.find(r=>r[1].toLowerCase()===String(name||'').toLowerCase()); return hit?`${hit[2]} ${hit[3]}`:''; }
 function clinicalContextHTML(c){ if(!c.patient && !c.labs && !c.tasks)return ''; return `<div class="case-context"><h4>Clinical case problem</h4>${c.patient?`<div class="pt">${c.patient}</div>`:''}${c.labs?`<div class="lab-grid">${c.labs.map(labChip).join('')}</div>`:''}${c.tasks?`<div class="pt" style="margin-top:8px"><b>Evaluate:</b> ${c.tasks.join(' · ')}</div>`:''}</div>`; }
 
+const DRUG_TERMS=['acetaminophen','acyclovir','allopurinol','amiodarone','amlodipine','amoxicillin','apixaban','aspirin','azithromycin','cefepime','ceftriaxone','cisplatin','clopidogrel','daptomycin','dexamethasone','dexmedetomidine','dexrazoxane','digoxin','diltiazem','dopamine','doxorubicin','enoxaparin','epinephrine','fentanyl','fomepizole','gabapentin','gentamicin','glucagon','heparin','hydromorphone','insulin','levetiracetam','linezolid','lithium','lorazepam','magnesium','meropenem','methadone','metoprolol','morphine','naloxone','nitrofurantoin','norepinephrine','ondansetron','oxycodone','phenylephrine','phenytoin','piperacillin','potassium','propofol','protamine','rasburicase','rifampin','rivaroxaban','tacrolimus','tenecteplase','vancomycin','vasopressin','warfarin'];
+const CASE_REFERENCE_RULES=[
+  {re:/vancomycin|MRSA|AUC\/MIC/i,title:'Vancomycin monitoring',facts:['Use patient-specific exposure and renal-function data.','For serious MRSA infection, AUC-guided monitoring is preferred over trough-only targets.'],refs:[['ASHP/IDSA/PIDS/SIDP Vancomycin Consensus Guideline','https://www.idsociety.org/practice-guideline/vancomycin/']]},
+  {re:/sepsis|septic|norepinephrine|vasopressin|MAP\b/i,title:'Sepsis and shock',facts:['Confirm infection timing, perfusion, fluids, vasopressor response, and source control.','Apply the institutional sepsis pathway when its operational details differ.'],refs:[['Surviving Sepsis Campaign Guidelines 2021','https://www.sccm.org/clinical-resources/surviving-sepsis-campaign-guidelines-2021']]},
+  {re:/cardiac arrest|code blue|ROSC|amiodarone|epinephrine 1 mg|defibrillat/i,title:'Resuscitation pharmacotherapy',facts:['Verify rhythm, dose, timing, route, and closed-loop communication.','Local code policy and the current AHA algorithm govern bedside execution.'],refs:[['AHA CPR and ECC Guidelines','https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines']]},
+  {re:/DKA|insulin|hypoglyc|hyperglyc/i,title:'Glucose management',facts:['Check potassium, nutrition status, glucose trend, and transition plan.','Insulin is a high-alert medication; use the local protocol and independent checks.'],refs:[['ADA Standards of Care in Diabetes','https://professional.diabetes.org/standards-of-care']]},
+  {re:/warfarin|apixaban|rivaroxaban|heparin|enoxaparin|anticoag|HIT\b/i,title:'Anticoagulation',facts:['Verify indication, renal function, bleeding risk, interactions, dose, and duration.','Reversal and monitoring should follow the agent-specific guideline and local pathway.'],refs:[['CHEST Antithrombotic Therapy Guidelines','https://www.chestnet.org/Guidelines-and-Resources/CHEST-Guideline-Topic-Areas/Antithrombotic-Therapy']]},
+  {re:/chemotherapy|cisplatin|doxorubicin|CINV|tumor lysis|rasburicase|extravasation/i,title:'Oncology medication safety',facts:['Confirm regimen, cycle, BSA, organ function, cumulative exposure, labs, and supportive care.','Use the current regimen protocol plus guideline- and agent-specific handling requirements.'],refs:[['ASCO Clinical Practice Guidelines','https://www.asco.org/guidelines']]},
+  {re:/antibiotic|antimicrobial|cef|penicillin|meropenem|daptomycin|linezolid|azithromycin/i,title:'Antimicrobial therapy',facts:['Review syndrome, cultures, allergies, organ function, source control, dose, and duration.','De-escalate when microbiology and clinical response support it.'],refs:[['IDSA Practice Guidelines','https://www.idsociety.org/practice-guideline/practice-guidelines/']]}
+];
+function caseText(c){return stripHTML([c.kick,c.q,c.patient,(c.given||[]).map(x=>x.label+' '+x.value).join(' '),(c.opts||[]).map(x=>x.t).join(' ')].filter(Boolean).join(' '));}
+function drugNamesForCase(c){const txt=caseText(c).toLowerCase();return DRUG_TERMS.filter(d=>txt.includes(d.toLowerCase()));}
+function caseReferences(c){const txt=caseText(c);const refs=[];CASE_REFERENCE_RULES.forEach(r=>{if(r.re.test(txt))r.refs.forEach(x=>refs.push(x));});const drugs=drugNamesForCase(c);if(drugs.length)refs.push(['FDA prescribing information via DailyMed',`https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=${encodeURIComponent(drugs[0])}`]);const seen=new Set();return refs.filter(x=>{if(seen.has(x[0]))return false;seen.add(x[0]);return true;});}
+function caseSupport(c){const txt=caseText(c);const rules=CASE_REFERENCE_RULES.filter(r=>r.re.test(txt));const drugs=drugNamesForCase(c);return {drugs,rules,refs:caseReferences(c)};}
+function currentCaseCard(){if(!curM)return null;const c=curM.cases[caseIdx];if(!c)return null;return {id:cardId([curM.id,'case',caseIdx]),front:(c.kick?c.kick+': ':'')+stripHTML(c.q),back:answerText(c),tags:[curM.area,curM.id,c.type||'case']};}
+function pinnedCaseIds(){try{return JSON.parse(localStorage.getItem('clinicalPathPinnedCards')||'[]')}catch(e){return []}}
+function pinCurrentCase(){const card=currentCaseCard();if(!card)return;const ids=pinnedCaseIds();if(!ids.includes(card.id))ids.unshift(card.id);localStorage.setItem('clinicalPathPinnedCards',JSON.stringify(ids.slice(0,100)));showCaseToast('Saved to your Study Cards');}
+function downloadCurrentQuizlet(){const card=currentCaseCard();if(!card)return;const blob=new Blob([escQuizlet(card.front)+'\t'+escQuizlet(card.back)],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clinical-path-current-quizlet-card.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);showCaseToast('Quizlet import card downloaded');}
+function showCaseToast(msg){const host=document.createElement('div');host.className='stat-toasts';host.innerHTML=`<span class="stat-toast" style="--c:#0f766e">${msg}</span>`;document.body.appendChild(host);setTimeout(()=>host.remove(),2200);}
+function caseSideHTML(c){const sup=caseSupport(c);const context=clinicalContextHTML(c);const drug=sup.drugs.length||sup.rules.length?`<section class="case-side-card"><h4>Medication focus</h4>${sup.drugs.length?`<p><b>Drugs:</b> ${sup.drugs.join(', ')}</p>`:''}${sup.rules.map(r=>`<p><b>${r.title}</b></p><ul>${r.facts.map(f=>`<li>${f}</li>`).join('')}</ul>`).join('')}</section>`:'';const refs=`<section class="case-side-card"><h4>References</h4>${sup.refs.length?sup.refs.map(r=>`<a class="case-ref" href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a>`).join(''):'<p>Use the current institutional policy and the governing specialty guideline for this scenario.</p>'}<div class="case-side-actions"><button class="btn ghost sm" onclick="pinCurrentCase()">Save study card</button><button class="btn ghost sm" onclick="downloadCurrentQuizlet()">Quizlet card</button></div></section>`;return (context?`<section class="case-side-card">${context}</section>`:'')+drug+refs;}
+function createCaseWorkspace(c){document.body.classList.add('case-active');const layer=document.getElementById('choiceLayer');const shell=document.createElement('div');shell.className='case-workspace';shell.innerHTML=`<main class="case-main" id="caseMain"></main><aside class="case-side" id="caseSide" aria-label="Case information and references">${caseSideHTML(c)}</aside>`;layer.appendChild(shell);enhanceGlossary(shell);return document.getElementById('caseMain');}
+function caseMount(node){(document.getElementById('caseMain')||document.getElementById('choiceLayer')).appendChild(node);}
+
+function mcqHash(text){let h=0;String(text||'').split('').forEach(ch=>h=(h*31+ch.charCodeAt(0))>>>0);return h;}
+const MCQ_REASONING_DISTRACTORS=[
+ ['Proceed with the familiar default without checking whether this patient meets the protocol criteria','A familiar default is not patient-specific clinical reasoning.'],
+ ['Delay the medication decision until every nonessential detail is available, even if the issue is time-sensitive','Waiting for nonessential data can create avoidable harm.'],
+ ['Make the change but omit a monitoring endpoint and reassessment time','A medication plan is incomplete without monitoring and follow-up.'],
+ ['Use the same dose and plan for every patient regardless of organ function, indication, or interactions','Medication decisions must account for patient-specific factors.'],
+ ['Document the concern in the chart but do not communicate it to the care team','Time-sensitive medication problems require closed-loop communication.'],
+ ['Focus on the medication name alone and skip verification of dose, route, timing, and indication','Complete order verification requires all medication-use elements.'],
+ ['Choose the most aggressive intervention without first weighing benefit, toxicity, and reversibility','More treatment is not automatically safer or more effective.'],
+ ['Assume the order is correct because it passed through the electronic ordering system','Electronic entry does not replace pharmacist assessment.'],
+ ['Apply a guideline headline without checking exclusions, contraindications, or local protocol details','Guidelines still require patient-specific interpretation.'],
+ ['Wait for the next routine review even though the case describes a new high-risk change','A new high-risk change requires timely reassessment.']
+];
+function ensureFiveMCQOptions(c,m){if(c.type!=='mcq'||!Array.isArray(c.opts))return;const used=new Set(c.opts.map(o=>String(o.t).trim().toLowerCase()));const pool=MCQ_REASONING_DISTRACTORS;const focus=stripHTML(c.kick||m?.title||'clinical decision').replace(/[.:]+$/,'').toLowerCase();let cursor=mcqHash((m&&m.id)+' '+c.q)%pool.length,guard=0;while(c.opts.length<5&&guard<pool.length*2){const p=pool[cursor%pool.length];cursor+=3;guard++;if(!p)continue;const base=String(p[0]);const text=`For this ${focus} decision, ${base.charAt(0).toLowerCase()+base.slice(1)}`;if(used.has(text.trim().toLowerCase()))continue;c.opts.push({t:text,ok:false,fb:p[1]});used.add(text.trim().toLowerCase());}}
+function enrichMCQOptions(){MODULES.forEach(m=>(m.cases||[]).forEach(c=>ensureFiveMCQOptions(c,m)));}
 function prepareMCQOptions(c){ if(!c._renderOpts){ c._renderOpts=shuffle((c.opts||[]).map(o=>Object.assign({},o))); } return c._renderOpts; }
 function deBiasGeneratedMCQs(){
   const good='Choose the patient-specific plan with monitoring and follow-up';
@@ -1484,26 +1620,8 @@ function balanceMCQCorrectPositions(){
   }));
 }
 function balanceMCQOptionLengths(){
-  const suffixes=[
-    ' with documented rationale and follow-up monitoring',
-    ' while tracking efficacy, toxicity, and updated labs',
-    ' with team communication and a defined reassessment time',
-    ' and reassess after updated labs and clinical response'
-  ];
-  MODULES.forEach(m=>(m.cases||[]).forEach(c=>{
-    if(c.type!=='mcq'||!Array.isArray(c.opts)||!c.opts.length||c.patient)return;
-    const correct=c.opts.find(o=>o.ok); if(!correct)return;
-    const correctLen=String(correct.t||'').length;
-    const maxLen=Math.max(...c.opts.map(o=>String(o.t||'').length));
-    if(correctLen<75 || correctLen<maxLen*0.95)return;
-    const target=Math.min(95, Math.max(55, Math.round(correctLen*0.78)));
-    c.opts.forEach((o,i)=>{
-      if(o.ok)return;
-      let t=String(o.t||''); let guard=0;
-      while(t.length<target && guard<2){ t += suffixes[(i+guard)%suffixes.length]; guard++; }
-      o.t=t;
-    });
-  }));
+  // Deliberately do not pad answers with filler text. Five-option enrichment and
+  // position balancing remove the old visual cue without making distractors awkward.
 }
 
 function stripHTMLForLog(html){
@@ -2421,6 +2539,9 @@ function heartsHTML(){
   return out;
 }
 function attemptedCount(){ let c=0; MODULES.forEach(m=>G.results[m.id].forEach(r=>{if(r!==null)c++;})); return c; }
+var RETURN_TO_CASE=null;
+function openYearMap(){if(curM&&document.body.classList.contains('case-active'))RETURN_TO_CASE={moduleId:curM.id,caseIdx};goHub();}
+function resumeCurrentCase(){if(!RETURN_TO_CASE)return;curM=MODULES.find(m=>m.id===RETURN_TO_CASE.moduleId);if(!curM){RETURN_TO_CASE=null;goHub();return;}caseIdx=Math.min(RETURN_TO_CASE.caseIdx,curM.cases.length-1);runCase();}
 function hudHTML(area){
   const b=bond(), t=bondTier();
   const shiftNo=Math.max(1, attemptedCount()+ (typeof curM!=='undefined'&&curM?0:0) );
@@ -2433,12 +2554,13 @@ function hudHTML(area){
     <div class="bond" title="${b} correct decisions with ${preceptorName()}">
       <span class="lbl">${bondTierName()}</span><span class="hearts">${heartsHTML()}</span><span class="bcount">${b}</span>
     </div>
-    <button class="menu-btn" onclick="sfx('click');goHub()" aria-label="Back to Resident Year Map">Map</button>
+    <button class="menu-btn" onclick="sfx('click');openYearMap()" aria-label="Open Resident Year Map">Map</button>
   </div>`;
 }
 
 /* ---- character + dialogue frame ---- */
 function drawScene(area, expr, name, textHTML, opts={}){
+  document.body.classList.toggle('case-active',!!opts.caseMode);
   const showChar = opts.char!==false;
   const nameWho=(opts.who||preceptorWho());
   const nameTab = name? `<div class="vn-name" data-who="${nameWho}">${name}</div>`:"";
@@ -2727,6 +2849,7 @@ function studyOrderedModules(){
 }
 
 function goHub(){
+  document.body.classList.remove('case-active');
   if(typeof G==='undefined'||!G||!G.results){showTitle();return;}
   saveProgress("hub");
   setTimeout(pipIntroShow,700);
@@ -2741,6 +2864,7 @@ function goHub(){
     ${hudHTML("core")}
     <div class="center-layer" style="justify-content:flex-start;padding-top:64px">
       <div class="hub-panel">
+        ${RETURN_TO_CASE?`<div class="report-note" style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 12px"><span><b>Case paused:</b> ${(MODULES.find(m=>m.id===RETURN_TO_CASE.moduleId)||{}).title||'Current rotation'} · question ${RETURN_TO_CASE.caseIdx+1}</span><button class="btn mint sm" onclick="resumeCurrentCase()">Return to case</button></div>`:''}
         <h2>Resident Year Map</h2>
         <div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with ${preceptorName()} · choose a rotation block, then work through the cases</div>
         <div class="comp-row">
@@ -2899,11 +3023,11 @@ function runCase(){
   const guide=caseGuide(m,c,introLine,introExpr);
   drawScene(m.area,guide.expr,guide.name,
     guide.text,
-    { advance:false, who:guide.who,
+    { advance:false, who:guide.who, caseMode:true,
       note:c.type==="calc"?`<b style="color:#7a4d8f">Calculation task.</b> Use the case card.`:`<b style="color:#7a4d8f">Q${caseIdx+1}.</b> ${c.q}`,
       below: caseProgress() });
   const wrap=document.querySelector(".vn-wrap");
-  if(c.type!=='chartHunt'){ const pre=document.createElement("div"); pre.innerHTML=clinicalContextHTML(c); if(pre.innerHTML.trim()){document.getElementById("choiceLayer").appendChild(pre); enhanceGlossary(pre);} }
+  createCaseWorkspace(c);
   const holder=document.createElement("div");holder.id="caseHolder";
   if(c.type==="essay"){
     renderEssayCase(c, holder);
@@ -2911,19 +3035,19 @@ function runCase(){
     holder.className="choices";
     const opts=prepareMCQOptions(c);
     const hintHTML=(bondTier()>=1&&hintsLeft()>0)?`<div class="hint-row"><button type="button" class="hint-btn" id="hintBtn" onclick="useFiftyFifty()">Ask ${preceptorName()} · narrow it down (${hintsLeft()} left)</button></div>`:"";
-    holder.innerHTML=hintHTML+opts.map((o,i)=>`<button class="choice" data-i="${i}"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("");
-    document.getElementById("choiceLayer").appendChild(holder);
+    c._attempts=c._attempts||0;
+    holder.innerHTML=hintHTML+opts.map((o,i)=>`<button class="choice" data-i="${i}" onclick="selectMcq(${i},this)" ondblclick="clearMcqSelection(event)"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("")+`<div id="mcqRetry"></div><div class="mcq-submit-row"><span class="mcq-help">Select one answer. Double-click it to cancel.</span><button class="btn sm" id="mcqSubmit" disabled onclick="answerMcq()">Submit answer</button></div>`;
+    caseMount(holder);
     enhanceGlossary(holder);
-    holder.querySelectorAll(".choice").forEach(b=>b.onclick=()=>answerMcq(parseInt(b.dataset.i)));
   } else if(c.type==="order"){
     holder.innerHTML=`
       <div class="ord-dst" id="ordDst"><span style="color:#b58aa6;font-size:12px;font-weight:700;padding:6px">Tap the steps in the correct order…</span></div>
       <div class="ord-src" id="ordSrc">${shuffle(c.correct.map((t)=>t)).map(t=>`<button class="oitem" data-t="${encodeURIComponent(t)}">${t}</button>`).join("")}</div>
       <div class="ord-btns"><button class="btn sm" id="ordChk" disabled onclick="checkOrder()">Check order</button>
       <button class="btn ghost sm" onclick="resetOrder()">Reset</button></div>`;
-    document.getElementById("choiceLayer").appendChild(holder);
+    caseMount(holder);
     enhanceGlossary(holder);
-    holder.querySelectorAll("#ordSrc .oitem").forEach(b=>b.onclick=()=>placeOrder(b));
+    holder.querySelectorAll("#ordSrc .oitem").forEach(b=>{b.onclick=()=>placeOrder(b);b.ondblclick=(e)=>removeOrder(b,e);});
   } else if(c.type==="calc"){
     holder.className="calc-card";
     holder.innerHTML=`
@@ -2935,7 +3059,7 @@ function runCase(){
         <button class="btn sm" id="calcChk" onclick="answerCalc()">Check</button>
       </div>
       <div class="calc-actions"><button class="btn ghost sm" onclick="openBasicCalculator(event)">Basic calculator</button><button class="btn ghost sm" onclick="openClinicalCalculator(event, calculatorForCase(curM.cases[caseIdx]))">Clinical calculator</button>${c.hint?`<button class="btn ghost sm" onclick="document.getElementById('calcHint').style.display='block'">Formula hint</button>`:""}</div>${c.hint?`<div id="calcHint" class="calc-hint" style="display:none">${c.hint}</div>`:""}`;
-    document.getElementById("choiceLayer").appendChild(holder);
+    caseMount(holder);
     enhanceGlossary(holder);
     const ci=document.getElementById("calcIn"); if(ci){ ci.focus(); ci.addEventListener("keydown",e=>{if(e.key==="Enter")answerCalc();}); }
   } else if(c.type==="chartHunt"){ renderHunt(c);
@@ -2949,7 +3073,7 @@ function renderEssayCase(c, holder){
   holder.className='essay-case';
   const qs=(c.questions||[]);
   holder.innerHTML=`<h4>${c.packetTitle||'Clinical Case Packet'}</h4>${c.essayStem?`<div class="essay-stem">${c.essayStem}</div>`:''}${c.tags?`<div class="essay-meta">${c.tags.map(t=>`<span class="essay-tag">${t}</span>`).join('')}</div>`:''}${qs.map((q,i)=>{const tool=essayQuestionTool(q);return `<section class="essay-q"><div class="qhead">Question ${i+1}${q.skill?` · ${q.skill}`:''}</div><div class="prompt">${q.prompt}</div><textarea id="essayAns${i}" placeholder="Write your assessment/recommendation here..."></textarea><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:7px">${tool?`<button class="btn ghost sm" onclick="openClinicalCalculator(event,'${tool}')">Clinical calculator</button>`:''}<button class="btn ghost sm" onclick="openBasicCalculator(event)">Basic calculator</button></div><div class="essay-answer" id="essayKey${i}"><b>Expert answer:</b> ${q.expert||q.answer||'Review the case note and monitoring plan.'}</div></section>`;}).join('')}<div class="essay-actions"><button class="btn ghost sm" onclick="showEssayAnswers()">Show expert answers</button><button class="btn mint" onclick="submitEssayCase()">Complete case packet</button></div><div class="essay-msg" id="essayMsg"></div>`;
-  document.getElementById('choiceLayer').appendChild(holder);
+  caseMount(holder);
   enhanceGlossary(holder);
 }
 function showEssayAnswers(){ document.querySelectorAll('.essay-answer').forEach(x=>x.style.display='block'); const msg=document.getElementById('essayMsg'); if(msg){msg.style.color='#475569';msg.textContent='Compare your answers to the expert workup, then complete the packet.';} }
@@ -2993,17 +3117,17 @@ function useFiftyFifty(){
   host.innerHTML=`<span class="stat-toast" style="--c:#8e77c9">${preceptorName()} narrowed it down</span>`;
   document.body.appendChild(host); setTimeout(()=>host.remove(),2000);
 }
-/* MCQ answer */
-function answerMcq(i){
-  const m=curM,c=m.cases[caseIdx];
-  if(G.results[m.id][caseIdx]!==null) return;
-  const opts=c._renderOpts||c.opts;
-  const ok=opts[i].ok;
-  G.results[m.id][caseIdx]=ok;
-  saveProgress("case");
-  const holder=document.getElementById("caseHolder");
-  holder.querySelectorAll(".choice").forEach((b,bi)=>{b.disabled=true;
-    if(opts[bi].ok)b.classList.add("correct"); if(bi===i&&!ok)b.classList.add("wrong");});
+/* MCQ answer: select first, double-click to cancel, and allow one coached retry */
+function selectMcq(i,btn){const holder=document.getElementById('caseHolder');if(!holder||btn.disabled)return;const was=btn.classList.contains('selected');holder.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));if(!was)btn.classList.add('selected');const submit=document.getElementById('mcqSubmit');if(submit)submit.disabled=was;}
+function clearMcqSelection(ev){if(ev){ev.preventDefault();ev.stopPropagation();}const holder=document.getElementById('caseHolder');holder?.querySelectorAll('.choice.selected').forEach(b=>b.classList.remove('selected'));const submit=document.getElementById('mcqSubmit');if(submit)submit.disabled=true;}
+function answerMcq(){
+  const m=curM,c=m.cases[caseIdx]; if(G.results[m.id][caseIdx]!==null)return;
+  const chosen=document.querySelector('#caseHolder .choice.selected'); if(!chosen)return;
+  const i=parseInt(chosen.dataset.i),opts=c._renderOpts||c.opts,ok=!!opts[i].ok;
+  c._attempts=(c._attempts||0)+1;
+  if(!ok&&c._attempts<2){chosen.classList.remove('selected');chosen.classList.add('wrong');chosen.disabled=true;const retry=document.getElementById('mcqRetry');if(retry)retry.innerHTML='<div class="mcq-retry"><b>Try once more.</b> '+String(opts[i].fb||'Recheck the indication, patient factors, and monitoring plan.').replace(/^(Correct\.|Not quite\.)\s*/i,'')+'</div>';const submit=document.getElementById('mcqSubmit');if(submit)submit.disabled=true;sfx('bad');return;}
+  G.results[m.id][caseIdx]=ok;saveProgress('case');
+  const holder=document.getElementById('caseHolder');holder.querySelectorAll('.choice').forEach((b,bi)=>{b.disabled=true;b.classList.remove('selected');if(opts[bi].ok)b.classList.add('correct');if(bi===i&&!ok)b.classList.add('wrong');});
   feedback(ok,opts[i].fb);
 }
 /* ORDER */
@@ -3015,6 +3139,7 @@ function placeOrder(btn){
   dst.innerHTML=ordSeq.map((s,i)=>`<span class="oitem placed"><span class="idx">${i+1}</span>${s}</span>`).join("");
   if(ordSeq.length===curM.cases[caseIdx].correct.length)document.getElementById("ordChk").disabled=false;
 }
+function removeOrder(btn,ev){if(ev){ev.preventDefault();ev.stopPropagation();}const t=decodeURIComponent(btn.dataset.t);const idx=ordSeq.lastIndexOf(t);if(idx>=0)ordSeq.splice(idx,1);btn.classList.remove('placed');const dst=document.getElementById('ordDst');dst.innerHTML=ordSeq.length?ordSeq.map((x,i)=>`<span class="oitem placed"><span class="idx">${i+1}</span>${x}</span>`).join(''):'<span style="color:#475569;font-size:12px;font-weight:800;padding:6px">Tap steps in order. Double-click a selected step to remove it.</span>';document.getElementById('ordChk').disabled=ordSeq.length!==curM.cases[caseIdx].correct.length;}
 function resetOrder(){ordSeq=[];const c=curM.cases[caseIdx];
   document.getElementById("ordDst").innerHTML=`<span style="color:#b58aa6;font-size:12px;font-weight:700;padding:6px">Tap the steps in the correct order…</span>`;
   document.querySelectorAll("#ordSrc .oitem").forEach(b=>b.classList.remove("placed"));
@@ -3059,7 +3184,7 @@ function feedback(ok, expl){
   const reactSrc=(SPRITE_URLS[pWho]||SPRITE_URLS.joey)[ok?'proud':'worry'];
   const streakTag=(ok&&G.streak.cur>=3)?`<span class="streak-tag">${G.streak.cur} in a row</span>`:'';
   drawScene(m.area, preceptorExpr(ok?okExpr:badExpr),preceptorName(), line, {
-    advance:false, note:`<img class="react-chip" src="${reactSrc}" alt="you">${streakTag}<b>${ok?'Correct':'Not quite'}</b> · ${cleanExpl}` });
+    advance:false, caseMode:true, note:`<img class="react-chip" src="${reactSrc}" alt="you">${streakTag}<b>${ok?'Correct':'Not quite'}</b> · ${cleanExpl}` });
   burst(ok?"good":"bad");
   sfx(ok?'ok':'bad');
   spawnStatToast(m.area, ok);
@@ -3231,6 +3356,8 @@ function ehrTab(which){
   document.querySelectorAll('.ehr-tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===which));
   document.querySelectorAll('.ehr-pane').forEach(pn=>pn.classList.toggle('on',pn.dataset.pane===which));
 }
+function marTime(i){return ['0800','0900','1000','1200','1400','1600'][i%6]}
+function marStatus(i,row){if(/hold|held|refus/i.test(row.text))return 'Held';if(i%3===0)return 'Given';if(i%3===1)return 'Due';return 'Scheduled'}
 function renderHunt(c){
   const holder=document.createElement("div"); holder.id="caseHolder"; holder.className="choices";
   const hasLabs=Array.isArray(c.labs)&&c.labs.length>0;
@@ -3246,16 +3373,17 @@ function renderHunt(c){
         (hasSnap?'<button type="button" class="ehr-tab" data-tab="snap" onclick="ehrTab(\'snap\')">Snapshot</button>':'')+
       '</div>'+
       '<div class="ehr-pane on" data-pane="orders">'+
-        '<div class="hunt-hint">Flag every order with a problem, then send your review.</div>'+
-        '<div class="hunt-list ehr-orders">'+c.rows.map((r,i)=>'<button class="hunt-row" data-i="'+i+'"><span class="ord-status">Active</span><span class="ord-text">'+r.text+'</span><span class="ord-flag">FLAG</span></button>').join("")+'</div>'+
+        '<div class="hunt-hint">Fictional Epic-style MAR training view. Review administration timing and flag every medication problem. Double-click a selected row to cancel.</div>'+
+        '<div class="mar-grid mar-head"><span>Time</span><span>Medication / order</span><span>MAR status</span><span>Review</span></div>'+
+        '<div class="hunt-list ehr-orders">'+c.rows.map((r,i)=>'<button class="hunt-row mar-grid" data-i="'+i+'"><span class="mar-time">'+marTime(i)+'</span><span class="ord-text">'+r.text+'<small>Ordered · pharmacist verification required</small></span><span class="mar-status '+marStatus(i,r).toLowerCase()+'">'+marStatus(i,r)+'</span><span class="ord-flag">FLAG</span></button>').join("")+'</div>'+
       '</div>'+
       (hasLabs?'<div class="ehr-pane" data-pane="labs"><div class="lab-grid">'+c.labs.map(labChip).join('')+'</div></div>':'')+
       (hasSnap?'<div class="ehr-pane" data-pane="snap"><div class="ehr-snap">'+c.patient+'</div></div>':'')+
       '<div class="ehr-foot"><span class="ehr-user">'+((G&&G.name)||'Resident')+', PGY-1 (pharmacy)</span><button class="btn sm" onclick="submitHunt()">Send pharmacist review</button></div>'+
     '</div>';
-  document.getElementById("choiceLayer").appendChild(holder);
+  caseMount(holder);
   enhanceGlossary(holder);
-  holder.querySelectorAll(".hunt-row").forEach(b=>b.onclick=()=>{b.classList.toggle("sel"); sfx('click');});
+  holder.querySelectorAll(".hunt-row").forEach(b=>{b.onclick=()=>{b.classList.toggle("sel");sfx('click');};b.ondblclick=(e)=>{e.preventDefault();e.stopPropagation();b.classList.remove('sel');};});
 }
 function submitHunt(){
   const m=curM,c=m.cases[caseIdx]; if(G.results[m.id][caseIdx]!==null) return;
@@ -3273,12 +3401,9 @@ function renderSbar(c){
   holder.innerHTML=c.slots.map((s,si)=>'<div class="sbar-slot"><div class="sbar-key">'+s.key+'</div>'+
     s.fragments.map((fr,fi)=>'<button class="sbar-frag" data-s="'+si+'" data-f="'+fi+'">'+fr.t+'</button>').join("")+'</div>').join("")+
     '<div style="text-align:center"><button class="btn sm" onclick="submitSbar()">Submit recommendation</button></div>';
-  document.getElementById("choiceLayer").appendChild(holder);
-    enhanceGlossary(holder);
-  holder.querySelectorAll(".sbar-frag").forEach(b=>b.onclick=()=>{
-    holder.querySelectorAll('.sbar-frag[data-s="'+b.dataset.s+'"]').forEach(x=>x.classList.remove("sel"));
-    b.classList.add("sel");
-  });
+  caseMount(holder);
+  enhanceGlossary(holder);
+  holder.querySelectorAll(".sbar-frag").forEach(b=>{b.onclick=()=>{holder.querySelectorAll('.sbar-frag[data-s="'+b.dataset.s+'"]').forEach(x=>x.classList.remove("sel"));b.classList.add("sel");};b.ondblclick=(e)=>{e.preventDefault();e.stopPropagation();b.classList.remove('sel');};});
 }
 function submitSbar(){
   const m=curM,c=m.cases[caseIdx]; if(G.results[m.id][caseIdx]!==null) return;
@@ -3298,8 +3423,8 @@ function renderCode(c){
   codeState={c:c, step:0, timeLeft:(c.seconds||45)};
   const holder=document.createElement("div"); holder.id="caseHolder"; holder.className="choices";
   holder.innerHTML='<div class="code-timer"><i id="codeBar"></i></div><div id="codeStep"></div>';
-  document.getElementById("choiceLayer").appendChild(holder);
-    enhanceGlossary(holder);
+  caseMount(holder);
+  enhanceGlossary(holder);
   renderCodeStep();
   codeState.timer=setInterval(function(){ codeState.timeLeft-=0.1; const bar=document.getElementById("codeBar"); if(bar)bar.style.width=Math.max(0,codeState.timeLeft/(codeState.c.seconds||45)*100)+"%"; if(codeState.timeLeft<=0){ clearInterval(codeState.timer); codeFinish(false,"Time ran out — in a real code, seconds are everything. "+(codeState.c.note||"")); } },100);
 }
@@ -3322,8 +3447,8 @@ function renderJournal(c){
   holder.innerHTML='<div class="jc-abstract">'+c.abstract+'</div><div class="hunt-hint">Tap the weaknesses you spot, then Next.</div>'+
     '<div class="hunt-list">'+c.flaws.map((fl,i)=>'<button class="hunt-row" data-i="'+i+'">'+fl.text+'</button>').join("")+'</div>'+
     '<div style="text-align:center"><button class="btn sm" onclick="jcSubmitFlaws()">Next ▶</button></div>';
-  document.getElementById("choiceLayer").appendChild(holder);
-    enhanceGlossary(holder);
+  caseMount(holder);
+  enhanceGlossary(holder);
   holder.querySelectorAll(".hunt-row").forEach(b=>b.onclick=()=>b.classList.toggle("sel"));
 }
 function jcSubmitFlaws(){
@@ -3389,15 +3514,15 @@ function answerText(c){
   return c.note||'Review this case.';
 }
 function buildStudyCards(){
-  const st=loadCardState(); const cards=[];
+  const st=loadCardState(); const pinned=new Set(pinnedCaseIds()); const cards=[];
   MODULES.forEach(m=>{
-    (TEACH[m.id]||[]).forEach((line,i)=>cards.push({id:cardId([m.id,'teach',i]),kind:'Teaching',module:m.title,moduleId:m.id,area:m.area,type:'teach',front:m.title+' teaching point #'+(i+1),back:line,tags:[m.area,m.id,'teach']}));
+    (TEACH[m.id]||[]).forEach((line,i)=>cards.push({id:cardId([m.id,'teach',i]),kind:'Teaching',module:m.title,moduleId:m.id,area:m.area,type:'teach',front:'Review: '+stripHTML(line).split(/[.!?]/)[0],back:line,tags:[m.area,m.id,'teach']}));
     (m.cases||[]).forEach((c,i)=>{
       cards.push({id:cardId([m.id,'case',i]),kind:'Case',module:m.title,moduleId:m.id,area:m.area,type:c.type||'mcq',front:(c.kick?c.kick+': ':'')+stripHTML(c.q),back:answerText(c),tags:[m.area,m.id,c.type||'mcq','case']});
       if(c.type==='mcq') (c.opts||[]).forEach((o,j)=>{ if(o.ok||o.fb) cards.push({id:cardId([m.id,'mcqopt',i,j]),kind:'Why',module:m.title,moduleId:m.id,area:m.area,type:'why',front:'Why is this '+(o.ok?'correct':'wrong')+'? '+stripHTML(o.t),back:o.fb||'Review the rationale.',tags:[m.area,m.id,'rationale']}); });
     });
   });
-  return cards.map(c=>Object.assign({box:st[c.id]?.box||1,due:st[c.id]?.due||0,seen:st[c.id]?.seen||0},c));
+  return cards.map(c=>Object.assign({box:st[c.id]?.box||1,due:pinned.has(c.id)?0:(st[c.id]?.due||0),seen:st[c.id]?.seen||0,pinned:pinned.has(c.id)},c)).sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0));
 }
 function studyFilterIds(filter){ if(!filter||filter==='all')return null; const stage=hubStageDefs().find(d=>d.id===filter); if(stage)return new Set(stage.ids); return new Set([filter]); }
 function studyDueCandidates(){ const now=Date.now(); const ids=studyFilterIds(STUDY.filter); return STUDY.cards.filter(c=>!ids||ids.has(c.moduleId)).filter(c=>!c.due||c.due<=now); }
@@ -6950,6 +7075,7 @@ function applyCuratedDepthCases(){Object.entries(CURATED_DEPTH_CASES).forEach(([
 /* CURATED_DEPTH_CASES_END */
 applyCuratedDepthCases();
 deBiasGeneratedMCQs();
+enrichMCQOptions();
 balanceMCQOptionLengths();
 balanceMCQCorrectPositions();
 
