@@ -1,0 +1,56 @@
+{
+  "orient": [
+    "https://www.ismp.org/recommendations/high-alert-medications-acute-list"
+  ],
+  "jcpp": [
+    "https://www.ashp.org/pharmacy-practice/resource-centers"
+  ],
+  "rounds": [
+    "https://dailymed.nlm.nih.gov/dailymed/"
+  ],
+  "pk": [
+    "https://www.idsociety.org/practice-guideline/vancomycin"
+  ],
+  "safety": [
+    "https://www.ismp.org/"
+  ],
+  "project": [
+    "https://www.hhs.gov/ohrp/regulations-and-policy/regulations/common-rule/index.html"
+  ],
+  "lead": [
+    "https://www.ashp.org/pharmacy-practice/resource-centers"
+  ],
+  "present": [
+    "https://www.ahrq.gov/patient-safety/index.html"
+  ],
+  "toc": [
+    "https://www.ashp.org/pharmacy-practice/resource-centers"
+  ],
+  "chart": [
+    "https://www.ismp.org/recommendations/high-alert-medications-acute-list"
+  ],
+  "id": [
+    "https://www.idsociety.org/practice-guideline/alphabetical-guidelines/"
+  ],
+  "peds": [
+    "https://www.fda.gov/media/90358/download"
+  ],
+  "preg": [
+    "https://www.acog.org/clinical"
+  ],
+  "immun": [
+    "https://www.cdc.gov/vaccines/hcp/imz-best-practices/"
+  ],
+  "nutrition": [
+    "https://www.nutritioncare.org/guidelines/"
+  ],
+  "pt_med_safety_committee": [
+    "https://www.ashp.org/pharmacy-practice/resource-centers"
+  ],
+  "informatics_surveillance": [
+    "https://www.ismp.org/"
+  ],
+  "communication_equity_reflection": [
+    "https://www.hhs.gov/ocr/index.html"
+  ]
+}

@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>The Clinical Path — PGY-1 Residency Onboarding, Reinvented</title>
-<meta name="description" content="A visual-novel onboarding platform that turns pharmacy residency orientation into measurable ASHP competency evidence." />
+<meta name="description" content="A visual-novel PGY-1 learning simulation with a formative practice record organized around ASHP competency areas." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -221,9 +221,11 @@
 .trust{background:#302842}.trust .pill{color:#eadcea}.trust .ic{background:rgba(255,183,214,.14);color:#ffb6d0}.trust b{color:#fff}.card,.step,.eng,.chap{border-color:#eadde8}.card{box-shadow:0 12px 30px rgba(72,47,78,.08)}.card .emo{background:#fff0f6}.step .n{background:#5a4a73}.band{background:linear-gradient(140deg,#302842,#584466)}.final{background:linear-gradient(120deg,#c95480,#9a78c6)}
 .story-divider{background:#fff;border-top:1px solid #eadde8;border-bottom:1px solid #eadde8;padding:36px 0}.story-divider .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.story-beat{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-left:3px solid #d9789e}.story-beat b{display:block;color:#302842;font-size:14px}.story-beat span{display:block;color:#7a6c82;font-size:13px;line-height:1.4}@media(max-width:920px){.hero .grid{grid-template-columns:1fr;min-height:auto}.hero-copy{padding:72px 0 20px}.vn-hero{height:540px}.vn-hero .harlin{right:-8%;height:88%}.vn-hero .belle{right:30%;height:67%}}@media(max-width:620px){.hero{min-height:0}.hero .grid{gap:0}.hero-copy{padding:54px 0 12px}.vn-hero{height:470px}.vn-hero .belle{display:none}.vn-hero .harlin{right:6%;height:82%;opacity:.82}.vn-hero .dialogue{left:12px;right:12px;bottom:22px;padding:18px 16px 14px}.vn-hero .choices{grid-template-columns:1fr}.story-divider .wrap{grid-template-columns:1fr}}
 
+.skip-link{position:fixed;left:12px;top:-60px;z-index:9999;background:#fff;color:#18223a;border:2px solid #18223a;border-radius:8px;padding:10px 14px;font-weight:800}.skip-link:focus{top:12px}a:focus-visible,summary:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#how">Skip to main content</a>
 
 <!-- NAV -->
 <nav>
@@ -243,10 +245,10 @@
 </nav>
 
 <!-- HERO -->
-<header class="hero" id="top"><div class="wrap grid"><div class="hero-copy"><span class="eyebrow">A residency year, told like a visual novel</span><h1>Give residents a <span class="hl">first year they can step into.</span></h1><p class="sub">The Clinical Path turns PGY-1 onboarding into hospital scenes, preceptor dialogue, and patient decisions that feel personal instead of like another slide deck.</p><div class="cta"><a class="btn primary" href="demo.html">Enter the PGY-1 demo</a><a class="btn ghost" href="#demo">See the story flow</a></div><div class="note"><span><span class="dot"></span> Fictional patients only</span><span><span class="dot"></span> 69 rotations · 2 preceptor routes</span><span><span class="dot"></span> 692 decisions · 1 rival</span></div></div><div class="vn-hero" aria-label="Visual novel scene preview"><div class="light"></div><div class="chapter">Orientation week · St. Aurelia Medical Center</div><img class="sprite belle" alt="Dr. Belle Deans, residency program director" src="assets/remote/sprite_14.webp"><img class="sprite harlin" alt="Dr. Harlin, clinical pharmacist preceptor" src="assets/remote/sprite_05.webp"><div class="dialogue"><div class="nameplate">Dr. Belle Deans</div><p>Your first patient is waiting on the ICU list. Before rounds, what do you need to review?</p><div class="choices"><div class="choice active">Cultures, renal trend, pressors, and antibiotic timing</div><div class="choice">Start with the medication name only</div></div></div></div></div></header>
+<header class="hero" id="top"><div class="wrap grid"><div class="hero-copy"><span class="eyebrow">A residency year, told like a visual novel</span><h1>Give residents a <span class="hl">first year they can step into.</span></h1><p class="sub">The Clinical Path turns PGY-1 onboarding into hospital scenes, preceptor dialogue, and patient decisions that feel personal instead of like another slide deck.</p><div class="cta"><a class="btn primary" href="demo.html">Enter the PGY-1 demo</a><a class="btn ghost" href="#demo">See the story flow</a></div><div class="note"><span><span class="dot"></span> Fictional patients only</span><span><span class="dot"></span> 69 rotations · 2 preceptor routes</span><span><span class="dot"></span> 457 decisions · 1 rival</span></div></div><div class="vn-hero" aria-label="Visual novel scene preview"><div class="light"></div><div class="chapter">Orientation week · St. Aurelia Medical Center</div><img class="sprite belle" alt="Dr. Belle Deans, residency program director" src="assets/remote/sprite_14.webp"><img class="sprite harlin" alt="Dr. Harlin, clinical pharmacist preceptor" src="assets/remote/sprite_05.webp"><div class="dialogue"><div class="nameplate">Dr. Belle Deans</div><p>Your first patient is waiting on the ICU list. Before rounds, what do you need to review?</p><div class="choices"><div class="choice active">Cultures, renal trend, pressors, and antibiotic timing</div><div class="choice">Start with the medication name only</div></div></div></div></div></header>
 <section class="story-divider" aria-label="The residency story arc"><div class="wrap"><div class="story-beat"><b>01 · Meet your preceptor</b><span>Orientation, systems, and the first patient workup.</span></div><div class="story-beat"><b>02 · Earn the team’s trust</b><span>Rounds, high-stakes decisions, feedback, and recovery.</span></div><div class="story-beat"><b>03 · Become the pharmacist</b><span>Teaching, leadership, and an independent simulated shift.</span></div></div></section>
 
-<div class="trust"><div class="wrap"><div class="pill"><span class="ic">CASE</span><b>652</b>&nbsp;clinical cases</div><div class="pill"><span class="ic">YEAR</span><b>65</b>&nbsp;guided rotations</div><div class="pill"><span class="ic">PLAY</span><b>9</b>&nbsp;ways to practice</div><div class="pill"><span class="ic">MAP</span> ASHP <b>R1–R4</b>&nbsp;learning trail</div><div class="pill"><span class="ic">SAFE</span> Fictional&nbsp;<b>patients</b></div></div></div>
+<div class="trust"><div class="wrap"><div class="pill"><span class="ic">CASE</span><b>457</b>&nbsp;clinical cases</div><div class="pill"><span class="ic">YEAR</span><b>69</b>&nbsp;guided rotations</div><div class="pill"><span class="ic">PLAY</span><b>9</b>&nbsp;ways to practice</div><div class="pill"><span class="ic">MAP</span> ASHP <b>R1–R4</b>&nbsp;learning trail</div><div class="pill"><span class="ic">SAFE</span> Fictional&nbsp;<b>patients</b></div></div></div>
 <!-- PROBLEM -->
 <section id="problem">
   <div class="wrap">
@@ -278,8 +280,8 @@
     <div class="steps">
       <div class="step"><div class="n">1</div><h3>Live the rotation</h3><p>Story scenes place each skill in real clinical drama with your preceptor cast — from Badge Day to the ICU.</p></div>
       <div class="step"><div class="n">2</div><h3>Decide on cases</h3><p>Chart review, SBAR, verification queues, dosing math, code blue, journal club — real decisions, instant rationale.</p></div>
-      <div class="step"><div class="n">3</div><h3>Build competency</h3><p>Every correct decision fills an ASHP R1–R4 goal. Fail safely on fictional patients, not real ones.</p></div>
-      <div class="step"><div class="n">4</div><h3>Prove readiness</h3><p>Open a preceptor review that shows what the resident has practiced and where to go next.</p></div>
+      <div class="step"><div class="n">3</div><h3>Practice by competency area</h3><p>Cases are organized across ASHP R1–R4 areas so residents and preceptors can see where practice is concentrated.</p></div>
+      <div class="step"><div class="n">4</div><h3>Review the practice record</h3><p>Open a formative coaching report showing what was attempted, what needs remediation, and where to practice next.</p></div>
     </div>
   </div>
 </section>
@@ -291,7 +293,7 @@
     <div class="center" style="margin-bottom:28px">
       <div class="eyebrow">Playable demo</div>
       <h2 style="font-size:clamp(30px,4vw,44px);margin-top:10px">Try a PGY-1 clinical pharmacy rotation scene.</h2>
-      <p class="lead">A short visual-novel prototype shows the interaction feel: preceptor dialogue, clinical choices, feedback, and competency-style progress. The expanded prototype now covers 69 PGY-1 learning experiences and 692 original cases across concept checks, practical rotation decisions, and BCPS-style integration.</p>
+      <p class="lead">A short visual-novel prototype shows the interaction feel: preceptor dialogue, clinical choices, feedback, and competency-style progress. The expanded prototype now covers 69 PGY-1 learning experiences and 457 curated cases across concept checks, practical rotation decisions, and BCPS-style integration.</p>
     </div>
     <div style="background:var(--navy);border-radius:22px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08)">
       <iframe src="demo.html" title="The Clinical Path PGY-1 playable demo" style="width:100%;height:min(78vh,760px);border:0;border-radius:14px;background:#0b2233"></iframe>
