@@ -32,6 +32,15 @@ add('Study Cards use a 20-card queue', demo.includes('studyDueCandidates().slice
 add('Completion score preserves decimal precision', demo.includes('displayPct(c,t)') && demo.includes('ov.displayPct'));
 add('Safety note leaves helper-button clearance', demo.includes('right:72px'));
 add('MCQ correct positions are deterministically balanced', demo.includes('balanceMCQCorrectPositions()'));
+add('Every MCQ is expanded to five options', demo.includes('ensureFiveMCQOptions'));
+add('One coached MCQ retry is implemented', demo.includes('Try once more.') && demo.includes('c._attempts<2'));
+add('Case selections can be cancelled', demo.includes('clearMcqSelection') && demo.includes('ondblclick'));
+add('Case workspace prevents question overlap', demo.includes('case-workspace') && demo.includes('body.case-active .vn-wrap'));
+add('Medication references and Quizlet actions are present', demo.includes('caseReferences(c)') && demo.includes('downloadCurrentQuizlet'));
+add('Epic-style MAR training view is present', demo.includes('Fictional Epic-style MAR training view') && demo.includes('mar-grid'));
+add('Pip helper is on the right', demo.includes('#pipBtn{position:fixed;right:16px;left:auto'));
+add('Map return-to-case path is present', demo.includes('resumeCurrentCase()') && demo.includes('Case paused:'));
+add('MAP and SSC glossary definitions are present', demo.includes("MAP:['Mean Arterial Pressure'") && demo.includes("SSC:['Surviving Sepsis Campaign'"));
 
 for (const c of checks) console.log(`${c.pass ? 'PASS' : 'FAIL'}  ${c.name}${c.detail ? ` — ${c.detail}` : ''}`);
 const failed = checks.filter(c => !c.pass);
