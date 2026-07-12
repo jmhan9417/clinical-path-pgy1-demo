@@ -586,6 +586,28 @@
 .pip-actions{display:flex;gap:6px;padding:0 14px 14px;flex-wrap:wrap}
 .pip-actions button{flex:1;min-width:64px;background:#fff;border:1.4px solid #f3d3e2;border-radius:10px;padding:8px 6px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#5d4a5c;cursor:pointer;transition:.12s}
 .pip-actions button:hover{border-color:#ff5f92;color:#ff5f92;background:#fff5f9}
+.pip-chat{margin:6px 14px 0;max-height:200px;overflow:auto;display:none;flex-direction:column;gap:6px;padding:8px;background:#fff;border:1px solid #f3d9e4;border-radius:12px}
+.pip-chat.has{display:flex}
+.pip-msg{font-size:12px;line-height:1.5;font-weight:700;border-radius:10px;padding:7px 9px;max-width:96%}
+.pip-msg.you{align-self:flex-end;background:#ffeef5;color:#8c3b60}
+.pip-msg.pip{align-self:flex-start;background:#f6f2ff;color:#4b3a5e}
+.pip-msg.pip b{color:#3f2a46}
+.pip-msg .case-ref{display:block;font-size:11.5px}
+.pip-go{display:inline-block;margin:5px 4px 0 0;background:#fff;border:1.4px solid #f3d3e2;border-radius:8px;padding:5px 8px;font-family:'Nunito',sans-serif;font-weight:900;font-size:11px;color:#5d4a5c;cursor:pointer;transition:.12s}
+.pip-go:hover{border-color:#ff5f92;color:#ff5f92}
+.pip-ask{display:flex;gap:6px;padding:10px 14px 0}
+.pip-ask input{flex:1;min-width:0;border:1.5px solid #f0cfdd;border-radius:10px;padding:8px 10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:12.5px;color:#3f2a46;outline:none;background:#fff}
+.pip-ask input:focus{border-color:#ff5f92;box-shadow:0 0 0 3px rgba(255,95,146,.12)}
+.pip-ask button{background:linear-gradient(120deg,#ff7fa8,#ff5f92);border:none;border-radius:10px;padding:8px 13px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#fff;cursor:pointer}
+.pip-ask button:hover{filter:brightness(1.06)}
+.pip-chips{display:flex;flex-wrap:wrap;gap:5px;padding:8px 14px 0}
+.pip-chips button{background:#fff7fb;border:1px solid #f3d9e4;border-radius:999px;padding:4px 9px;font-family:'Nunito',sans-serif;font-weight:800;font-size:10.5px;color:#8c6e84;cursor:pointer}
+.pip-chips button:hover{border-color:#ff5f92;color:#ff5f92}
+.pip-vol{display:flex;align-items:center;gap:8px;padding:9px 14px 13px;font-size:10.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#8c6e84}
+.vol-row{display:inline-flex;align-items:center;gap:8px;flex:1;min-width:150px}
+.vol-row input[type=range]{flex:1;min-width:90px;accent-color:#ff5f92;cursor:pointer}
+.vol-row [data-vol-out]{font-size:11px;font-weight:900;color:#8c6e84;min-width:34px;text-align:right}
+.set-row .vol-row{justify-content:flex-end}
 @media print{#pipBtn,#pipPanel{display:none!important}}
 
 
@@ -1220,7 +1242,7 @@ function showAchievements(){
   document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();};
 }
 /* ===== Pip — the resident helper bot ===== */
-var PIP={open:false};
+var PIP={open:false,chat:[]};
 function pipIntroSeen(){ try{return localStorage.getItem('clinicalPathPipIntro')==='done';}catch(e){return true;} }
 function pipMarkIntro(){ try{localStorage.setItem('clinicalPathPipIntro','done');}catch(e){} }
 function pipScreen(){
@@ -1286,12 +1308,45 @@ function pipTip(){
   };
   return tips[sc]||tips.other;
 }
+function pipEsc(x){return String(x||'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
+function pipGoBtn(label,code){ return '<button type="button" class="pip-go" onclick="'+String(code).replace(/"/g,'&quot;')+'">'+label+'</button>'; }
+function pipAnswer(raw){
+  var q=String(raw||'').trim(); var ql=q.toLowerCase().replace(/[?.!]+\s*$/,'').trim();
+  if(!ql) return 'Ask me about an acronym ("SSC"), a drug ("warfarin"), a lab ("potassium"), a topic ("sepsis"), or say "what next".';
+  var inGame=!!(typeof G!=='undefined'&&G&&G.results);
+  var gKey=Object.keys(GLOSSARY).find(function(k){return k.toLowerCase()===ql;});
+  if(!gKey){ var defM=ql.match(/^(?:what(?:'s| is| does)? |define |meaning of |explain )([a-z0-9&/\- ]{2,24}?)(?: stand for| mean)?$/); if(defM){ var cand=defM[1].trim(); gKey=Object.keys(GLOSSARY).find(function(k){return k.toLowerCase()===cand;}); } }
+  if(gKey){ var info=GLOSSARY[gKey]; var extra=(gKey==='MAP'&&inGame)?('<br>'+pipGoBtn('Open year map',"togglePip(false);openYearMap()")):''; return '<b>'+gKey+'</b> = '+info[0]+'<br>'+info[1]+extra; }
+  if(/(^| )(hint|stuck|help)( |$)/.test(ql)&&!/help me (find|with)/.test(ql)){ if(pipScreen()==='case'&&typeof curM!=='undefined'&&curM){ var cc=curM.cases[caseIdx]||{}; return pipCaseBody(cc); } return 'Open a case first, then ask me for a hint.'+(inGame?'<br>'+pipGoBtn('Year map','togglePip(false);openYearMap()'):''); }
+  if(/explain (this )?screen|where am i|what is this/.test(ql)){ var t=pipTip(); return '<b>'+t.h+'</b><br>'+t.b; }
+  if(/what next|what should i do|where should i go|next rotation|recommend/.test(ql)){ if(!inGame)return 'Start a resident first — choose "New resident" on the title screen.'; var nm=nextRecommendedModule(); return nm?('Your recommended next rotation is <b>'+nm.title+'</b>.<br>'+pipGoBtn('Open '+pipEsc(nm.title),"togglePip(false);openModule('"+nm.id+"')")+pipGoBtn('Year map','togglePip(false);openYearMap()')):'All rotations are complete — run the Readiness Review from the year map.'; }
+  if(/volume|mute|too loud|quieter|louder|^sound$/.test(ql)) return 'Adjust the effect volume here (also in Settings):<br>'+volumeSliderHTML()+'<br>'+pipGoBtn('Toggle sound on/off','toggleSound(event)');
+  if(/quizlet|export|flashcard|anki|study card/.test(ql)) return 'Study Cards collect every lesson and case. Grade them daily, save the current case, or export a Quizlet-ready import file.'+(inGame?'<br>'+pipGoBtn('Open Study Cards','togglePip(false);showStudyCards()')+(pipScreen()==='case'?pipGoBtn('Save this case','pinCurrentCase()')+pipGoBtn('Quizlet this case','downloadCurrentQuizlet()'):''):'');
+  if(/lab values?|reference range|^labs?$|normal range/.test(ql)) return 'The lab reference table covers chemistry, liver, heme/coag, lipids, and blood gases.<br>'+pipGoBtn('Open Lab Values','showLabValues(event)');
+  if(/calculator|^calc$|crcl|cockcroft|anion gap|corrected calcium|corrected phenytoin|heparin rate|^bmi$|^math$/.test(ql)){ var focus=/crcl|cockcroft/.test(ql)?'crcl':/anion/.test(ql)?'anion':/calcium/.test(ql)?'calcium':/phenytoin/.test(ql)?'phenytoin':/heparin/.test(ql)?'heparin':/bmi/.test(ql)?'bmi':''; return 'I can open the right tool for that.<br>'+pipGoBtn('Clinical calculators',"openClinicalCalculator(event"+(focus?",'"+focus+"'":"")+")")+pipGoBtn('Basic calculator','openBasicCalculator(event)'); }
+  if(/year map|^map$|go home|main screen|^hub$/.test(ql)) return inGame?('Off to the map.<br>'+pipGoBtn('Open year map','togglePip(false);openYearMap()')):'Start a resident first from the title screen.';
+  if(/reset|start over|delete (my )?save/.test(ql)) return 'Use <b>Resident Tools → Start Over</b> on the year map, or manage save slots from the title screen under <b>Residency files</b>.';
+  if(/report|preceptor review|readiness|my progress|my score/.test(ql)) return inGame?('Two review surfaces: <b>Review with Preceptor</b> (coaching record) and <b>Readiness Review</b> (end of year).<br>'+pipGoBtn('Preceptor Review','togglePip(false);showCompetencyReport()')):'Start a resident first.';
+  if(/settings|text speed|auto.?advance/.test(ql)) return 'Settings covers text speed, auto-advance pause, sound, and volume.'+(inGame?'<br>'+pipGoBtn('Open Settings','showSettings()'):'<br>Open Settings from the title screen.');
+  if(/who are you|what can you do|^help$/.test(ql)) return 'I can define acronyms (try "MAP"), summarize drugs (try "vancomycin"), give lab ranges (try "potassium"), find rotations (try "sepsis"), hint the current case, open Labs/Math/Calc, and point you to your next rotation.';
+  var drug=DRUG_TERMS.find(function(d){return ql===d||ql.includes(d)||(ql.length>=4&&d.includes(ql));});
+  if(drug){ var rules=CASE_REFERENCE_RULES.filter(function(r){return r.re.test(drug)||r.re.test(q);}).slice(0,2); var out='<b>'+drug.charAt(0).toUpperCase()+drug.slice(1)+'</b>'; rules.forEach(function(r){ out+='<br><b>'+r.title+'</b><ul style="margin:4px 0 4px 16px;padding:0">'+r.facts.map(function(f){return '<li>'+f+'</li>';}).join('')+'</ul>'; }); var drugLabs=LAB_VALUES.filter(function(r){return r[1].toLowerCase().includes(drug);}).slice(0,2); if(drugLabs.length) out+='<br>'+drugLabs.map(function(r){return '<b>'+r[1]+'</b>: '+r[2]+' '+r[3];}).join('<br>'); rules.forEach(function(r){ out+=r.refs.map(function(x){return '<a class="case-ref" style="border:0;padding:2px 0" href="'+x[1]+'" target="_blank" rel="noopener">'+x[0]+'</a>';}).join(''); }); out+='<a class="case-ref" style="border:0;padding:2px 0" href="https://dailymed.nlm.nih.gov/dailymed/search.cfm?query='+encodeURIComponent(drug)+'" target="_blank" rel="noopener">FDA label on DailyMed</a><br><span class="pip-hint">Educational summary — the current label and institutional protocol govern.</span>'; return out; }
+  if(ql.length>=3){ var labs=LAB_VALUES.filter(function(r){return r[1].toLowerCase().includes(ql);}).slice(0,4); if(labs.length) return labs.map(function(r){return '<b>'+r[1]+'</b>: '+r[2]+' '+r[3];}).join('<br>')+'<br><span class="pip-hint">Simulation reference ranges — institutional ranges govern.</span>'; }
+  if(ql.length>=3){ var mods=MODULES.filter(function(m){return (m.title+' '+(m.blurb||'')).toLowerCase().includes(ql);}).slice(0,3); if(mods.length) return 'Rotations matching "'+pipEsc(q)+'":<br>'+mods.map(function(m){return pipGoBtn(pipEsc(m.title),"togglePip(false);openModule('"+m.id+"')");}).join(''); }
+  var near=Object.keys(GLOSSARY).filter(function(k){return k.toLowerCase().includes(ql)||GLOSSARY[k][0].toLowerCase().includes(ql);}).slice(0,4);
+  if(near.length&&ql.length>=2) return near.map(function(k){return '<b>'+k+'</b> = '+GLOSSARY[k][0];}).join('<br>');
+  return 'I could not match that. Try an acronym ("SSC"), a drug ("warfarin"), a lab ("potassium"), a topic ("sepsis"), or "what next".';
+}
+function pipChatHTML(){ if(!PIP.chat.length) return ''; return PIP.chat.map(function(m){return '<div class="pip-msg '+m.who+'">'+(m.who==='you'?pipEsc(m.text):m.text)+'</div>';}).join(''); }
+function pipAsk(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} var inp=document.getElementById('pipAskInput'); var q=String(inp&&inp.value||'').trim(); if(!q)return false; PIP.chat.push({who:'you',text:q}); PIP.chat.push({who:'pip',text:pipAnswer(q)}); PIP.chat=PIP.chat.slice(-14); var log=document.getElementById('pipChat'); if(log){ log.innerHTML=pipChatHTML(); log.classList.add('has'); log.scrollTop=log.scrollHeight; } if(inp){inp.value='';inp.focus();} sfx('click'); return false; }
+function pipQuick(q){ var inp=document.getElementById('pipAskInput'); if(inp)inp.value=q; pipAsk(); }
+function pipChipsHTML(){ var sc=pipScreen(); var chips=[]; chips.push(['Explain this screen','explain screen']); if(sc==='case')chips.push(['Hint','hint']); chips.push(['What next?','what next']); chips.push(['MAP?','MAP']); return '<div class="pip-chips">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'</div>'; }
 function pipPanelHTML(intro){
   const tip=pipTip();
   const inGame=!!(typeof G!=='undefined'&&G&&G.results);
   const body=intro
-    ? `<b>Hi! I'm Pip, your rounds bot.</b><br>Three quick things:<br>1 · Follow the <b>month blocks</b> top to bottom — or just take the recommended <b>Next shift</b>.<br>2 · Answer cases to fill your <b>bond hearts</b> — your preceptor remembers how you practice.<br>3 · Anything you miss becomes a <b>Study Card</b>. Nothing is wasted.<br><span class="pip-hint">Press H to call me anytime.</span>`
-    : `<b>${tip.h}</b><br>${tip.b}<span class="pip-hint">Press H to open or close me.</span>`;
+    ? `<b>Hi! I'm Pip, your rounds bot.</b><br>Follow the <b>month blocks</b>, answer cases to grow your <b>bond hearts</b>, and anything you miss becomes a <b>Study Card</b>.<br><span class="pip-hint">You can also ask me anything below — drugs, acronyms, labs, rotations. Press H anytime.</span>`
+    : `<b>${tip.h}</b><br>${tip.b}`;
   const inCase=pipScreen()==='case';
   const acts=inGame? `<div class="pip-actions">
       ${inCase?'<button onclick="sfx(\'click\');focusCaseSupport()">Case info</button><button onclick="sfx(\'click\');pinCurrentCase()">Save card</button><button onclick="sfx(\'click\');downloadCurrentQuizlet()">Quizlet</button>':''}
@@ -1300,8 +1355,12 @@ function pipPanelHTML(intro){
       <button onclick="sfx('click');openClinicalCalculator(event)">Calc</button>
       <button onclick="sfx('click');togglePip();openYearMap()">Year map</button>
     </div>`:"";
-  return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>rounds bot · here to help</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
-  <div class="pip-body">${body}</div>${acts}`;
+  return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>rounds bot · ask me anything</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
+  <div class="pip-body">${body}</div>
+  <div class="pip-chat ${PIP.chat.length?'has':''}" id="pipChat">${pipChatHTML()}</div>
+  <form class="pip-ask" onsubmit="return pipAsk(event)"><input id="pipAskInput" type="text" placeholder='Ask: "vancomycin", "MAP", "potassium", "what next"' autocomplete="off" aria-label="Ask Pip a question"><button type="submit">Ask</button></form>
+  ${pipChipsHTML()}${acts}
+  <div class="pip-vol"><span>Volume</span>${volumeSliderHTML()}</div>`;
 }
 function togglePip(force){
   const panel=document.getElementById('pipPanel');
@@ -1338,9 +1397,11 @@ document.addEventListener('keydown',function(e){
   if((e.key===' '||e.key==='Enter')&&document.getElementById('vnText')){e.preventDefault();vnClick();}
 });
 var VNCTRL={auto:false,autoTimer:null,autoToken:0,log:[]};
-var SND={ctx:null,on:(function(){try{return localStorage.getItem('clinicalPathSound')!=='off';}catch(e){return true;}})()};
+var SND={ctx:null,on:(function(){try{return localStorage.getItem('clinicalPathSound')!=='off';}catch(e){return true;}})(),vol:(function(){try{const v=parseFloat(localStorage.getItem('clinicalPathVolume'));return isNaN(v)?0.8:Math.min(1,Math.max(0,v));}catch(e){return 0.8;}})()};
+function setVolume(v,ev){ if(ev)ev.stopPropagation(); SND.vol=Math.min(1,Math.max(0,parseFloat(v)||0)); try{localStorage.setItem('clinicalPathVolume',String(SND.vol));}catch(e){} document.querySelectorAll('[data-vol-out]').forEach(o=>o.textContent=Math.round(SND.vol*100)+'%'); document.querySelectorAll('input[data-vol-range]').forEach(r=>{if(parseFloat(r.value)!==SND.vol)r.value=SND.vol;}); if(SND.on)sfx('click'); }
+function volumeSliderHTML(){ return '<span class="vol-row"><input type="range" data-vol-range min="0" max="1" step="0.05" value="'+SND.vol+'" oninput="setVolume(this.value,event)" aria-label="Sound effect volume"><span data-vol-out>'+Math.round(SND.vol*100)+'%</span></span>'; }
 function sndCtx(){ if(!SND.ctx){ try{SND.ctx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} } if(SND.ctx&&SND.ctx.state==='suspended'){try{SND.ctx.resume();}catch(e){}} return SND.ctx; }
-function tone(f,t0,dur,type,gain){ const c=sndCtx(); if(!c)return; try{ const o=c.createOscillator(),g=c.createGain(); o.type=type||'sine'; o.frequency.value=f; const T=c.currentTime+t0; g.gain.setValueAtTime(0.0001,T); g.gain.exponentialRampToValueAtTime(gain||0.045,T+0.012); g.gain.exponentialRampToValueAtTime(0.0001,T+dur); o.connect(g); g.connect(c.destination); o.start(T); o.stop(T+dur+0.05);}catch(e){} }
+function tone(f,t0,dur,type,gain){ const c=sndCtx(); if(!c)return; try{ const o=c.createOscillator(),g=c.createGain(); o.type=type||'sine'; o.frequency.value=f; const T=c.currentTime+t0; g.gain.setValueAtTime(0.0001,T); g.gain.exponentialRampToValueAtTime(Math.max(0.0002,(gain||0.045)*SND.vol),T+0.012); g.gain.exponentialRampToValueAtTime(0.0001,T+dur); o.connect(g); g.connect(c.destination); o.start(T); o.stop(T+dur+0.05);}catch(e){} }
 function sfx(kind){ if(!SND.on)return;
   if(kind==='click')tone(760,0,0.05,'triangle',0.022);
   else if(kind==='ok'){tone(659,0,0.09,'sine',0.04);tone(880,0.07,0.1,'sine',0.038);tone(1109,0.14,0.16,'sine',0.032);}
@@ -2700,6 +2761,7 @@ function showSettings(){
     <div class="set-row"><b>Text speed</b><div class="seg">${seg('text',[{v:'slow',t:'Slow'},{v:'normal',t:'Normal'},{v:'fast',t:'Fast'}])}</div></div>
     <div class="set-row"><b>Auto-advance pause</b><div class="seg">${seg('auto',[{v:'relaxed',t:'Relaxed'},{v:'normal',t:'Normal'},{v:'quick',t:'Quick'}])}</div></div>
     <div class="set-row"><b>Sound</b><div class="seg"><button class="seg-btn ${SND.on?'on':''}" onclick="if(!SND.on)toggleSound(); document.getElementById('settingsOv').remove(); showSettings();">On</button><button class="seg-btn ${!SND.on?'on':''}" onclick="if(SND.on)toggleSound(); document.getElementById('settingsOv').remove(); showSettings();">Off</button></div></div>
+    <div class="set-row"><b>Volume</b>${volumeSliderHTML()}</div>
     <p style="margin:10px 0 0;color:#9a8393;font-weight:700;font-size:11.5px">Tip: number keys answer questions, Space advances dialogue, H calls Pip.</p></div>`;
   document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();};
 }
