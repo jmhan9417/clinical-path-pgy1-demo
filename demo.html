@@ -21,7 +21,7 @@
     color:var(--ink);background:#12101a;overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent}
   .skip-link{position:fixed;left:12px;top:-60px;z-index:9999;background:#fff;color:#2f2633;border:2px solid #7a4d8f;border-radius:8px;padding:10px 14px;font-weight:900;transition:top .15s}.skip-link:focus{top:12px}
   button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #2563eb!important;outline-offset:3px!important}
-  .sim-safety{position:fixed;left:12px;bottom:8px;z-index:80;max-width:min(520px,calc(100vw - 24px));font-size:10px;line-height:1.25;color:#584b55;background:rgba(255,255,255,.92);border:1px solid #dfd5dc;border-radius:7px;padding:5px 8px;pointer-events:none}
+  .sim-safety{position:fixed;left:12px;right:72px;bottom:8px;z-index:80;max-width:520px;font-size:10px;line-height:1.25;color:#584b55;background:rgba(255,255,255,.92);border:1px solid #dfd5dc;border-radius:7px;padding:5px 8px;pointer-events:none}
   .display{font-family:"Jua",sans-serif}
   #app{position:relative;width:100vw;height:100vh;overflow:hidden}
 
@@ -417,7 +417,7 @@
 /* VN-style preceptor review polish */
 .report-panel{background:linear-gradient(180deg,rgba(255,252,255,.97),rgba(255,246,251,.97));border:2px solid rgba(255,188,214,.8);box-shadow:0 24px 70px rgba(120,60,100,.28),inset 0 1px 0 rgba(255,255,255,.85)}
 .report-head{background:linear-gradient(120deg,#fff7fb,#f6f0ff);border:1px solid #f2d9ea;border-radius:20px;padding:14px 16px;box-shadow:0 10px 26px rgba(120,60,100,.10)}
-.report-head h2{font-family:"Jua";font-size:27px;color:#c23b6b}.report-sub{color:#745c72}.report-actions .btn{border-radius:14px}.report-grid{grid-template-columns:repeat(4,1fr);margin-top:14px}.report-metric{border-radius:18px;background:#fff;border:1px solid #f5d9e7;box-shadow:0 8px 20px rgba(120,60,100,.08)}
+.report-head h2{font-family:"Jua";font-size:27px;color:#c23b6b}.report-sub{color:#745c72}.report-actions .btn{border-radius:14px}.report-downloads{position:relative}.report-downloads summary{list-style:none;cursor:pointer;border:1px solid #e7cfe0;border-radius:14px;padding:8px 12px;background:#fff;color:#765d72;font-size:12px;font-weight:900}.report-downloads summary::-webkit-details-marker{display:none}.report-downloads[open] summary{background:#fff7fb}.report-download-menu{position:absolute;right:0;top:calc(100% + 6px);z-index:20;min-width:210px;background:#fff;border:1px solid #ead7e3;border-radius:14px;padding:8px;box-shadow:0 12px 30px rgba(75,43,67,.16);display:grid;gap:6px}.report-download-menu .btn{width:100%;text-align:left}.report-grid{grid-template-columns:repeat(4,1fr);margin-top:14px}.report-metric{border-radius:18px;background:#fff;border:1px solid #f5d9e7;box-shadow:0 8px 20px rgba(120,60,100,.08)}
 .report-metric b{font-family:"Jua";font-weight:400;color:#c23b6b}.report-section{border-radius:20px;border:1px solid #f1ddeb;background:rgba(255,255,255,.88);box-shadow:0 10px 24px rgba(120,60,100,.08)}.report-section h3{font-family:"Jua";font-size:18px;color:#7a4d8f}.readiness-grid{grid-template-columns:repeat(5,1fr)}.ready-card{border-radius:18px;background:linear-gradient(180deg,#fff,#fff8fc);box-shadow:0 8px 18px rgba(120,60,100,.07)}.ready-card.good{background:linear-gradient(180deg,#f0fffb,#fff)}.ready-card.warn{background:linear-gradient(180deg,#fff8fc,#fff)}
 .report-table th{background:#fff7fb;color:#8d5f78}.report-table td{background:rgba(255,255,255,.72)}.report-pill{background:#f6e8ff;color:#71448a}.report-pill.good{background:#dbfff6;color:#167a70}.report-pill.warn{background:#fff4dc;color:#8a5a00}.report-note{background:#f8fbff;border-color:#dbeafe;color:#52647a}
 
@@ -1473,6 +1473,16 @@ function deBiasGeneratedMCQs(){
   const trap2='Delay the recommendation until every minor detail is known';
   MODULES.forEach(m=>(m.cases||[]).forEach(c=>{ if(c.type==='mcq' && c.kick==='BCPS-style integration' && c.opts&&c.opts.length>=3){ c.opts[0].t=good; c.opts[1].t=trap1; c.opts[2].t=trap2; } }));
 }
+function balanceMCQCorrectPositions(){
+  let seq=0;
+  MODULES.forEach(m=>(m.cases||[]).forEach(c=>{
+    if(c.type!=='mcq'||!Array.isArray(c.opts)||c.opts.length<2)return;
+    const current=c.opts.findIndex(o=>o.ok); if(current<0)return;
+    const target=seq%c.opts.length; seq++;
+    if(current===target)return;
+    const [answer]=c.opts.splice(current,1); c.opts.splice(target,0,answer);
+  }));
+}
 function balanceMCQOptionLengths(){
   const suffixes=[
     ' with documented rationale and follow-up monitoring',
@@ -2375,7 +2385,8 @@ function bokehHTML(){let s="";for(let i=0;i<7;i++){const sz=20+Math.random()*60,
 function bond(){ let c=0; MODULES.forEach(m=>G.results[m.id].forEach(r=>{if(r===true)c++;})); return c; }
 function bondMax(){ let t=0; MODULES.forEach(m=>t+=m.cases.length); return t; }
 function areaScore(a){let c=0,t=AREA_TOTALS[a]||0;MODULES.filter(m=>m.area===a).forEach(m=>G.results[m.id].forEach(r=>{if(r===true)c++;}));return{c,t,pct:t?Math.round(c/t*100):0};}
-function overall(){let c=0,t=0;MODULES.forEach(m=>m.cases.forEach((_,i)=>{t++;if(G.results[m.id][i]===true)c++;}));return{c,t,pct:t?Math.round(c/t*100):0};}
+function displayPct(c,t){if(!t)return'0';const p=c/t*100;return p===100?'100':p.toFixed(1).replace(/\.0$/,'');}
+function overall(){let c=0,t=0;MODULES.forEach(m=>m.cases.forEach((_,i)=>{t++;if(G.results[m.id][i]===true)c++;}));return{c,t,pct:t?Math.round(c/t*100):0,displayPct:displayPct(c,t)};}
 function modDone(m){return G.results[m.id].every(r=>r!==null);}
 function modCorrect(m){return G.results[m.id].filter(r=>r===true).length;}
 
@@ -3179,7 +3190,7 @@ function graduate(){
           <div><span>R2 Practice Adv.</span><b>${r2.c}/${r2.t}</b></div>
           <div><span>R3 Leadership</span><b>${r3.c}/${r3.t}</b></div>
           <div><span>R4 Teaching</span><b>${r4.c}/${r4.t}</b></div>
-          <div><span>Total Score</span><b>${ov.c}/${ov.t} (${ov.pct}%)</b></div>
+          <div><span>Total Score</span><b>${ov.c}/${ov.t} (${ov.displayPct}%)</b></div>
         </div>
         <div style="font-size:11.5px;color:#9a8393;margin-top:6px">Rotations done ${done}/${MODULES.length}</div>
         <div style="margin-top:14px;display:flex;gap:9px;justify-content:center;flex-wrap:wrap">
@@ -3361,7 +3372,7 @@ Object.assign(TEACH, {"onco_emerg":["Oncology emergencies are time-sensitive. Fe
 /* ==================================================================
    SPACED STUDY CARDS
    ================================================================== */
-let STUDY={cards:[],idx:0,flipped:false,filter:'all'};
+let STUDY={cards:[],idx:0,flipped:false,filter:'all',queueIds:[]};
 function stripHTML(s){ const d=document.createElement('div'); d.innerHTML=String(s||''); return String(d.textContent||d.innerText||'').replace(/\s+/g,' ').trim(); }
 function escTSV(s){ return String(s||'').replace(/\t/g,' ').replace(/\r?\n/g,'<br>').replace(/\s{2,}/g,' ').trim(); }
 function cardId(parts){ return parts.join('::').toLowerCase().replace(/[^a-z0-9:_-]+/g,'-').slice(0,160); }
@@ -3390,21 +3401,22 @@ function buildStudyCards(){
   return cards.map(c=>Object.assign({box:st[c.id]?.box||1,due:st[c.id]?.due||0,seen:st[c.id]?.seen||0},c));
 }
 function studyFilterIds(filter){ if(!filter||filter==='all')return null; const stage=hubStageDefs().find(d=>d.id===filter); if(stage)return new Set(stage.ids); return new Set([filter]); }
-function dueCards(){ const now=Date.now(); const ids=studyFilterIds(STUDY.filter); return STUDY.cards.filter(c=>!ids||ids.has(c.moduleId)).filter(c=>!c.due||c.due<=now); }
+function studyDueCandidates(){ const now=Date.now(); const ids=studyFilterIds(STUDY.filter); return STUDY.cards.filter(c=>!ids||ids.has(c.moduleId)).filter(c=>!c.due||c.due<=now); }
+function dueCards(){ const q=new Set(STUDY.queueIds||[]); return studyDueCandidates().filter(c=>q.has(c.id)); }
 function filteredCards(){ const ids=studyFilterIds(STUDY.filter); return STUDY.cards.filter(c=>!ids||ids.has(c.moduleId)); }
-function showStudyCards(filter){ STUDY.cards=buildStudyCards(); STUDY.filter=filter||STUDY.filter||'all'; STUDY.idx=0; STUDY.flipped=false; renderStudyCards(); }
+function showStudyCards(filter){ STUDY.cards=buildStudyCards(); STUDY.filter=filter||STUDY.filter||'all'; STUDY.queueIds=studyDueCandidates().slice(0,20).map(c=>c.id); STUDY.idx=0; STUDY.flipped=false; renderStudyCards(); }
 function renderStudyCards(){
   const pool=dueCards(); const all=filteredCards(); const c=pool[STUDY.idx%Math.max(pool.length,1)]; const mods=MODULES;
   document.getElementById('app').innerHTML=`
     <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div><div class="fx" id="fx2"></div>
     <div class="center-layer" style="justify-content:center;padding:4vh 18px"><div class="study-panel">
-      <div class="study-head"><div><h2>Study Cards</h2><div class="study-sub">Built from ${MODULES.length} rotations · ${STUDY.cards.length} cards · review what is due today</div><div class="download-help"><b>Want to study outside the demo?</b> Save a Quizlet-ready import file from this deck.</div></div>
+      <div class="study-head"><div><h2>Study Cards</h2><div class="study-sub">A focused queue of up to 20 cards · ${STUDY.cards.length} cards across ${MODULES.length} rotations</div><div class="download-help"><b>Want to study outside the demo?</b> Save a Quizlet-ready import file from the full deck.</div></div>
         <div class="study-actions"><button class="btn ghost sm" onclick="goHub()">${(typeof G!=='undefined'&&G&&G.results)?'Back to year map':'Back to title'}</button><button class="btn ghost sm" onclick="exportQuizletTXT()">Save Quizlet import file</button><button class="btn ghost sm" onclick="resetCardProgress()">Reset card progress</button></div></div>
       <div class="study-grid"><div>${c?cardHTML(c):'<div class="flash-empty">No due cards in this filter. Switch rotation blocks or reset card progress.</div>'}</div><div class="study-side">
-        <div class="study-stat"><div class="statbox"><b>${pool.length}</b><span>Due</span></div><div class="statbox"><b>${all.length}</b><span>Filtered</span></div><div class="statbox"><b>${STUDY.cards.length}</b><span>Total</span></div><div class="statbox"><b>${Math.round((STUDY.cards.filter(x=>x.seen).length/Math.max(STUDY.cards.length,1))*100)}%</b><span>Seen</span></div></div>
-        <div class="due-note">Cards come from lessons, cases, rationales, calculations, SBAR practice, journal-club critiques, and guideline diagrams.</div>
+        <div class="study-stat"><div class="statbox"><b>${pool.length}</b><span>Today</span></div><div class="statbox"><b>${all.length}</b><span>In rotation</span></div><div class="statbox"><b>${STUDY.cards.length}</b><span>Full deck</span></div><div class="statbox"><b>${Math.round((STUDY.cards.filter(x=>x.seen).length/Math.max(STUDY.cards.length,1))*100)}%</b><span>Seen</span></div></div>
+        <div class="due-note">Finish this short queue, then return tomorrow or choose another rotation block. Cards come from lessons, cases, rationales, calculations, SBAR practice, journal-club critiques, and guideline diagrams.</div>
         <div class="filter-list">${hubStageDefs().map(d=>`<button class="${STUDY.filter===d.id || (!STUDY.filter&&d.id==='all')?'on':''}" onclick="showStudyCards('${d.id}')">${d.title.replace(/Months? /,'').replace(' · ',' ')}</button>`).join('')}</div>
-        <div class="card-list">${all.slice(0,90).map(x=>`<div class="card-mini ${c&&x.id===c.id?'on':''}" onclick="jumpCard('${x.id}')"><b>${x.kind}</b> · ${x.module}<br>${stripHTML(x.front).slice(0,80)}</div>`).join('')}</div>
+        <div class="card-list">${pool.map(x=>`<div class="card-mini ${c&&x.id===c.id?'on':''}" onclick="jumpCard('${x.id}')"><b>${x.kind}</b> · ${x.module}<br>${stripHTML(x.front).slice(0,80)}</div>`).join('')}</div>
       </div></div></div></div>`;
 }
 function cardHTML(c){ return `<div class="flash-card" onclick="flipCard()"><div><div class="flash-kicker"><span class="tag area">${c.area}</span><span class="tag type">${c.type}</span><span class="tag">${c.module}</span><span class="tag">review level ${c.box}</span></div><div class="flash-face">${STUDY.flipped?'Back':'Front'}</div><div class="${STUDY.flipped?'flash-a':'flash-q'}">${STUDY.flipped?c.back:c.front}</div><div class="flash-hint">Click card to flip</div></div>${STUDY.flipped?`<div class="review-buttons" onclick="event.stopPropagation()"><button class="btn ghost" onclick="gradeCard('again')">Again</button><button class="btn mint" onclick="gradeCard('good')">Good</button><button class="btn" onclick="gradeCard('easy')">Easy</button></div>`:`<div class="review-buttons" onclick="event.stopPropagation()"><button class="btn mint" onclick="flipCard()">Show answer</button><button class="btn ghost" onclick="nextCard()">Skip</button></div>`}</div>`; }
@@ -6930,6 +6942,7 @@ function ensureMinimumCasesPerModule(){MODULES.forEach(m=>{let guard=0;while(m.c
 ensureMinimumCasesPerModule();
 deBiasGeneratedMCQs();
 balanceMCQOptionLengths();
+balanceMCQCorrectPositions();
 
 
 /* ==================================================================
@@ -6969,8 +6982,8 @@ function showCompetencyReport(){
     ${hudHTML('core')}
     <div class="center-layer" style="justify-content:flex-start;padding-top:64px">
       <div class="report-panel">
-        <div class="report-head"><div><h2>Preceptor Review</h2><div class="report-sub">Resident: ${learner} · PGY-1 onboarding · ${new Date().toLocaleDateString()}<br>A clean review scene for your rotation progress, strengths, and next practice targets.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="sfx('click');exportCompetencyCSV()">Export CSV</button><button class="btn ghost sm" onclick="sfx('click');exportCompetencyJSON()">Export JSON</button><button class="btn ghost sm" onclick="goHub()">Back to rotations</button></div></div>
-        <div class="report-grid"><div class="report-metric"><b>${s.doneModules}/${s.modules}</b><span>Rotations finished</span></div><div class="report-metric"><b>${s.correct}/${s.totalCases}</b><span>Cases correct</span></div><div class="report-metric"><b>${s.attemptPct}%</b><span>Cases practiced</span></div><div class="report-metric"><b>${s.cards}</b><span>Study cards ready</span></div></div><div class="report-note"><b>Preceptor note:</b> This page is your end-of-shift coaching record, not a residency evaluation or credential. Use it to identify practice targets.${s.criticalRemediation?` <b>${s.criticalRemediation} critical-response checkoff${s.criticalRemediation===1?' requires':'s require'} remediation.</b>`:' No failed critical-response checkoffs are currently recorded.'}</div>
+        <div class="report-head"><div><h2>Preceptor Review</h2><div class="report-sub">Resident: ${learner} · PGY-1 onboarding · ${new Date().toLocaleDateString()}<br>A clean review scene for your rotation progress, strengths, and next practice targets.</div></div><div class="report-actions"><details class="report-downloads"><summary>Download practice record</summary><div class="report-download-menu"><button class="btn ghost sm" onclick="sfx('click');exportCompetencyCSV()">Spreadsheet file</button><button class="btn ghost sm" onclick="sfx('click');exportCompetencyJSON()">Structured data file</button></div></details><button class="btn ghost sm" onclick="goHub()">Back to rotations</button></div></div>
+        <div class="report-grid"><div class="report-metric"><b>${s.doneModules}/${s.modules}</b><span>Rotations finished</span></div><div class="report-metric"><b>${s.correct}/${s.totalCases}</b><span>Cases correct</span></div><div class="report-metric"><b>${s.attemptPct}%</b><span>Cases practiced</span></div><div class="report-metric"><b>${s.cards}</b><span>Study cards available</span></div></div><div class="report-note"><b>Preceptor note:</b> This page is your end-of-shift coaching record, not a residency evaluation or credential. Use it to identify practice targets.${s.criticalRemediation?` <b>${s.criticalRemediation} critical-response checkoff${s.criticalRemediation===1?' requires':'s require'} remediation.</b>`:' No failed critical-response checkoffs are currently recorded.'}</div>
         <div class="report-section"><h3>Readiness snapshot</h3><div class="readiness-grid">${reportReadinessCards()}</div><div class="report-note">This is a simulation review for coaching only. Real residency evaluation still comes from your preceptor, site policy, and observed practice.</div></div>
         <div class="report-section"><h3>Competency map</h3><table class="report-table"><thead><tr><th>Area</th><th>Progress</th><th>Practice record</th><th>Practice styles</th></tr></thead><tbody>${areas.map(r=>`<tr><td><b>${r.area}</b><br>${r.label}</td><td><div class="report-bar"><i style="width:${r.pct}%"></i></div><small>${r.pct}% correct · ${r.attemptPct}% attempted</small></td><td>${r.correct}/${r.total} correct<br>${r.doneMods}/${r.modules} modules complete</td><td>${typeMixHTML(r.types)}</td></tr>`).join('')}</tbody></table></div>
         <div class="report-section"><h3>Rotation progress</h3><div class="evidence-scroll"><table class="report-table"><thead><tr><th>#</th><th>Rotation</th><th>Area</th><th>Status</th><th>Progress</th><th>Practice styles</th></tr></thead><tbody>${mods.map(r=>`<tr><td>${String(r.seq).padStart(2,'0')}</td><td><b>${r.title}</b></td><td>${r.area}</td><td>${r.status}</td><td>${r.correct}/${r.total} · ${r.pct}%</td><td>${r.types.map(t=>`<span class="report-pill ${r.status==='Completed'?'good':r.status==='Not started'?'warn':''}">${t}</span>`).join('')}</td></tr>`).join('')}</tbody></table></div></div>
