@@ -1644,7 +1644,8 @@ const GLOSSARY={
 };
 let GLOSSARY_RE=null;
 const CALC_TERM_MAP={CrCl:"crcl",INR:"none",aPTT:"none"};
-function glossaryRegex(){ if(!GLOSSARY_RE){ const keys=Object.keys(GLOSSARY).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')); GLOSSARY_RE=new RegExp('\\b('+keys.join('|')+')\\b','g'); } return GLOSSARY_RE; }
+const GLOSSARY_SKIP=new Set(['IV','IM','SQ','PO','BID','NPO','BP','ECG','CPR','CBC','BMP','ICU','ED','NICU','PICU','HTN','HF','COPD','CKD','DKA','ACS','AF','PE','DVT','CNS','HPI','PMH','PGY-1','MRSA']);
+function glossaryRegex(){ if(!GLOSSARY_RE){ const keys=Object.keys(GLOSSARY).filter(k=>!GLOSSARY_SKIP.has(k)).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')); GLOSSARY_RE=new RegExp('\\b('+keys.join('|')+')\\b','g'); } return GLOSSARY_RE; }
 function toggleGlossaryTip(el,ev){ if(ev){ev.preventDefault();ev.stopPropagation();} const ab=el.closest('.abbr'); if(!ab)return; document.querySelectorAll('.abbr.open').forEach(x=>{if(x!==ab)x.classList.remove('open')}); ab.classList.toggle('open'); }
 function enhanceGlossary(root){
   root=root||document.getElementById('app')||document.body; const re=glossaryRegex();
