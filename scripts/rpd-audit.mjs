@@ -12,11 +12,11 @@ add('No credential-conferring result label', !/PGY-1 Graduate|Ready for BCPS \/ 
 add('Critical-response remediation gate', demo.includes('criticalMisses().length'));
 add('Readiness review is formative', demo.includes('Quiz scores are coaching evidence only'));
 add('Content governance metadata', demo.includes('CONTENT_GOVERNANCE'));
-add('Current DKA potassium threshold', !demo.includes('3.3') && demo.includes('3.5'));
+add('Current DKA potassium threshold', demo.includes('K⁺ &lt; 3.5') && !demo.includes('K⁺ &lt; 3.3') && !demo.includes('K⁺ ≥ 3.3'));
 add('Keyboard skip links', demo.includes('Skip to simulation content') && home.includes('Skip to main content'));
 add('Visible keyboard focus', demo.includes(':focus-visible') && home.includes(':focus-visible'));
 add('No remote character CDN dependency', !demo.includes('d8j0ntlcm91z4.cloudfront.net') && !home.includes('d8j0ntlcm91z4.cloudfront.net'));
-add('69-rotation map present', demo.includes('View all 69 rotations'));
+add('69-rotation map present', demo.includes('Resident Year Map') && demo.includes('View all ${MODULES.length} rotations'));
 add('Code Stroke validation present', demo.includes('code_stroke_validation'));
 add('P&T committee module present', demo.includes('pt_med_safety_committee'));
 add('Informatics module present', demo.includes('informatics_surveillance'));
@@ -37,14 +37,17 @@ add('One coached MCQ retry is implemented', demo.includes('Try once more.') && d
 add('Case selections can be cancelled', demo.includes('clearMcqSelection') && demo.includes('ondblclick'));
 add('Case workspace prevents question overlap', demo.includes('case-workspace') && demo.includes('body.case-active .vn-wrap'));
 add('Medication references and Quizlet actions are present', demo.includes('caseReferences(c)') && demo.includes('downloadCurrentQuizlet'));
-add('Epic-style MAR training view is present', demo.includes('Fictional Epic-style MAR training view') && demo.includes('mar-grid'));
+add('Surface-aware MAR and chart review are present', demo.includes("function chartSurface(c)") && demo.includes("Medication Administration Record") && demo.includes('mar-grid'));
+add('MAR timing and status are authored, not index-generated', demo.includes('AUTHORED_MAR_CASES') && demo.includes('function authoredMar(c)') && !demo.includes('function marTime(i)') && !demo.includes('function marStatus(i,row)'));
+add('All item types use missed-case tracking', demo.includes('function jcAnswerNnt') && demo.includes('commitCaseResult(ok);\n  const why=c.flaws'));
+add('Review-mode position persists across reload', demo.includes('reviewMode:REVIEW_MODE||G.reviewMode||null') && demo.includes('d.reviewMode.moduleId===curM.id'));
 add('Pip helper is on the right', demo.includes('#pipBtn{position:fixed;right:16px;left:auto'));
-add('Map return-to-case path is present', demo.includes('resumeCurrentCase()') && demo.includes('Case paused:'));
+add('Map return-to-case path is present and persisted', demo.includes('resumeCurrentCase()') && demo.includes('Return to paused case') && demo.includes('clinicalPathPausedCase'));
 add('MAP and SSC glossary definitions are present', demo.includes("MAP:['Mean Arterial Pressure'") && demo.includes("SSC:['Surviving Sepsis Campaign'"));
 add('Sound volume is adjustable and persisted', demo.includes('clinicalPathVolume') && demo.includes('data-vol-range') && demo.includes('setVolume(this.value,event)'));
 add('Volume scales the audio engine gain', demo.includes('(gain||0.045)*SND.vol'));
 add('Pip has a free-text ask box', demo.includes('id="pipAskInput"') && demo.includes('return pipAsk(event)'));
-add('Pip local answer engine covers drugs, labs, glossary, rotations', demo.includes('function pipAnswer') && demo.includes('DRUG_TERMS.find') && demo.includes('LAB_VALUES.filter') && demo.includes('Rotations matching'));
+add('Pip local answer engine covers drugs, labs, glossary, rotations', demo.includes('function pipAnswer') && demo.includes('drugPool.find') && demo.includes('LAB_VALUES.filter') && demo.includes('Rotations matching'));
 add('Pip escapes user input before echoing', demo.includes('function pipEsc'));
 
 for (const c of checks) console.log(`${c.pass ? 'PASS' : 'FAIL'}  ${c.name}${c.detail ? ` — ${c.detail}` : ''}`);
