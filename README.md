@@ -4,7 +4,7 @@ A pharmacy residency onboarding sim, told like a visual novel.
 
 You are a new PGY-1 resident at the fictional **St. Aurelia Medical Center**. Pick your resident, pick your preceptor, and work through a full residency year, one clinical decision at a time. Patient vignettes are used only when patient-specific data are actually provided; systems and workflow items are labeled separately.
 
-**Play it now:** [Landing page](https://jmhan9417.github.io/clinical-path-pgy1-demo/) · [Full-screen demo](https://jmhan9417.github.io/clinical-path-pgy1-demo/demo.html)
+**Play it now:** [Landing page](https://clinicalpharmacistmaker.vercel.app/) · [Full-screen demo](https://clinicalpharmacistmaker.vercel.app/demo.html)
 
 ![Title screen](docs/title.png)
 

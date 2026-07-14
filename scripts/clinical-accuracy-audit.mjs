@@ -36,6 +36,7 @@ add('Metformin uses eGFR, not CrCl',demo.includes('metformin is contraindicated 
 add('PRISMA is reporting, not quality proof',demo.includes('PRISMA checklist used to assess reporting completeness'));
 add('CPOE reduces rather than removes errors',demo.includes('reduces many ordering/transcription errors'));
 add('MRSA nares limitation is pneumonia-specific',demo.includes('MRSA nasal PCR may support stopping empiric vancomycin for pneumonia'));
+add('Culture-directed AKI SBAR stops unnecessary broad therapy',demo.includes('Stop ketorolac, discontinue vancomycin and piperacillin-tazobactam, narrow to ceftriaxone, and monitor renal function and urine output.')&&!demo.includes('hold/re-dose vancomycin by levels')&&!demo.includes('vancomycin level-based holding or redosing are also required'));
 add('QI and publication intent do not define research',demo.includes('publication intent alone does not make QI human-subjects research'));
 add('Stroke threshold and thrombolytic doses are explicit',demo.includes('Lower BP to <185/110 mm Hg')&&demo.includes('tenecteplase 0.25 mg/kg (max 25 mg)'));
 add('Epinephrine uses mg-per-mL concentration language',!demo.includes('1:1000 vs 1:10,000')&&demo.includes('verify epinephrine in mg/mL'));

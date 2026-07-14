@@ -7,7 +7,7 @@ const add = (name, pass, detail='') => checks.push({name, pass:Boolean(pass), de
 
 add('Marketing rotation count is current', home.includes('<b>69</b>&nbsp;guided rotations'));
 add('Marketing case count is current', home.includes('<b>457</b>&nbsp;clinical cases'));
-add('Persistent simulation disclaimer', demo.includes('Not medical advice, residency credit, credentialing, or independent practice validation'));
+add('Persistent simulation disclaimer', demo.includes('No medical advice, residency credit, credentialing, or independent-practice validation') && demo.includes('body.case-active #app{height:calc(100dvh - 52px)') && demo.includes('@media(max-width:900px)'));
 add('No credential-conferring result label', !/PGY-1 Graduate|Ready for BCPS \/ PGY-2/.test(demo));
 add('Critical-response remediation gate', demo.includes('criticalMisses().length'));
 add('Readiness review is formative', demo.includes('Quiz scores are coaching evidence only'));
@@ -39,6 +39,8 @@ add('Case workspace prevents question overlap', demo.includes('case-workspace') 
 add('Medication references and Quizlet actions are present', demo.includes('caseReferences(c)') && demo.includes('downloadCurrentQuizlet'));
 add('Surface-aware MAR and chart review are present', demo.includes("function chartSurface(c)") && demo.includes("Medication Administration Record") && demo.includes('mar-grid'));
 add('MAR timing and status are authored, not index-generated', demo.includes('AUTHORED_MAR_CASES') && demo.includes('function authoredMar(c)') && !demo.includes('function marTime(i)') && !demo.includes('function marStatus(i,row)'));
+add('Mobile MAR fits without horizontal scrolling', demo.includes('.ehr-win{min-width:0;width:100%;max-width:100%}') && demo.includes('.case-main{overflow-x:visible}') && demo.includes('.mar-grid .ord-text,.mar-grid .mar-note{min-width:0}'));
+add('Tablet MAR uses a compact four-column grid', demo.includes('.ehr-orders .mar-grid,.mar-grid.mar-head{grid-template-columns:72px minmax(200px,1fr) 82px minmax(140px,1fr)}'));
 add('All item types use missed-case tracking', demo.includes('function jcAnswerNnt') && demo.includes('commitCaseResult(ok);\n  const why=c.flaws'));
 add('Review-mode position persists across reload', demo.includes('reviewMode:REVIEW_MODE||G.reviewMode||null') && demo.includes('d.reviewMode.moduleId===curM.id'));
 add('Pip helper is on the right', demo.includes('#pipBtn{position:fixed;right:16px;left:auto'));
