@@ -619,8 +619,9 @@
 .pip-ask button{background:linear-gradient(120deg,#ff7fa8,#ff5f92);border:none;border-radius:10px;padding:8px 13px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#fff;cursor:pointer}
 .pip-ask button:hover{filter:brightness(1.06)}
 .pip-chips{display:flex;flex-wrap:wrap;gap:5px;padding:8px 14px 0}
-.pip-chips button{background:#fff7fb;border:1px solid #f3d9e4;border-radius:999px;padding:4px 9px;font-family:'Nunito',sans-serif;font-weight:800;font-size:10.5px;color:#8c6e84;cursor:pointer}
+.pip-chips button{background:#fff7fb;border:1px solid #f3d9e4;border-radius:8px;padding:4px 9px;font-family:'Nunito',sans-serif;font-weight:800;font-size:10.5px;color:#8c6e84;cursor:pointer}
 .pip-chips button:hover{border-color:#ff5f92;color:#ff5f92}
+.pip-team{margin:10px 14px 0;padding-top:10px;border-top:1px solid #f0dbe4}.pip-team-label{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:7px;color:#3f2a46;font-size:11px;font-weight:900}.pip-team-label span{color:#9b7c91;font-size:10px;font-weight:700}.pip-team-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.pip-team-list button{display:flex;align-items:center;gap:7px;min-width:0;border:1px solid #ead7e0;border-radius:10px;background:#fff;padding:6px;text-align:left;color:#4f3d4d;font-family:'Nunito',sans-serif;cursor:pointer}.pip-team-list button:hover{border-color:#d083a1;background:#fff8fb}.pip-team-list img{width:30px;height:30px;flex:none;border-radius:8px;object-fit:cover;object-position:top;background:#f7eef2}.pip-team-list b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10.5px}.pip-team-list small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9b7c91;font-size:9px;font-weight:800}.pip-brief-row{margin-top:8px;padding-top:7px;border-top:1px solid #f1e3ea}.pip-brief-row>b{display:block;margin-bottom:2px;font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:#9d5273}.pip-brief-row span,.pip-brief-row ol{margin:0;color:#5d4a5c}.pip-brief-row ol{padding-left:18px}
 .pip-vol{display:flex;align-items:center;gap:8px;padding:9px 14px 13px;font-size:10.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#8c6e84}
 .vol-row{display:inline-flex;align-items:center;gap:8px;flex:1;min-width:150px}
 .vol-row input[type=range]{flex:1;min-width:90px;accent-color:#ff5f92;cursor:pointer}
@@ -849,6 +850,8 @@ Object.assign(SPRITE_URLS,{
   patient:{neutral:"assets/remote/sprite_22.webp"},
   nurse:{neutral:"assets/remote/sprite_23.webp"},
   attending:{neutral:"assets/remote/sprite_24.webp"},
+  ortega:{neutral:"assets/remote/sprite_25.webp"},
+  amina:{neutral:"assets/remote/sprite_26.webp"},
   preceptor_male:{neutral:"assets/remote/sprite_25.webp"},
   preceptor_female:{neutral:"assets/remote/sprite_26.webp"}
 });
@@ -865,6 +868,8 @@ function faceImg(expr, who){
     patient:{dir:'assets/cameo/patient_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
     nurse:{dir:'assets/cameo/nurse_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
     attending:{dir:'assets/cameo/attending_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral'}},
+    ortega:{dir:'assets/remote/', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral',laugh:'neutral',wink:'neutral',surprised:'neutral'}},
+    amina:{dir:'assets/remote/', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral',laugh:'neutral',wink:'neutral',surprised:'neutral'}},
     preceptor_male:{dir:'assets/preceptor/male_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral',laugh:'neutral',wink:'neutral',surprised:'neutral'}},
     preceptor_female:{dir:'assets/preceptor/female_', has:['neutral'], alias:{happy:'neutral',smile:'neutral',think:'neutral',worry:'neutral',proud:'neutral',encourage:'neutral',alarmed:'neutral',stern:'neutral',laugh:'neutral',wink:'neutral',surprised:'neutral'}}
   };
@@ -1371,12 +1376,12 @@ function pipTip(){
     review:{h:"Preceptor Review",b:"This is your end-of-shift debrief: what you practiced, what is strong, and what to revisit next."},
     cards:{h:"Study Cards",b:"One useful card per clinical case. Dialogue lines and individual wrong options are excluded; saved drug references remain available."},
     shift:{h:"Simulated Shift",b:"Pick the patient who worries you most — each one opens the matching rotation, just like triaging a real board."},
-    cast:{h:"The team",b:"Dr. Harlin and Dr. Park teach the same cases with different personalities. Dr. Deans runs the program."},
+    cast:{h:"The care team",b:"Your chosen preceptor anchors the year. Dr. Shah, Dr. Ortega, Nurse Vance, Dr. Chen, and Dr. Deans step in when their clinical lens fits the rotation."},
     faceoff:{h:"Rounds face-off",b:"Pride match with Elliot — same clinical rules apply. Read the whole stem; he rushes, you don't have to."},
     journeys:{h:"Patient journeys",b:"Three patients you keep meeting all year. Finish their linked rotations and their stories continue on their own."},
     saves:{h:"Residency files",b:"Three residents can live on this device — try one route with Dr. Harlin and another with Dr. Park. Deleting a slot cannot be undone."},
     chapter:{h:"New rotation",b:"Tap anywhere to walk in."},
-    other:{h:"Pip here",b:"I'm your rounds bot. Open me anytime with H if you are not sure what to do next."}
+    other:{h:"Pip here",b:"I'm your clinical copilot. Press H for a case brief, team consult, study plan, reference, tool, or next-step recommendation."}
   };
   return tips[sc]||tips.other;
 }
@@ -1423,10 +1428,65 @@ function pipRefs(c){
   if(!refs.length)return 'Use the current institutional policy and the governing specialty guideline for this scenario.';
   return `<b>References for this case:</b><ul>${refs.map(r=>`<li><a href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a></li>`).join('')}</ul>`;
 }
+function pipPlain(x,max){const s=String(x||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();return pipEsc(max&&s.length>max?s.slice(0,max-1)+'…':s);}
+function pipCaseBrief(c){
+  if(!c)return 'Open a case and ask <b>brief me</b>. I will organize the facts without revealing the answer.';
+  const sup=caseSupport(c),givens=(c.given||[]).slice(0,4),tasks=(c.tasks||[]).slice(0,4),steps=pipCaseSteps(c);
+  const patient=c.patient?`<div class="pip-brief-row"><b>Patient</b><span>${pipPlain(c.patient,260)}</span></div>`:'';
+  const facts=givens.length?`<div class="pip-brief-row"><b>Known</b><span>${givens.map(x=>pipPlain(x,120)).join(' · ')}</span></div>`:'';
+  const ask=tasks.length?tasks.map(x=>pipPlain(x,140)).join('</li><li>'):(steps||[]).slice(0,3).map(x=>pipPlain(x,140)).join('</li><li>');
+  const meds=sup.drugs.length?`<div class="pip-brief-row"><b>Medication focus</b><span>${sup.drugs.slice(0,5).map(pipEsc).join(', ')}</span></div>`:'';
+  return `<b>Case brief · no answer revealed</b>${patient}${facts}${meds}<div class="pip-brief-row"><b>Your job</b><ol><li>${ask}</li></ol></div>`;
+}
+function pipProgressRows(){
+  if(!(typeof G!=='undefined'&&G&&G.results))return [];
+  return MODULES.map(m=>{const r=G.results[m.id]||[],attempted=r.filter(x=>x!==null).length,correct=r.filter(x=>x===true).length,missed=r.filter(x=>x===false).length;return {m,attempted,correct,missed,pct:attempted?Math.round(correct/attempted*100):null};});
+}
+function pipProgressSummary(){
+  const rows=pipProgressRows();if(!rows.length)return 'Start a resident first and I can track your progress.';
+  const attempted=rows.reduce((n,x)=>n+x.attempted,0),correct=rows.reduce((n,x)=>n+x.correct,0),complete=rows.filter(x=>modDone(x.m)).length;
+  const weak=rows.filter(x=>x.missed>0).sort((a,b)=>b.missed-a.missed||a.pct-b.pct).slice(0,3);
+  const focus=weak.length?`<br><b>Most missed:</b><ul>${weak.map(x=>`<li>${pipEsc(x.m.title)} · ${x.missed} missed · ${x.pct}% correct</li>`).join('')}</ul>`:'<br><b>No missed cases yet.</b> Keep building the sample.';
+  return `<b>${complete}/${MODULES.length} rotations complete</b><br>${attempted} cases attempted · ${correct} correct${attempted?` · ${Math.round(correct/attempted*100)}%`:''}${focus}${pipGoBtn('Open Preceptor Review','togglePip(false);showCompetencyReport()')}`;
+}
+function pipStudyPlan(){
+  const rows=pipProgressRows();if(!rows.length)return 'Start a resident first and I can build a study plan.';
+  const weak=rows.filter(x=>x.missed>0).sort((a,b)=>b.missed-a.missed||a.pct-b.pct),next=nextRecommendedModule(),plan=[];
+  weak.slice(0,2).forEach(x=>plan.push({m:x.m,why:`Review ${x.missed} missed case${x.missed===1?'':'s'}`}));
+  if(next&&!plan.some(x=>x.m.id===next.id))plan.push({m:next,why:'Continue the residency sequence'});
+  if(!plan.length)plan.push({m:next||MODULES[0],why:'Keep your active streak moving'});
+  return `<b>Your next three moves</b><ol>${plan.slice(0,3).map(x=>`<li><b>${pipEsc(x.m.title)}</b><br>${x.why}</li>`).join('')}</ol>${plan.slice(0,3).map(x=>pipGoBtn('Open '+pipEsc(x.m.title),`togglePip(false);openModule('${x.m.id}')`)).join('')}`;
+}
+function pipSaveNote(text){
+  if(!(typeof curM!=='undefined'&&curM))return 'Open a rotation first, then write <b>note: ...</b> and I will save it to that rotation.';
+  const clean=String(text||'').replace(/\s+/g,' ').trim().slice(0,300);if(!clean)return 'Add text after <b>note:</b> and I will save it locally.';
+  const key=residentNoteKey(),old=residentNoteValue(),line=`Pip capture: ${clean}`;try{localStorage.setItem(key,[old,line].filter(Boolean).join('\n'));}catch(e){return 'I could not save that note in this browser.';}
+  return `Saved to <b>${pipEsc(curM.title)} → My notes</b>.<br>${pipGoBtn('Open notes','togglePip(false);openNotes()')}`;
+}
+function pipTeamWho(ql){
+  const tests=[['harlin',/harlin/],['dpark',/daniel|dr\.? park/],['belle',/belle|deans|rpd/],['amina',/amina|shah|id pharmacist/],['ortega',/mateo|ortega|ambulatory/],['nurse',/nurse|vance|mar expert/],['attending',/dr\.? chen|attending/],['elliot',/elliot|kang|rival/]];
+  const hit=tests.find(x=>x[1].test(ql));return hit?hit[0]:'';
+}
+function pipConsult(who,c){
+  const p=CLINICAL_TEAM[who]||CLINICAL_TEAM[preceptorWho()]||CLINICAL_TEAM.harlin;
+  const lenses={harlin:'Start with the changing physiology. Name the trend, connect it to the medication, then define the response you expect.',dpark:'Find the time-critical risk first. Verify the drug, dose, route, timing, and the next check before anything else.',belle:'Show your reasoning as a professional decision: evidence, patient-specific exception, owner, and closed-loop follow-up.',amina:'Trace indication → target → exposure → response → toxicity. Cultures, immune status, organ function, and interactions belong in one picture.',ortega:'Test whether the plan survives discharge: access, adherence, teach-back, monitoring, and the handoff to the next clinician.',nurse:'Read the MAR, not just the order. What was actually given, held, refused, delayed, or impractical at the bedside?',attending:'Give me one sentence for the problem, one for the decisive data, and one recommendation with a reassessment trigger.',elliot:'Commit to an answer, then attack your own weakest assumption. Fast recall only counts when the reasoning still holds.'};
+  let context='Open a case and I will apply this lens to the current facts without spoiling the answer.';
+  if(c){const sup=caseSupport(c),steps=pipCaseSteps(c);context=`For this case, focus on <b>${pipPlain(c.kick,120)}</b>. ${sup.drugs.length?`Medication signal: <b>${sup.drugs.slice(0,3).map(pipEsc).join(', ')}</b>. `:''}First move: ${pipPlain((steps&&steps[0])||'identify the active problem',130)}.`;}
+  return `<b>${p.name}</b><br><span class="pip-hint" style="margin-top:2px">${p.role}</span>${lenses[p.who]||lenses.harlin}<br><br>${context}`;
+}
+function pipTeamHTML(){
+  const hasRotation=typeof curM!=='undefined'&&curM,mentor=hasRotation?rotationMentor(curM):null,base=hasRotation?[mentor.who,preceptorWho(),'nurse','belle']:['harlin','dpark','amina','ortega'],ids=base.filter((x,i,a)=>x&&a.indexOf(x)===i);['harlin','dpark','amina','ortega','nurse','belle'].forEach(id=>{if(ids.length<4&&!ids.includes(id))ids.push(id);});
+  return `<div class="pip-team"><div class="pip-team-label">Consult the team <span>different lens, same case</span></div><div class="pip-team-list">${ids.map(id=>{const p=CLINICAL_TEAM[id],src=(SPRITE_URLS[id]&&(SPRITE_URLS[id].neutral||Object.values(SPRITE_URLS[id])[0]))||'';return `<button type="button" onclick="pipQuick('ask ${p.short.replace(/'/g,"\\'")}')"><img src="${src}" alt=""><span><b>${p.short}</b><small>${p.specialty.split(',')[0]}</small></span></button>`;}).join('')}</div></div>`;
+}
 function pipAnswer(raw){
   var q=String(raw||'').trim(); var ql=q.toLowerCase().replace(/[?.!]+\s*$/,'').trim();
-  if(!ql) return 'Ask me about an acronym ("SSC"), a drug ("warfarin"), a lab ("potassium"), a topic ("sepsis"), or say "what next".';
+  if(!ql) return 'Ask for a <b>case brief</b>, a <b>team consult</b>, a <b>study plan</b>, an acronym, drug, lab, rotation, or say "what next".';
   var inGame=!!(typeof G!=='undefined'&&G&&G.results);
+  var noteM=q.match(/^(?:note|remember|save note)\s*[:\-]?\s+([\s\S]{2,300})$/i);if(noteM)return pipSaveNote(noteM[1]);
+  var teamWho=pipTeamWho(ql);if(teamWho&&/(ask|consult|what would|perspective|lens|advice)/.test(ql))return pipConsult(teamWho,pipCurrentCase());
+  if(/brief me|case brief|summari[sz]e (the|this|my) case|what do (i|we) know|patient brief|handoff/.test(ql))return pipCaseBrief(pipCurrentCase());
+  if(/study plan|weak areas?|what should i review|review plan|coach me/.test(ql))return pipStudyPlan();
+  if(/my progress|progress summary|how am i doing|my score|accuracy/.test(ql))return pipProgressSummary();
   var gKey=Object.keys(GLOSSARY).find(function(k){return k.toLowerCase()===ql;});
   if(!gKey){ var defM=ql.match(/^(?:what(?:'s| is| does)? |define |meaning of |explain )([a-z0-9&/\- ]{2,24}?)(?: stand for| mean)?$/); if(defM){ var cand=defM[1].trim(); gKey=Object.keys(GLOSSARY).find(function(k){return k.toLowerCase()===cand;}); } }
   if(gKey){ var info=GLOSSARY[gKey]; var extra=(gKey==='MAP'&&inGame)?('<br>'+pipGoBtn('Open year map',"togglePip(false);openYearMap()")):''; return '<b>'+gKey+'</b> = '+info[0]+'<br>'+info[1]+extra; }
@@ -1442,9 +1502,9 @@ function pipAnswer(raw){
   if(/calculator|^calc$|crcl|cockcroft|anion gap|corrected calcium|corrected phenytoin|heparin rate|^bmi$|^math$/.test(ql)){ var focus=/crcl|cockcroft/.test(ql)?'crcl':/anion/.test(ql)?'anion':/calcium/.test(ql)?'calcium':/phenytoin/.test(ql)?'phenytoin':/heparin/.test(ql)?'heparin':/bmi/.test(ql)?'bmi':''; return 'I can open the right tool for that.<br>'+pipGoBtn('Clinical calculators',"openClinicalCalculator(event"+(focus?",'"+focus+"'":"")+")")+pipGoBtn('Basic calculator','openBasicCalculator(event)'); }
   if(/year map|^map$|go home|main screen|^hub$/.test(ql)) return inGame?('Off to the map.<br>'+pipGoBtn('Open year map','togglePip(false);openYearMap()')):'Start a resident first from the title screen.';
   if(/reset|start over|delete (my )?save/.test(ql)) return 'Use <b>Resident Tools → Start Over</b> on the year map, or manage save slots from the title screen under <b>Residency files</b>.';
-  if(/report|preceptor review|readiness|my progress|my score/.test(ql)) return inGame?('Two review surfaces: <b>Review with Preceptor</b> (coaching record) and <b>Readiness Review</b> (end of year).<br>'+pipGoBtn('Preceptor Review','togglePip(false);showCompetencyReport()')):'Start a resident first.';
+  if(/report|preceptor review|readiness/.test(ql)) return inGame?('Two review surfaces: <b>Review with Preceptor</b> (coaching record) and <b>Readiness Review</b> (end of year).<br>'+pipGoBtn('Preceptor Review','togglePip(false);showCompetencyReport()')):'Start a resident first.';
   if(/settings|text speed|auto.?advance/.test(ql)) return 'Settings covers text speed, auto-advance pause, sound, and volume.'+(inGame?'<br>'+pipGoBtn('Open Settings','showSettings()'):'<br>Open Settings from the title screen.');
-  if(/who are you|what can you do|^help$/.test(ql)) return 'I can give a case <b>hint</b>, explain <b>why</b> after you answer, list case <b>refs</b>, define acronyms (try "MAP"), summarize drugs (try "vancomycin"), give lab ranges (try "potassium"), find rotations (try "sepsis"), hint the current case, open Labs/Math/Calc, and point you to your next rotation.';
+  if(/who are you|what can you do|^help$/.test(ql)) return 'I can <b>brief the current case</b> without spoiling it, bring in a <b>team perspective</b>, build a <b>study plan</b> from your misses, summarize progress, save a rotation note, explain <b>why</b> after you answer, list references, define acronyms, summarize drugs and labs, find rotations, and open the right tool.';
   if(ql.length>=3){ var exactLabs=LAB_VALUES.filter(function(r){return r[1].toLowerCase()===ql||r[1].toLowerCase().includes(ql);}).slice(0,4); if(exactLabs.length) return exactLabs.map(function(r){return '<b>'+r[1]+'</b>: '+r[2]+' '+r[3];}).join('<br>')+'<br><span class="pip-hint">Simulation reference ranges — institutional ranges govern.</span>'; }
   var drugPool=Array.from(new Set(DRUG_TERMS.concat(Object.keys(DRUG_MONOGRAPHS||{}))));
   var drug=drugPool.find(function(d){return ql===d||ql.includes(d)||(ql.length>=4&&d.includes(ql));});
@@ -1453,18 +1513,18 @@ function pipAnswer(raw){
   if(ql.length>=3){ var mods=MODULES.filter(function(m){return (m.title+' '+(m.blurb||'')).toLowerCase().includes(ql);}).slice(0,3); if(mods.length) return 'Rotations matching "'+pipEsc(q)+'":<br>'+mods.map(function(m){return pipGoBtn(pipEsc(m.title),"togglePip(false);openModule('"+m.id+"')");}).join(''); }
   var near=Object.keys(GLOSSARY).filter(function(k){return k.toLowerCase().includes(ql)||GLOSSARY[k][0].toLowerCase().includes(ql);}).slice(0,4);
   if(near.length&&ql.length>=2) return near.map(function(k){return '<b>'+k+'</b> = '+GLOSSARY[k][0];}).join('<br>');
-  return 'I could not match that. Try <b>hint</b>, <b>why</b>, <b>refs</b>, an acronym ("SSC"), a drug ("warfarin"), a lab ("potassium"), or "what next".';
+  return 'I could not match that. Try <b>brief me</b>, <b>study plan</b>, <b>ask Daniel</b>, <b>hint</b>, <b>why</b>, <b>refs</b>, an acronym, a drug, a lab, or "what next".';
 }
 function pipChatHTML(){ if(!PIP.chat.length) return ''; return PIP.chat.map(function(m){return '<div class="pip-msg '+m.who+'">'+(m.who==='you'?pipEsc(m.text):m.text)+'</div>';}).join(''); }
 function pipAsk(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} var inp=document.getElementById('pipAskInput'); var q=String(inp&&inp.value||'').trim(); if(!q)return false; PIP.chat.push({who:'you',text:q}); PIP.chat.push({who:'pip',text:pipAnswer(q)}); PIP.chat=PIP.chat.slice(-14); pipChatSave(); var log=document.getElementById('pipChat'); if(log){ log.innerHTML=pipChatHTML(); log.classList.add('has'); log.scrollTop=log.scrollHeight; } if(inp){inp.value='';inp.focus();} sfx('click'); return false; }
 function pipQuick(q){ var inp=document.getElementById('pipAskInput'); if(inp)inp.value=q; pipAsk(); }
 function pipClearChat(){PIP.chat=[];pipChatSave();const log=document.getElementById('pipChat');if(log){log.innerHTML='';log.classList.remove('has');}const inp=document.getElementById('pipAskInput');if(inp)inp.focus();}
-function pipChipsHTML(){ var sc=pipScreen(); var chips=[]; if(sc==='case'||sc==='feedback'){ if(sc==='case')chips.push(['Hint','hint']); chips.push(['Why?','why']); chips.push(['Drug info','drug info']); chips.push(['References','refs']); } else { chips.push(['Explain this screen','explain screen']); chips.push(['What next?','what next']); chips.push(['MAP?','MAP']); } return '<div class="pip-chips">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'<button type="button" onclick="pipClearChat()">Clear</button></div>'; }
+function pipChipsHTML(){ var sc=pipScreen(); var chips=[]; if(sc==='case'||sc==='feedback'){ chips.push(['Brief','brief me']); if(sc==='case')chips.push(['Hint','hint']); chips.push(['Why?','why']); chips.push(['Drug info','drug info']); chips.push(['References','refs']); } else { chips.push(['Study plan','study plan']); chips.push(['Progress','my progress']); chips.push(['What next?','what next']); chips.push(['Explain screen','explain screen']); } return '<div class="pip-chips">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'<button type="button" onclick="pipClearChat()">Clear</button></div>'; }
 function pipPanelHTML(intro){
   const tip=pipTip();
   const inGame=!!(typeof G!=='undefined'&&G&&G.results);
   const body=intro
-    ? `<b>Hi! I'm Pip, your rounds bot.</b><br>Follow the <b>month blocks</b>, answer cases to grow your <b>bond hearts</b>, and anything you miss becomes a <b>Study Card</b>.<br><span class="pip-hint">You can also ask me anything below — drugs, acronyms, labs, rotations. Press H anytime.</span>`
+    ? `<b>Hi! I'm Pip, your rounds copilot.</b><br>I can brief a case, call in the right teammate, find a reference or tool, and turn your misses into a focused study plan.<br><span class="pip-hint">I stay inside the simulation data and never replace your preceptor or institutional policy. Press H anytime.</span>`
     : `<b>${tip.h}</b><br>${tip.b}`;
   const inCase=['case','feedback'].includes(pipScreen());
 
@@ -1475,11 +1535,11 @@ function pipPanelHTML(intro){
       <button onclick="sfx('click');openClinicalCalculator(event)">Calc</button>
       <button onclick="sfx('click');togglePip();openYearMap()">Year map</button>
     </div>`:"";
-  return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>rounds bot · ask me anything</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
+  return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>clinical copilot · case, team, study</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
   <div class="pip-body">${body}</div>
   <div class="pip-chat ${PIP.chat.length?'has':''}" id="pipChat">${pipChatHTML()}</div>
-  <form class="pip-ask" onsubmit="return pipAsk(event)"><input id="pipAskInput" type="text" placeholder='Ask: "vancomycin", "MAP", "potassium", "what next"' autocomplete="off" aria-label="Ask Pip a question"><button type="submit">Ask</button></form>
-  ${pipChipsHTML()}${acts}
+  <form class="pip-ask" onsubmit="return pipAsk(event)"><input id="pipAskInput" type="text" placeholder='Ask: "brief me", "study plan", "ask Daniel"' autocomplete="off" aria-label="Ask Pip a question"><button type="submit">Ask</button></form>
+  ${pipChipsHTML()}${pipTeamHTML()}${acts}
   <div class="pip-vol"><span>Volume</span>${volumeSliderHTML()}</div>`;
 }
 function togglePip(force){
@@ -1578,6 +1638,16 @@ applyFontScale(getFontScale());
 const PRECEPTORS={
   female:{id:'female',name:'Dr. Harlin',label:'Female preceptor route',who:'harlin',sprite:'happy',tone:'Playful ICU mentor. Teases, teaches, never lets you coast.'},
   male:{id:'male',name:'Dr. Daniel Park',label:'Male preceptor route',who:'dpark',sprite:'neutral',tone:'Calm EM-trained mentor. Quiet standards, steady encouragement.'}
+};
+const CLINICAL_TEAM={
+  harlin:{who:'harlin',name:'Dr. Harlin',role:'ICU pharmacist · Preceptor',short:'Harlin',specialty:'physiology, trends, and ICU prioritization',bio:'Fast, funny, and allergic to vague answers. She teaches you to see the physiologic signal before the noise.'},
+  dpark:{who:'dpark',name:'Dr. Daniel Park',role:'EM pharmacist · Preceptor',short:'Daniel',specialty:'time-critical verification and emergency medicine',bio:'A calm voice in loud moments. He turns a crowded problem into the next safe action.'},
+  belle:{who:'belle',name:'Dr. Belle Deans',role:'Residency program director',short:'Belle',specialty:'leadership, evidence, and professional growth',bio:'She connects each decision to ownership, evidence, and the resident you are becoming.'},
+  amina:{who:'amina',name:'Dr. Amina Shah',role:'ID and oncology pharmacist',short:'Amina',specialty:'antimicrobial, transplant, and oncology pharmacotherapy',bio:'She follows cultures, immune status, organ function, and toxicity until the whole treatment story makes sense.'},
+  ortega:{who:'ortega',name:'Dr. Mateo Ortega',role:'Ambulatory care pharmacist',short:'Mateo',specialty:'transitions, adherence, access, and chronic care',bio:'He asks whether the plan will still work after discharge, in the patient’s real life.'},
+  nurse:{who:'nurse',name:'Nurse Vance',role:'RN · Medication administration partner',short:'Nurse Vance',specialty:'MAR reality, bedside workflow, and feasibility',bio:'She knows what was actually given, held, refused, delayed, or impossible at the bedside.'},
+  attending:{who:'attending',name:'Dr. Chen',role:'ICU attending physician',short:'Dr. Chen',specialty:'decisive recommendations and team communication',bio:'She expects a concise recommendation, the evidence behind it, and a clear trigger to reassess.'},
+  elliot:{who:'elliot',name:'Dr. Elliot Kang',role:'PGY-1 co-resident',short:'Elliot',specialty:'rapid recall and friendly competition',bio:'He moves fast, challenges your recall, and makes you defend why your answer is better.'}
 };
 function selectedPreceptor(){ const id=(G&&G.preceptor)||localStorage.getItem('clinicalPathPreceptor')||'female'; return PRECEPTORS[id]||PRECEPTORS.female; }
 function preceptorName(){ return selectedPreceptor().name; }
@@ -3058,15 +3128,17 @@ function hudHTML(area,opts={}){
 
 /* ---- character + dialogue frame ---- */
 const SPEAKER_PROFILES={
-  harlin:{name:'Dr. Harlin',role:'ICU pharmacist · Preceptor'},
-  dpark:{name:'Dr. Daniel Park',role:'EM pharmacist · Preceptor'},
-  belle:{name:'Dr. Belle Deans',role:'Residency program director'},
-  elliot:{name:'Dr. Elliot Kang',role:'PGY-1 co-resident'},
-  nurse:{name:'Nurse Vance',role:'Hospital nurse'},
-  attending:{name:'Dr. Chen',role:'ICU attending physician'},
+  harlin:{name:CLINICAL_TEAM.harlin.name,role:CLINICAL_TEAM.harlin.role},
+  dpark:{name:CLINICAL_TEAM.dpark.name,role:CLINICAL_TEAM.dpark.role},
+  belle:{name:CLINICAL_TEAM.belle.name,role:CLINICAL_TEAM.belle.role},
+  amina:{name:CLINICAL_TEAM.amina.name,role:CLINICAL_TEAM.amina.role},
+  ortega:{name:CLINICAL_TEAM.ortega.name,role:CLINICAL_TEAM.ortega.role},
+  elliot:{name:CLINICAL_TEAM.elliot.name,role:CLINICAL_TEAM.elliot.role},
+  nurse:{name:CLINICAL_TEAM.nurse.name,role:CLINICAL_TEAM.nurse.role},
+  attending:{name:CLINICAL_TEAM.attending.name,role:CLINICAL_TEAM.attending.role},
   patient:{name:'Patient Case',role:'Fictional patient vignette'},
-  preceptor_female:{name:'Dr. Harlin',role:'ICU pharmacist · Preceptor'},
-  preceptor_male:{name:'Dr. Daniel Park',role:'EM pharmacist · Preceptor'}
+  preceptor_female:{name:'Dr. Amina Shah',role:'ID and oncology pharmacist'},
+  preceptor_male:{name:'Dr. Mateo Ortega',role:'Ambulatory care pharmacist'}
 };
 function speakerProfile(who,requested){
   const player=(typeof playerWho==='function')?playerWho():'';
@@ -3080,6 +3152,8 @@ function speakerWhoFromName(name){
   if(/harlin/.test(n))return 'harlin';
   if(/daniel park|dr\. park/.test(n))return 'dpark';
   if(/elliot|kang/.test(n))return 'elliot';
+  if(/amina|shah/.test(n))return 'amina';
+  if(/mateo|ortega/.test(n))return 'ortega';
   if(/nurse|vance/.test(n))return 'nurse';
   if(/attending|dr\. chen/.test(n))return 'attending';
   if(/\(you\)/.test(n)||(typeof G!=='undefined'&&G&&G.name&&n.includes(String(G.name).toLowerCase())))return playerWho();
@@ -3278,12 +3352,16 @@ function deleteSlot(n){
 function showCast(){
   const rWho=playerWho();
   const cast=[
-    {img:SPRITE_URLS.harlin.happy,name:'Dr. Harlin',role:'ICU pharmacist · female preceptor route',bio:'Fast, funny, allergic to vague answers. Earn her trust and she lets you run the pager.'},
-    {img:SPRITE_URLS.dpark.neutral,name:'Dr. Daniel Park',role:'EM pharmacist · male preceptor route',bio:'Calm voice in loud moments. He asks one more question until your reasoning is airtight.'},
-    {img:SPRITE_URLS.belle.warm,name:'Dr. Belle Deans',role:'Residency program director',bio:'Runs the program, welcomes you on day one, and hands you your final evaluation in June.'},
-    {img:(SPRITE_URLS[rWho]||SPRITE_URLS.joey).neutral,name:'You',role:'PGY-1 resident · pick your look and name',bio:'Fresh badge, clean coat, everything to prove. Your decisions shape how this year goes.'},
-    {img:SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:'',name:'Pip',role:'Rounds bot · always on shift',bio:'Lives in the corner of your screen. Explains any screen, hints at how to approach a case, never spoils the answer.'},
-    {img:SPRITE_URLS.elliot?SPRITE_URLS.elliot.neutral:'',name:'Dr. Elliot Kang',role:'Co-resident · your rival',bio:'Started the same day, finished the orientation packet early, and will absolutely challenge you to quick-fire questions on rounds.'}
+    {img:SPRITE_URLS.harlin.happy,name:CLINICAL_TEAM.harlin.name,role:CLINICAL_TEAM.harlin.role,bio:CLINICAL_TEAM.harlin.bio},
+    {img:SPRITE_URLS.dpark.neutral,name:CLINICAL_TEAM.dpark.name,role:CLINICAL_TEAM.dpark.role,bio:CLINICAL_TEAM.dpark.bio},
+    {img:SPRITE_URLS.belle.warm,name:CLINICAL_TEAM.belle.name,role:CLINICAL_TEAM.belle.role,bio:CLINICAL_TEAM.belle.bio},
+    {img:SPRITE_URLS.amina.neutral,name:CLINICAL_TEAM.amina.name,role:CLINICAL_TEAM.amina.role,bio:CLINICAL_TEAM.amina.bio},
+    {img:SPRITE_URLS.ortega.neutral,name:CLINICAL_TEAM.ortega.name,role:CLINICAL_TEAM.ortega.role,bio:CLINICAL_TEAM.ortega.bio},
+    {img:SPRITE_URLS.nurse.neutral,name:CLINICAL_TEAM.nurse.name,role:CLINICAL_TEAM.nurse.role,bio:CLINICAL_TEAM.nurse.bio},
+    {img:SPRITE_URLS.attending.neutral,name:CLINICAL_TEAM.attending.name,role:CLINICAL_TEAM.attending.role,bio:CLINICAL_TEAM.attending.bio},
+    {img:(SPRITE_URLS[rWho]||SPRITE_URLS.joey).neutral,name:'You',role:'PGY-1 pharmacy resident · pick your look and name',bio:'Fresh badge, clean coat, everything to prove. Your decisions shape how this year goes.'},
+    {img:SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:'',name:'Pip',role:'Rounds copilot · always on shift',bio:'Briefs the case, finds tools and references, builds a study plan, and brings in the right team perspective without spoiling the answer.'},
+    {img:SPRITE_URLS.elliot?SPRITE_URLS.elliot.neutral:'',name:CLINICAL_TEAM.elliot.name,role:CLINICAL_TEAM.elliot.role,bio:CLINICAL_TEAM.elliot.bio}
   ];
   document.getElementById("app").innerHTML=`
     <div class="stage bg-title" id="stage">${bokehHTML()}</div><div class="fx" id="fx2"></div>
@@ -3291,7 +3369,7 @@ function showCast(){
       <div class="cast-panel">
         <h2>Meet the team</h2>
         <div class="cast-grid">${cast.map(c=>`<div class="cast-card"><div class="cimg"><img src="${c.img}" alt="${c.name}"></div><b>${c.name}</b><span class="crole">${c.role}</span><p>${c.bio}</p></div>`).join('')}</div>
-        <p class="cast-note">Also on shift: Nurse Vance, Dr. Chen (ICU attending), and the patients of St. Aurelia — all fictional.</p>
+        <p class="cast-note">A multidisciplinary, fictional care team. Each character now owns a different clinical lens and appears in the rotations that match it.</p>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px">
           <button class="btn" onclick="sfx('click');showIntro()">Start your year</button>
           <button class="btn ghost" onclick="sfx('click');showTitle()">Back to title</button>
@@ -3410,7 +3488,7 @@ function hubStageModules(stage){ const def=hubStageDefs().find(x=>x.id===stage)|
 function setHubStage(stage){ window.__clinicalPathStage=stage; goHub(); }
 function nextRecommendedModule(){ return studyOrderedModules().find(m=>!modDone(m))||studyOrderedModules()[0]; }
 function hubJourneyHTML(active,nextMod){ const defs=hubStageDefs(); const def=defs.find(x=>x.id===active)||defs[0]; return `<div class="hub-journey"><div class="next-card"><h3>Next shift</h3><p>${nextMod?`Your next best rotation is <b>${nextMod.title}</b>. Start there if you want the guided path.`:'All rotations are complete.'}</p>${nextMod?`<button class="btn mint sm" onclick="openModule('${nextMod.id}')">Start next rotation</button>`:''}<button class="btn ghost sm" style="margin-left:6px" onclick="showShiftBoard()">Simulated shift</button></div><div class="stage-map"><h3>Rotation blocks</h3><p>${def.why}</p><div class="stage-tabs">${defs.map(d=>`<button class="stage-tab ${d.id===active?'on':''}" onclick="setHubStage('${d.id}')"><b>${d.title}</b><span>${hubStageModules(d.id).length} rotations</span></button>`).join('')}</div></div></div>`; }
-const CONTENT_GOVERNANCE={version:'2026.07-RPD3',reviewedOn:'2026-07-14',status:'Independent clinical-content and RPD-perspective audits complete. Local formulary, protocol, EHR, legal, and residency-leadership mapping is still required before institutional assignment.',frameworks:['ASHP Harmonized PGY-1 CAGO, effective July 1, 2024','2025 AHA Guidelines for CPR & ECC and acute ischemic stroke guidance','2024 Hyperglycemic Crises in Adults with Diabetes Consensus Report','2025 SCCM PADIS focused update and 2021 Surviving Sepsis Campaign','KDIGO 2024 CKD guidance and current FDA labeling','USP <797> and <800>, official 2023 revisions','Current IDSA, CDC/ACIP, ACOG, ASCO/ONS, and DEA/eCFR guidance where applicable','Institution-specific policy where explicitly stated']};
+const CONTENT_GOVERNANCE={version:'2026.07-RPD4',reviewedOn:'2026-07-14',status:'Independent clinical-content and RPD-perspective audits complete. Local formulary, protocol, EHR, legal, and residency-leadership mapping is still required before institutional assignment.',frameworks:['ASHP Harmonized PGY-1 CAGO, effective July 1, 2024','2025 AHA Guidelines for CPR & ECC and acute ischemic stroke guidance','2024 Hyperglycemic Crises in Adults with Diabetes Consensus Report','2025 SCCM PADIS focused update and 2021 Surviving Sepsis Campaign','KDIGO 2024 CKD guidance and current FDA labeling','USP <797> and <800>, official 2023 revisions','Current IDSA, CDC/ACIP, ACOG, ASCO/ONS, and DEA/eCFR guidance where applicable','Institution-specific policy where explicitly stated']};
 function showContentGovernance(){ const g=CONTENT_GOVERNANCE,ov=document.createElement('div');ov.className='hub-tools';ov.id='govTools';ov.innerHTML=`<div class="hub-tools-card" role="dialog" aria-modal="true" aria-labelledby="govTitle"><div style="display:flex;justify-content:space-between;gap:10px"><div><h3 id="govTitle">Content Governance</h3><p style="font-size:12px;color:#725c70;font-weight:800">Version ${g.version} · reviewed ${g.reviewedOn}</p></div><button class="btn ghost sm" onclick="document.getElementById('govTools').remove()">Close</button></div><p style="font-size:13px;line-height:1.5;color:#4b3b4c"><b>Status:</b> ${g.status}</p><h4>Governing references</h4><ul style="font-size:12.5px;line-height:1.55;color:#4b3b4c">${g.frameworks.map(x=>`<li>${x}</li>`).join('')}</ul><div class="report-note"><b>Institutional adoption gate:</b> map local formulary, order sets, emergency protocols, EHR workflows, and competency checkoffs before assigning this simulation for formal training. Quiz scores are coaching evidence only.</div></div>`;document.getElementById('app').appendChild(ov);ov.onclick=e=>{if(e.target===ov)ov.remove();};}
 function showResidentTools(){ const ov=document.createElement('div'); ov.className='hub-tools'; ov.id='hubTools'; ov.innerHTML=`<div class="hub-tools-card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h3>Resident Tools</h3><p style="margin:0 0 12px;color:#725c70;font-weight:800;font-size:13px">Use these during cases when you need references or math support.</p></div><button class="btn ghost sm" onclick="document.getElementById('hubTools').remove()">Close</button></div><div class="hub-tools-grid"><button class="btn ghost" onclick="showLabValues(event)">Lab Values</button><button class="btn ghost" onclick="openBasicCalculator(event)">Basic Math</button><button class="btn ghost" onclick="openClinicalCalculator(event)">Clinical Calculators</button><button class="btn ghost" onclick="showAchievements()">Achievements</button><button class="btn ghost" onclick="showSettings()">Settings</button><button class="btn ghost" onclick="showContentGovernance()">Content Governance</button><button class="btn ghost" onclick="resetSavedProgress()">Start Over</button></div></div>`; document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();}; }
 const SHIFT_PATIENTS=[
@@ -3477,14 +3555,30 @@ function closeNotes(){const o=document.getElementById('notesOv');if(o)o.remove()
 function startCases(){ caseIdx=0; saveProgress("case"); runCase(); }
 
 
+const ROTATION_MENTOR_ROUTES=[
+  {who:'amina',re:/^(abx|id|id_syndrome|id_resist|ast_exceptions|onco|onco_emerg|onco_ici|txp|bmt_support)$/},
+  {who:'ortega',re:/^(toc|amb_core|amb_resp_anticoag|immun|preg|cardiology_core|glycemic)$/},
+  {who:'belle',re:/^(jclub|project|lead|precept|present|law|ids|di_formulary_orderset|rca_fmea|research_irb_manuscript|pt_med_safety_committee|guideline_visual_synthesis|communication_equity_reflection)$/},
+  {who:'dpark',re:/^(code|tox|seizure|code_cart_deep|emergency_medicine|code_stroke_validation|high_alert_reversal|surgery_trauma_periop)$/},
+  {who:'harlin',re:/^(pk|renal|critcare|icu_sed|icu_hemo|vanc_deep|tdm_nti|lab_draw_deep|renal_rrt_obesity|vanco_trough_guidelines|clinical_workup_labs_pk)$/}
+];
+function rotationMentor(m){const route=ROTATION_MENTOR_ROUTES.find(r=>r.re.test((m&&m.id)||''));return route?CLINICAL_TEAM[route.who]:(CLINICAL_TEAM[preceptorWho()]||CLINICAL_TEAM.harlin);}
+function mentorCaseLine(mentor,c,introLine){const focus=`<b>${c.kick}</b>`;const lines={
+  harlin:`Dr. Harlin points to the physiologic trend. ${focus}. Name the signal, then make the plan patient-specific.`,
+  dpark:`Dr. Park clears the noise from the room. ${focus}. Verify the immediate risk, the timing, and the next safe action.`,
+  belle:`Dr. Deans frames the decision at program level. ${focus}. Defend the evidence, the owner, and how you will close the loop.`,
+  amina:`Dr. Shah traces the therapy from indication to response. ${focus}. Check exposure, organism or disease target, organ function, and toxicity together.`,
+  ortega:`Dr. Ortega turns the plan toward the patient’s next setting. ${focus}. Make it effective, understandable, affordable, and monitorable after today.`
+};return lines[mentor.who]||introLine;}
 function caseGuide(m,c,introLine,introExpr){
-  if(c.type==='essay') return {who:'attending',name:'Dr. Chen, ICU Attending',expr:'think',text:`Dr. Chen gives you the full chart instead of a one-liner. <b>${c.kick}</b>. Work through the linked questions like a real consult note.`};
-  if(c.type==='chartHunt' || m.id==='chart'){const surface=chartSurface(c),label=surface==='mar'?'medication administration record':surface==='orders'?'active-order list':surface==='labs'?'patient chart': 'quality review dashboard';return {who:'nurse',name:'Nurse Vance',expr:'neutral',text:`Nurse Vance opens the <b>${label}</b>. <b>${c.kick}</b> — identify what needs pharmacist action.`};}
-  if(c.type==='code' || m.id==='seizure') return {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',text:`Dr. Chen looks up from the monitor. <b>${c.kick}</b>. Make the call quickly and safely.`};
-  if(c.type==='journal' || m.id==='id') return {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',text:`Dr. Chen hands you the paper. <b>${c.kick}</b> — don't let the abstract do the thinking for you.`};
-  if(c.type==='sbar' || m.id==='pain') return {who:'nurse',name:'Nurse Vance',expr:'neutral',text:`Nurse Vance catches you after rounds. <b>${c.kick}</b>. Turn the concern into a clean recommendation.`};
+  const mentor=rotationMentor(m);
+  if(c.type==='essay') return {who:mentor.who,name:mentor.name,expr:'think',text:`${mentor.name} gives you the full chart instead of a one-liner. <b>${c.kick}</b>. Work through the linked questions like a real consult note.`};
+  if(c.type==='chartHunt' || m.id==='chart'){const surface=chartSurface(c),label=surface==='mar'?'medication administration record':surface==='orders'?'active-order list':surface==='labs'?'patient chart':'quality review dashboard';if(surface==='mar')return {who:'nurse',name:CLINICAL_TEAM.nurse.name,expr:'neutral',text:`Nurse Vance opens the <b>${label}</b>. <b>${c.kick}</b> — separate what was ordered from what actually happened at the bedside.`};return {who:mentor.who,name:mentor.name,expr:'think',text:`${mentor.name} opens the <b>${label}</b>. <b>${c.kick}</b> — identify the actionable signal and who owns follow-up.`};}
+  if(c.type==='code' || m.id==='seizure') return {who:'dpark',name:CLINICAL_TEAM.dpark.name,expr:'stern',text:`Dr. Park looks up from the monitor. <b>${c.kick}</b>. Confirm the emergency, choose the right drug and dose, and close the loop.`};
+  if(c.type==='journal') return {who:mentor.who,name:mentor.name,expr:'think',text:`${mentor.name} hands you the paper. <b>${c.kick}</b> — define PICO, find the validity threat, then decide whether it changes this patient’s care.`};
+  if(c.type==='sbar') return {who:'attending',name:CLINICAL_TEAM.attending.name,expr:'neutral',text:`Dr. Chen gives you one minute. <b>${c.kick}</b>. State the problem, the decisive data, and one recommendation with monitoring.`};
   if(c.patient) return {who:'patient',name:'Patient Case',expr:'neutral',text:`The chart includes a patient vignette. <b>${c.kick}</b> — use only the stated facts and answer clearly.`};
-  return {who:preceptorWho(),name:preceptorName(),expr:preceptorExpr(introExpr),text:introLine};
+  return {who:mentor.who,name:mentor.name,expr:mentor.who===preceptorWho()?preceptorExpr(introExpr):'neutral',text:mentorCaseLine(mentor,c,introLine)};
 }
 
 function runCase(){
