@@ -50,6 +50,7 @@ const audit=`
  PIP.chat=[{who:'you',text:'<script>x</script>'},{who:'pip',text:'<b>ok</b>'}];
  const chat=pipChatHTML(); add('chat escapes user side, allows pip html', !/<script>x/.test(chat) && /<b>ok<\\/b>/.test(chat));
  const panel=pipPanelHTML(false); add('panel contains ask box, chips, team consults, volume', /pipAskInput/.test(panel) && /pip-chips/.test(panel) && /pip-team-list/.test(panel) && /data-vol-range/.test(panel));
+ add('panel contains horizontal overflow guards', /#pipPanel\{[^}]*overflow-x:hidden/.test(html) && /\.pip-team-list button>span\{[^}]*min-width:0/.test(html) && /\.pip-msg\{[^}]*overflow-wrap:anywhere/.test(html));
  for(const c of checks) console.log((c.pass?'PASS':'FAIL')+'  '+c.name+(c.detail?' — '+c.detail:''));
  const failed=checks.filter(c=>!c.pass);
  console.log('\\n'+(checks.length-failed.length)+'/'+checks.length+' pip/volume checks passed');
