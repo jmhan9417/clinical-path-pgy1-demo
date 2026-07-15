@@ -4,7 +4,7 @@ const scripts=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(m=>m[
 let app=scripts.sort((a,b)=>b.length-a.length)[0];
 app=app.replace(/\nshowTitle\(\);/g,'\n/* boot skipped for audit */');
 const stub=()=>new Proxy(function(){},{get:(t,p)=>p==='style'?stub():p==='classList'?{add(){},remove(){},toggle(){}}:stub(),set:()=>true,apply:()=>stub(),construct:()=>stub()});
-globalThis.window=globalThis; globalThis.document={documentElement:{style:{setProperty(){}}},body:stub(),addEventListener(){},getElementById(){return stub()},querySelector(){return null},querySelectorAll(){return[]},createElement(){let raw='';return{style:{},classList:{add(){},remove(){}},set innerHTML(v){raw=String(v||'')},get innerHTML(){return raw},get textContent(){return raw.replace(/<[^>]*>/g,' ')},get innerText(){return raw.replace(/<[^>]*>/g,' ')},appendChild(){},remove(){},click(){}}}}; globalThis.localStorage={getItem(){return null},setItem(){},removeItem(){}}; Object.defineProperty(globalThis,'navigator',{value:{},configurable:true}); globalThis.location={reload(){}}; globalThis.Image=class{}; globalThis.Audio=class{}; globalThis.requestAnimationFrame=()=>0; globalThis.cancelAnimationFrame=()=>{}; globalThis.setTimeout=()=>0; globalThis.confirm=()=>false; globalThis.URL={createObjectURL(){return''},revokeObjectURL(){}};
+globalThis.window=globalThis; globalThis.document={documentElement:{style:{setProperty(){}}},body:stub(),addEventListener(){},getElementById(){return stub()},querySelector(){return null},querySelectorAll(){return[]},createElement(){let raw='';return{style:{},classList:{add(){},remove(){}},set innerHTML(v){raw=String(v||'')},get innerHTML(){return raw},get textContent(){return raw.replace(/<[^>]*>/g,' ')},get innerText(){return raw.replace(/<[^>]*>/g,' ')},appendChild(){},remove(){},click(){}}}}; const storage=new Map(); globalThis.localStorage={getItem(k){return storage.has(k)?storage.get(k):null},setItem(k,v){storage.set(k,String(v))},removeItem(k){storage.delete(k)}}; Object.defineProperty(globalThis,'navigator',{value:{},configurable:true}); globalThis.location={reload(){}}; globalThis.Image=class{}; globalThis.Audio=class{}; globalThis.requestAnimationFrame=()=>0; globalThis.cancelAnimationFrame=()=>{}; globalThis.setTimeout=()=>0; globalThis.confirm=()=>false; globalThis.URL={createObjectURL(){return''},revokeObjectURL(){}};
 
 const audit=`
 (()=>{
@@ -36,11 +36,20 @@ const audit=`
  document.getElementById=realGet;
  const a10=pipAnswer('xyzzynonsense'); add('fallback message for unknown query', /could not match/i.test(a10));
  const a11=pipAnswer('<img src=x onerror=alert(1)>'); add('unknown HTML-ish query does not echo raw tags', !/onerror=alert/.test(a11));
+ const a12=pipCaseBrief(curM.cases[caseIdx]); add('case brief organizes facts without answer leakage', /Case brief/.test(a12) && /Your job/.test(a12) && !/Best answer/.test(a12), strip(a12).slice(0,120));
+ const a13=pipAnswer('ask Daniel'); add('team consult uses Daniel Park emergency lens', /Dr\. Daniel Park/.test(a13) && /time-critical risk/i.test(a13), strip(a13).slice(0,120));
+ G.results[curM.id][0]=false; G.results[curM.id][1]=true;
+ const a14=pipAnswer('my progress'); add('progress summary derives missed areas from save state', /Most missed/.test(a14) && /The Clinical Pharmacist Role/.test(a14), strip(a14).slice(0,120));
+ const a15=pipAnswer('study plan'); add('study plan turns misses into navigation actions', /next three moves/i.test(a15) && /openModule/.test(a15), strip(a15).slice(0,120));
+ const a16=pipAnswer('note: verify the MAR against what was actually administered'); add('rotation note capture persists locally', /Saved to/.test(a16) && /actually administered/.test(localStorage.getItem(residentNoteKey())||''), strip(a16).slice(0,100));
+ add('five specialist routes resolve to distinct mentors', rotationMentor(MODULES.find(m=>m.id==='abx')).who==='amina' && rotationMentor(MODULES.find(m=>m.id==='amb_core')).who==='ortega' && rotationMentor(MODULES.find(m=>m.id==='code')).who==='dpark' && rotationMentor(MODULES.find(m=>m.id==='critcare')).who==='harlin' && rotationMentor(MODULES.find(m=>m.id==='lead')).who==='belle');
+ add('expanded care team has unique identities', Object.keys(CLINICAL_TEAM).length===8 && new Set(Object.values(CLINICAL_TEAM).map(p=>p.name)).size===8);
+ add('specialist speaker identity is stable', speakerIdentity('neutral','Dr. Amina Shah',{}).who==='amina' && speakerIdentity('neutral','Dr. Mateo Ortega',{}).who==='ortega');
  add('pipEsc escapes HTML', pipEsc('<b>&"')==='&lt;b&gt;&amp;&quot;');
  // panel structure
  PIP.chat=[{who:'you',text:'<script>x</script>'},{who:'pip',text:'<b>ok</b>'}];
  const chat=pipChatHTML(); add('chat escapes user side, allows pip html', !/<script>x/.test(chat) && /<b>ok<\\/b>/.test(chat));
- const panel=pipPanelHTML(false); add('panel contains ask box, chips, volume', /pipAskInput/.test(panel) && /pip-chips/.test(panel) && /data-vol-range/.test(panel));
+ const panel=pipPanelHTML(false); add('panel contains ask box, chips, team consults, volume', /pipAskInput/.test(panel) && /pip-chips/.test(panel) && /pip-team-list/.test(panel) && /data-vol-range/.test(panel));
  for(const c of checks) console.log((c.pass?'PASS':'FAIL')+'  '+c.name+(c.detail?' — '+c.detail:''));
  const failed=checks.filter(c=>!c.pass);
  console.log('\\n'+(checks.length-failed.length)+'/'+checks.length+' pip/volume checks passed');

@@ -20,11 +20,12 @@ You are a new PGY-1 resident at the fictional **St. Aurelia Medical Center**. Pi
 ![EHR chart review](docs/ehr.png)
 
 **The story around it**
-- Two preceptor routes: Dr. Harlin (ICU) or Dr. Daniel Park (EM), each with their own voice, portrait, role-labeled nameplate, and break-room backstories
+- Two anchor preceptor routes: Dr. Harlin (ICU) or Dr. Daniel Park (EM), each with their own voice, portrait, role-labeled nameplate, and break-room backstories
+- A broader multidisciplinary teaching cast: Dr. Amina Shah (ID/oncology), Dr. Mateo Ortega (ambulatory care), Dr. Belle Deans (RPD), Nurse Vance, and Dr. Chen enter the rotations that match their clinical lens
 - A bond system that unlocks real gameplay: case hints at *Warming up*, personal stories at *Trusted partner*
 - A rival: co-resident Dr. Elliot Kang, who challenges you to quick-fire rounds face-offs all year and slowly becomes a friend
 - Three longitudinal patient journeys that follow Mr. Alvarez, Ms. Chen, and Baby Kim across rotations, from crisis to discharge
-- Pip, a helper bot that explains any screen and nudges your approach without ever spoiling an answer
+- Pip, a local clinical copilot that briefs the current case without revealing the answer, offers role-specific team consults, builds a study plan from missed cases, tracks progress, saves rotation notes, finds references, and opens the right tool
 - 15 achievements, streak tracking, chapter title cards, a simulated pre-rounding shift board, a preceptor review debrief, graduation epilogues, and ending credits
 
 **Quality-of-life**
