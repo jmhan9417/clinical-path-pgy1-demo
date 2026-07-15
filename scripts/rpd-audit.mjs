@@ -41,7 +41,8 @@ add('Surface-aware MAR and chart review are present', demo.includes("function ch
 add('MAR timing and status are authored, not index-generated', demo.includes('AUTHORED_MAR_CASES') && demo.includes('function authoredMar(c)') && !demo.includes('function marTime(i)') && !demo.includes('function marStatus(i,row)'));
 add('Mobile MAR fits without horizontal scrolling', demo.includes('.ehr-win{min-width:0;width:100%;max-width:100%}') && demo.includes('.case-main{overflow-x:visible}') && demo.includes('.mar-grid .ord-text,.mar-grid .mar-note{min-width:0}'));
 add('Tablet MAR uses a compact four-column grid', demo.includes('.ehr-orders .mar-grid,.mar-grid.mar-head{grid-template-columns:72px minmax(200px,1fr) 82px minmax(140px,1fr)}'));
-add('All item types use missed-case tracking', demo.includes('function jcAnswerNnt') && demo.includes('commitCaseResult(ok);\n  const why=c.flaws'));
+const journalAnswerFn=(demo.match(/function jcAnswerNnt\(i\)\{[\s\S]*?\n\}/)||[])[0]||'';
+add('All item types use missed-case tracking', journalAnswerFn.includes('commitCaseResult(ok)') && journalAnswerFn.includes("saveProgress('case')"));
 add('Review-mode position persists across reload', demo.includes('reviewMode:REVIEW_MODE||G.reviewMode||null') && demo.includes('d.reviewMode.moduleId===curM.id'));
 add('Pip helper is on the right', demo.includes('#pipBtn{position:fixed;right:16px;left:auto'));
 add('Map return-to-case path is present and persisted', demo.includes('resumeCurrentCase()') && demo.includes('Return to paused case') && demo.includes('clinicalPathPausedCase'));

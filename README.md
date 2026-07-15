@@ -13,8 +13,9 @@ You are a new PGY-1 resident at the fictional **St. Aurelia Medical Center**. Pi
 **The clinical content**
 - 69 guided rotations that mirror a real PGY-1 year, from Badge Day to precepting a student
 - 457 curated clinical cases across nine formats: case decisions, chart review, SBAR building, verification queues, dose calculations, code blue, journal club, sequencing, and consult-style essays
-- 2,020 auto-built study cards with spaced review and Quizlet-compatible export
+- 457 case-derived study cards with spaced review and Quizlet-compatible export; dialogue and individual distractors are excluded
 - A mock EHR chart-review window: patient banner, Orders/MAR, Labs, and Snapshot tabs, with flag-based pharmacist verification
+- An engine-specific Clinical Review after every case, including the full context, correct principle, patient reasoning when applicable, monitoring/follow-up, and references
 
 ![EHR chart review](docs/ehr.png)
 
@@ -29,7 +30,7 @@ You are a new PGY-1 resident at the fictional **St. Aurelia Medical Center**. Pi
 **Quality-of-life**
 - Three save slots ("Residency files") with automatic migration of older saves
 - Text speed, auto-advance, and sound settings
-- Keyboard play: number keys answer, Space advances, H calls Pip
+- Keyboard play: number keys choose answers, Space or Enter triggers the visible primary action, and H calls Pip
 - Progress autosaves locally in the browser — no accounts, no servers, no data collection
 
 ![Save slots](docs/slots.png)
@@ -47,5 +48,6 @@ This is an **educational simulation and a design prototype**, not a certified tr
 - The whole game is a single self-contained `demo.html` (no build step, no dependencies) plus a sprite folder
 - Character sprites are AI-generated anime-style art created for this project; hospital backgrounds are Unsplash photography
 - The landing page is a single `index.html`
+- Local audit scripts cover catalog integrity, clinical accuracy, full interaction flow, and all 457 terminal-review paths
 
 © The Clinical Path. Educational simulation — not medical advice.
