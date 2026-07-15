@@ -34,7 +34,7 @@ const audit=String.raw`
  }
  const nonMarChartPipClean=cases.filter(x=>x.type==='chartHunt'&&chartSurface(x.c)!=='mar').every(x=>!pipCaseSteps(x.c).join(' ').includes('MAR'));
  const daniel=speakerIdentity('neutral','Dr. Daniel Park',{}),previousG=G;G={name:'QA Resident',preceptor:'male'};const maleRoute=selectedPreceptor();G=previousG;
- const inferredSpeakers=speakerIdentity('warm','Dr. Belle Deans',{}).who==='belle'&&speakerIdentity('neutral','Dr. Elliot Kang',{}).who==='elliot'&&speakerIdentity('neutral','Nurse Vance',{}).who==='nurse'&&daniel.who==='dpark'&&daniel.name==='Dr. Daniel Park'&&/EM pharmacist/.test(daniel.role)&&maleRoute.who==='dpark'&&face('neutral','dpark').includes('assets/dpark_neutral.webp');
+ const inferredSpeakers=speakerIdentity('warm','Dr. Belle Deans',{}).who==='belle'&&speakerIdentity('neutral','Dr. Elliot Kang',{}).who==='elliot'&&speakerIdentity('neutral','Nurse Vance',{}).who==='nurse'&&daniel.who==='dpark'&&daniel.name==='Dr. Daniel Park'&&/EM pharmacist/.test(daniel.role)&&maleRoute.who==='dpark'&&face('neutral','dpark').includes(SPRITE_URLS.dpark.neutral);
  const marCases=cases.filter(x=>authoredMar(x.c)||(Array.isArray(x.c.mar)&&x.c.mar.length)),marSolvable=marCases.every(x=>String(x.c.patient||'').length>=80&&(x.c.given||[]).length>=2&&(x.c.tasks||[]).length>=1&&String(x.c.marReviewFocus||'').length>=100);
  STUDY.cards=buildStudyCards();
  check('All 457 terminal reviews include monitoring and follow-up',monitoring===cases.length,monitoring+'/'+cases.length);
