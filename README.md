@@ -14,13 +14,13 @@ You are a new PGY-1 resident at the fictional **St. Aurelia Medical Center**. Pi
 - 69 guided rotations that mirror a real PGY-1 year, from Badge Day to precepting a student
 - 457 curated clinical cases across nine formats: case decisions, chart review, SBAR building, verification queues, dose calculations, code blue, journal club, sequencing, and consult-style essays
 - 457 case-derived study cards with spaced review and Quizlet-compatible export; dialogue and individual distractors are excluded
-- A mock EHR chart-review window: patient banner, Orders/MAR, Labs, and Snapshot tabs, with flag-based pharmacist verification
+- A mock EHR chart-review window: patient banner, Orders/MAR, Labs, and Snapshot tabs, with flag-based pharmacist verification; every MAR exercise includes patient context and explicit review criteria
 - An engine-specific Clinical Review after every case, including the full context, correct principle, patient reasoning when applicable, monitoring/follow-up, and references
 
 ![EHR chart review](docs/ehr.png)
 
 **The story around it**
-- Two preceptor routes: Dr. Harlin (ICU) or Dr. Daniel Park (EM), each with their own voice and break-room backstories
+- Two preceptor routes: Dr. Harlin (ICU) or Dr. Daniel Park (EM), each with their own voice, portrait, role-labeled nameplate, and break-room backstories
 - A bond system that unlocks real gameplay: case hints at *Warming up*, personal stories at *Trusted partner*
 - A rival: co-resident Dr. Elliot Kang, who challenges you to quick-fire rounds face-offs all year and slowly becomes a friend
 - Three longitudinal patient journeys that follow Mr. Alvarez, Ms. Chen, and Baby Kim across rotations, from crisis to discharge

@@ -33,7 +33,9 @@ const audit=String.raw`
   const mentions=/\bMAR\b|medication administration record/i.test([c.kick,c.q,c.note,c.patient].join(' '));if(mentions){marMentionCount++;if((c.mar&&c.mar.length)||authoredMar(c))marMentionCovered++;}
  }
  const nonMarChartPipClean=cases.filter(x=>x.type==='chartHunt'&&chartSurface(x.c)!=='mar').every(x=>!pipCaseSteps(x.c).join(' ').includes('MAR'));
- const inferredSpeakers=speakerIdentity('warm','Dr. Belle Deans',{}).who==='belle'&&speakerIdentity('neutral','Dr. Elliot Kang',{}).who==='elliot'&&speakerIdentity('neutral','Nurse Vance',{}).who==='nurse';
+ const daniel=speakerIdentity('neutral','Dr. Daniel Park',{}),previousG=G;G={name:'QA Resident',preceptor:'male'};const maleRoute=selectedPreceptor();G=previousG;
+ const inferredSpeakers=speakerIdentity('warm','Dr. Belle Deans',{}).who==='belle'&&speakerIdentity('neutral','Dr. Elliot Kang',{}).who==='elliot'&&speakerIdentity('neutral','Nurse Vance',{}).who==='nurse'&&daniel.who==='dpark'&&daniel.name==='Dr. Daniel Park'&&/EM pharmacist/.test(daniel.role)&&maleRoute.who==='dpark'&&face('neutral','dpark').includes('assets/dpark_neutral.webp');
+ const marCases=cases.filter(x=>authoredMar(x.c)||(Array.isArray(x.c.mar)&&x.c.mar.length)),marSolvable=marCases.every(x=>String(x.c.patient||'').length>=80&&(x.c.given||[]).length>=2&&(x.c.tasks||[]).length>=1&&String(x.c.marReviewFocus||'').length>=100);
  STUDY.cards=buildStudyCards();
  check('All 457 terminal reviews include monitoring and follow-up',monitoring===cases.length,monitoring+'/'+cases.length);
  check('All 457 terminal reviews include references',references===cases.length,references+'/'+cases.length);
@@ -42,8 +44,9 @@ const audit=String.raw`
  check('No terminal review renders undefined or null',noUndefined===cases.length,noUndefined+'/'+cases.length+(undefinedFailures.length?' · '+undefinedFailures.join('; '):''));
  check('Every MCQ coached retry teaches principle and follow-up',mcqRetryComplete===cases.filter(x=>x.type==='mcq').length,mcqRetryComplete+'/'+cases.filter(x=>x.type==='mcq').length);
  check('Every MAR-labeled case has an MAR surface',marMentionCovered===marMentionCount,marMentionCovered+'/'+marMentionCount);
+ check('Every MAR case includes enough patient context and review criteria',marCases.length>=3&&marSolvable,marCases.length+' MAR cases');
  check('Non-MAR chart help does not falsely say to open MAR',nonMarChartPipClean);
- check('Named speakers infer the matching sprite identity',inferredSpeakers);
+ check('Named speakers and the male route use the matching portrait',inferredSpeakers);
  check('Study deck is one card per clinical case',STUDY.cards.length===457,'cards='+STUDY.cards.length);
  check('Missed-only end-of-rotation review remains present',html.includes('startMissedReview')&&html.includes('End-of-rotation review'));
  fs.writeFileSync('/tmp/cp-review-quality.json',JSON.stringify({total:cases.length,checks},null,2));
