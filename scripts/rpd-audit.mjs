@@ -38,7 +38,7 @@ add('Every MCQ is expanded to five options', demo.includes('ensureFiveMCQOptions
 add('One coached MCQ retry is implemented', demo.includes('Try once more.') && demo.includes('c._attempts<2'));
 add('Case selections can be cancelled', demo.includes('clearMcqSelection') && demo.includes('ondblclick'));
 add('Case workspace prevents question overlap', demo.includes('case-workspace') && demo.includes('body.case-active .vn-wrap'));
-add('Desktop case question remains viewport-centered', demo.includes('grid-template-columns:minmax(260px,310px) minmax(0,920px) minmax(260px,310px)') && demo.includes('.case-main{grid-column:2}') && demo.includes('.case-side{grid-column:3}'));
+add('Desktop case workspace uses a cohesive 70/30 two-column layout', demo.includes('grid-template-columns:minmax(0,7fr) minmax(300px,3fr)') && demo.includes('.case-main{grid-column:1}') && demo.includes('.case-side{grid-column:2}') && demo.includes('@media(max-width:920px)'));
 const caseStemFn=(demo.match(/function caseStemHTML\(c\)\{[^\n]+/)||[])[0]||'';
 add('Case header has no duplicate Pip launcher', !caseStemFn.includes('data-case-pip') && !caseStemFn.includes('>Pip<'));
 add('Floating Pip remains visible in case mode', demo.includes('body.case-active #pipBtn{display:block}'));
