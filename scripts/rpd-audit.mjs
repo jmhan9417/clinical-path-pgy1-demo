@@ -10,8 +10,10 @@ add('Marketing case count is current', home.includes('<b>457</b>&nbsp;clinical c
 add('Persistent simulation disclaimer', demo.includes('No medical advice, residency credit, credentialing, or independent-practice validation') && demo.includes('body.case-active #app{height:calc(100dvh - 52px)') && demo.includes('@media(max-width:900px)'));
 add('No credential-conferring result label', !/PGY-1 Graduate|Ready for BCPS \/ PGY-2/.test(demo));
 add('Critical-response remediation gate', demo.includes('criticalMisses().length'));
-add('Readiness review is formative', demo.includes('Quiz scores are coaching evidence only'));
-add('Content governance metadata', demo.includes('CONTENT_GOVERNANCE'));
+add('Readiness review is formative', demo.includes('No medical advice, residency credit, credentialing, or independent-practice validation'));
+add('Content governance surface is removed', !demo.includes('CONTENT_GOVERNANCE') && !demo.includes('Content Governance'));
+add('R1 and Core explanation is available on the year map', demo.includes('What do R1 and Core mean?') && demo.includes('function showCompetencyHelp()') && demo.includes('ASHP PGY-1 competency areas'));
+add('Learning-experience structure banner is removed', !demo.includes('Learning experience structure:'));
 add('Current DKA potassium threshold', demo.includes('K⁺ &lt; 3.5') && !demo.includes('K⁺ &lt; 3.3') && !demo.includes('K⁺ ≥ 3.3'));
 add('Keyboard skip links', demo.includes('Skip to simulation content') && home.includes('Skip to main content'));
 add('Visible keyboard focus', demo.includes(':focus-visible') && home.includes(':focus-visible'));

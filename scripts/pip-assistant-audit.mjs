@@ -21,7 +21,7 @@ const audit=`
  G={name:'QA',results:initResults()};
  const a1=pipAnswer('MAP'); add('acronym lookup (MAP)', /Mean Arterial Pressure/.test(a1), strip(a1).slice(0,70));
  const a1b=pipAnswer('what does SSC stand for?'); add('acronym phrase lookup (SSC)', /Surviving Sepsis Campaign/.test(a1b), strip(a1b).slice(0,70));
- const a2=pipAnswer('vancomycin'); add('drug lookup (vancomycin)', /Vancomycin/.test(a2) && /DailyMed/.test(a2) && /AUC/i.test(a2), strip(a2).slice(0,70));
+ const a2=pipAnswer('vancomycin'); add('drug lookup (vancomycin) stays concise', /Vancomycin/.test(a2) && /DailyMed/.test(a2) && /pip-mini/.test(a2) && strip(a2).length<520, strip(a2).slice(0,100));
  const a2b=pipAnswer('tell me about warfarin'); add('drug lookup in sentence (warfarin)', /Warfarin/.test(a2b) && /anticoagul/i.test(a2b), strip(a2b).slice(0,120));
  const a3=pipAnswer('potassium'); add('lab lookup (potassium)', /3.5–5.0/.test(a3), strip(a3).slice(0,70));
  const a4=pipAnswer('sepsis'); add('rotation search (sepsis)', /Rotations matching/.test(a4) && /openModule/.test(a4));
@@ -32,7 +32,7 @@ const audit=`
  curM=MODULES.find(m=>m.id==='orient'); caseIdx=1;
  const realGet=document.getElementById.bind(document);
  document.getElementById=function(id){ if(id==='chapterOv')return null; if(id==='caseHolder')return {ok:1}; return realGet(id); };
- const a9=pipAnswer('hint'); add('case hint uses case coaching body', /Name the medication problem|one clinical decision/i.test(strip(a9)), strip(a9).slice(0,80));
+ const a9=pipAnswer('hint'); add('case hint stays brief and actionable', /Name the problem|patient factors/i.test(strip(a9)) && strip(a9).length<360, strip(a9).slice(0,100));
  document.getElementById=realGet;
  const a10=pipAnswer('xyzzynonsense'); add('fallback message for unknown query', /could not match/i.test(a10));
  const a11=pipAnswer('<img src=x onerror=alert(1)>'); add('unknown HTML-ish query does not echo raw tags', !/onerror=alert/.test(a11));
@@ -52,6 +52,7 @@ const audit=`
  const caseActions=pipContextActions('case'),feedbackActions=pipContextActions('feedback'),hubActions=pipContextActions('hub');
  add('Pip exposes exactly three page-specific actions', caseActions.length===3 && feedbackActions.length===3 && hubActions.length===3 && caseActions[0][0]==='Brief' && feedbackActions[0][0]==='Why' && hubActions[0][0]==='What next');
  const panel=pipPanelHTML(false); add('panel stays minimal and omits team grid, tool duplication, and volume', /pipAskInput/.test(panel) && /pip-chips/.test(panel) && !/pip-team-list/.test(panel) && !/pip-actions/.test(panel) && !/data-vol-range/.test(panel));
+ add('panel guidance is short', strip(panel).length<260, strip(panel).slice(0,140));
  add('panel contains horizontal overflow guards', /#pipPanel\{[^}]*overflow-x:hidden/.test(html) && /\.pip-chips button\{[^}]*min-width:0/.test(html) && /\.pip-msg\{[^}]*overflow-wrap:anywhere/.test(html));
  for(const c of checks) console.log((c.pass?'PASS':'FAIL')+'  '+c.name+(c.detail?' — '+c.detail:''));
  const failed=checks.filter(c=>!c.pass);
