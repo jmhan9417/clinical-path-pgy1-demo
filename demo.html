@@ -590,22 +590,22 @@
 #pipBtn .pip-fallback{display:none;font-weight:900;font-size:22px;color:#ff5f92}
 #pipBtn.noimg .pip-fallback{display:block}
 #pipBtn.noimg img{display:none}
-#pipPanel{position:fixed;right:16px;left:auto;bottom:84px;z-index:150;width:min(360px,calc(100vw - 32px));max-height:min(620px,calc(100vh - 110px));overflow-y:auto;overflow-x:hidden;scrollbar-gutter:stable;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,246,250,.98));border:1.6px solid #ffc9dc;border-radius:18px;box-shadow:0 22px 54px rgba(120,40,90,.30);opacity:0;pointer-events:none;transform:translateY(10px);transition:.2s ease}
+#pipPanel{position:fixed;right:16px;left:auto;bottom:84px;z-index:150;width:min(340px,calc(100vw - 32px));max-height:min(520px,calc(100vh - 110px));overflow-y:auto;overflow-x:hidden;scrollbar-gutter:stable;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,246,250,.98));border:1.6px solid #ffc9dc;border-radius:18px;box-shadow:0 22px 54px rgba(120,40,90,.30);opacity:0;pointer-events:none;transform:translateY(10px);transition:.2s ease}
 #pipPanel.on{opacity:1;pointer-events:auto;transform:none}
 .pip-head{display:flex;gap:10px;align-items:center;padding:12px 14px 8px;position:sticky;top:0;z-index:3;background:rgba(255,250,252,.98);border-bottom:1px solid #f2dce6}
 .pip-head>div{flex:1;min-width:0}
 .pip-head img{width:44px;height:44px;border-radius:12px;object-fit:cover;object-position:center 14%;background:#fff0f6;border:1px solid #f6dfeb;flex:none}
 .pip-head b{display:block;font-size:14.5px;color:#3f2a46}
-.pip-head span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-weight:800;color:#c2427c;text-transform:uppercase;letter-spacing:.05em}
+.pip-head span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-weight:800;color:#8c6e84}
 .pip-x{margin-left:auto;background:#fff;border:1px solid #f3d3e2;border-radius:10px;width:28px;height:28px;font-size:15px;color:#a86a8b;cursor:pointer;font-weight:900;line-height:1}
 .pip-x:hover{color:#ff5f92;border-color:#ff5f92}
-.pip-body{padding:4px 14px 12px;font-size:13px;font-weight:700;color:#5d4a5c;line-height:1.55}
+.pip-body{padding:12px 14px 8px;font-size:13px;font-weight:700;color:#5d4a5c;line-height:1.5}
 .pip-body b{color:#3f2a46}
 .pip-hint{display:block;margin-top:8px;font-size:11px;font-weight:800;color:#b58aa6}
 .pip-actions{display:flex;gap:6px;padding:0 14px 14px;flex-wrap:wrap}
 .pip-actions button{flex:1;min-width:64px;background:#fff;border:1.4px solid #f3d3e2;border-radius:10px;padding:8px 6px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#5d4a5c;cursor:pointer;transition:.12s}
 .pip-actions button:hover{border-color:#ff5f92;color:#ff5f92;background:#fff5f9}
-.pip-chat{margin:6px 14px 0;max-height:200px;min-width:0;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;gap:6px;padding:8px;background:#fff;border:1px solid #f3d9e4;border-radius:12px}
+.pip-chat{margin:6px 14px 0;max-height:170px;min-width:0;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;gap:6px;padding:8px;background:#fff;border:1px solid #f3d9e4;border-radius:12px}
 .pip-chat.has{display:flex}
 .pip-msg{min-width:0;max-width:100%;padding:7px 9px;border-radius:10px;line-height:1.45;overflow-wrap:anywhere;word-break:break-word}
 .pip-msg.you{align-self:flex-end;max-width:86%;background:#ffeef5;color:#8c3b60}
@@ -619,8 +619,8 @@
 .pip-ask input:focus{border-color:#ff5f92;box-shadow:0 0 0 3px rgba(255,95,146,.12)}
 .pip-ask button{background:linear-gradient(120deg,#ff7fa8,#ff5f92);border:none;border-radius:10px;padding:8px 13px;font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#fff;cursor:pointer}
 .pip-ask button:hover{filter:brightness(1.06)}
-.pip-chips{display:flex;flex-wrap:wrap;gap:5px;padding:8px 14px 0}
-.pip-chips button{background:#fff7fb;border:1px solid #f3d9e4;border-radius:8px;padding:4px 9px;font-family:'Nunito',sans-serif;font-weight:800;font-size:10.5px;color:#8c6e84;cursor:pointer}
+.pip-chips{display:grid;grid-template-columns:repeat(var(--pip-chip-cols,3),minmax(0,1fr));gap:6px;padding:8px 14px 13px}
+.pip-chips button{min-width:0;background:#fff7fb;border:1px solid #f3d9e4;border-radius:8px;padding:6px 7px;font-family:'Nunito',sans-serif;font-weight:850;font-size:10.5px;line-height:1.2;color:#8c6e84;cursor:pointer;white-space:normal}
 .pip-chips button:hover{border-color:#ff5f92;color:#ff5f92}
 .pip-team{margin:10px 14px 0;padding-top:10px;border-top:1px solid #f0dbe4;min-width:0}.pip-team-label{display:flex;justify-content:space-between;gap:8px;align-items:baseline;min-width:0;margin-bottom:7px;color:#3f2a46;font-size:11px;font-weight:900}.pip-team-label span{min-width:0;color:#9b7c91;font-size:10px;font-weight:700;text-align:right}.pip-team-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;min-width:0}.pip-team-list button{display:flex;align-items:center;gap:7px;min-width:0;max-width:100%;overflow:hidden;border:1px solid #ead7e0;border-radius:10px;background:#fff;padding:6px;text-align:left;color:#4f3d4d;font-family:'Nunito',sans-serif;cursor:pointer}.pip-team-list button>span{flex:1;min-width:0;max-width:100%;overflow:hidden}.pip-team-list button:hover{border-color:#d083a1;background:#fff8fb}.pip-team-list img{width:30px;height:30px;flex:none;border-radius:8px;object-fit:cover;object-position:top;background:#f7eef2}.pip-team-list b{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10.5px}.pip-team-list small{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9b7c91;font-size:9px;font-weight:800}.pip-brief-row{margin-top:8px;padding-top:7px;border-top:1px solid #f1e3ea}.pip-brief-row>b{display:block;margin-bottom:2px;font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:#9d5273}.pip-brief-row span,.pip-brief-row ol{margin:0;color:#5d4a5c}.pip-brief-row ol{padding-left:18px}
 .pip-vol{display:flex;align-items:center;gap:8px;min-width:0;padding:9px 14px 13px;font-size:10.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#8c6e84}
@@ -1314,7 +1314,7 @@ function showAchievements(){
   document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();};
 }
 /* ===== Pip — the resident helper bot ===== */
-var PIP={open:false,chat:[]};
+var PIP={open:false,chat:[],context:''};
 function pipIntroSeen(){ try{return localStorage.getItem('clinicalPathPipIntro')==='done';}catch(e){return true;} }
 function pipMarkIntro(){ try{localStorage.setItem('clinicalPathPipIntro','done');}catch(e){} }
 function pipScreen(){
@@ -1363,7 +1363,7 @@ function pipCaseSteps(c){
   if(surface==='dashboard')return ['Identify the signal and its source','Separate a true safety issue from an appropriate workflow','Select every actionable finding and define ownership'];
   return ['Review each active medication or order','Check dose, route, timing, interactions, organ function, and monitoring','Flag only actionable discrepancies and close the loop'];
 }
-function pipCaseBody(c){const type=c.type||'mcq',steps=pipCaseSteps(c),sup=caseSupport(c);return `<b>Work one clinical decision at a time.</b><br>${PIP_TYPE_TIPS[type]||'Use the stated data, choose an action, and define follow-up.'}<ol style="margin:8px 0 0;padding-left:19px">${steps.map(x=>`<li>${x}</li>`).join('')}</ol>${sup.drugs.length?`<span class="pip-hint">Medication focus: ${sup.drugs.join(', ')}</span>`:''}${type==='mcq'?'<span class="pip-hint">You get one coached retry after an incorrect first attempt.</span>':''}`;}
+function pipCaseBody(c){const type=c.type||'mcq',sup=caseSupport(c);return `${PIP_TYPE_TIPS[type]||'Use the stated data, choose an action, and define follow-up.'}${sup.drugs.length?`<span class="pip-hint">Medication focus: ${sup.drugs.slice(0,3).join(', ')}</span>`:''}`;}
 function focusCaseSupport(){togglePip(false);document.getElementById('caseSide')?.scrollIntoView({behavior:'smooth',block:'start'});}
 function pipTip(){
   const sc=pipScreen();
@@ -1391,8 +1391,10 @@ function pipTip(){
 }
 function pipEsc(x){return String(x||'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
 function pipGoBtn(label,code){ return '<button type="button" class="pip-go" onclick="'+String(code).replace(/"/g,'&quot;')+'">'+label+'</button>'; }
-function pipChatLoad(){try{PIP.chat=JSON.parse(localStorage.getItem('clinicalPathPipChat')||'[]').slice(-14);}catch(e){PIP.chat=[];}}
-function pipChatSave(){try{localStorage.setItem('clinicalPathPipChat',JSON.stringify((PIP.chat||[]).slice(-14)));}catch(e){}}
+function pipContextKey(){const sc=pipScreen();return (sc==='case'||sc==='feedback')&&typeof curM!=='undefined'&&curM?`${sc}:${curM.id}:${caseIdx}`:sc;}
+function pipSyncContext(){const key=pipContextKey();if(PIP.context!==key){PIP.context=key;PIP.chat=[];}return key;}
+function pipChatLoad(){PIP.chat=[];PIP.context='';try{localStorage.removeItem('clinicalPathPipChat');}catch(e){}}
+function pipChatSave(){}
 function pipCurrentCase(){const sc=pipScreen();return ((sc==='case'||sc==='feedback')&&typeof curM!=='undefined'&&curM&&curM.cases)?curM.cases[caseIdx]:null;}
 function pipHint(c){
   if(!c)return 'Open a case first and I can help you narrow it down.';
@@ -1461,12 +1463,6 @@ function pipStudyPlan(){
   if(!plan.length)plan.push({m:next||MODULES[0],why:'Keep your active streak moving'});
   return `<b>Your next three moves</b><ol>${plan.slice(0,3).map(x=>`<li><b>${pipEsc(x.m.title)}</b><br>${x.why}</li>`).join('')}</ol>${plan.slice(0,3).map(x=>pipGoBtn('Open '+pipEsc(x.m.title),`togglePip(false);openModule('${x.m.id}')`)).join('')}`;
 }
-function pipSaveNote(text){
-  if(!(typeof curM!=='undefined'&&curM))return 'Open a rotation first, then write <b>note: ...</b> and I will save it to that rotation.';
-  const clean=String(text||'').replace(/\s+/g,' ').trim().slice(0,300);if(!clean)return 'Add text after <b>note:</b> and I will save it locally.';
-  const key=residentNoteKey(),old=residentNoteValue(),line=`Pip capture: ${clean}`;try{localStorage.setItem(key,[old,line].filter(Boolean).join('\n'));}catch(e){return 'I could not save that note in this browser.';}
-  return `Saved to <b>${pipEsc(curM.title)} → My notes</b>.<br>${pipGoBtn('Open notes','togglePip(false);openNotes()')}`;
-}
 function pipTeamWho(ql){
   const tests=[['harlin',/harlin/],['dpark',/daniel|dr\.? park/],['belle',/belle|deans|rpd/],['amina',/amina|shah|id pharmacist/],['ortega',/mateo|ortega|ambulatory/],['nurse',/nurse|vance|mar expert/],['attending',/dr\.? chen|attending/],['elliot',/elliot|kang|rival/]];
   const hit=tests.find(x=>x[1].test(ql));return hit?hit[0]:'';
@@ -1484,9 +1480,8 @@ function pipTeamHTML(){
 }
 function pipAnswer(raw){
   var q=String(raw||'').trim(); var ql=q.toLowerCase().replace(/[?.!]+\s*$/,'').trim();
-  if(!ql) return 'Ask for a <b>case brief</b>, a <b>team consult</b>, a <b>study plan</b>, an acronym, drug, lab, rotation, or say "what next".';
+  if(!ql){const t=pipTip();return `<b>${t.h}</b><br>${t.b}`;}
   var inGame=!!(typeof G!=='undefined'&&G&&G.results);
-  var noteM=q.match(/^(?:note|remember|save note)\s*[:\-]?\s+([\s\S]{2,300})$/i);if(noteM)return pipSaveNote(noteM[1]);
   var teamWho=pipTeamWho(ql);if(teamWho&&/(ask|consult|what would|perspective|lens|advice)/.test(ql))return pipConsult(teamWho,pipCurrentCase());
   if(/brief me|case brief|summari[sz]e (the|this|my) case|what do (i|we) know|patient brief|handoff/.test(ql))return pipCaseBrief(pipCurrentCase());
   if(/study plan|weak areas?|what should i review|review plan|coach me/.test(ql))return pipStudyPlan();
@@ -1500,7 +1495,7 @@ function pipAnswer(raw){
   if(/\brefs?\b|references?|\bguidelines?\b|\bsources?\b/.test(ql)) return pipRefs(pipCurrentCase());
   if(/explain (this )?screen|where am i|what is this/.test(ql)){ var t=pipTip(); return '<b>'+t.h+'</b><br>'+t.b; }
   if(/what next|what should i do|where should i go|next rotation|recommend/.test(ql)){ if(!inGame)return 'Start a resident first — choose "New resident" on the title screen.'; var nm=nextRecommendedModule(); return nm?('Your recommended next rotation is <b>'+nm.title+'</b>.<br>'+pipGoBtn('Open '+pipEsc(nm.title),"togglePip(false);openModule('"+nm.id+"')")+pipGoBtn('Year map','togglePip(false);openYearMap()')):'All rotations are complete — run the Readiness Review from the year map.'; }
-  if(/volume|mute|too loud|quieter|louder|^sound$/.test(ql)) return 'Adjust the effect volume here (also in Settings):<br>'+volumeSliderHTML()+'<br>'+pipGoBtn('Toggle sound on/off','toggleSound(event)');
+  if(/volume|mute|too loud|quieter|louder|^sound$/.test(ql)) return 'Sound and volume live in Settings, separate from Pip.<br>'+pipGoBtn('Open Settings','showSettings()');
   if(/quizlet|export|flashcard|anki|study card/.test(ql)) return 'Study Cards collect every lesson and case. Grade them daily, save the current case, or export a Quizlet-ready import file.'+(inGame?'<br>'+pipGoBtn('Open Study Cards','togglePip(false);showStudyCards()')+(pipScreen()==='case'?pipGoBtn('Save this case','pinCurrentCase()')+pipGoBtn('Quizlet this case','downloadCurrentQuizlet()'):''):'');
   if(/lab values?|reference range|^labs?$|normal range/.test(ql)) return 'The lab reference table covers chemistry, liver, heme/coag, lipids, and blood gases.<br>'+pipGoBtn('Open Lab Values','showLabValues(event)');
   if(/calculator|^calc$|crcl|cockcroft|anion gap|corrected calcium|corrected phenytoin|heparin rate|^bmi$|^math$/.test(ql)){ var focus=/crcl|cockcroft/.test(ql)?'crcl':/anion/.test(ql)?'anion':/calcium/.test(ql)?'calcium':/phenytoin/.test(ql)?'phenytoin':/heparin/.test(ql)?'heparin':/bmi/.test(ql)?'bmi':''; return 'I can open the right tool for that.<br>'+pipGoBtn('Clinical calculators',"openClinicalCalculator(event"+(focus?",'"+focus+"'":"")+")")+pipGoBtn('Basic calculator','openBasicCalculator(event)'); }
@@ -1508,7 +1503,7 @@ function pipAnswer(raw){
   if(/reset|start over|delete (my )?save/.test(ql)) return 'Use <b>Resident Tools → Start Over</b> on the year map, or manage save slots from the title screen under <b>Residency files</b>.';
   if(/report|preceptor review|readiness/.test(ql)) return inGame?('Two review surfaces: <b>Review with Preceptor</b> (coaching record) and <b>Readiness Review</b> (end of year).<br>'+pipGoBtn('Preceptor Review','togglePip(false);showCompetencyReport()')):'Start a resident first.';
   if(/settings|text speed|auto.?advance/.test(ql)) return 'Settings covers text speed, auto-advance pause, sound, and volume.'+(inGame?'<br>'+pipGoBtn('Open Settings','showSettings()'):'<br>Open Settings from the title screen.');
-  if(/who are you|what can you do|^help$/.test(ql)) return 'I can <b>brief the current case</b> without spoiling it, bring in a <b>team perspective</b>, build a <b>study plan</b> from your misses, summarize progress, save a rotation note, explain <b>why</b> after you answer, list references, define acronyms, summarize drugs and labs, find rotations, and open the right tool.';
+  if(/who are you|what can you do|^help$/.test(ql)) {const t=pipTip();return `<b>${t.h}</b><br>${t.b}`;}
   if(ql.length>=3){ var exactLabs=LAB_VALUES.filter(function(r){return r[1].toLowerCase()===ql||r[1].toLowerCase().includes(ql);}).slice(0,4); if(exactLabs.length) return exactLabs.map(function(r){return '<b>'+r[1]+'</b>: '+r[2]+' '+r[3];}).join('<br>')+'<br><span class="pip-hint">Simulation reference ranges — institutional ranges govern.</span>'; }
   var drugPool=Array.from(new Set(DRUG_TERMS.concat(Object.keys(DRUG_MONOGRAPHS||{}))));
   var drug=drugPool.find(function(d){return ql===d||ql.includes(d)||(ql.length>=4&&d.includes(ql));});
@@ -1517,34 +1512,48 @@ function pipAnswer(raw){
   if(ql.length>=3){ var mods=MODULES.filter(function(m){return (m.title+' '+(m.blurb||'')).toLowerCase().includes(ql);}).slice(0,3); if(mods.length) return 'Rotations matching "'+pipEsc(q)+'":<br>'+mods.map(function(m){return pipGoBtn(pipEsc(m.title),"togglePip(false);openModule('"+m.id+"')");}).join(''); }
   var near=Object.keys(GLOSSARY).filter(function(k){return k.toLowerCase().includes(ql)||GLOSSARY[k][0].toLowerCase().includes(ql);}).slice(0,4);
   if(near.length&&ql.length>=2) return near.map(function(k){return '<b>'+k+'</b> = '+GLOSSARY[k][0];}).join('<br>');
-  return 'I could not match that. Try <b>brief me</b>, <b>study plan</b>, <b>ask Daniel</b>, <b>hint</b>, <b>why</b>, <b>refs</b>, an acronym, a drug, a lab, or "what next".';
+  return 'I could not match that on this page. Try one of the three suggestions below.';
 }
 function pipChatHTML(){ if(!PIP.chat.length) return ''; return PIP.chat.map(function(m){return '<div class="pip-msg '+m.who+'">'+(m.who==='you'?pipEsc(m.text):m.text)+'</div>';}).join(''); }
-function pipAsk(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} var inp=document.getElementById('pipAskInput'); var q=String(inp&&inp.value||'').trim(); if(!q)return false; PIP.chat.push({who:'you',text:q}); PIP.chat.push({who:'pip',text:pipAnswer(q)}); PIP.chat=PIP.chat.slice(-14); pipChatSave(); var log=document.getElementById('pipChat'); if(log){ log.innerHTML=pipChatHTML(); log.classList.add('has'); log.scrollTop=log.scrollHeight; } if(inp){inp.value='';inp.focus();} sfx('click'); return false; }
+function pipAsk(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} var inp=document.getElementById('pipAskInput'); var q=String(inp&&inp.value||'').trim(); if(!q)return false; PIP.chat.push({who:'you',text:q}); PIP.chat.push({who:'pip',text:pipAnswer(q)}); PIP.chat=PIP.chat.slice(-6); pipChatSave(); var log=document.getElementById('pipChat'); if(log){ log.innerHTML=pipChatHTML(); log.classList.add('has'); log.scrollTop=log.scrollHeight; } if(inp){inp.value='';inp.focus();} sfx('click'); return false; }
 function pipQuick(q){ var inp=document.getElementById('pipAskInput'); if(inp)inp.value=q; pipAsk(); }
 function pipClearChat(){PIP.chat=[];pipChatSave();const log=document.getElementById('pipChat');if(log){log.innerHTML='';log.classList.remove('has');}const inp=document.getElementById('pipAskInput');if(inp)inp.focus();}
-function pipChipsHTML(){ var sc=pipScreen(); var chips=[]; if(sc==='case'||sc==='feedback'){ chips.push(['Brief','brief me']); if(sc==='case')chips.push(['Hint','hint']); chips.push(['Why?','why']); chips.push(['Drug info','drug info']); chips.push(['References','refs']); } else { chips.push(['Study plan','study plan']); chips.push(['Progress','my progress']); chips.push(['What next?','what next']); chips.push(['Explain screen','explain screen']); } return '<div class="pip-chips">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'<button type="button" onclick="pipClearChat()">Clear</button></div>'; }
+function pipContextActions(sc){
+  const byScreen={
+    case:[['Brief','brief me'],['Hint','hint'],['References','refs']],
+    feedback:[['Why','why'],['Drug info','drug info'],['References','refs']],
+    hub:[['What next','what next'],['Study plan','study plan'],['Progress','my progress']],
+    cards:[['Study plan','study plan'],['Progress','my progress'],['Year map','year map']],
+    review:[['Progress','my progress'],['Study plan','study plan'],['Year map','year map']],
+    shift:[['This board','explain screen'],['What next','what next'],['Year map','year map']],
+    scene:[['This scene','explain screen'],['Year map','year map'],['What next','what next']],
+    faceoff:[['This round','explain screen'],['Study plan','study plan'],['Year map','year map']],
+    title:[['How to start','explain screen'],['What next','what next']],
+    create:[['This page','explain screen'],['What next','what next']],
+    saves:[['This page','explain screen'],['What next','what next']],
+    cast:[['This team','explain screen'],['What next','what next']],
+    journeys:[['This page','explain screen'],['What next','what next']],
+    chapter:[['This rotation','explain screen'],['What next','what next']]
+  };
+  return byScreen[sc]||[['This page','explain screen'],['What next','what next']];
+}
+function pipContextMeta(sc){
+  const labels={case:'Current case',feedback:'Answer review',hub:'Resident Year Map',cards:'Study Cards',review:'Preceptor Review',shift:'Simulated Shift',scene:'Story scene',faceoff:'Rounds face-off',title:'Title screen',create:'Resident setup',saves:'Residency files',cast:'Care team',journeys:'Patient journeys',chapter:'New rotation'};
+  const prompts={case:'Ask about this case',feedback:'Ask about the answer',hub:'Ask what to do next',cards:'Ask what to review',review:'Ask about your progress',shift:'Ask how to prioritize',scene:'Ask about this scene'};
+  return {label:labels[sc]||'This page',placeholder:prompts[sc]||'Ask about this page'};
+}
+function pipChipsHTML(){const sc=pipScreen(),chips=pipContextActions(sc);return '<div class="pip-chips" aria-label="Helpful on this page" style="--pip-chip-cols:'+chips.length+'">'+chips.map(function(c){return '<button type="button" onclick="pipQuick(\''+c[1].replace(/'/g,"\\'")+'\')">'+c[0]+'</button>';}).join('')+'</div>';}
 function pipPanelHTML(intro){
-  const tip=pipTip();
-  const inGame=!!(typeof G!=='undefined'&&G&&G.results);
+  pipSyncContext();
+  const sc=pipScreen(),meta=pipContextMeta(sc),tip=pipTip();
   const body=intro
-    ? `<b>Hi! I'm Pip, your rounds copilot.</b><br>I can brief a case, call in the right teammate, find a reference or tool, and turn your misses into a focused study plan.<br><span class="pip-hint">I stay inside the simulation data and never replace your preceptor or institutional policy. Press H anytime.</span>`
+    ? `<b>Help for this page</b><br>Open Pip wherever you are and the guidance will follow that screen.`
     : `<b>${tip.h}</b><br>${tip.b}`;
-  const inCase=['case','feedback'].includes(pipScreen());
-
-  const acts=inGame? `<div class="pip-actions">
-      ${inCase?'<button onclick="sfx(\'click\');focusCaseSupport()">Case info</button><button onclick="sfx(\'click\');pinCurrentCase()">Save card</button><button onclick="sfx(\'click\');downloadCurrentQuizlet()">Quizlet</button>':''}
-      <button onclick="sfx('click');showLabValues(event)">Labs</button>
-      <button onclick="sfx('click');openBasicCalculator(event)">Math</button>
-      <button onclick="sfx('click');openClinicalCalculator(event)">Calc</button>
-      <button onclick="sfx('click');togglePip();openYearMap()">Year map</button>
-    </div>`:"";
-  return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>clinical copilot · case, team, study</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
+  return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>${meta.label}</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
   <div class="pip-body">${body}</div>
   <div class="pip-chat ${PIP.chat.length?'has':''}" id="pipChat">${pipChatHTML()}</div>
-  <form class="pip-ask" onsubmit="return pipAsk(event)"><input id="pipAskInput" type="text" placeholder='Ask: "brief me", "study plan", "ask Daniel"' autocomplete="off" aria-label="Ask Pip a question"><button type="submit">Ask</button></form>
-  ${pipChipsHTML()}${pipTeamHTML()}${acts}
-  <div class="pip-vol"><span>Volume</span>${volumeSliderHTML()}</div>`;
+  <form class="pip-ask" onsubmit="return pipAsk(event)"><input id="pipAskInput" type="text" placeholder="${meta.placeholder}" autocomplete="off" aria-label="Ask Pip about this page"><button type="submit">Ask</button></form>
+  ${pipChipsHTML()}`;
 }
 function togglePip(force){
   const panel=document.getElementById('pipPanel');
@@ -3547,7 +3556,7 @@ function runLearn(){
 function learnNext(){ if(learnIdx<((TEACH[curM.id]||[]).length-1)){ learnIdx++; saveProgress("learn"); runLearn(); } }
 
 function residentNoteKey(){return 'clinicalPathResidentNote:'+((curM&&curM.id)||'general');}
-function residentNoteValue(){try{return localStorage.getItem(residentNoteKey())||''}catch(e){return ''}}
+function residentNoteValue(){try{const key=residentNoteKey(),raw=localStorage.getItem(key)||'',clean=raw.split('\n').map(line=>line.replace(/^Pip\s+capture:\s*/i,'')).join('\n');if(clean!==raw)localStorage.setItem(key,clean);return clean;}catch(e){return ''}}
 function noteEsc(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function showNotePane(id,btn){document.querySelectorAll('.notes-pane').forEach(x=>x.classList.toggle('on',x.id===id));document.querySelectorAll('.notes-nav button').forEach(x=>x.classList.toggle('on',x===btn));}
 function saveResidentNote(){const el=document.getElementById('residentNoteText'),st=document.getElementById('noteSaveStatus');if(!el)return;try{localStorage.setItem(residentNoteKey(),el.value);if(st)st.textContent='Saved locally';}catch(e){if(st)st.textContent='Could not save in this browser';}}
