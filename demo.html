@@ -351,7 +351,8 @@
   .abbr-tip{display:none;position:absolute;left:0;bottom:calc(100% + 6px);z-index:120;width:max-content;max-width:min(320px,80vw);background:#0f172a;color:#fff;border-radius:8px;padding:9px 11px;box-shadow:0 14px 35px rgba(15,23,42,.28);font-size:12px;line-height:1.4;font-weight:700;white-space:normal}
   .abbr-tip b{color:#bae6fd}
   .abbr.open .abbr-tip,.abbr:hover .abbr-tip,.abbr:focus-within .abbr-tip{display:block}
-  .drug-term{position:relative;display:inline-flex;align-items:center;color:#9a3412;font-weight:900;background:linear-gradient(transparent 58%,#fed7aa 58%);white-space:nowrap;cursor:help;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .drug-term{position:relative;display:inline;color:#9a3412;font-weight:900;background:none;white-space:nowrap;cursor:help;text-decoration-line:underline;text-decoration-style:solid;text-decoration-color:#f59e0b;text-decoration-thickness:2px;text-underline-offset:.18em;text-decoration-skip-ink:auto}
+  .drug-term:focus-visible{outline:2px solid #fdba74;outline-offset:3px;border-radius:2px}
   .drug-tip{display:none;position:absolute;left:50%;bottom:calc(100% + 6px);z-index:122;width:max-content;max-width:min(300px,80vw);transform:translateX(-50%);background:#431407;color:#fff7ed;border:1px solid #9a3412;border-radius:8px;padding:8px 10px;box-shadow:0 14px 35px rgba(67,20,7,.26);font-size:11.5px;line-height:1.4;font-weight:700;white-space:normal}
   .drug-tip b{display:block;color:#fdba74;font-size:12px}.drug-tip small{display:block;margin-top:3px;color:#fed7aa;font-size:10px}
   .drug-term:hover .drug-tip,.drug-term:focus-within .drug-tip{display:block}
