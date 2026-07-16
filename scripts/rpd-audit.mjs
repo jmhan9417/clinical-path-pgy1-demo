@@ -12,7 +12,7 @@ add('No credential-conferring result label', !/PGY-1 Graduate|Ready for BCPS \/ 
 add('Critical-response remediation gate', demo.includes('criticalMisses().length'));
 add('Readiness review is formative', demo.includes('No medical advice, residency credit, credentialing, or independent-practice validation'));
 add('Content governance surface is removed', !demo.includes('CONTENT_GOVERNANCE') && !demo.includes('Content Governance'));
-add('R1 and Core explanation is available on the year map', demo.includes('What do R1 and Core mean?') && demo.includes('function showCompetencyHelp()') && demo.includes('ASHP PGY-1 competency areas'));
+add('R1-R4 and Core explanations live in Pip, not a standalone map dialog', demo.includes('function pipCompetencyGuide(q)') && demo.includes("hub:[['R1–R4 / Core','rotation labels']") && demo.includes('ASHP PGY-1 competency areas') && !demo.includes('What do R1 and Core mean?') && !demo.includes('showCompetencyHelp'));
 add('Learning-experience structure banner is removed', !demo.includes('Learning experience structure:'));
 add('Current DKA potassium threshold', demo.includes('K⁺ &lt; 3.5') && !demo.includes('K⁺ &lt; 3.3') && !demo.includes('K⁺ ≥ 3.3'));
 add('Keyboard skip links', demo.includes('Skip to simulation content') && home.includes('Skip to main content'));

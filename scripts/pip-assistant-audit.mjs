@@ -41,6 +41,7 @@ const audit=`
  G.results[curM.id][0]=false; G.results[curM.id][1]=true;
  const a14=pipAnswer('my progress'); add('progress summary derives missed areas from save state', /Most missed/.test(a14) && /The Clinical Pharmacist Role/.test(a14), strip(a14).slice(0,120));
  const a15=pipAnswer('study plan'); add('study plan turns misses into navigation actions', /next three moves/i.test(a15) && /openModule/.test(a15), strip(a15).slice(0,120));
+ const a16=pipAnswer('rotation labels'); add('competency guide explains Core and all four ASHP areas', /Rotation labels/.test(a16) && ['CORE','R1','R2','R3','R4'].every(k=>a16.includes('<b>'+k+'</b>')) && /ASHP PGY-1 competency areas/.test(a16), strip(a16).slice(0,150));
  localStorage.setItem(residentNoteKey(),'Pip capture: verify the MAR against what was actually administered'); const legacyNote=residentNoteValue(); add('legacy Pip capture label is removed from saved notes', legacyNote==='verify the MAR against what was actually administered' && !/Pip capture/.test(localStorage.getItem(residentNoteKey())||''));
  add('five specialist routes resolve to distinct mentors', rotationMentor(MODULES.find(m=>m.id==='abx')).who==='amina' && rotationMentor(MODULES.find(m=>m.id==='amb_core')).who==='ortega' && rotationMentor(MODULES.find(m=>m.id==='code')).who==='dpark' && rotationMentor(MODULES.find(m=>m.id==='critcare')).who==='harlin' && rotationMentor(MODULES.find(m=>m.id==='lead')).who==='belle');
  add('expanded care team has unique identities', Object.keys(CLINICAL_TEAM).length===8 && new Set(Object.values(CLINICAL_TEAM).map(p=>p.name)).size===8);
@@ -50,7 +51,7 @@ const audit=`
  PIP.chat=[{who:'you',text:'<script>x</script>'},{who:'pip',text:'<b>ok</b>'}];
  const chat=pipChatHTML(); add('chat escapes user side, allows pip html', !/<script>x/.test(chat) && /<b>ok<\\/b>/.test(chat));
  const caseActions=pipContextActions('case'),feedbackActions=pipContextActions('feedback'),hubActions=pipContextActions('hub');
- add('Pip exposes exactly three page-specific actions', caseActions.length===3 && feedbackActions.length===3 && hubActions.length===3 && caseActions[0][0]==='Brief' && feedbackActions[0][0]==='Why' && hubActions[0][0]==='What next');
+ add('Pip exposes exactly three page-specific actions', caseActions.length===3 && feedbackActions.length===3 && hubActions.length===3 && caseActions[0][0]==='Brief' && feedbackActions[0][0]==='Why' && hubActions[0][0]==='R1–R4 / Core' && hubActions[0][1]==='rotation labels');
  const panel=pipPanelHTML(false); add('panel stays minimal and omits team grid, tool duplication, and volume', /pipAskInput/.test(panel) && /pip-chips/.test(panel) && !/pip-team-list/.test(panel) && !/pip-actions/.test(panel) && !/data-vol-range/.test(panel));
  add('panel guidance is short', strip(panel).length<260, strip(panel).slice(0,140));
  add('panel contains horizontal overflow guards', /#pipPanel\{[^}]*overflow-x:hidden/.test(html) && /\.pip-chips button\{[^}]*min-width:0/.test(html) && /\.pip-msg\{[^}]*overflow-wrap:anywhere/.test(html));
