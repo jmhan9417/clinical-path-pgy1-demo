@@ -36,6 +36,11 @@ add('Every MCQ is expanded to five options', demo.includes('ensureFiveMCQOptions
 add('One coached MCQ retry is implemented', demo.includes('Try once more.') && demo.includes('c._attempts<2'));
 add('Case selections can be cancelled', demo.includes('clearMcqSelection') && demo.includes('ondblclick'));
 add('Case workspace prevents question overlap', demo.includes('case-workspace') && demo.includes('body.case-active .vn-wrap'));
+add('Desktop case question remains viewport-centered', demo.includes('grid-template-columns:minmax(260px,310px) minmax(0,920px) minmax(260px,310px)') && demo.includes('.case-main{grid-column:2}') && demo.includes('.case-side{grid-column:3}'));
+const caseStemFn=(demo.match(/function caseStemHTML\(c\)\{[^\n]+/)||[])[0]||'';
+add('Case header has no duplicate Pip launcher', !caseStemFn.includes('data-case-pip') && !caseStemFn.includes('>Pip<'));
+add('Floating Pip remains visible in case mode', demo.includes('body.case-active #pipBtn{display:block}'));
+add('Glossary terms have direct hover and focus tooltips without badges', demo.includes("tip.setAttribute('role','tooltip')") && demo.includes("span.setAttribute('aria-describedby',tipId)") && !demo.includes("q.textContent=calc?'calc':'?'") && !demo.includes('.abbr-q{'));
 add('Medication references and Quizlet actions are present', demo.includes('caseReferences(c)') && demo.includes('downloadCurrentQuizlet'));
 add('Surface-aware MAR and chart review are present', demo.includes("function chartSurface(c)") && demo.includes("Medication Administration Record") && demo.includes('mar-grid'));
 add('MAR timing and status are authored, not index-generated', demo.includes('AUTHORED_MAR_CASES') && demo.includes('function authoredMar(c)') && !demo.includes('function marTime(i)') && !demo.includes('function marStatus(i,row)'));
@@ -45,6 +50,8 @@ const journalAnswerFn=(demo.match(/function jcAnswerNnt\(i\)\{[\s\S]*?\n\}/)||[]
 add('All item types use missed-case tracking', journalAnswerFn.includes('commitCaseResult(ok)') && journalAnswerFn.includes("saveProgress('case')"));
 add('Review-mode position persists across reload', demo.includes('reviewMode:REVIEW_MODE||G.reviewMode||null') && demo.includes('d.reviewMode.moduleId===curM.id'));
 add('Pip helper is on the right', demo.includes('#pipBtn{position:fixed;right:16px;left:auto'));
+add('Clinical reference catalog uses exact current sources', demo.includes('Surviving Sepsis Campaign International Guidelines 2026') && demo.includes('2026 AHA/ASA Acute Ischemic Stroke Guideline') && demo.includes('2026 ACC/AHA Guideline on the Management of Dyslipidemia') && demo.includes('SCCM 2025 Focused Update to the PADIS Guideline') && demo.includes('PGY1-Harmonized-CAGO-COC-BOD-Approved-2025-0918.pdf'));
+add('Known broad or dead reference URLs are absent', !demo.includes('surviving-sepsis-campaign-guidelines-2021') && !demo.includes('Guideline-Topic-Areas/Antithrombotic-Therapy') && !demo.includes('practice-guideline/practice-guidelines/') && !demo.includes('antibiotic-use/core-elements/hospital.html') && !demo.includes("['NABP Resources','https://nabp.pharmacy/']"));
 add('Map return-to-case path is present and persisted', demo.includes('resumeCurrentCase()') && demo.includes('Return to paused case') && demo.includes('clinicalPathPausedCase'));
 add('MAP and SSC glossary definitions are present', demo.includes("MAP:['Mean Arterial Pressure'") && demo.includes("SSC:['Surviving Sepsis Campaign'"));
 add('Sound volume is adjustable and persisted', demo.includes('clinicalPathVolume') && demo.includes('data-vol-range') && demo.includes('setVolume(this.value,event)'));
