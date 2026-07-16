@@ -50,6 +50,10 @@ const journalAnswerFn=(demo.match(/function jcAnswerNnt\(i\)\{[\s\S]*?\n\}/)||[]
 add('All item types use missed-case tracking', journalAnswerFn.includes('commitCaseResult(ok)') && journalAnswerFn.includes("saveProgress('case')"));
 add('Review-mode position persists across reload', demo.includes('reviewMode:REVIEW_MODE||G.reviewMode||null') && demo.includes('d.reviewMode.moduleId===curM.id'));
 add('Pip helper is on the right', demo.includes('#pipBtn{position:fixed;right:16px;left:auto'));
+const pipPanelFn=(demo.match(/function pipPanelHTML\(intro\)\{[\s\S]*?\n\}/)||[])[0]||'';
+add('Pip panel follows the current page with three focused actions', demo.includes('function pipContextActions(sc)') && demo.includes('function pipContextMeta(sc)') && demo.includes('Helpful on this page'));
+add('Pip panel omits team grid, duplicate tools, and volume', !pipPanelFn.includes('pipTeamHTML') && !pipPanelFn.includes('pip-actions') && !pipPanelFn.includes('volumeSliderHTML'));
+add('Pip capture label is not written into notes', !demo.includes('line=`Pip capture:'));
 add('Clinical reference catalog uses exact current sources', demo.includes('Surviving Sepsis Campaign International Guidelines 2026') && demo.includes('2026 AHA/ASA Acute Ischemic Stroke Guideline') && demo.includes('2026 ACC/AHA Guideline on the Management of Dyslipidemia') && demo.includes('SCCM 2025 Focused Update to the PADIS Guideline') && demo.includes('PGY1-Harmonized-CAGO-COC-BOD-Approved-2025-0918.pdf'));
 add('Known broad or dead reference URLs are absent', !demo.includes('surviving-sepsis-campaign-guidelines-2021') && !demo.includes('Guideline-Topic-Areas/Antithrombotic-Therapy') && !demo.includes('practice-guideline/practice-guidelines/') && !demo.includes('antibiotic-use/core-elements/hospital.html') && !demo.includes("['NABP Resources','https://nabp.pharmacy/']"));
 add('Map return-to-case path is present and persisted', demo.includes('resumeCurrentCase()') && demo.includes('Return to paused case') && demo.includes('clinicalPathPausedCase'));
