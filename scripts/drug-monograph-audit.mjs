@@ -1,0 +1,26 @@
+import fs from 'node:fs';
+const demo=fs.readFileSync(new URL('../demo.html',import.meta.url),'utf8');
+const checks=[];const add=(name,pass,detail='')=>checks.push({name,pass:Boolean(pass),detail});
+const monoMatch=demo.match(/const DRUG_MONOGRAPHS=(\{.*\});\n\nconst DRUG_MONO_ALIASES/);
+const guideMatch=demo.match(/const RENAL_DOSE_GUIDE=(\{[\s\S]*?\});\nconst DRUG_DISPLAY_NAMES/);
+let monos={},guides={};
+try{monos=JSON.parse(monoMatch?.[1]||'{}')}catch(e){}
+try{guides=JSON.parse(guideMatch?.[1]||'{}')}catch(e){}
+const monoKeys=Object.keys(monos),guideKeys=Object.keys(guides);
+add('Catalog contains exactly 100 drug monographs',monoKeys.length===100,`${monoKeys.length}/100`);
+add('Every monograph has complete core fields',monoKeys.every(k=>{const m=monos[k];return m.class&&m.indication&&m.dosing&&m.monitoring&&m.adjust&&Array.isArray(m.pearls)&&m.pearls.length}),`${monoKeys.filter(k=>{const m=monos[k];return !(m.class&&m.indication&&m.dosing&&m.monitoring&&m.adjust&&Array.isArray(m.pearls)&&m.pearls.length)}).length} incomplete`);
+add('Curated renal guide covers 54 high-priority drugs',guideKeys.length===54,`${guideKeys.length}/54`);
+add('Every curated renal guide maps to a real monograph',guideKeys.every(k=>monos[k]),`${guideKeys.filter(k=>!monos[k]).join(', ')||'all mapped'}`);
+add('Every curated renal guide separates rule and dose change',guideKeys.every(k=>Array.isArray(guides[k].renal)&&guides[k].renal.length>=1&&guides[k].renal.length<=3&&Array.isArray(guides[k].change)&&guides[k].change.length>=1&&guides[k].change.length<=2));
+const required=['vancomycin','cefepime','piperacillin','gentamicin','enoxaparin','apixaban','rivaroxaban','digoxin','lithium','metformin','gabapentin','pregabalin','tacrolimus','voriconazole','phenytoin','fosphenytoin'];
+add('High-risk renal drugs have explicit rules',required.every(k=>guides[k]),required.filter(k=>!guides[k]).join(', ')||'all covered');
+add('Full monograph uses point-form clinical sections',demo.includes("[['Use',m.indication],['Typical dose',m.dosing],['Renal rule',guide.renal],['Dose change',guide.change],['Monitor',m.monitoring],['Pearls',m.pearls||[]]]")&&demo.includes('class="mono-points"'));
+add('Old overlapping Dosing and Dose adj. rows are removed',!demo.includes("var fields=[['Indication',m.indication],['Dosing',m.dosing],['Monitoring',m.monitoring],['Dose adj.',m.adjust]]"));
+add('Rendered medication terms capitalize their first letter',demo.includes('display=drugCap(match)')&&demo.includes('span.appendChild(document.createTextNode(display))'));
+add('Named combination drugs use complete display names',demo.includes("piperacillin:'Piperacillin-tazobactam'")&&demo.includes("sacubitril:'Sacubitril-valsartan'"));
+add('Monograph text is HTML-escaped before rendering',demo.includes('function monoEsc(v)')&&demo.includes("monoEsc(capitalizeDrugText(p))"));
+add('Study cards separate typical dose, renal rule, and dose change',demo.includes("front:dn+' \\u2014 Typical dose'")&&demo.includes("front:dn+' \\u2014 Renal rule'")&&demo.includes("front:dn+' \\u2014 Dose change'"));
+add('Vancomycin loading dose, AUC target, and unstable-renal rule are explicit',monos.vancomycin?.dosing?.includes('20-35 mg/kg')&&guides.vancomycin?.renal?.some(x=>x.includes('AUC24/MIC 400-600'))&&guides.vancomycin?.renal?.some(x=>x.includes('AKI or unstable renal function')));
+add('Corrected label tables retain required thresholds and loading doses',guides.levofloxacin?.change?.some(x=>x.includes('500 mg once then 250 mg q48h'))&&guides.cefazolin?.change?.some(x=>x.includes('CrCl 35-54'))&&guides.ciprofloxacin?.change?.some(x=>x.includes('CrCl 5-29'))&&guides.nitrofurantoin?.renal?.some(x=>x.includes('Current FDA labeling')));
+for(const c of checks)console.log(`${c.pass?'PASS':'FAIL'}  ${c.name}${c.detail?` — ${c.detail}`:''}`);
+const failed=checks.filter(c=>!c.pass);console.log(`\n${checks.length-failed.length}/${checks.length} drug-monograph checks passed`);if(failed.length)process.exit(1);
