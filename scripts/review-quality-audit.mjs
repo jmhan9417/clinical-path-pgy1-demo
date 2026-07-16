@@ -12,7 +12,7 @@ const audit=String.raw`
 (()=>{
  const checks=[];const check=(name,pass,detail='')=>checks.push({name,pass:Boolean(pass),detail});
  const cases=[];MODULES.forEach(m=>(m.cases||[]).forEach((c,index)=>cases.push({m,c,index,type:c.type||'mcq'})));
- let contextExpected=0,contextPreserved=0,monitoring=0,references=0,noUndefined=0,engineSpecific=0,mcqRetryComplete=0,marMentionCount=0,marMentionCovered=0;const engineFailures=[],undefinedFailures=[];
+ let contextExpected=0,contextPreserved=0,monitoring=0,references=0,referenceSources=0,noUndefined=0,engineSpecific=0,mcqRetryComplete=0,marMentionCount=0,marMentionCovered=0;const engineFailures=[],undefinedFailures=[];
  const markers={mcq:['Correct principle','Best answer'],order:['Correct sequence','lr-step-reason'],calc:['Formula or method','Expected result'],chartHunt:['Review surface','Needs pharmacist action'],sbar:['Best fragment','Why it works'],code:['Correct action','protocol-aligned action'],journal:['Effect-size answer','True limitation'],essay:['Guided self-review','Expert workup']};
  for(const x of cases){
   const {m,c,index,type}=x;curM=m;caseIdx=index;
@@ -28,6 +28,7 @@ const audit=String.raw`
   const context=clinicalContextHTML(c);if(context){contextExpected++;if(/Patient or case context/.test(out)&&/case-context/.test(out))contextPreserved++;}
   if(/Monitoring and follow-up/.test(out)&&/<li>[^<]{12,}/.test(out.split('Monitoring and follow-up')[1]||''))monitoring++;
   if(/<h4>References<\/h4>/.test(out)&&/<a href=/.test(out))references++;
+  if(/(?:Guideline|Label|Framework) source:|Source:/.test(out))referenceSources++;
   if(!/(?:>|• |: )(?:undefined|null)(?:<|$)/i.test(out))noUndefined++;else undefinedFailures.push(m.id+'['+index+'] '+type);
   const need=markers[type]||[];if(need.every(k=>out.includes(k)))engineSpecific++;else engineFailures.push(m.id+'['+index+'] '+type+' missing '+need.filter(k=>!out.includes(k)).join(','));
   const mentions=/\bMAR\b|medication administration record/i.test([c.kick,c.q,c.note,c.patient].join(' '));if(mentions){marMentionCount++;if((c.mar&&c.mar.length)||authoredMar(c))marMentionCovered++;}
@@ -39,6 +40,7 @@ const audit=String.raw`
  STUDY.cards=buildStudyCards();
  check('All 457 terminal reviews include monitoring and follow-up',monitoring===cases.length,monitoring+'/'+cases.length);
  check('All 457 terminal reviews include references',references===cases.length,references+'/'+cases.length);
+ check('All 457 terminal reviews name a guideline, framework, label, or publisher',referenceSources===cases.length,referenceSources+'/'+cases.length);
  check('All structured contexts survive into terminal review',contextPreserved===contextExpected,contextPreserved+'/'+contextExpected);
  check('Every engine renders its specific reasoning structure',engineSpecific===cases.length,engineSpecific+'/'+cases.length+(engineFailures.length?' · '+engineFailures.slice(0,5).join('; '):''));
  check('No terminal review renders undefined or null',noUndefined===cases.length,noUndefined+'/'+cases.length+(undefinedFailures.length?' · '+undefinedFailures.join('; '):''));
