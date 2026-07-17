@@ -1,0 +1,26 @@
+import fs from 'node:fs';
+const html=fs.readFileSync(new URL('../demo.html',import.meta.url),'utf8');
+const scripts=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(m=>m[1]);
+let app=scripts.sort((a,b)=>b.length-a.length)[0].replace(/\nshowTitle\(\);/g,'\n/* boot skipped for audit */');
+const stub=()=>new Proxy(function(){},{get:(t,p)=>p==='style'?stub():p==='classList'?{add(){},remove(){},toggle(){}}:stub(),set:()=>true,apply:()=>stub(),construct:()=>stub()});
+globalThis.window=globalThis;globalThis.document={documentElement:{style:{setProperty(){}}},body:stub(),addEventListener(){},removeEventListener(){},getElementById(){return stub()},querySelector(){return null},querySelectorAll(){return[]},createElement(){let raw='';return{style:{},classList:{add(){},remove(){}},setAttribute(){},set innerHTML(v){raw=String(v||'')},get innerHTML(){return raw},get textContent(){return raw.replace(/<[^>]*>/g,' ')},get innerText(){return raw.replace(/<[^>]*>/g,' ')},appendChild(){},remove(){},click(){}}}};globalThis.localStorage={getItem(){return null},setItem(){},removeItem(){}};Object.defineProperty(globalThis,'navigator',{value:{},configurable:true});globalThis.location={reload(){}};globalThis.Image=class{};globalThis.Audio=class{};globalThis.requestAnimationFrame=()=>0;globalThis.cancelAnimationFrame=()=>{};globalThis.setTimeout=()=>0;globalThis.confirm=()=>false;globalThis.URL={createObjectURL(){return''},revokeObjectURL(){}};
+const audit=`(()=>{const checks=[],add=(name,pass,detail='')=>checks.push({name,pass:Boolean(pass),detail});
+add('Fictional antibiogram has seven or more organisms',ANTIBIOGRAM_TRAINING.length>=7,'rows='+ANTIBIOGRAM_TRAINING.length);
+add('Every antibiogram row has at least 30 isolates',ANTIBIOGRAM_TRAINING.every(r=>r.isolates>=30));
+add('All simulated susceptibility values are 0 to 100',ANTIBIOGRAM_TRAINING.every(r=>Object.values(r.values).every(v=>Number.isFinite(v)&&v>=0&&v<=100)));
+add('Coverage dictionary has at least fourteen generic agents',ANTIBIOTIC_DICTIONARY.length>=14,'agents='+ANTIBIOTIC_DICTIONARY.length);
+const dict=JSON.stringify(ANTIBIOTIC_DICTIONARY);
+add('Coverage dictionary contains no brand names',!/Zosyn|Rocephin|Vancocin|Bactrim|Flagyl|Zithromax/i.test(dict));
+add('Coverage dictionary contains no dose regimens',!/(?:\\b\\d+(?:\\.\\d+)?\\s*(?:mg|g|mcg)\\b|\\bq\\d+h\\b|every \\d+ hours)/i.test(dict));
+add('Fictional training warning appears before antibiogram table',antibiogramHTML().indexOf('Fictional training data')<antibiogramHTML().indexOf('<table'));
+add('Antibiotic guide is wired into case, narrative, hub, and Pip tools',(html.match(/showAbxReference\\(event/g)||[]).length>=5&&html.includes('Antibiogram and Antibiotic Guide'));
+add('Antibiotic overlay is an accessible dialog',html.includes("ov.setAttribute('aria-modal','true')")&&html.includes("ov.setAttribute('aria-labelledby','abxRefTitle')")&&html.includes('function abxTabKeydown')&&html.includes("if(e.key!=='Tab')return"));
+const questions=MODULES.flatMap(m=>(m.cases||[]).map(c=>String(c.q||''))),allText=questions.join(' ');
+add('No displayed vancomycin shorthand remains',!/\\bvanc(?:o)?\\b/i.test(html.replace(/vanc_deep|vanco_trough_guidelines/g,'')));
+add('Fragmented best-action endings are rewritten',!questions.some(q=>/\\b(?:Best action|Best move|Best next step|Best first step|Chief concern|Why re-check)\\?$/.test(q)));
+add('Stewardship question reads as complete sentences',questions.some(q=>q.includes('received empiric meropenem and vancomycin for 3 days')&&q.endsWith('What is the best next step?')));
+const split=reviewSentences('Culture-directed de-escalation reduces resistance, C. difficile risk and cost; negative nares supports stopping vancomycin.');
+add('Clinical abbreviations stay in one review sentence',split.length===1&&split[0].includes('C. difficile'),'segments='+split.length);
+add('Context sound cues cover urgent, microbiology, and chart cases',caseSoundKind({q:'Pulseless cardiac arrest'})==='pager'&&caseSoundKind({q:'Blood culture susceptibility'})==='lab'&&caseSoundKind({type:'chartHunt',q:'Review orders'})==='chart');
+for(const c of checks)console.log((c.pass?'PASS':'FAIL')+'  '+c.name+(c.detail?' — '+c.detail:''));const failed=checks.filter(c=>!c.pass);console.log('\\n'+(checks.length-failed.length)+'/'+checks.length+' antibiotic/language/sound checks passed');if(failed.length)process.exitCode=1;})();`;
+try{eval(app+'\n'+audit)}catch(e){console.error(e.stack);process.exit(1)}
