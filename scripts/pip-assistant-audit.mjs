@@ -55,6 +55,9 @@ const audit=`
  const panel=pipPanelHTML(false); add('panel stays minimal and omits team grid, tool duplication, and volume', /pipAskInput/.test(panel) && /pip-chips/.test(panel) && !/pip-team-list/.test(panel) && !/pip-actions/.test(panel) && !/data-vol-range/.test(panel));
  add('panel guidance is short', strip(panel).length<260, strip(panel).slice(0,140));
  add('panel contains horizontal overflow guards', /#pipPanel\{[^}]*overflow-x:hidden/.test(html) && /\.pip-chips button\{[^}]*min-width:0/.test(html) && /\.pip-msg\{[^}]*overflow-wrap:anywhere/.test(html));
+ add('Pip answers use a wider structured card', html.includes('width:min(388px') && html.includes('.pip-msg.pip>b:first-child') && panel.indexOf('pip-chips')<panel.indexOf('pip-ask'));
+ add('case hint stays with the question, not the answer list', html.includes('case-question-body') && html.includes('case-pip-hint') && !html.includes('class="hint-row"'));
+ add('case mode suppresses glossary and drug popups', html.includes("if(document.body.classList.contains('case-active'))return;") && html.includes('body.case-active .abbr:hover .abbr-tip'));
  for(const c of checks) console.log((c.pass?'PASS':'FAIL')+'  '+c.name+(c.detail?' — '+c.detail:''));
  const failed=checks.filter(c=>!c.pass);
  console.log('\\n'+(checks.length-failed.length)+'/'+checks.length+' pip/volume checks passed');

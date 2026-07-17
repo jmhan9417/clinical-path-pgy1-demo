@@ -110,6 +110,10 @@
   .case-question-card{background:rgba(255,255,255,.97);border:1px solid #cbd5e1;border-left:4px solid #0d9488;border-radius:12px;padding:12px 15px;box-shadow:0 8px 22px rgba(15,23,42,.10);text-align:left}
   .case-question-card .cq-kick{display:inline-block;font-size:10.5px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:#0f766e;margin-bottom:4px}
   .case-question-card .cq-q{font-size:14.5px;line-height:1.5;color:#0f172a;font-weight:800}
+  .case-question-body{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;margin-top:5px}
+  .case-pip-hint{display:inline-flex;align-items:center;gap:7px;border:1px solid #d9cbd3;border-radius:9px;background:#fff;padding:6px 9px;color:#6e4e61;font-family:'Nunito',sans-serif;font-size:11.5px;font-weight:900;line-height:1;white-space:nowrap;cursor:pointer;box-shadow:none}
+  .case-pip-hint:hover{border-color:#b67a99;background:#fff8fb}.case-pip-hint img{width:22px;height:22px;border-radius:6px;object-fit:cover;object-position:center 14%}
+  @media(max-width:640px){.case-question-body{grid-template-columns:1fr}.case-pip-hint{width:100%;justify-content:center}}
   .mar-exhibit{margin:2px 0 4px}.mar-exhibit .hunt-row.static{cursor:default}.mar-exhibit .hunt-row.static:hover{border-color:#dbe5f0}.mar-note{font-size:10.5px;color:#5b7392;font-weight:750;line-height:1.35}.mar-status.missed{background:#fee2e2;color:#991b1b}.mar-exhibit .mar-grid{grid-template-columns:92px minmax(200px,1fr) 88px minmax(140px,1fr)}
 .mar-review-brief{padding:10px 12px;border-top:1px solid #dbe5f0;border-bottom:1px solid #dbe5f0;background:#f8fafc}.mar-review-brief span{display:block;color:#0f766e;font-size:10px;font-weight:950;letter-spacing:.08em;text-transform:uppercase}.mar-review-brief p{margin:4px 0 0;color:#334155;font-size:12px;line-height:1.5;font-weight:780}
   .choice.selected{border-color:#2563eb;background:#eff6ff;box-shadow:0 0 0 3px rgba(37,99,235,.14)}
@@ -595,13 +599,13 @@
 /* ===== Pip helper bot ===== */
 #pipBtn{position:fixed;right:16px;left:auto;bottom:16px;z-index:150;width:58px;height:58px;border-radius:50%;border:2px solid #ffd0e0;background:#fff;cursor:pointer;box-shadow:0 10px 26px rgba(120,40,90,.28);padding:0;overflow:hidden;transition:.15s}
 #pipBtn:hover{transform:translateY(-2px);border-color:#ff5f92}
-#pipBtn.on{border-color:#ff5f92;box-shadow:0 12px 30px rgba(255,95,146,.4)}
+#pipBtn.on{display:none}
 #pipBtn img{width:100%;height:100%;object-fit:cover;object-position:center 18%}
 #pipBtn .pip-fallback{display:none;font-weight:900;font-size:22px;color:#ff5f92}
 #pipBtn.noimg .pip-fallback{display:block}
 #pipBtn.noimg img{display:none}
-#pipPanel{position:fixed;right:16px;left:auto;bottom:84px;z-index:150;width:min(316px,calc(100vw - 32px));max-height:min(440px,calc(100vh - 110px));overflow-y:auto;overflow-x:hidden;scrollbar-gutter:stable;background:rgba(255,255,255,.985);border:1px solid #eadde4;border-radius:16px;box-shadow:0 16px 40px rgba(86,48,73,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s ease}
-#pipPanel.on{opacity:1;pointer-events:auto;transform:none}
+#pipPanel{display:none;position:fixed;right:16px;left:auto;bottom:84px;z-index:150;width:min(388px,calc(100vw - 32px));max-height:min(540px,calc(100vh - 110px));overflow-y:auto;overflow-x:hidden;scrollbar-gutter:stable;background:rgba(255,255,255,.99);border:1px solid #dfd3da;border-radius:16px;box-shadow:0 18px 46px rgba(65,40,58,.2)}
+#pipPanel.on{display:block}
 .pip-head{display:flex;gap:9px;align-items:center;padding:10px 12px 8px;position:sticky;top:0;z-index:3;background:rgba(255,255,255,.98);border-bottom:1px solid #f1e6ec}
 .pip-head>div{flex:1;min-width:0}
 .pip-head img{width:38px;height:38px;border-radius:11px;object-fit:cover;object-position:center 14%;background:#fff4f8;border:1px solid #f2e4eb;flex:none}
@@ -609,26 +613,28 @@
 .pip-head span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10.5px;font-weight:800;color:#927c89}
 .pip-x{margin-left:auto;background:transparent;border:0;border-radius:8px;width:27px;height:27px;font-size:15px;color:#a48697;cursor:pointer;font-weight:900;line-height:1}
 .pip-x:hover{color:#d94f7e;background:#fff3f7}
-.pip-body{padding:10px 12px 5px;font-size:12.5px;font-weight:700;color:#655460;line-height:1.42}
-.pip-body b{display:block;margin-bottom:2px;color:#3f2a46;font-size:13px}
+.pip-body{padding:13px 15px 8px;font-size:13px;font-weight:700;color:#594b55;line-height:1.5;overflow-wrap:anywhere}
+.pip-body b{display:block;margin-bottom:5px;color:#3f2a46;font-size:13.5px}
 #pipPanel.has-chat .pip-body{display:none}
-.pip-hint{display:block;margin-top:6px;font-size:10.5px;font-weight:800;color:#a78599}
-.pip-chat{margin:6px 12px 0;max-height:192px;min-width:0;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;gap:5px;padding:6px;background:#fcfafb;border:1px solid #eee3e9;border-radius:10px}
+.pip-hint{display:block;margin-top:9px;padding-top:8px;border-top:1px solid #eee4e9;font-size:11px;line-height:1.4;font-weight:800;color:#8f7484}
+.pip-chat{margin:10px 14px 0;max-height:270px;min-width:0;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;gap:7px;padding:0;background:transparent;border:0}
 .pip-chat.has{display:flex}
-.pip-msg{min-width:0;max-width:100%;padding:6px 8px;border-radius:9px;font-size:12px;line-height:1.38;overflow-wrap:anywhere;word-break:break-word}
+.pip-msg{min-width:0;max-width:100%;padding:9px 11px;border-radius:11px;font-size:12.5px;line-height:1.5;overflow-wrap:anywhere;word-break:normal}
 .pip-msg.you{align-self:flex-end;max-width:82%;background:#fff0f5;color:#8c3b60}
-.pip-msg.pip{align-self:flex-start;width:100%;background:#fff;color:#4b3a5e;border:1px solid #f0e7ec}
-.pip-msg.pip b{color:#3f2a46}
-.pip-msg .case-ref{display:block;font-size:10.5px}
+.pip-msg.pip{align-self:stretch;width:auto;background:#fff;color:#4b3a5e;border:1px solid #eadfe5}
+.pip-msg.pip>b:first-child{display:block;margin:0 0 6px;color:#3f2a46;font-size:13px;line-height:1.35}
+.pip-msg.pip ol,.pip-msg.pip ul{margin:7px 0 0;padding-left:19px}.pip-msg.pip li+li{margin-top:5px}
+.pip-msg.pip>*{max-width:100%}
+.pip-msg .case-ref{display:block;font-size:11px;overflow-wrap:anywhere}
 .pip-mini{display:grid;gap:5px;margin:7px 0}.pip-mini div{display:grid;grid-template-columns:50px 1fr;gap:7px;padding-top:5px;border-top:1px solid #f1e8ed}.pip-mini b{font-size:10px;color:#a04a70;text-transform:uppercase;letter-spacing:.04em}.pip-mini span{font-size:11.5px;color:#584954}.pip-labels{gap:1px;margin:5px 0 0}.pip-labels div{grid-template-columns:34px 1fr;gap:5px;padding-top:3px}.pip-labels b{font-size:9px}.pip-labels span{font-size:10.5px;line-height:1.2}
-.pip-go{display:inline-block;max-width:100%;margin:5px 4px 0 0;background:#fff;border:1px solid #ead9e2;border-radius:7px;padding:5px 7px;font-family:'Nunito',sans-serif;font-weight:900;font-size:10.5px;line-height:1.3;white-space:normal;overflow-wrap:anywhere;text-align:left;color:#6c5261;cursor:pointer;transition:.12s}
+.pip-go{display:block;width:100%;max-width:100%;margin:10px 0 0;background:#fff8fb;border:1px solid #dfcbd5;border-radius:9px;padding:8px 10px;font-family:'Nunito',sans-serif;font-weight:900;font-size:11px;line-height:1.35;white-space:normal;overflow-wrap:anywhere;text-align:center;color:#6c5261;cursor:pointer;transition:.12s}
 .pip-go:hover{border-color:#d96a91;color:#c43e70;background:#fff8fb}
-.pip-ask{display:flex;gap:6px;padding:8px 12px 0}
+.pip-ask{display:flex;gap:7px;padding:9px 14px 13px}
 .pip-ask input{flex:1;min-width:0;border:1px solid #ead9e2;border-radius:9px;padding:7px 9px;font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;color:#3f2a46;outline:none;background:#fff}
 .pip-ask input:focus{border-color:#d96a91;box-shadow:0 0 0 3px rgba(217,106,145,.1)}
 .pip-ask button{background:#d85d88;border:none;border-radius:9px;padding:7px 11px;font-family:'Nunito',sans-serif;font-weight:900;font-size:11px;color:#fff;cursor:pointer}
 .pip-ask button:hover{background:#c84f7a}
-.pip-chips{display:grid;grid-template-columns:repeat(var(--pip-chip-cols,3),minmax(0,1fr));gap:5px;padding:7px 12px 11px}
+.pip-chips{display:grid;grid-template-columns:repeat(var(--pip-chip-cols,3),minmax(0,1fr));gap:6px;padding:8px 14px 0}
 .pip-chips button{min-width:0;background:#fff;border:1px solid #eee1e8;border-radius:7px;padding:5px 6px;font-family:'Nunito',sans-serif;font-weight:850;font-size:10px;line-height:1.2;color:#806878;cursor:pointer;white-space:normal}
 .pip-chips button:hover{border-color:#d96a91;color:#c43e70;background:#fff8fb}
 .pip-team{margin:10px 14px 0;padding-top:10px;border-top:1px solid #f0dbe4;min-width:0}.pip-team-label{display:flex;justify-content:space-between;gap:8px;align-items:baseline;min-width:0;margin-bottom:7px;color:#3f2a46;font-size:11px;font-weight:900}.pip-team-label span{min-width:0;color:#9b7c91;font-size:10px;font-weight:700;text-align:right}.pip-team-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;min-width:0}.pip-team-list button{display:flex;align-items:center;gap:7px;min-width:0;max-width:100%;overflow:hidden;border:1px solid #ead7e0;border-radius:10px;background:#fff;padding:6px;text-align:left;color:#4f3d4d;font-family:'Nunito',sans-serif;cursor:pointer}.pip-team-list button>span{flex:1;min-width:0;max-width:100%;overflow:hidden}.pip-team-list button:hover{border-color:#d083a1;background:#fff8fb}.pip-team-list img{width:30px;height:30px;flex:none;border-radius:8px;object-fit:cover;object-position:top;background:#f7eef2}.pip-team-list b{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10.5px}.pip-team-list small{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9b7c91;font-size:9px;font-weight:800}.pip-brief-row{margin-top:8px;padding-top:7px;border-top:1px solid #f1e3ea}.pip-brief-row>b{display:block;margin-bottom:2px;font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:#9d5273}.pip-brief-row span,.pip-brief-row ol{margin:0;color:#5d4a5c}.pip-brief-row ol{padding-left:18px}
@@ -638,18 +644,12 @@
 .vol-row input[type=range]{flex:1;min-width:90px;accent-color:#ff5f92;cursor:pointer}
 .vol-row [data-vol-out]{font-size:11px;font-weight:900;color:#8c6e84;min-width:34px;text-align:right}
 .set-row .vol-row{justify-content:flex-end}
-@media(max-width:520px){#pipPanel{right:8px;left:8px;width:auto;bottom:82px;max-height:calc(100dvh - 118px);border-radius:14px}.pip-team-label{align-items:flex-start}.pip-team-label span{max-width:48%;line-height:1.25}.pip-ask{padding-left:10px;padding-right:10px}.pip-team,.pip-chat{margin-left:10px;margin-right:10px}.pip-chips,.pip-actions,.pip-vol{padding-left:10px;padding-right:10px}}
+@media(max-width:520px){#pipPanel{right:8px;left:8px;width:auto;bottom:82px;max-height:calc(100dvh - 118px);border-radius:14px}.pip-team-label{align-items:flex-start}.pip-team-label span{max-width:48%;line-height:1.25}.pip-ask{padding:9px 10px 12px}.pip-team,.pip-chat{margin-left:10px;margin-right:10px}.pip-chips,.pip-actions,.pip-vol{padding-left:10px;padding-right:10px}}
 @media print{#pipBtn,#pipPanel{display:none!important}}
 
 
 /* ===== v12: bond rewards, calendar, achievements ===== */
 .day-chip{background:rgba(255,255,255,.94);border:1px solid var(--roseline);border-radius:20px;padding:6px 13px;font-weight:900;font-size:12px;color:#7a5a72;box-shadow:0 4px 12px rgba(15,23,42,.08)}
-.hint-row{display:flex;justify-content:flex-start;margin:0 0 4px}
-.hint-btn{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid #d8c7d1;border-radius:11px;padding:7px 11px;font-family:'Nunito',sans-serif;color:#5b4053;cursor:pointer;transition:border-color .13s,box-shadow .13s}
-.hint-btn:hover{border-color:#b67a99;box-shadow:0 4px 14px rgba(86,48,73,.1)}
-.hint-btn img{width:28px;height:28px;border-radius:8px;object-fit:cover;object-position:center 14%;background:#fff4f8}
-.hint-btn span{display:block;text-align:left;font-size:12.5px;font-weight:900;line-height:1.15}.hint-btn small{display:block;margin-top:2px;color:#8b7482;font-size:10px;font-weight:800}
-.hint-btn:disabled{opacity:.72;cursor:default;box-shadow:none}
 .choice.faded{opacity:.62;text-decoration:line-through;pointer-events:none;color:#475569}
 .react-chip{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 12%;border:2px solid #ffd0e0;background:#fff0f6;float:left;margin:0 10px 4px 0}
 .streak-tag{display:inline-block;background:linear-gradient(120deg,#ff9b6a,#ff5f92);color:#fff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 9px;margin-right:8px;vertical-align:2px}
@@ -813,7 +813,7 @@
 :root{--case-hud:72px}
 body.case-active .vn-wrap{top:var(--case-hud);height:calc(100dvh - var(--case-hud));bottom:auto;overflow-y:auto;overflow-x:hidden;padding:18px 20px 32px;scroll-padding-bottom:24px}
 body.case-active #app{height:calc(100dvh - 52px)}body.case-active .dialogue-stack{display:none}
-body.case-active .vn-box{min-height:0;cursor:default;padding:10px 14px;border-radius:0 12px 12px 12px}body.case-active .vn-text{min-height:0;font-size:calc(13px * var(--font-scale,1));line-height:1.35}body.case-active .vn-note{margin-top:6px;padding:6px 9px;font-size:calc(11px * var(--font-scale,1));line-height:1.35}body.case-active .vn-name{padding-top:4px;padding-bottom:4px}body.case-active .vn-ctrl{display:none}body.case-active #pipBtn{display:block}
+body.case-active .vn-box{min-height:0;cursor:default;padding:10px 14px;border-radius:0 12px 12px 12px}body.case-active .vn-text{min-height:0;font-size:calc(13px * var(--font-scale,1));line-height:1.35}body.case-active .vn-note{margin-top:6px;padding:6px 9px;font-size:calc(11px * var(--font-scale,1));line-height:1.35}body.case-active .vn-name{padding-top:4px;padding-bottom:4px}body.case-active .vn-ctrl{display:none}body.case-active #pipBtn{display:block}body.case-active #pipBtn.on{display:none}
 body.case-active .vn-text{min-height:0;font-size:calc(15.5px * var(--font-scale,1));line-height:1.5}
 body.case-active .char-layer{opacity:.1;bottom:clamp(210px,30vh,320px);height:min(58vh,560px)}
 body.case-active .vn-choices{max-width:none;width:100%}.case-workspace{width:100%;max-width:1400px;grid-template-columns:minmax(0,7fr) minmax(300px,3fr);gap:18px}.case-main{grid-column:1}.case-side{grid-column:2}.case-main .choices,#caseHolder.choices{max-width:none;width:100%;margin-left:0;margin-right:0}.case-main,.case-question-card,.choice,.sbar-frag,.hunt-row{overflow-wrap:anywhere;word-break:normal}.case-question-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.case-tools{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.case-tools button{border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:5px 8px;color:#475569;font:850 10px Nunito;cursor:pointer}.case-tools button:hover{border-color:#0d9488;color:#0f766e}.ehr-orders .mar-grid,.mar-grid.mar-head{grid-template-columns:90px minmax(340px,1fr) 120px minmax(220px,320px)}
@@ -1583,8 +1583,8 @@ function pipPanelHTML(intro){
   return `<div class="pip-head"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:''}" alt="Pip" onerror="this.style.display='none'"><div><b>Pip</b><span>${meta.label}</span></div><button class="pip-x" onclick="togglePip()" aria-label="Close helper">×</button></div>
   <div class="pip-body">${body}</div>
   <div class="pip-chat ${PIP.chat.length?'has':''}" id="pipChat">${pipChatHTML()}</div>
-  <form class="pip-ask" onsubmit="return pipAsk(event)"><input id="pipAskInput" type="text" placeholder="${meta.placeholder}" autocomplete="off" aria-label="Ask Pip about this page"><button type="submit">Ask</button></form>
-  ${pipChipsHTML()}`;
+  ${pipChipsHTML()}
+  <form class="pip-ask" onsubmit="return pipAsk(event)"><input id="pipAskInput" type="text" placeholder="${meta.placeholder}" autocomplete="off" aria-label="Ask Pip about this page"><button type="submit">Ask</button></form>`;
 }
 function togglePip(force){
   const panel=document.getElementById('pipPanel');
@@ -1825,6 +1825,7 @@ const GLOSSARY_SKIP=new Set(['IV','IM','SQ','PO','BID','NPO','BP','ECG','CPR','C
 function glossaryRegex(){ if(!GLOSSARY_RE){ const keys=Object.keys(GLOSSARY).filter(k=>!GLOSSARY_SKIP.has(k)).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')); GLOSSARY_RE=new RegExp('\\b('+keys.join('|')+')\\b','g'); } return GLOSSARY_RE; }
 function toggleGlossaryTip(el,ev){ if(ev){ev.preventDefault();ev.stopPropagation();} const ab=el.closest('.abbr'); if(!ab)return; document.querySelectorAll('.abbr.open').forEach(x=>{if(x!==ab)x.classList.remove('open')}); ab.classList.toggle('open'); }
 function enhanceGlossary(root){
+  if(document.body.classList.contains('case-active'))return;
   root=root||document.getElementById('app')||document.body; const re=glossaryRegex();
   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
     if(!n.nodeValue||!re.test(n.nodeValue)){re.lastIndex=0;return NodeFilter.FILTER_REJECT;} re.lastIndex=0;
@@ -2492,7 +2493,7 @@ function caseSideHTML(c){
   const sources=primary.length?`<section class="case-side-card"><h4>U.S. source${sup.refs.length===1?'':'s'}</h4><p class="case-ref-note">These sources support this case.</p>${primary.map(referenceLinkHTML).join('')}${more.length?`<details><summary>${more.length} more source${more.length===1?'':'s'}</summary>${more.map(referenceLinkHTML).join('')}</details>`:''}${actions}</section>`:`<section class="case-side-card"><h4>Study tools</h4>${actions}</section>`;
   return (context?`<section class="case-side-card">${context}</section>`:'')+focus+sources;
 }
-function caseStemHTML(c){const n=(typeof caseIdx!=='undefined'?caseIdx:0)+1;return `<div class="case-question-card"><div class="case-question-head">${c.kick?`<span class="cq-kick">${c.kick}</span>`:'<span></span>'}<div class="case-tools"><button type="button" class="case-tool-note" onclick="openNotes()">${uiIcon('notes')}<span>Notes</span></button><button type="button" onclick="showLabValues(event)">Labs</button><button type="button" onclick="openBasicCalculator(event)">Math</button><button type="button" onclick="openClinicalCalculator(event,calculatorForCase(curM.cases[caseIdx]))">Calc</button></div></div><div class="cq-q"><b>Q${n}.</b> ${c.q||''}</div></div>`;}
+function caseStemHTML(c){const n=(typeof caseIdx!=='undefined'?caseIdx:0)+1,pipImg=SPRITE_URLS.pip?SPRITE_URLS.pip.happy:'';return `<div class="case-question-card"><div class="case-question-head">${c.kick?`<span class="cq-kick">${c.kick}</span>`:'<span></span>'}<div class="case-tools"><button type="button" class="case-tool-note" onclick="openNotes()">${uiIcon('notes')}<span>Notes</span></button><button type="button" onclick="showLabValues(event)">Labs</button><button type="button" onclick="openBasicCalculator(event)">Math</button><button type="button" onclick="openClinicalCalculator(event,calculatorForCase(curM.cases[caseIdx]))">Calc</button></div></div><div class="case-question-body"><div class="cq-q"><b>Q${n}.</b> ${c.q||''}</div><button type="button" class="case-pip-hint" data-case-pip onclick="requestPipHint()"><img src="${pipImg}" alt=""><span>Ask Pip for a hint</span></button></div></div>`;}
 function marReviewBrief(c){if(!c.marReviewFocus)return '';return `<div class="mar-review-brief"><span>How to read this MAR</span><p>${c.marReviewFocus}</p></div>`;}
 function marExhibitHTML(c){if(!c.mar||!c.mar.length)return '';return `${marReviewBrief(c)}<div class="ehr-win mar-exhibit"><div class="ehr-top"><span class="ehr-app">St. Aurelia EHR</span><span class="ehr-mod">MAR · fictional training extract</span></div><div class="mar-grid mar-head"><span>Time</span><span>Medication / event</span><span>Status</span><span>Note</span></div><div class="hunt-list ehr-orders">${c.mar.map(r=>`<div class="hunt-row mar-grid static"><span class="mar-time">${r.time}</span><span class="ord-text">${r.med}</span><span class="mar-status ${String(r.status).toLowerCase()}">${r.status}</span><span class="mar-note">${r.note||''}</span></div>`).join('')}</div></div>`;}
 const MAR_EXHIBITS=[
@@ -4196,9 +4197,8 @@ function runCase(){
   } else if(c.type==="mcq"){
     holder.className="choices";
     const opts=prepareMCQOptions(c);
-    const hintHTML=`<div class="hint-row"><button type="button" class="hint-btn" id="hintBtn" onclick="requestPipHint()"><img src="${SPRITE_URLS.pip?SPRITE_URLS.pip.happy:''}" alt=""><span>Ask Pip for a hint<small>${hintsLeft()} guided eliminations left for this case</small></span></button></div>`;
     c._attempts=c._attempts||0;
-    holder.innerHTML=hintHTML+opts.map((o,i)=>`<button class="choice" data-i="${i}" aria-label="${String.fromCharCode(65+i)}. ${String(o.t).replace(/<[^>]*>/g,' ').replace(/&/g,'&amp;').replace(/\"/g,'&quot;')}" onclick="selectMcq(${i},this)" ondblclick="clearMcqSelection(event)"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("")+`<div id="mcqRetry"></div><div class="mcq-submit-row"><span class="mcq-help">Select one answer. Double-click it to cancel.</span><button class="btn sm" id="mcqSubmit" data-space-primary data-space-requires="mcq" disabled onclick="answerMcq()">Submit answer</button></div>`;
+    holder.innerHTML=opts.map((o,i)=>`<button class="choice" data-i="${i}" aria-label="${String.fromCharCode(65+i)}. ${String(o.t).replace(/<[^>]*>/g,' ').replace(/&/g,'&amp;').replace(/\"/g,'&quot;')}" onclick="selectMcq(${i},this)" ondblclick="clearMcqSelection(event)"><span class="k">${String.fromCharCode(65+i)}</span>${o.t}</button>`).join("")+`<div id="mcqRetry"></div><div class="mcq-submit-row"><span class="mcq-help">Select one answer. Double-click it to cancel.</span><button class="btn sm" id="mcqSubmit" data-space-primary data-space-requires="mcq" disabled onclick="answerMcq()">Submit answer</button></div>`;
     caseMount(holder);
     enhanceGlossary(holder);
   } else if(c.type==="order"){
@@ -4293,7 +4293,6 @@ function usePipHint(){
   if(!document.querySelector('#caseHolder .choice.selected'))document.getElementById('mcqSubmit')?.setAttribute('disabled','');
   G.hints=G.hints||{};G.hints[caseHintKey()]=(G.hints[caseHintKey()]||0)+1;saveProgress('case');
   PIP.chat.push({who:'pip',text:`<b>Rule out ${letter}</b>${pipEsc(reason)}<span class="pip-hint">${hintsLeft()?`${hintsLeft()} guided elimination left.`:'That was the last guided elimination for this case.'} The best answer is still yours to choose.</span>`});PIP.chat=PIP.chat.slice(-4);refreshPipPanel();
-  const hb=document.getElementById('hintBtn'),small=hb?.querySelector('small');if(small)small.textContent=`${hintsLeft()} guided eliminations left for this case`;
   sfx('click');
 }
 /* MCQ answer: select first, double-click to cancel, and allow one coached retry */
