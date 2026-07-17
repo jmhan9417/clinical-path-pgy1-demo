@@ -57,7 +57,7 @@ const audit=`
  add('panel contains horizontal overflow guards', /#pipPanel\{[^}]*overflow-x:hidden/.test(html) && /\.pip-chips button\{[^}]*min-width:0/.test(html) && /\.pip-msg\{[^}]*overflow-wrap:anywhere/.test(html));
  add('Pip answers use a wider structured card', html.includes('width:min(388px') && html.includes('.pip-msg.pip>b:first-child') && panel.indexOf('pip-chips')<panel.indexOf('pip-ask'));
  add('case hint stays with the question, not the answer list', html.includes('case-question-body') && html.includes('case-pip-hint') && !html.includes('class="hint-row"'));
- add('case mode suppresses glossary and drug popups', html.includes("if(document.body.classList.contains('case-active'))return;") && html.includes('body.case-active .abbr:hover .abbr-tip'));
+ add('case mode suppresses glossary and drug popups', html.includes("if(document.body.classList.contains('case-active'))return;") && !html.includes("className='drug-tip'") && !html.includes('.drug-term:hover .drug-tip') && html.includes('.abbr.open .abbr-tip{display:block}'));
  for(const c of checks) console.log((c.pass?'PASS':'FAIL')+'  '+c.name+(c.detail?' — '+c.detail:''));
  const failed=checks.filter(c=>!c.pass);
  console.log('\\n'+(checks.length-failed.length)+'/'+checks.length+' pip/volume checks passed');
