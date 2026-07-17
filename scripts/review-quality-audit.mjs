@@ -12,11 +12,11 @@ const audit=String.raw`
 (()=>{
  const checks=[];const check=(name,pass,detail='')=>checks.push({name,pass:Boolean(pass),detail});
  const cases=[];MODULES.forEach(m=>(m.cases||[]).forEach((c,index)=>cases.push({m,c,index,type:c.type||'mcq'})));
- let contextExpected=0,contextPreserved=0,monitoring=0,references=0,referenceSources=0,noUndefined=0,engineSpecific=0,mcqRetryComplete=0,marMentionCount=0,marMentionCovered=0;const engineFailures=[],undefinedFailures=[];
- const markers={mcq:['Correct principle','Best answer'],order:['Correct sequence','lr-step-reason'],calc:['Formula or method','Expected result'],chartHunt:['Review surface','Needs pharmacist action'],sbar:['Best fragment','Why it works'],code:['Correct action','protocol-aligned action'],journal:['Effect-size answer','True limitation'],essay:['Guided self-review','Expert workup']};
+ let contextExpected=0,contextPreserved=0,monitoringExpected=0,monitoringMatched=0,strictSourceExpected=0,strictSourceMatched=0,noFallbackSource=0,sourceSupportNamed=0,usSourceCases=0,noUndefined=0,engineSpecific=0,mcqRetryComplete=0,mcqBestNotDuplicated=0,humanizedMcq=0,mcqCount=0,marMentionCount=0,marMentionCovered=0;const engineFailures=[],undefinedFailures=[],humanizedFailures=[];
+ const markers={mcq:['review-best-label','Why the other choices miss'],order:['Correct sequence','lr-step-reason'],calc:['Formula or method','Expected result'],chartHunt:['Review surface','Needs pharmacist action'],sbar:['Best fragment','Why it works'],code:['Correct action','protocol-aligned action'],journal:['Effect-size answer','True limitation'],essay:['Guided self-review','Expert workup']};
  for(const x of cases){
   const {m,c,index,type}=x;curM=m;caseIdx=index;
-  if(type==='mcq'){const opts=prepareMCQOptions(c),wrong=opts.findIndex(o=>!o.ok);c._lastChoice=wrong>=0?wrong:0;c._attempts=2;const retry=mcqRetryHTML(c,opts[c._lastChoice]);if(/Apply this principle/.test(retry)&&/Close the loop/.test(retry)&&retry.length>180)mcqRetryComplete++;}
+  if(type==='mcq'){const opts=prepareMCQOptions(c),wrong=opts.findIndex(o=>!o.ok);c._lastChoice=wrong>=0?wrong:0;c._attempts=2;mcqCount++;const retry=mcqRetryHTML(c,opts[c._lastChoice]);if(/Apply this principle/.test(retry)&&/Close the loop/.test(retry)&&retry.length>180)mcqRetryComplete++;}
   if(type==='order')c._lastOrder=(c.correct||[]).slice().reverse();
   if(type==='calc')c._lastCalc=Number(c.answer?.value||0)+10;
   if(type==='chartHunt')c._lastHunt=[];
@@ -26,9 +26,9 @@ const audit=String.raw`
   if(type==='essay')c._lastEssay={responses:(c.questions||[]).map(()=>''),expertShown:true};
   const out=learningReviewHTML(c,false,'Audit explanation');
   const context=clinicalContextHTML(c);if(context){contextExpected++;if(/Patient or case context/.test(out)&&/case-context/.test(out))contextPreserved++;}
-  if(/Monitoring and follow-up/.test(out)&&/<li>[^<]{12,}/.test(out.split('Monitoring and follow-up')[1]||''))monitoring++;
-  if(/<h4>References<\/h4>/.test(out)&&/<a href=/.test(out))references++;
-  if(/(?:Guideline|Label|Framework) source:|Source:/.test(out))referenceSources++;
+  const expectedMonitoring=monitoringPlanForCase(c,false).length>0,hasMonitoring=/<h4>Monitor and follow up<\/h4>/.test(out);if(expectedMonitoring)monitoringExpected++;if(expectedMonitoring===hasMonitoring)monitoringMatched++;
+  const expectedSources=reviewSourceEntries(c),hasSources=/<h4>U\.S\. sources?<\/h4>/.test(out)&&/<a href=/.test(out);if(expectedSources.length)strictSourceExpected++;if(Boolean(expectedSources.length)===hasSources)strictSourceMatched++;if(!expectedSources.length&&!/review-sources/.test(out))noFallbackSource++;if(!expectedSources.length||expectedSources.every(r=>out.includes('Used for '+String(r.support).toLowerCase())))sourceSupportNamed++;if(caseReferences(c).every(isUSReference))usSourceCases++;
+  if(type==='mcq'){const options=c._renderOpts||c.opts||[],best=options.find(o=>o.ok),body=engineReviewBody(c,false,'Audit explanation'),alternatives=(body.split('review-option-list')[1]||'');if((body.match(/class="review-best"/g)||[]).length===1&&!alternatives.includes('review-option-choice">'+String(best?.t||'')+'</span>'))mcqBestNotDuplicated++;const prose=options.map(o=>reviewSentence(o.fb)).filter(Boolean);if(!/Correct principle|>Alternative</.test(body)&&prose.length===options.length&&prose.every(s=>s.length>=20&&s.length<=240&&/[.!?]$/.test(s)))humanizedMcq++;else humanizedFailures.push(m.id+'['+index+'] '+prose.map(s=>s.length).join(','));}
   if(!/(?:>|• |: )(?:undefined|null)(?:<|$)/i.test(out))noUndefined++;else undefinedFailures.push(m.id+'['+index+'] '+type);
   const need=markers[type]||[];if(need.every(k=>out.includes(k)))engineSpecific++;else engineFailures.push(m.id+'['+index+'] '+type+' missing '+need.filter(k=>!out.includes(k)).join(','));
   const mentions=/\bMAR\b|medication administration record/i.test([c.kick,c.q,c.note,c.patient].join(' '));if(mentions){marMentionCount++;if((c.mar&&c.mar.length)||authoredMar(c))marMentionCovered++;}
@@ -38,11 +38,15 @@ const audit=String.raw`
  const inferredSpeakers=speakerIdentity('warm','Dr. Belle Deans',{}).who==='belle'&&speakerIdentity('neutral','Dr. Elliot Kang',{}).who==='elliot'&&speakerIdentity('neutral','Nurse Vance',{}).who==='nurse'&&daniel.who==='dpark'&&daniel.name==='Dr. Daniel Park'&&/EM pharmacist/.test(daniel.role)&&maleRoute.who==='dpark'&&face('neutral','dpark').includes(SPRITE_URLS.dpark.neutral);
  const marCases=cases.filter(x=>authoredMar(x.c)||(Array.isArray(x.c.mar)&&x.c.mar.length)),marSolvable=marCases.every(x=>String(x.c.patient||'').length>=80&&(x.c.given||[]).length>=2&&(x.c.tasks||[]).length>=1&&String(x.c.marReviewFocus||'').length>=100);
  STUDY.cards=buildStudyCards();
- check('All 457 terminal reviews include monitoring and follow-up',monitoring===cases.length,monitoring+'/'+cases.length);
- check('All 457 terminal reviews include references',references===cases.length,references+'/'+cases.length);
- check('All 457 terminal reviews name a guideline, framework, label, or publisher',referenceSources===cases.length,referenceSources+'/'+cases.length);
+ check('Monitoring appears only when the case supplies a specific follow-up point',monitoringMatched===cases.length,monitoringMatched+'/'+cases.length+' matched · '+monitoringExpected+' shown');
+ check('References appear only for directly matched case sources',strictSourceMatched===cases.length,strictSourceMatched+'/'+cases.length+' matched · '+strictSourceExpected+' shown');
+ check('Cases without a direct source do not receive a generic fallback reference',noFallbackSource===cases.length-strictSourceExpected,noFallbackSource+'/'+(cases.length-strictSourceExpected));
+ check('Every displayed source names the rationale topic it supports',sourceSupportNamed===cases.length,sourceSupportNamed+'/'+cases.length);
+ check('Every case reference resolves to the U.S. source allowlist',usSourceCases===cases.length,usSourceCases+'/'+cases.length);
  check('All structured contexts survive into terminal review',contextPreserved===contextExpected,contextPreserved+'/'+contextExpected);
  check('Every engine renders its specific reasoning structure',engineSpecific===cases.length,engineSpecific+'/'+cases.length+(engineFailures.length?' · '+engineFailures.slice(0,5).join('; '):''));
+ check('MCQ review shows the best answer once instead of repeating it',mcqBestNotDuplicated===mcqCount,mcqBestNotDuplicated+'/'+mcqCount);
+ check('Every MCQ rationale is concise, complete, and free of template labels',humanizedMcq===mcqCount,humanizedMcq+'/'+mcqCount+(humanizedFailures.length?' · '+humanizedFailures.slice(0,5).join('; '):''));
  check('No terminal review renders undefined or null',noUndefined===cases.length,noUndefined+'/'+cases.length+(undefinedFailures.length?' · '+undefinedFailures.join('; '):''));
  check('Every MCQ coached retry teaches principle and follow-up',mcqRetryComplete===cases.filter(x=>x.type==='mcq').length,mcqRetryComplete+'/'+cases.filter(x=>x.type==='mcq').length);
  check('Every MAR-labeled case has an MAR surface',marMentionCovered===marMentionCount,marMentionCovered+'/'+marMentionCount);

@@ -32,7 +32,7 @@ const audit=`
  curM=MODULES.find(m=>m.id==='orient'); caseIdx=1;
  const realGet=document.getElementById.bind(document);
  document.getElementById=function(id){ if(id==='chapterOv')return null; if(id==='caseHolder')return {ok:1}; return realGet(id); };
- const a9=pipAnswer('hint'); add('case hint stays brief and actionable', /Name the problem|patient factors/i.test(strip(a9)) && strip(a9).length<360, strip(a9).slice(0,100));
+ const a9=pipAnswer('hint'); add('case hint is Pip-led, natural, and does not reveal the answer', /decision this question asks|Rule out one choice/i.test(strip(a9)) && /will not give away the answer/i.test(strip(a9)) && strip(a9).length<560, strip(a9).slice(0,160));
  document.getElementById=realGet;
  const a10=pipAnswer('xyzzynonsense'); add('fallback message for unknown query', /could not match/i.test(a10));
  const a11=pipAnswer('<img src=x onerror=alert(1)>'); add('unknown HTML-ish query does not echo raw tags', !/onerror=alert/.test(a11));
