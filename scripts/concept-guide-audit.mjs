@@ -38,5 +38,15 @@ add('Systems and informatics panels stay system-focused',/strong control/.test(a
 add('ADC governance panel omits incidental patient-drug content',!/Related drugs|Metoprolol|JCPP/.test(adcPanel)&&/named owner/.test(adcPanel));
 const strokeLkw=MODULES.find(m=>m.id==='code_stroke_validation').cases.find(c=>/last-known-well/i.test(c.kick||'')),pedsVerify=MODULES.find(m=>m.id==='peds').cases.find(c=>/Pediatric verification/i.test(c.kick||'')),apap=MODULES.find(m=>m.id==='tox').cases.find(c=>/APAP overdose/i.test(c.kick||''));
 add('Toxicology matching avoids LAST and generic overdose false positives',!caseConcepts(strokeLkw).some(x=>x.title==='Toxicology and antidotes')&&!caseConcepts(pedsVerify).some(x=>x.title==='Toxicology and antidotes')&&caseConcepts(apap).some(x=>x.title==='Toxicology and antidotes'));
+const _cds=[...new Set(Object.values(CONCEPT_CONTENT).flatMap(function(v){return v.drugs||[];}))];
+add('Every concept drug has an MOA entry',_cds.every(function(d){return DRUG_MOA[d]&&DRUG_MOA[d].length>10;}),(_cds.filter(function(d){return !DRUG_MOA[d];}).join(',')||'all covered'));
+const _card=conceptDrugMiniHTML('insulin');
+add('Drug card shows MOA plus reputable NIH/FDA source chips',_card.indexOf('cd-tag">MOA')>=0&&_card.indexOf('pubchem.ncbi.nlm.nih.gov')>=0&&_card.indexOf('ncbi.nlm.nih.gov/books')>=0&&_card.indexOf('medlineplus.gov')>=0&&_card.indexOf('dailymed.nlm.nih.gov')>=0);
+const _all=_cds.map(conceptDrugMiniHTML).join('');
+const _hrefs=_all.split('cd-chip" href="').slice(1).map(function(s){return s.split('"')[0];});
+const _rep=['pubchem.ncbi.nlm.nih.gov','www.ncbi.nlm.nih.gov','medlineplus.gov','dailymed.nlm.nih.gov'];
+add('All drug-card source chips use reputable NIH or FDA hosts',_hrefs.length>=_cds.length*4&&_hrefs.every(function(u){return _rep.some(function(h){return u.indexOf('https://'+h)===0;});}),'chips='+_hrefs.length);
+const _ck=Object.keys(CONCEPT_CONTENT)[0],_cbody=conceptBodyHTML(_ck,CONCEPT_CONTENT[_ck],[]);
+add('Full concept card includes a reputable Visualize and learn row',_cbody.indexOf('Visualize &amp; learn')>=0&&_cbody.indexOf('ncbi.nlm.nih.gov/books')>=0&&_cbody.indexOf('medlineplus.gov')>=0&&_cbody.indexOf('pubmed.ncbi.nlm.nih.gov')>=0);
 for(const c of checks)console.log((c.pass?'PASS':'FAIL')+'  '+c.name+(c.detail?' — '+c.detail:''));const failed=checks.filter(c=>!c.pass);console.log('\\n'+(checks.length-failed.length)+'/'+checks.length+' concept checks passed');if(failed.length)process.exitCode=1;})();`;
 try{eval(app+'\n'+audit)}catch(e){console.error(e.stack);process.exit(1)}
