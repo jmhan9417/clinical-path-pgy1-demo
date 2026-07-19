@@ -54,7 +54,7 @@ const audit=String.raw`
  check('Every MAR case includes enough patient context and review criteria',marCases.length>=3&&marSolvable,marCases.length+' MAR cases');
  check('Non-MAR chart help does not falsely say to open MAR',nonMarChartPipClean);
  check('Named speakers and the male route use the matching portrait',inferredSpeakers);
- check('Study deck is one card per clinical case',STUDY.cards.length===457,'cards='+STUDY.cards.length);
+ check('Study deck holds concept and drug study cards, not case re-quiz',STUDY.cards.length>0&&STUDY.cards.every(c=>c.deck==='concept'||c.deck==='drug')&&STUDY.cards.some(c=>c.deck==='concept')&&STUDY.cards.some(c=>c.deck==='drug'),'cards='+STUDY.cards.length);
  check('Missed-only end-of-rotation review remains present',html.includes('startMissedReview')&&html.includes('End-of-rotation review'));
  fs.writeFileSync('/tmp/cp-review-quality.json',JSON.stringify({total:cases.length,checks},null,2));
  checks.forEach(x=>console.log((x.pass?'PASS':'FAIL')+'  '+x.name+(x.detail?' — '+x.detail:'')));
