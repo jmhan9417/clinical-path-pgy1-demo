@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Clinical Path — Floor Rounds (preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#0f766e;--teal2:#22a897;--rose:#ff5f92;--rose-d:#c23b6b;--pink:#ff7fa8;--roseline:#ffd0e0;--lav:#8e77c9;--ink:#123c46;--slate:#334155;--muted:#66727c;--line:#cbd5e1;--gn:#c9efdc;--yl:#fde8c4;--rd:#f7d0d0}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,#fff1f6,#ffe0ec 55%,#ffd0e2);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;text-align:left;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:22px 18px 70px}
+h1,h2,h3,h4,.jua{font-family:"Jua",system-ui,sans-serif;font-weight:400;letter-spacing:0}
+.appbar{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--roseline);border-radius:16px;padding:12px 14px;box-shadow:0 10px 26px rgba(90,50,90,.10)}
+.back{display:inline-flex;align-items:center;gap:6px;background:#fff;border:2px solid var(--roseline);color:var(--pink);border-radius:11px;padding:8px 13px;font-weight:900;cursor:pointer;font-size:13px}
+.appbar h1{font-size:20px;margin:0;flex:1;color:var(--rose-d)}
+.note{font-size:12px;font-weight:800;color:var(--rose-d);text-transform:uppercase;letter-spacing:.08em;margin:16px 2px 4px}
+.intro{color:#5a4a56;font-weight:700;line-height:1.55;max-width:74ch;margin:4px 2px 16px;font-size:14px}
+.intro b{color:var(--rose-d)}
+.tabs{display:flex;gap:8px;margin:0 0 16px;flex-wrap:wrap}
+.tab{border:2px solid var(--roseline);background:#fff;border-radius:999px;padding:9px 16px;font-weight:900;color:var(--pink);cursor:pointer;font-size:12.5px}
+.tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.roundhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.roundhead .rl{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--teal)}
+.progress{flex:1;min-width:160px;height:10px;border-radius:6px;background:#fff;border:1px solid var(--roseline);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.count{font-size:12px;font-weight:900;color:var(--rose-d)}
+.card{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 14px 30px rgba(90,50,90,.12)}
+.bedbadge{display:inline-block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);background:#e9f6f4;border:1px solid #cfeae6;padding:4px 10px;border-radius:999px;margin-bottom:8px}
+.bedbadge.journey{color:#8a5cc0;background:#f2ecfb;border-color:#e2d5f5}
+.card h3{margin:2px 0 2px;font-size:18px;color:var(--rose-d)}
+.oneliner{color:var(--muted);font-weight:700;font-size:13px;margin:0 0 10px}
+.present{border-left:3px solid var(--teal);background:#f6faf9;border-radius:0 12px 12px 12px;padding:11px 13px;font-size:13.5px;line-height:1.55;color:#2d3d4b;font-weight:650;margin-bottom:12px}
+.present .who{display:block;font-size:11px;font-weight:900;color:var(--teal);margin-bottom:3px}
+.given{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 12px}
+.gv{border:1px solid var(--line);border-radius:9px;padding:6px 10px;background:#fff;font-size:12px;font-weight:800;color:#3d4a52}
+.gv b{color:var(--teal)}
+.qh{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#9aa6b0;margin:2px 0 8px}
+.opt{border:1px solid var(--line);border-radius:11px;padding:11px 13px;margin-bottom:8px;font-size:13.5px;font-weight:700;color:#2d3d4b;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--teal)}
+.opt.right{border-color:var(--teal);background:#eef7f6}
+.opt.wrong{border-color:#d64f6a;background:#fdf2f4}
+.opt.dim{opacity:.55}
+.fb{margin-top:10px;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.55;font-weight:700}
+.fb.good{background:#eef7f6;border:1px solid #cfeae6;color:#0e5b54}
+.fb.bad{background:#fdf2f4;border:1px solid #f3c9d1;color:#9a3350}
+.fb .team{display:block;font-size:11px;font-weight:900;color:var(--teal);margin-bottom:4px}
+.fb.bad .team{color:#b83350}
+.actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:2px solid var(--roseline);background:#fff;border-radius:11px;padding:9px 16px;font-weight:900;cursor:pointer;color:var(--pink);font-size:13px}
+.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+.summary{text-align:left}
+.summary .big{font-family:"Jua";font-size:34px;color:var(--rose-d);margin:6px 0 2px}
+.summary p{color:var(--muted);font-weight:700;font-size:13.5px;line-height:1.55;margin:0 0 6px}
+.summary .line{display:flex;justify-content:space-between;border-top:1px solid #f1e3ee;padding:8px 0;font-size:13px;font-weight:800;color:#3d4a52}
+.summary .line b{color:var(--teal)}
+.foot{margin-top:24px;color:#b98aa0;font-size:11px;font-weight:700;line-height:1.6}
+.tip{font-size:12px;color:#8a6d7c;font-weight:700;background:#fff6fa;border:1px solid var(--roseline);border-radius:11px;padding:10px 12px;margin-top:14px;line-height:1.5}
+.tip b{color:var(--rose-d)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="appbar">
+    <button class="back">&larr; Back</button>
+    <h1>Floor Rounds &mdash; a rounding sim per rotation</h1>
+  </div>
+  <p class="note">Direction preview · same site colors &amp; fonts · left-aligned</p>
+  <p class="intro">Each rotation opens with <b>team rounds</b>: walk the census bed by bed, catch the drug-therapy problem, and make your pharmacist recommendation to the team. Some patients need you &mdash; some don&rsquo;t, and knowing the difference is the skill. This is a live, tappable preview of the ICU census (Oncology and Ambulatory show the same engine with a different list).</p>
+
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-rot="icu">ICU rounds</button>
+    <button class="tab" data-rot="onc">Oncology rounds</button>
+    <button class="tab" data-rot="amb">Ambulatory panel</button>
+  </div>
+
+  <div class="roundhead">
+    <span class="rl" id="rotLabel">ICU rounds · Dr. Chen&rsquo;s team</span>
+    <div class="progress"><i id="prog"></i></div>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div id="stage"></div>
+
+  <div class="tip"><b>Why rounds:</b> it turns isolated questions into the real job &mdash; prioritize under flow, communicate concisely to the team, and don&rsquo;t intervene when the plan is already right. Recurring patients from your journeys can appear on the census.</div>
+
+  <p class="foot">Static direction preview · The Clinical Path — PGY-1 · fictional patients, educational simulation.</p>
+</div>
+
+<script>
+var ROTS={
+  icu:{label:'ICU rounds · Dr. Chen\u2019s team', team:'Dr. Chen, ICU attending', patients:[
+    {bed:'Bed 3',journey:true,name:'Mr. Alvarez, 62M',one:'Septic shock, day 2 \u2014 a returning journey patient',present:'Bed 3, Mr. Alvarez, septic shock day two. Off pressors since morning, cultures finalized overnight: E. coli, pan-sensitive. Still on pip-tazo. Pharmacy?',
+      given:['Cx: <b>E. coli pan-S</b>','Pressors <b>off</b>','Abx: <b>pip-tazo</b>','SCr <b>1.0</b>'],
+      opts:[
+        {t:'Recommend de-escalation to a narrow agent (e.g., ceftriaxone) per cultures',ok:true},
+        {t:'Continue pip-tazo \u2014 he looks better on it',ok:false},
+        {t:'Add empiric antifungal coverage',ok:false},
+        {t:'No pharmacist intervention needed',ok:false}
+      ],
+      good:'Right call. Cultures are back and he\u2019s improving \u2014 de-escalation is a decision, not a default. The team narrows to ceftriaxone.',
+      bad:'This is the classic miss: he\u2019s pan-sensitive and improving, so broad-spectrum should come down. Rounds is exactly where de-escalation happens.'},
+    {bed:'Bed 5',name:'Ms. Reyes, 70F',one:'Acute kidney injury, rising SCr',present:'Bed 5, Ms. Reyes, day three. SCr climbed 1.1 to 2.3 overnight. On vancomycin for MRSA bacteremia and enoxaparin prophylaxis. Anything for pharmacy?',
+      given:['SCr <b>2.3 \u2191</b>','Vanco <b>1g q8h</b>','Enoxaparin ppx','MRSA bacteremia'],
+      opts:[
+        {t:'Recommend AUC-guided vancomycin adjustment for the AKI and recheck a level',ok:true},
+        {t:'Stop vancomycin entirely',ok:false},
+        {t:'No change \u2014 vancomycin dosing is fine',ok:false},
+        {t:'Switch enoxaparin to a DOAC',ok:false}
+      ],
+      good:'Exactly. Vancomycin is renally cleared \u2014 the rising SCr means the current regimen will over-shoot the AUC. Adjust and re-level; watch enoxaparin too.',
+      bad:'The AKI changes vancomycin exposure \u2014 leaving it unchanged risks nephrotoxic over-dosing. This is the pharmacist catch on rounds.'},
+    {bed:'Bed 2',name:'Mr. Osei, 55M',one:'Intubated, stable \u2014 a decoy',present:'Bed 2, Mr. Osei, post-op day 1, intubated and sedated, hemodynamically stable. DVT prophylaxis on, home meds reconciled, renal dosing all appropriate. Pharmacy, anything?',
+      given:['DVT ppx <b>on</b>','Renal dosing <b>OK</b>','Home meds <b>reconciled</b>','Stable'],
+      opts:[
+        {t:'No pharmacist intervention needed \u2014 the plan is appropriate',ok:true},
+        {t:'Add stress-ulcer prophylaxis to be safe',ok:false},
+        {t:'Start empiric antibiotics prophylactically',ok:false},
+        {t:'Increase sedation',ok:false}
+      ],
+      good:'Good judgment. Not every patient needs an intervention \u2014 recognizing a sound plan and moving rounds along is a real skill. Over-intervening adds risk and noise.',
+      bad:'Careful \u2014 the plan here is already appropriate. Adding unneeded therapy (like reflexive stress-ulcer ppx) creates risk. Knowing when NOT to intervene matters.'},
+    {bed:'Bed 8',name:'Ms. Lund, 48F',one:'New AFib, severe renal impairment',present:'Bed 8, Ms. Lund, new atrial fibrillation. The team started apixaban 5 mg BID last night. Her CrCl is 22. Pharmacy?',
+      given:['New AFib','Apixaban <b>5mg BID</b>','CrCl <b>22</b>','Age 48'],
+      opts:[
+        {t:'Flag the apixaban regimen for severe renal impairment and recommend criteria-based dosing review',ok:true},
+        {t:'Leave it \u2014 apixaban needs no renal consideration',ok:false},
+        {t:'Switch to full-dose dabigatran',ok:false},
+        {t:'Add aspirin for extra protection',ok:false}
+      ],
+      good:'Right. Severe renal impairment changes DOAC appropriateness and dosing \u2014 you raise it on rounds, tie it to the reduction criteria, and put your name on the recommendation.',
+      bad:'A CrCl of 22 is exactly when DOAC dosing must be checked against the reduction criteria \u2014 not left on autopilot. This is the pharmacist voice on rounds.'}
+  ]},
+  onc:{label:'Oncology rounds · Dr. Amina\u2019s service', team:'Dr. Amina, ID/Onc pharmacist', patients:[
+    {bed:'Chair 4',name:'Ms. Chen, 54F',one:'Cycle 1, day 10 \u2014 a returning journey patient',journey:true,present:'Ms. Chen, day ten after cycle one, presents with a fever of 38.4 at home. ANC 300 in triage. What\u2019s the pharmacy priority?',
+      given:['ANC <b>300</b>','Temp <b>38.4</b>','Day 10 post-chemo','Home onset'],
+      opts:[
+        {t:'Empiric anti-pseudomonal antibiotics within the hour \u2014 febrile neutropenia',ok:true},
+        {t:'Wait for culture results before antibiotics',ok:false},
+        {t:'Give an antipyretic and reassess in the morning',ok:false},
+        {t:'No intervention \u2014 low-grade fever',ok:false}
+      ],
+      good:'Yes \u2014 febrile neutropenia is a timing diagnosis. Empiric anti-pseudomonal coverage within the hour; everything else waits.',
+      bad:'This is time-critical: neutropenic fever needs empiric antibiotics within the hour, before cultures. Delay is the danger.'}
+  ]},
+  amb:{label:'Ambulatory panel · Dr. Ortega\u2019s clinic', team:'Dr. Ortega, ambulatory pharmacist', patients:[
+    {bed:'Room 2',name:'Mr. Boyd, 61M',one:'Uncontrolled type 2 diabetes + CKD',present:'Mr. Boyd, A1c 9.1 on metformin alone, eGFR 38, and some pedal edema. His chart mentions cost concerns. Pharmacy recommendation?',
+      given:['A1c <b>9.1</b>','eGFR <b>38</b>','Metformin only','Cost-sensitive'],
+      opts:[
+        {t:'Add an SGLT2 inhibitor \u2014 organ protection at this eGFR plus glucose lowering',ok:true},
+        {t:'Add a sulfonylurea and stop metformin',ok:false},
+        {t:'Maximize metformin further',ok:false},
+        {t:'No change \u2014 recheck in 6 months',ok:false}
+      ],
+      good:'Strong choice \u2014 an SGLT2 inhibitor adds cardio-renal protection at this eGFR and lowers glucose; then solve the cost and follow-up. Ambulatory is where long-term outcomes are built.',
+      bad:'At eGFR 38 with uncontrolled diabetes, the guideline-preferred add is an organ-protective agent (SGLT2i), not a sulfonylurea. Match the drug to the whole patient.'}
+  ]}
+};
+var rot='icu', idx=0, caught=0, restraint=0, needCount=0, answered=false;
+
+function startRot(k){rot=k;idx=0;caught=0;restraint=0;answered=false;
+  needCount=ROTS[k].patients.filter(function(p){return p.opts.find(function(o){return o.ok;}).t.indexOf('No pharmacist')<0;}).length;
+  document.getElementById('rotLabel').textContent=ROTS[k].label;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.rot===k);});
+  render();}
+function render(){
+  var P=ROTS[rot].patients, p=P[idx];
+  document.getElementById('prog').style.width=Math.round((idx/(P.length))*100)+'%';
+  document.getElementById('count').textContent='Patient '+(idx+1)+' of '+P.length;
+  if(idx>=P.length){ renderSummary(); return; }
+  answered=false;
+  document.getElementById('stage').innerHTML=
+    '<div class="card"><span class="bedbadge'+(p.journey?' journey':'')+'">'+p.bed+(p.journey?' · Journey patient':'')+'</span>'+
+    '<h3>'+p.name+'</h3><p class="oneliner">'+p.one+'</p>'+
+    '<div class="present"><span class="who">'+ROTS[rot].team+'</span>'+p.present+'</div>'+
+    '<div class="given">'+p.given.map(function(g){return '<span class="gv">'+g+'</span>';}).join('')+'</div>'+
+    '<div class="qh">Your rounds move?</div>'+
+    '<div id="opts">'+p.opts.map(function(o,i){return '<div class="opt" data-i="'+i+'" onclick="pick('+i+')">'+o.t+'</div>';}).join('')+'</div>'+
+    '<div id="fb"></div><div id="act"></div></div>';
+}
+function pick(i){
+  if(answered)return; answered=true;
+  var P=ROTS[rot].patients, p=P[idx], o=p.opts[i], isRestraint=p.opts.find(function(x){return x.ok;}).t.indexOf('No pharmacist')===0;
+  document.querySelectorAll('#opts .opt').forEach(function(el,j){el.classList.add('dim');if(p.opts[j].ok){el.classList.remove('dim');el.classList.add('right');}if(j===i&&!o.ok){el.classList.remove('dim');el.classList.add('wrong');}});
+  if(o.ok){ if(isRestraint)restraint++; else caught++; }
+  document.getElementById('fb').innerHTML='<div class="fb '+(o.ok?'good':'bad')+'"><span class="team">'+ROTS[rot].team+' &amp; team</span>'+(o.ok?p.good:p.bad)+'</div>';
+  var last=idx>=P.length-1;
+  document.getElementById('act').innerHTML='<div class="actions"><button class="btn primary" onclick="nextPt()">'+(last?'Finish rounds':'Next patient \u2192')+'</button></div>';
+}
+function nextPt(){ idx++; render(); }
+function renderSummary(){
+  document.getElementById('prog').style.width='100%';
+  var P=ROTS[rot].patients;
+  document.getElementById('stage').innerHTML=
+    '<div class="card summary"><span class="bedbadge">Rounds complete</span>'+
+    '<div class="big">'+caught+' / '+needCount+'</div>'+
+    '<p>drug-therapy problems caught on rounds.</p>'+
+    '<div class="line"><span>Problems caught</span><b>'+caught+' / '+needCount+'</b></div>'+
+    '<div class="line"><span>Appropriate restraint (didn\u2019t over-intervene)</span><b>'+restraint+'</b></div>'+
+    '<div class="line"><span>Team communication</span><b>SBAR-scored</b></div>'+
+    '<p style="margin-top:12px">In the real game this rolls into your R1 patient-care evidence and the preceptor review. Recurring journey patients carry your earlier decisions onto the census.</p>'+
+    '<div class="actions"><button class="btn primary" onclick="startRot(\''+rot+'\')">Round again</button></div></div>';
+}
+document.getElementById('tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(b)startRot(b.dataset.rot);});
+document.querySelector('.back').addEventListener('click',function(){history.length>1?history.back():null;});
+startRot('icu');
+</script>
+</body>
+</html>
