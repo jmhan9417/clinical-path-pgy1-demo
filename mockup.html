@@ -4,157 +4,147 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Clinical Path — Next changes (preview mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--teal:#0f766e;--teal-d:#0b5a54;--ink:#123c46;--muted:#66727c;--ivory:#fbfaf7;--line:#e7ecef;--pink:#d94f9e}
+:root{--teal:#0f766e;--teal2:#22a897;--rose:#ff5f92;--rose-d:#c23b6b;--pink:#ff7fa8;--roseline:#ffd0e0;--lav:#8e77c9;--ink:#123c46;--slate:#334155;--muted:#66727c;--line:#cbd5e1;--soft:#f8fafc}
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,#f3efe9,#eef3f2);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1040px;margin:0 auto;padding:22px 18px 60px}
-.banner{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 8px 24px rgba(15,23,42,.06);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.banner b{color:var(--teal)}
-.banner .tag{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#a06b12;background:#fdf3dd;border:1px solid #f0e0b0;padding:4px 9px;border-radius:999px}
-/* app-style header */
-.appbar{display:flex;align-items:center;gap:10px;margin:18px 0 6px}
-.appbar .back{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-weight:900;color:var(--ink);cursor:pointer;font-size:13px}
-.appbar .back:hover{border-color:var(--teal)}
-.appbar h1{font-size:19px;margin:0;flex:1}
-.appbar .gear{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer}
-.appbar .gear svg{width:18px;height:18px;stroke:#55636c}
-.tabs{display:flex;gap:8px;margin:16px 0 18px;flex-wrap:wrap}
-.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;font-weight:900;color:var(--muted);cursor:pointer;font-size:13px}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,#fff1f6,#ffe0ec 55%,#ffd0e2);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:22px 18px 64px}
+h1,h2,h3,.jua{font-family:"Jua",system-ui,sans-serif;font-weight:400;letter-spacing:0}
+.note{font-size:12px;font-weight:800;color:var(--rose-d);text-transform:uppercase;letter-spacing:.08em;margin:2px 0 14px}
+.appbar{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--roseline);border-radius:16px;padding:12px 14px;box-shadow:0 10px 26px rgba(90,50,90,.10)}
+.back{display:inline-flex;align-items:center;gap:6px;background:#fff;border:2px solid var(--roseline);color:var(--pink);border-radius:11px;padding:8px 13px;font-weight:900;cursor:pointer;font-size:13px}
+.back:hover{border-color:var(--rose)}
+.appbar h1{font-size:20px;margin:0;flex:1;color:var(--rose-d)}
+.gear{width:40px;height:40px;border-radius:11px;border:2px solid var(--roseline);background:#fff;display:grid;place-items:center;cursor:pointer}
+.gear svg{width:18px;height:18px;stroke:var(--pink);fill:none}
+.intro{color:#5a4a56;font-weight:700;line-height:1.55;max-width:72ch;margin:16px 2px 20px;font-size:14px}
+.intro b{color:var(--rose-d)}
+.tabs{display:flex;gap:8px;margin:0 0 20px;flex-wrap:wrap}
+.tab{border:2px solid var(--roseline);background:#fff;border-radius:999px;padding:9px 18px;font-weight:900;color:var(--pink);cursor:pointer;font-size:13px}
 .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
-.panel{display:none}
-.panel.on{display:block}
-.lead{color:var(--muted);font-weight:700;max-width:70ch;line-height:1.55;margin:0 0 16px}
-.card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(15,23,42,.07)}
-/* study cards */
-.deck-toggle{display:inline-flex;background:#eef2f2;border:1px solid #dde6e5;border-radius:12px;padding:4px;gap:4px;margin-bottom:16px}
-.deck-toggle button{border:0;background:transparent;padding:8px 18px;border-radius:9px;font-weight:900;color:var(--muted);cursor:pointer;font-size:13px}
-.deck-toggle button.on{background:#fff;color:var(--teal);box-shadow:0 2px 6px rgba(15,23,42,.08)}
-.study-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;max-width:600px}
-.flash{position:relative;min-height:280px;border-radius:20px;border:1px solid var(--line);background:#fff;padding:22px;cursor:pointer;box-shadow:0 14px 34px rgba(15,23,42,.09);transition:transform .12s}
-.flash:active{transform:scale(.995)}
+.panel{display:none}.panel.on{display:block}
+.lead{color:var(--muted);font-weight:700;max-width:70ch;line-height:1.55;margin:0 0 18px;font-size:14px}
+.lead b{color:var(--ink)}
+.deck-toggle{display:inline-flex;background:#fff;border:2px solid var(--roseline);border-radius:13px;padding:4px;gap:4px;margin-bottom:18px}
+.deck-toggle button{border:0;background:transparent;padding:8px 20px;border-radius:9px;font-weight:900;color:var(--pink);cursor:pointer;font-size:13px}
+.deck-toggle button.on{background:var(--teal);color:#fff}
+.study-stage{max-width:580px}
+.flash{position:relative;min-height:260px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.97);padding:24px;cursor:pointer;box-shadow:0 16px 36px rgba(15,23,42,.16)}
+.flash .badge{position:absolute;top:16px;right:18px;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);background:#e9f6f4;border:1px solid #cfeae6;padding:4px 10px;border-radius:999px}
 .flash .kick{font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#9aa6b0}
-.flash .deck-badge{position:absolute;top:16px;right:18px;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);background:#e9f6f4;border:1px solid #cfeae6;padding:4px 9px;border-radius:999px}
-.flash .term{font-size:26px;font-weight:900;color:var(--ink);margin:26px 0 8px;line-height:1.15}
+.flash .term{font-family:"Jua",sans-serif;font-size:27px;color:var(--rose-d);margin:24px 0 6px;line-height:1.15}
 .flash .sub{color:var(--muted);font-weight:800;font-size:13px}
-.flash .flip-hint{position:absolute;bottom:16px;left:22px;font-size:11px;color:#9aa6b0;font-weight:800}
-.flash.back{padding-bottom:16px}
-.flash.back .flip-hint{position:static;display:block;margin-top:14px}
-.flash.back .term{font-size:20px;margin-top:8px}
-.flash h5{margin:14px 0 5px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#7a8891;font-weight:900}
+.flash .hint{font-size:11px;color:#9aa6b0;font-weight:800;margin-top:18px}
+.flash.front .hint{position:absolute;bottom:18px;left:24px;margin:0}
+.flash h5{margin:15px 0 5px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);font-weight:900}
 .flash p,.flash li{font-size:13.5px;line-height:1.5;color:#2d3d4b;font-weight:650;margin:0}
 .flash ul{margin:0;padding-left:16px}
-.flash .pt{display:flex;gap:7px;margin-top:5px}
-.flash .pt b{font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:#5b6b76;font-weight:900;padding-top:2px}
-.study-controls{display:flex;align-items:center;gap:10px}
-.study-controls .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 14px;font-weight:900;cursor:pointer;color:var(--ink)}
-.study-controls .btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+.flash .row{display:flex;gap:8px;margin-top:6px}
+.flash .row b{font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:var(--teal);font-weight:900;padding-top:3px;min-width:34px}
+.controls{display:flex;align-items:center;gap:12px;margin-top:16px}
+.ctl{border:2px solid var(--roseline);background:#fff;border-radius:11px;padding:9px 15px;font-weight:900;cursor:pointer;color:var(--pink);font-size:13px}
+.ctl.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
 .dots{display:flex;gap:5px;flex:1;justify-content:center}
-.dots i{width:22px;height:6px;border-radius:6px;background:#dde6e5;display:inline-block}
+.dots i{width:22px;height:6px;border-radius:6px;background:var(--roseline);display:inline-block}
 .dots i.on{background:var(--teal)}
-.callout{margin-top:16px;background:#f6faf9;border:1px solid #d9ebe8;border-radius:12px;padding:12px 14px;font-size:12.5px;color:#3d5a56;font-weight:700;line-height:1.5;max-width:600px}
-.callout b{color:var(--teal-d)}
-/* extras */
-.extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.xtile{border:1px solid var(--line);border-radius:16px;background:#fff;padding:18px;box-shadow:0 8px 22px rgba(15,23,42,.06)}
-.xtile .xh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.xicon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:13px}
-.xtile h3{margin:0;font-size:16px}
-.xtile .why{font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#9aa6b0;margin:0 0 8px}
-.xtile p{margin:0 0 10px;color:var(--muted);font-weight:650;font-size:13.5px;line-height:1.5}
-.xtile .eg{background:#faf9f7;border:1px solid #eee7e0;border-radius:10px;padding:10px 12px;font-size:12.5px;color:#5a4a56;font-weight:700;line-height:1.45}
-.xtile .go{display:inline-block;margin-top:12px;background:var(--teal);color:#fff;border-radius:9px;padding:8px 14px;font-weight:900;font-size:12.5px;text-decoration:none}
-.decision{margin-top:18px;background:#fff;border:1px dashed #d7c7d2;border-radius:14px;padding:16px}
-.decision h4{margin:0 0 8px;color:var(--pink)}
+.callout{margin-top:18px;background:#fff;border:1px solid var(--roseline);border-radius:13px;padding:13px 15px;font-size:12.5px;color:#5a4a56;font-weight:700;line-height:1.5;max-width:580px}
+.callout b{color:var(--teal)}
+.extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:14px}
+.xtile{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.97);padding:18px;box-shadow:0 12px 28px rgba(90,50,90,.10)}
+.xh{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+.xicon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:12px;font-family:"Jua",sans-serif}
+.xtile h3{margin:0;font-size:17px;color:var(--rose-d)}
+.why{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#9aa6b0;margin:0 0 9px}
+.xtile p{margin:0 0 11px;color:var(--muted);font-weight:650;font-size:13.5px;line-height:1.5}
+.xtile p b{color:var(--ink)}
+.eg{background:#fff6fa;border:1px solid var(--roseline);border-radius:11px;padding:10px 12px;font-size:12.5px;color:#7a4a60;font-weight:700;line-height:1.45}
+.go{display:inline-block;margin-top:13px;background:var(--teal);color:#fff;border-radius:10px;padding:8px 15px;font-weight:900;font-size:12.5px;text-decoration:none}
+.decision{margin-top:20px;background:#fff;border:1px solid var(--roseline);border-radius:16px;padding:16px 18px}
+.decision h3{margin:0 0 8px;color:var(--rose-d);font-size:16px}
 .decision ul{margin:0;padding-left:18px}
-.decision li{margin:5px 0;font-size:13.5px;color:#3d3540;font-weight:700;line-height:1.5}
-.foot{margin-top:26px;color:#9aa6b0;font-size:11px;text-align:center;line-height:1.6}
-@media(max-width:560px){.flash .term{font-size:22px}}
+.decision li{margin:6px 0;font-size:13.5px;color:#4a3f46;font-weight:700;line-height:1.55}
+.decision li b{color:var(--teal)}
+.foot{margin-top:28px;color:#b98aa0;font-size:11px;text-align:center;line-height:1.6;font-weight:700}
+@media(max-width:560px){.flash .term{font-size:23px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="banner">
-    <span class="tag">Direction mockup</span>
-    <div style="flex:1;min-width:220px;font-weight:700;color:#4a565e;font-size:13.5px;line-height:1.5">
-      This is a <b>frontend mockup</b> of the two remaining changes — <b>Study Cards</b> (concept + drug flashcards, no question re-quiz) and <b>Extras &amp; navigation</b>. Not wired into the game yet; it shows the direction so you can react before I build it.
-    </div>
-  </div>
-
   <div class="appbar">
     <button class="back">&larr; Back</button>
-    <h1>The Clinical Path — planned changes</h1>
-    <button class="gear" title="Settings (app-level, not in Resident Tools)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    <h1>Planned changes</h1>
+    <button class="gear" title="Settings — app-level, not inside Resident Tools"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
   </div>
+  <p class="note">Direction mockup · same site colors &amp; fonts</p>
+  <p class="intro">A frontend mockup of the two remaining changes so you can react before I build them into the game: <b>Study Cards</b> (concept + drug flashcards, no question re-quiz) and <b>Extras &amp; navigation</b>.</p>
 
   <div class="tabs">
-    <button class="tab on" data-tab="study">Study Cards (new)</button>
+    <button class="tab on" data-tab="study">Study Cards</button>
     <button class="tab" data-tab="extras">Extras &amp; navigation</button>
   </div>
 
-  <!-- STUDY CARDS -->
   <section class="panel on" id="study">
-    <p class="lead">Study Cards become a <b>flashcard study tool</b> for two things only: <b>concept definitions</b> and <b>drug study</b>. Answering every case again is <b>removed</b> — missed questions live in the end-of-rotation review instead.</p>
+    <p class="lead">Study Cards become a <b>flashcard tool</b> for two things only: <b>concept definitions</b> and <b>drug study</b>. Re-answering every case is removed — missed questions stay in the end-of-rotation review.</p>
     <div class="deck-toggle" id="deckToggle">
       <button class="on" data-deck="concept">Concepts</button>
       <button data-deck="drug">Drugs</button>
     </div>
     <div class="study-stage">
-      <div class="flash" id="flash" onclick="flip()">
-        <!-- filled by JS -->
-      </div>
-      <div class="study-controls">
-        <button class="btn" onclick="prev()">&larr; Prev</button>
+      <div class="flash front" id="flash" onclick="flip()"></div>
+      <div class="controls">
+        <button class="ctl" onclick="prev()">&larr; Prev</button>
         <div class="dots" id="dots"></div>
-        <button class="btn primary" onclick="next()">Next &rarr;</button>
+        <button class="ctl primary" onclick="next()">Next &rarr;</button>
       </div>
     </div>
-    <div class="callout"><b>Tap the card to flip.</b> Concepts show the definition, mechanism, and key points. Drugs show class, MOA, use, and what to watch. Spaced-repetition style, not a quiz — no scoring, no pass/fail.</div>
+    <div class="callout"><b>Tap the card to flip.</b> Concepts show definition, mechanism, and key points; drugs show class, MOA, use, and what to watch. Study, not a quiz — no scoring.</div>
   </section>
 
-  <!-- EXTRAS -->
   <section class="panel" id="extras">
-    <p class="lead">Break room, Faceoff, and Patient journeys are pulled out of the hidden &ldquo;More&rdquo; dropdown into one clear <b>Extras</b> shelf, each with a stated purpose. And every screen gets a consistent <b>&larr; Back</b> and an app-level <b>Settings</b> gear (top bar above).</p>
+    <p class="lead">Break room, Faceoff, and Patient journeys move out of the hidden &ldquo;More&rdquo; dropdown onto one clear <b>Extras</b> shelf, each with a stated purpose. Every screen also gets a consistent <b>&larr; Back</b> and an app-level <b>Settings</b> gear (top bar).</p>
     <div class="extras">
       <div class="xtile">
         <div class="xh"><span class="xicon" style="background:#0f766e">PJ</span><h3>Patient journeys</h3></div>
         <p class="why">Continuity of care</p>
-        <p>Follow <b>one fictional patient across several rotations</b> and see how your earlier decisions carry forward — the med you started in Acute Care shows up again in the ICU.</p>
-        <div class="eg">Example: Ms. Nguyen — new AFib on apixaban (Rotation 3) &rarr; admitted with a GI bleed (Rotation 6). Your reversal &amp; restart plan is graded against what you chose earlier.</div>
+        <p>Follow <b>one fictional patient across several rotations</b> and see how earlier decisions carry forward — the med you start in Acute Care returns in the ICU.</p>
+        <div class="eg">Ms. Nguyen — new AFib on apixaban (Rotation 3) &rarr; admitted with a GI bleed (Rotation 6). Your reversal &amp; restart plan is graded against your earlier choice.</div>
         <a class="go" href="#">Open a journey</a>
       </div>
       <div class="xtile">
-        <div class="xh"><span class="xicon" style="background:#d94f9e">BR</span><h3>Break room</h3></div>
+        <div class="xh"><span class="xicon" style="background:#ff5f92">BR</span><h3>Break room</h3></div>
         <p class="why">Character &amp; wellness</p>
-        <p>Short, low-stakes scenes with your preceptor and co-residents. They unlock as your <b>bond</b> grows and give the burnout/just-culture themes room to breathe.</p>
-        <div class="eg">Example: Dr. Harlin catches you skipping lunch after a rough code and talks through it — a wellness beat, no quiz.</div>
+        <p>Short, low-stakes scenes with your preceptor and co-residents. They unlock as your <b>bond</b> grows and give the burnout and just-culture themes room to breathe.</p>
+        <div class="eg">Dr. Harlin catches you skipping lunch after a rough code and talks it through — a wellness beat, no quiz.</div>
         <a class="go" href="#">Enter break room</a>
       </div>
       <div class="xtile">
-        <div class="xh"><span class="xicon" style="background:#b0792c">VS</span><h3>Faceoff</h3></div>
+        <div class="xh"><span class="xicon" style="background:#8e77c9">VS</span><h3>Faceoff</h3></div>
         <p class="why">Rival quiz round</p>
-        <p>A quick, timed <b>you-vs-rival</b> rapid round unlocked after you finish rotations — a fun, optional way to pressure-test recall.</p>
-        <div class="eg">Example: Best-of-7 rapid MCQs vs. Jamie Park. Purely optional; doesn&rsquo;t affect your competency record.</div>
+        <p>A quick, timed <b>you-vs-rival</b> rapid round that unlocks after you finish rotations — an optional way to pressure-test recall.</p>
+        <div class="eg">Best-of-7 rapid MCQs vs. Jamie Park. Optional; it doesn&rsquo;t affect your competency record.</div>
         <a class="go" href="#">Start a faceoff</a>
       </div>
     </div>
     <div class="decision">
-      <h4>One decision for you</h4>
+      <h3>One decision for you</h3>
       <ul>
-        <li><b>Patient journeys</b> — keep it and surface it like the tile above (my recommendation, it&rsquo;s a genuinely differentiating &ldquo;continuity of care&rdquo; idea), <b>or</b> cut it entirely if you&rsquo;d rather keep the game lean.</li>
-        <li>Break room + Faceoff — I&rsquo;ll surface both on this Extras shelf either way.</li>
+        <li><b>Patient journeys</b> — keep and surface it like the tile above (my recommendation; it&rsquo;s a genuinely differentiating &ldquo;continuity of care&rdquo; idea), or cut it entirely to keep the game lean.</li>
+        <li>Break room + Faceoff move onto the Extras shelf either way.</li>
       </ul>
     </div>
   </section>
 
-  <div class="foot">Static direction mockup · The Clinical Path — PGY-1 · fictional patients, educational simulation.</div>
+  <p class="foot">Static direction mockup · The Clinical Path — PGY-1 · fictional patients, educational simulation.</p>
 </div>
 
 <script>
 const CONCEPTS=[
-  {term:"QT prolongation",sub:"Concept · cardiac safety",oneLiner:"Additive QT-prolonging drugs raise the risk of torsades de pointes.",mech:"Blockade of the hERG (IKr) potassium current delays repolarization; risk compounds with hypokalemia, hypomagnesemia, bradycardia, and multiple QT drugs.",points:["Check a baseline ECG and correct K+ and Mg2+.","Stack risk: antipsychotics + ondansetron + azithromycin/fluoroquinolones.","Verify agents against the CredibleMeds QT drug list."]},
-  {term:"Hyperkalemia",sub:"Concept · emergency",oneLiner:"Stabilize the membrane, shift potassium in, then eliminate it.",mech:"High extracellular K+ destabilizes cardiac membranes; calcium stabilizes the myocyte while insulin/dextrose and beta-agonists shift K+ intracellularly.",points:["Give IV calcium first if ECG changes are present.","Insulin + dextrose and albuterol shift; they do not remove K+.","Eliminate with diuretics, binders, or dialysis; recheck serially."]},
-  {term:"High-alert medication safety",sub:"Concept · systems",oneLiner:"Error-prone drugs need system safeguards, not vigilance alone.",mech:"Narrow-margin agents (insulin, heparin, chemo, concentrated electrolytes) cause outsized harm, so barriers are built into the process rather than relying on memory.",points:["Independent double checks where the institution requires them.","Remove concentrated KCl from floor stock; standardize concentrations.","Use smart-pump libraries and barcode verification."]}
+  {term:"QT prolongation",sub:"Concept · cardiac safety",oneLiner:"Additive QT-prolonging drugs raise the risk of torsades de pointes.",mech:"Blockade of the hERG (IKr) potassium current delays repolarization; risk compounds with hypokalemia, hypomagnesemia, bradycardia, and multiple QT drugs.",points:["Check a baseline ECG and correct K+ and Mg2+.","Stack risk: antipsychotics + ondansetron + azithromycin or fluoroquinolones.","Verify agents against the CredibleMeds QT drug list."]},
+  {term:"Hyperkalemia",sub:"Concept · emergency",oneLiner:"Stabilize the membrane, shift potassium in, then eliminate it.",mech:"High extracellular K+ destabilizes cardiac membranes; calcium stabilizes the myocyte while insulin/dextrose and beta-agonists shift K+ intracellularly.",points:["Give IV calcium first if ECG changes are present.","Insulin + dextrose and albuterol shift K+; they do not remove it.","Eliminate with diuretics, binders, or dialysis; recheck serially."]},
+  {term:"High-alert medications",sub:"Concept · systems",oneLiner:"Error-prone drugs need system safeguards, not vigilance alone.",mech:"Narrow-margin agents (insulin, heparin, chemo, concentrated electrolytes) cause outsized harm, so barriers are built into the process rather than relying on memory.",points:["Independent double checks where the institution requires them.","Remove concentrated KCl from floor stock; standardize concentrations.","Use smart-pump libraries and barcode verification."]}
 ];
 const DRUGS=[
   {term:"Vancomycin",sub:"Glycopeptide antibiotic",moa:"Inhibits cell-wall synthesis by binding the D-Ala-D-Ala peptidoglycan terminus.",use:"Serious gram-positive infections including MRSA.",watch:"AUC/MIC 400–600, renal function/SCr, level timing."},
@@ -165,16 +155,15 @@ let deck="concept", idx=0, flipped=false;
 function data(){return deck==="concept"?CONCEPTS:DRUGS;}
 function render(){
   const c=data()[idx]; const f=document.getElementById('flash');
-  f.classList.toggle('back',flipped);
+  f.classList.toggle('front',!flipped);
   if(!flipped){
-    f.innerHTML='<span class="deck-badge">'+(deck==="concept"?"Concept":"Drug")+'</span><div class="kick">'+(deck==="concept"?"Define it":"Study the drug")+'</div><div class="term">'+c.term+'</div><div class="sub">'+c.sub+'</div><div class="flip-hint">Tap to reveal &rarr;</div>';
+    f.innerHTML='<span class="badge">'+(deck==="concept"?"Concept":"Drug")+'</span><div class="kick">'+(deck==="concept"?"Define it":"Study the drug")+'</div><div class="term">'+c.term+'</div><div class="sub">'+c.sub+'</div><div class="hint">Tap to reveal &rarr;</div>';
   } else if(deck==="concept"){
-    f.innerHTML='<span class="deck-badge">Concept</span><div class="term">'+c.term+'</div><h5>Definition</h5><p>'+c.oneLiner+'</p><h5>Why it happens</h5><p>'+c.mech+'</p><h5>Key points</h5><ul>'+c.points.map(p=>'<li>'+p+'</li>').join('')+'</ul><div class="flip-hint">Tap to flip back</div>';
+    f.innerHTML='<span class="badge">Concept</span><div class="term">'+c.term+'</div><h5>Definition</h5><p>'+c.oneLiner+'</p><h5>Why it happens</h5><p>'+c.mech+'</p><h5>Key points</h5><ul>'+c.points.map(p=>'<li>'+p+'</li>').join('')+'</ul><div class="hint">Tap to flip back</div>';
   } else {
-    f.innerHTML='<span class="deck-badge">Drug</span><div class="term">'+c.term+'</div><div class="sub">'+c.sub+'</div><div class="pt"><b>MOA</b><p>'+c.moa+'</p></div><div class="pt"><b>Use</b><p>'+c.use+'</p></div><div class="pt"><b>Watch</b><p>'+c.watch+'</p></div><div class="flip-hint">Tap to flip back</div>';
+    f.innerHTML='<span class="badge">Drug</span><div class="term">'+c.term+'</div><div class="sub">'+c.sub+'</div><div class="row"><b>MOA</b><p>'+c.moa+'</p></div><div class="row"><b>Use</b><p>'+c.use+'</p></div><div class="row"><b>Watch</b><p>'+c.watch+'</p></div><div class="hint">Tap to flip back</div>';
   }
-  const dots=document.getElementById('dots');
-  dots.innerHTML=data().map((_,i)=>'<i class="'+(i===idx?'on':'')+'"></i>').join('');
+  document.getElementById('dots').innerHTML=data().map((_,i)=>'<i class="'+(i===idx?'on':'')+'"></i>').join('');
 }
 function flip(){flipped=!flipped;render();}
 function next(){idx=(idx+1)%data().length;flipped=false;render();}
