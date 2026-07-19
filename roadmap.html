@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Clinical Path — Development directions (preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#0f766e;--teal2:#22a897;--rose:#ff5f92;--rose-d:#c23b6b;--pink:#ff7fa8;--roseline:#ffd0e0;--lav:#8e77c9;--ink:#123c46;--slate:#334155;--muted:#66727c;--line:#cbd5e1;--soft:#f8fafc;--gn:#c9efdc;--yl:#fde8c4;--rd:#f7d0d0}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,#fff1f6,#ffe0ec 55%,#ffd0e2);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;text-align:left;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:22px 18px 70px}
+h1,h2,h3,h4,.jua{font-family:"Jua",system-ui,sans-serif;font-weight:400;letter-spacing:0}
+.appbar{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--roseline);border-radius:16px;padding:12px 14px;box-shadow:0 10px 26px rgba(90,50,90,.10)}
+.back{display:inline-flex;align-items:center;gap:6px;background:#fff;border:2px solid var(--roseline);color:var(--pink);border-radius:11px;padding:8px 13px;font-weight:900;cursor:pointer;font-size:13px}
+.appbar h1{font-size:20px;margin:0;flex:1;color:var(--rose-d)}
+.note{font-size:12px;font-weight:800;color:var(--rose-d);text-transform:uppercase;letter-spacing:.08em;margin:16px 2px 4px}
+.intro{color:#5a4a56;font-weight:700;line-height:1.55;max-width:74ch;margin:4px 2px 18px;font-size:14px}
+.intro b{color:var(--rose-d)}
+.tabs{display:flex;gap:8px;margin:0 0 20px;flex-wrap:wrap}
+.tab{border:2px solid var(--roseline);background:#fff;border-radius:999px;padding:9px 16px;font-weight:900;color:var(--pink);cursor:pointer;font-size:12.5px}
+.tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.panel{display:none}.panel.on{display:block}
+.sec-h{display:flex;align-items:baseline;gap:10px;margin:0 0 4px}
+.sec-h h2{font-size:21px;color:var(--rose-d);margin:0}
+.pri{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--teal);border-radius:999px;padding:3px 9px}
+.lead{color:var(--muted);font-weight:700;line-height:1.55;margin:0 0 16px;font-size:14px;max-width:74ch}
+.lead b{color:var(--ink)}
+.card{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 12px 28px rgba(90,50,90,.10);margin-bottom:16px}
+.card h3{margin:0 0 4px;font-size:16px;color:var(--rose-d)}
+.kick{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#9aa6b0;margin:0 0 10px}
+.chip{display:inline-block;font-size:11px;font-weight:900;border-radius:999px;padding:4px 10px;border:1px solid var(--roseline);background:#fff;color:var(--pink)}
+.chip.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.btn{border:2px solid var(--roseline);background:#fff;border-radius:11px;padding:8px 14px;font-weight:900;cursor:pointer;color:var(--pink);font-size:13px}
+.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.beat{border-left:3px solid var(--teal);background:#f6faf9;border-radius:0 12px 12px 12px;padding:12px 14px;margin-top:12px;font-size:13.5px;line-height:1.55;color:#2d3d4b;font-weight:650}
+.beat.bad{border-left-color:#d64f6a;background:#fdf2f4}
+.beat b{color:var(--rose-d)}
+.badge-line{font-size:11px;font-weight:900;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.beat.bad .badge-line{color:#b83350}
+/* patient panel */
+.panelboard{display:grid;grid-template-columns:1fr;gap:8px}
+.pt-row{display:grid;grid-template-columns:1.3fr 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff}
+.pt-row b{color:var(--ink);font-size:14px}
+.pt-row .unit{color:var(--muted);font-weight:700;font-size:12.5px}
+.pt-row .ch{font-size:12px;font-weight:800;color:var(--teal)}
+.pt-row .st{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:4px 9px}
+.st.active{background:var(--gn);color:#1f6b46}.st.next{background:var(--yl);color:#8a5a12}.st.done{background:#e8edf0;color:#5b6b76}
+/* mcq / distractor */
+.opt{border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-top:8px;font-size:13.5px;font-weight:700;color:#2d3d4b;cursor:pointer;background:#fff}
+.opt.pick{border-color:#d64f6a;background:#fdf2f4}
+.opt.correct{border-color:var(--teal);background:#eef7f6}
+.trap{margin-top:8px;background:#fff8f0;border:1px solid #f3ddc0;border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:#7a4a1e;font-weight:700}
+.trap b{color:#a85a12}
+/* confidence */
+.conf-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.conf{border:2px solid var(--roseline);background:#fff;border-radius:11px;padding:8px 14px;font-weight:900;color:var(--pink);cursor:pointer;font-size:13px}
+.conf.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.calib{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.calib .bar{height:12px;border-radius:6px;background:#eef2f5;overflow:hidden;margin:5px 0 2px}
+.calib .bar i{display:block;height:100%;background:var(--teal)}
+.calib .bar i.over{background:#e08a2e}
+.small{font-size:12px;color:var(--muted);font-weight:700;line-height:1.5}
+/* weak areas */
+.goal{margin-top:10px}
+.goal .t{display:flex;justify-content:space-between;font-size:12.5px;font-weight:800;color:#3d4a52;margin-bottom:4px}
+.goal .track{height:9px;border-radius:6px;background:#eef2f5;overflow:hidden}
+.goal .track i{display:block;height:100%}
+.goal.weak .track i{background:#d64f6a}.goal.mid .track i{background:#e08a2e}.goal.ok .track i{background:var(--teal)}
+.tagpick{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#b83350;margin-left:6px}
+/* report */
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.report-grid{grid-template-columns:1fr}.pt-row{grid-template-columns:1fr auto}.pt-row .ch{display:none}}
+.rep h4{margin:0 0 8px;font-size:14px;color:var(--rose-d)}
+.evi{border:1px dashed #cfe6e2;background:#f6faf9;border-radius:12px;padding:11px 13px;font-size:12.5px;color:#2d5450;font-weight:700;line-height:1.5;margin-top:10px}
+.evi b{color:var(--teal)}
+.cohort .cbar{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:12.5px;font-weight:800;color:#3d4a52}
+.cohort .cbar .track{flex:1;height:12px;border-radius:6px;background:#eef2f5;overflow:hidden}
+.cohort .cbar .track i{display:block;height:100%;background:#d64f6a}
+/* param case */
+.given{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.gv{border:1px solid var(--line);border-radius:10px;padding:7px 11px;background:#fff;font-size:12.5px;font-weight:800;color:#3d4a52}
+.gv b{color:var(--teal)}
+.ans{margin-top:10px;background:#eef7f6;border:1px solid #cfeae6;border-radius:11px;padding:11px 13px;font-size:13px;font-weight:800;color:#0e5b54;line-height:1.5}
+.foot{margin-top:26px;color:#b98aa0;font-size:11px;font-weight:700;line-height:1.6}
+ul{margin:8px 0 0;padding-left:18px}li{margin:4px 0;font-size:13.5px;line-height:1.5;color:#3d4a52;font-weight:650}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="appbar">
+    <button class="back">&larr; Back</button>
+    <h1>Development directions</h1>
+  </div>
+  <p class="note">Direction preview · same site colors &amp; fonts · left-aligned</p>
+  <p class="intro">Interactive previews of how I'd develop the weak spots. Nothing is wired into the game yet — these show the direction so you can react. Tap around: the journey branch, confidence, and case numbers are all live.</p>
+
+  <div class="tabs">
+    <button class="tab on" data-tab="journeys">1 · Patient journeys 2.0</button>
+    <button class="tab" data-tab="learning">2 · Deeper learning</button>
+    <button class="tab" data-tab="programs">3 · For programs</button>
+    <button class="tab" data-tab="fresh">4 · Fresh content</button>
+  </div>
+
+  <!-- 1. JOURNEYS -->
+  <section class="panel on" id="journeys">
+    <div class="sec-h"><h2>Patient journeys 2.0</h2><span class="pri">Top priority</span></div>
+    <p class="lead">Turn the scripted patient arcs into a <b>real continuity-of-care system</b>: what you did earlier changes what happens later, a visible patient panel, and clear chapter signposting.</p>
+
+    <div class="card">
+      <div class="kick">Decision-based branching · live demo</div>
+      <h3>Mr. Alvarez &mdash; Going home (Chapter 3 of 3)</h3>
+      <p class="small" style="margin:6px 0 10px">Choose what you did back on <b>Culture day (Ch 2)</b>. The discharge scene changes with your earlier decision &mdash; consequence, not a cutscene.</p>
+      <div class="row">
+        <button class="chip on" id="brGood" onclick="setBranch('good')">Ch 2: you de-escalated to targeted therapy ✓</button>
+        <button class="chip" id="brBad" onclick="setBranch('bad')">Ch 2: you left broad-spectrum running ✗</button>
+      </div>
+      <div id="branchBeat"></div>
+    </div>
+
+    <div class="card">
+      <div class="kick">Patient panel · your service list</div>
+      <h3>Featured storylines &mdash; 3 patients</h3>
+      <div class="panelboard">
+        <div class="pt-row"><div><b>Mr. Alvarez</b><div class="unit">62M · Septic shock &rarr; floor</div></div><div class="ch">Ch 3/3 · Going home</div><span class="st active">Active</span></div>
+        <div class="pt-row"><div><b>Ms. Chen</b><div class="unit">54F · Oncology, cycle 1</div></div><div class="ch">Ch 2/3 · Day-ten fever</div><span class="st next">Next</span></div>
+        <div class="pt-row"><div><b>Baby Kim</b><div class="unit">31wk neonate · NICU</div></div><div class="ch">Ch 1/3 · Two kilograms</div><span class="st done">Locked</span></div>
+      </div>
+      <p class="small" style="margin-top:10px">Each row opens that patient&rsquo;s thread; the med you started in an earlier rotation literally shows up in their later chart.</p>
+    </div>
+
+    <div class="card">
+      <div class="kick">Signposting</div>
+      <h3>Every returning-patient scene gets a chapter badge</h3>
+      <div class="beat"><div class="badge-line">Mr. Alvarez · Continuity of care · Chapter 2 of 3</div>&ldquo;Your ICU friend Mr. Alvarez is on your list again &mdash; floor bed now, and his cultures finalized overnight.&rdquo;</div>
+      <p class="small" style="margin-top:10px">So the player always knows this is a <b>returning patient</b>, not a new one &mdash; the thin part today.</p>
+    </div>
+
+    <div class="card">
+      <div class="kick">Cheap expansion</div>
+      <h3>Add 3&ndash;4 more arcs on the same schema</h3>
+      <ul>
+        <li>Ambulatory chronic care &mdash; diabetes + CKD progression across visits.</li>
+        <li>Transitions &mdash; heart failure GDMT started inpatient, titrated in clinic.</li>
+        <li>Geriatrics &mdash; a Beers-criteria deprescribing thread.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2. LEARNING -->
+  <section class="panel" id="learning">
+    <div class="sec-h"><h2>Deeper learning loop</h2></div>
+    <p class="lead">Move from &ldquo;right/wrong&rdquo; to <b>why you were tempted</b>, <b>how sure you were</b>, and <b>what to study next</b>.</p>
+
+    <div class="card">
+      <div class="kick">Distractor-level teaching · live</div>
+      <h3>Every wrong option teaches the trap</h3>
+      <p class="small" style="margin:6px 0 8px">Empiric therapy for a penicillin-allergic patient with MRSA risk. Tap an option.</p>
+      <div id="opts"></div>
+      <div id="trap"></div>
+    </div>
+
+    <div class="card">
+      <div class="kick">Confidence calibration · live</div>
+      <h3>Rate your confidence before you answer</h3>
+      <div class="conf-row">
+        <button class="conf" onclick="setConf('guess')">Guess</button>
+        <button class="conf" onclick="setConf('unsure')">Unsure</button>
+        <button class="conf" onclick="setConf('confident')">Confident</button>
+      </div>
+      <div class="calib" id="calib">
+        <div class="small"><b>Calibration readout</b> (end-of-rotation)</div>
+        <div class="small" style="margin-top:6px">Pick a confidence above to see the metacognition report.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="kick">Adaptive review</div>
+      <h3>Study surfaces your weakest ASHP goals, not just missed cases</h3>
+      <div class="goal weak"><div class="t"><span>R1 · Anticoagulation reversal <span class="tagpick">Study first</span></span><span>41%</span></div><div class="track"><i style="width:41%"></i></div></div>
+      <div class="goal mid"><div class="t"><span>R1 · Vancomycin AUC dosing</span><span>64%</span></div><div class="track"><i style="width:64%"></i></div></div>
+      <div class="goal ok"><div class="t"><span>R1 · Sepsis bundle timing</span><span>88%</span></div><div class="track"><i style="width:88%"></i></div></div>
+      <p class="small" style="margin-top:10px">The daily queue pulls more from the red bar until it climbs.</p>
+    </div>
+  </section>
+
+  <!-- 3. PROGRAMS -->
+  <section class="panel" id="programs">
+    <div class="sec-h"><h2>For programs (the buyer)</h2></div>
+    <p class="lead">Give the <b>residency program director</b> real evidence &mdash; the reason a hospital pays per seat.</p>
+
+    <div class="report-grid">
+      <div class="card rep">
+        <div class="kick">Per-resident competency evidence</div>
+        <h4>Joey Han &mdash; PGY-1 · Month 6</h4>
+        <div class="goal ok"><div class="t"><span>R1 Patient care</span><span>86%</span></div><div class="track"><i style="width:86%"></i></div></div>
+        <div class="goal mid"><div class="t"><span>R2 Practice advancement</span><span>62%</span></div><div class="track"><i style="width:62%"></i></div></div>
+        <div class="goal ok"><div class="t"><span>R3 Leadership</span><span>78%</span></div><div class="track"><i style="width:78%"></i></div></div>
+        <div class="goal weak"><div class="t"><span>R4 Teaching</span><span>44%</span></div><div class="track"><i style="width:44%"></i></div></div>
+        <div class="evi"><b>Longitudinal reasoning:</b> completed 2 of 3 patient journeys; carried an ICU decision correctly through to discharge in Mr. Alvarez&rsquo;s thread.</div>
+      </div>
+      <div class="card cohort">
+        <div class="kick">RPD cohort dashboard</div>
+        <h4>Where the cohort struggles (n = 8)</h4>
+        <div class="cbar"><span style="min-width:150px">Anticoagulation reversal</span><div class="track"><i style="width:58%"></i></div><span>58% miss</span></div>
+        <div class="cbar"><span style="min-width:150px">Febrile neutropenia timing</span><div class="track"><i style="width:37%"></i></div><span>37% miss</span></div>
+        <div class="cbar"><span style="min-width:150px">USP 797 beyond-use</span><div class="track"><i style="width:29%"></i></div><span>29% miss</span></div>
+        <p class="small" style="margin-top:10px">Tells the RPD exactly what to cover in next week&rsquo;s topic discussion &mdash; and where the program is strong.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. FRESH -->
+  <section class="panel" id="fresh">
+    <div class="sec-h"><h2>Fresh content</h2></div>
+    <p class="lead">Stop cases from being <b>memorized once</b> &mdash; parameterize the numbers so the reasoning is what repeats, not the answer.</p>
+
+    <div class="card">
+      <div class="kick">Parameterized case · live</div>
+      <h3>Vancomycin loading dose</h3>
+      <p class="small" style="margin:6px 0 4px">Same reasoning, different patient every time. Tap regenerate.</p>
+      <div class="given" id="given"></div>
+      <button class="btn primary" onclick="regen()">Regenerate patient</button>
+      <div class="ans" id="ans"></div>
+    </div>
+  </section>
+
+  <p class="foot">Static direction preview · The Clinical Path — PGY-1 · fictional patients, educational simulation. Numbers here are illustrative.</p>
+</div>
+
+<script>
+/* 1. branching */
+var BR={
+  good:{cls:'beat',badge:'Mr. Alvarez · Continuity of care · Chapter 3 of 3',t:'&ldquo;They say I go home tomorrow &mdash; ten days of the narrow one, the nurse said. My wife wrote it all down.&rdquo; <b>Your earlier de-escalation carried through:</b> a clean, short, targeted plan. Reconcile the three lists and he leaves safely.'},
+  bad:{cls:'beat bad',badge:'Mr. Alvarez · Continuity of care · Chapter 3 of 3 · consequence',t:'&ldquo;Fourteen days of the strong one? Or was it ten? And which of these three antibiotics do I actually keep?&rdquo; <b>Because broad-spectrum was never narrowed,</b> discharge is now a C. diff and readmission risk. Your job: catch it here, de-escalate late, and rebuild one clear list.'}
+};
+function setBranch(k){document.getElementById('brGood').classList.toggle('on',k==='good');document.getElementById('brBad').classList.toggle('on',k==='bad');var b=BR[k];document.getElementById('branchBeat').innerHTML='<div class="'+b.cls+'"><div class="badge-line">'+b.badge+'</div>'+b.t+'</div>';}
+setBranch('good');
+
+/* 2a. distractor teaching */
+var OPTS=[
+  {t:'Cefazolin',ok:false,trap:'Tempting because it is the classic surgical/MSSA choice &mdash; but it misses MRSA, and a severe penicillin allergy makes a cephalosporin the wrong reflex here.'},
+  {t:'Vancomycin',ok:true,trap:'Correct: covers MRSA and is safe in penicillin allergy. Dose to an AUC/MIC target, not a single trough.'},
+  {t:'Piperacillin-tazobactam',ok:false,trap:'Tempting as broad &ldquo;cover everything&rdquo; &mdash; but it is a beta-lactam (allergy risk) and still misses MRSA. Broad is not the same as correct.'},
+  {t:'Levofloxacin',ok:false,trap:'Tempting as a non-beta-lactam option &mdash; but unreliable for MRSA and carries QT and tendon risk. Familiar is not the same as indicated.'}
+];
+function renderOpts(){document.getElementById('opts').innerHTML=OPTS.map(function(o,i){return '<div class="opt" data-i="'+i+'" onclick="pickOpt('+i+')">'+o.t+'</div>';}).join('');document.getElementById('trap').innerHTML='';}
+function pickOpt(i){var o=OPTS[i];document.querySelectorAll('#opts .opt').forEach(function(el,j){el.classList.remove('pick','correct');if(OPTS[j].ok)el.classList.add('correct');if(j===i&&!o.ok)el.classList.add('pick');});document.getElementById('trap').innerHTML='<div class="trap"><b>'+(o.ok?'Why it works: ':'Why it is tempting &mdash; and the trap: ')+'</b>'+o.trap+'</div>';}
+renderOpts();
+
+/* 2b. confidence */
+var CONF={
+  guess:{txt:'You guessed &mdash; and you were right. Flagged for a real second look so a lucky guess is not mistaken for mastery.',over:false,w:20},
+  unsure:{txt:'&ldquo;Unsure&rdquo; and correct on 6 of 8 &mdash; well calibrated. Keep these in normal review.',over:false,w:75},
+  confident:{txt:'&ldquo;Confident&rdquo; but wrong on 3 of 12 high-stakes items &mdash; overconfidence on exactly the decisions where it is most dangerous. These jump to the top of your queue.',over:true,w:78}
+};
+function setConf(k){document.querySelectorAll('.conf').forEach(function(b){b.classList.toggle('on',b.textContent.toLowerCase()===k);});var c=CONF[k];document.getElementById('calib').innerHTML='<div class="small"><b>Calibration readout</b> (end-of-rotation)</div><div class="bar"><i class="'+(c.over?'over':'')+'" style="width:'+c.w+'%"></i></div><div class="small" style="margin-top:6px">'+c.txt+'</div>';}
+
+/* 4. parameterized case */
+function regen(){
+  var age=45+Math.floor(Math.random()*40);
+  var wt=60+Math.floor(Math.random()*45);
+  var scr=(0.7+Math.random()*1.6).toFixed(1);
+  var sex=Math.random()<0.5?'M':'F';
+  var crcl=Math.round(((140-age)*wt/(72*scr))*(sex==='F'?0.85:1));
+  var loadPerKg=25; var load=Math.round(wt*loadPerKg/250)*250; if(load>3000)load=3000;
+  document.getElementById('given').innerHTML=
+    '<span class="gv">Age <b>'+age+'</b></span>'+
+    '<span class="gv">Sex <b>'+sex+'</b></span>'+
+    '<span class="gv">Weight <b>'+wt+' kg</b></span>'+
+    '<span class="gv">SCr <b>'+scr+' mg/dL</b></span>'+
+    '<span class="gv">CrCl <b>'+crcl+' mL/min</b></span>';
+  document.getElementById('ans').innerHTML='Loading dose (25 mg/kg, cap 3 g): <b>'+load+' mg IV once</b>. The method is fixed; the number changes every patient, so it can&rsquo;t be memorized.';
+}
+regen();
+
+/* tabs */
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});t.classList.add('on');document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});document.getElementById(t.dataset.tab).classList.add('on');});});
+</script>
+</body>
+</html>
