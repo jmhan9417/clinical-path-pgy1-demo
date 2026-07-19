@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Clinical Path — Next changes (preview mockup)</title>
+<style>
+:root{--teal:#0f766e;--teal-d:#0b5a54;--ink:#123c46;--muted:#66727c;--ivory:#fbfaf7;--line:#e7ecef;--pink:#d94f9e}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f3efe9,#eef3f2);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:22px 18px 60px}
+.banner{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 8px 24px rgba(15,23,42,.06);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.banner b{color:var(--teal)}
+.banner .tag{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#a06b12;background:#fdf3dd;border:1px solid #f0e0b0;padding:4px 9px;border-radius:999px}
+/* app-style header */
+.appbar{display:flex;align-items:center;gap:10px;margin:18px 0 6px}
+.appbar .back{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-weight:900;color:var(--ink);cursor:pointer;font-size:13px}
+.appbar .back:hover{border-color:var(--teal)}
+.appbar h1{font-size:19px;margin:0;flex:1}
+.appbar .gear{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer}
+.appbar .gear svg{width:18px;height:18px;stroke:#55636c}
+.tabs{display:flex;gap:8px;margin:16px 0 18px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;font-weight:900;color:var(--muted);cursor:pointer;font-size:13px}
+.tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.panel{display:none}
+.panel.on{display:block}
+.lead{color:var(--muted);font-weight:700;max-width:70ch;line-height:1.55;margin:0 0 16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(15,23,42,.07)}
+/* study cards */
+.deck-toggle{display:inline-flex;background:#eef2f2;border:1px solid #dde6e5;border-radius:12px;padding:4px;gap:4px;margin-bottom:16px}
+.deck-toggle button{border:0;background:transparent;padding:8px 18px;border-radius:9px;font-weight:900;color:var(--muted);cursor:pointer;font-size:13px}
+.deck-toggle button.on{background:#fff;color:var(--teal);box-shadow:0 2px 6px rgba(15,23,42,.08)}
+.study-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;max-width:600px}
+.flash{position:relative;min-height:280px;border-radius:20px;border:1px solid var(--line);background:#fff;padding:22px;cursor:pointer;box-shadow:0 14px 34px rgba(15,23,42,.09);transition:transform .12s}
+.flash:active{transform:scale(.995)}
+.flash .kick{font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#9aa6b0}
+.flash .deck-badge{position:absolute;top:16px;right:18px;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);background:#e9f6f4;border:1px solid #cfeae6;padding:4px 9px;border-radius:999px}
+.flash .term{font-size:26px;font-weight:900;color:var(--ink);margin:26px 0 8px;line-height:1.15}
+.flash .sub{color:var(--muted);font-weight:800;font-size:13px}
+.flash .flip-hint{position:absolute;bottom:16px;left:22px;font-size:11px;color:#9aa6b0;font-weight:800}
+.flash.back{padding-bottom:16px}
+.flash.back .flip-hint{position:static;display:block;margin-top:14px}
+.flash.back .term{font-size:20px;margin-top:8px}
+.flash h5{margin:14px 0 5px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#7a8891;font-weight:900}
+.flash p,.flash li{font-size:13.5px;line-height:1.5;color:#2d3d4b;font-weight:650;margin:0}
+.flash ul{margin:0;padding-left:16px}
+.flash .pt{display:flex;gap:7px;margin-top:5px}
+.flash .pt b{font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:#5b6b76;font-weight:900;padding-top:2px}
+.study-controls{display:flex;align-items:center;gap:10px}
+.study-controls .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 14px;font-weight:900;cursor:pointer;color:var(--ink)}
+.study-controls .btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+.dots{display:flex;gap:5px;flex:1;justify-content:center}
+.dots i{width:22px;height:6px;border-radius:6px;background:#dde6e5;display:inline-block}
+.dots i.on{background:var(--teal)}
+.callout{margin-top:16px;background:#f6faf9;border:1px solid #d9ebe8;border-radius:12px;padding:12px 14px;font-size:12.5px;color:#3d5a56;font-weight:700;line-height:1.5;max-width:600px}
+.callout b{color:var(--teal-d)}
+/* extras */
+.extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.xtile{border:1px solid var(--line);border-radius:16px;background:#fff;padding:18px;box-shadow:0 8px 22px rgba(15,23,42,.06)}
+.xtile .xh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.xicon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:13px}
+.xtile h3{margin:0;font-size:16px}
+.xtile .why{font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#9aa6b0;margin:0 0 8px}
+.xtile p{margin:0 0 10px;color:var(--muted);font-weight:650;font-size:13.5px;line-height:1.5}
+.xtile .eg{background:#faf9f7;border:1px solid #eee7e0;border-radius:10px;padding:10px 12px;font-size:12.5px;color:#5a4a56;font-weight:700;line-height:1.45}
+.xtile .go{display:inline-block;margin-top:12px;background:var(--teal);color:#fff;border-radius:9px;padding:8px 14px;font-weight:900;font-size:12.5px;text-decoration:none}
+.decision{margin-top:18px;background:#fff;border:1px dashed #d7c7d2;border-radius:14px;padding:16px}
+.decision h4{margin:0 0 8px;color:var(--pink)}
+.decision ul{margin:0;padding-left:18px}
+.decision li{margin:5px 0;font-size:13.5px;color:#3d3540;font-weight:700;line-height:1.5}
+.foot{margin-top:26px;color:#9aa6b0;font-size:11px;text-align:center;line-height:1.6}
+@media(max-width:560px){.flash .term{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="banner">
+    <span class="tag">Direction mockup</span>
+    <div style="flex:1;min-width:220px;font-weight:700;color:#4a565e;font-size:13.5px;line-height:1.5">
+      This is a <b>frontend mockup</b> of the two remaining changes — <b>Study Cards</b> (concept + drug flashcards, no question re-quiz) and <b>Extras &amp; navigation</b>. Not wired into the game yet; it shows the direction so you can react before I build it.
+    </div>
+  </div>
+
+  <div class="appbar">
+    <button class="back">&larr; Back</button>
+    <h1>The Clinical Path — planned changes</h1>
+    <button class="gear" title="Settings (app-level, not in Resident Tools)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" data-tab="study">Study Cards (new)</button>
+    <button class="tab" data-tab="extras">Extras &amp; navigation</button>
+  </div>
+
+  <!-- STUDY CARDS -->
+  <section class="panel on" id="study">
+    <p class="lead">Study Cards become a <b>flashcard study tool</b> for two things only: <b>concept definitions</b> and <b>drug study</b>. Answering every case again is <b>removed</b> — missed questions live in the end-of-rotation review instead.</p>
+    <div class="deck-toggle" id="deckToggle">
+      <button class="on" data-deck="concept">Concepts</button>
+      <button data-deck="drug">Drugs</button>
+    </div>
+    <div class="study-stage">
+      <div class="flash" id="flash" onclick="flip()">
+        <!-- filled by JS -->
+      </div>
+      <div class="study-controls">
+        <button class="btn" onclick="prev()">&larr; Prev</button>
+        <div class="dots" id="dots"></div>
+        <button class="btn primary" onclick="next()">Next &rarr;</button>
+      </div>
+    </div>
+    <div class="callout"><b>Tap the card to flip.</b> Concepts show the definition, mechanism, and key points. Drugs show class, MOA, use, and what to watch. Spaced-repetition style, not a quiz — no scoring, no pass/fail.</div>
+  </section>
+
+  <!-- EXTRAS -->
+  <section class="panel" id="extras">
+    <p class="lead">Break room, Faceoff, and Patient journeys are pulled out of the hidden &ldquo;More&rdquo; dropdown into one clear <b>Extras</b> shelf, each with a stated purpose. And every screen gets a consistent <b>&larr; Back</b> and an app-level <b>Settings</b> gear (top bar above).</p>
+    <div class="extras">
+      <div class="xtile">
+        <div class="xh"><span class="xicon" style="background:#0f766e">PJ</span><h3>Patient journeys</h3></div>
+        <p class="why">Continuity of care</p>
+        <p>Follow <b>one fictional patient across several rotations</b> and see how your earlier decisions carry forward — the med you started in Acute Care shows up again in the ICU.</p>
+        <div class="eg">Example: Ms. Nguyen — new AFib on apixaban (Rotation 3) &rarr; admitted with a GI bleed (Rotation 6). Your reversal &amp; restart plan is graded against what you chose earlier.</div>
+        <a class="go" href="#">Open a journey</a>
+      </div>
+      <div class="xtile">
+        <div class="xh"><span class="xicon" style="background:#d94f9e">BR</span><h3>Break room</h3></div>
+        <p class="why">Character &amp; wellness</p>
+        <p>Short, low-stakes scenes with your preceptor and co-residents. They unlock as your <b>bond</b> grows and give the burnout/just-culture themes room to breathe.</p>
+        <div class="eg">Example: Dr. Harlin catches you skipping lunch after a rough code and talks through it — a wellness beat, no quiz.</div>
+        <a class="go" href="#">Enter break room</a>
+      </div>
+      <div class="xtile">
+        <div class="xh"><span class="xicon" style="background:#b0792c">VS</span><h3>Faceoff</h3></div>
+        <p class="why">Rival quiz round</p>
+        <p>A quick, timed <b>you-vs-rival</b> rapid round unlocked after you finish rotations — a fun, optional way to pressure-test recall.</p>
+        <div class="eg">Example: Best-of-7 rapid MCQs vs. Jamie Park. Purely optional; doesn&rsquo;t affect your competency record.</div>
+        <a class="go" href="#">Start a faceoff</a>
+      </div>
+    </div>
+    <div class="decision">
+      <h4>One decision for you</h4>
+      <ul>
+        <li><b>Patient journeys</b> — keep it and surface it like the tile above (my recommendation, it&rsquo;s a genuinely differentiating &ldquo;continuity of care&rdquo; idea), <b>or</b> cut it entirely if you&rsquo;d rather keep the game lean.</li>
+        <li>Break room + Faceoff — I&rsquo;ll surface both on this Extras shelf either way.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="foot">Static direction mockup · The Clinical Path — PGY-1 · fictional patients, educational simulation.</div>
+</div>
+
+<script>
+const CONCEPTS=[
+  {term:"QT prolongation",sub:"Concept · cardiac safety",oneLiner:"Additive QT-prolonging drugs raise the risk of torsades de pointes.",mech:"Blockade of the hERG (IKr) potassium current delays repolarization; risk compounds with hypokalemia, hypomagnesemia, bradycardia, and multiple QT drugs.",points:["Check a baseline ECG and correct K+ and Mg2+.","Stack risk: antipsychotics + ondansetron + azithromycin/fluoroquinolones.","Verify agents against the CredibleMeds QT drug list."]},
+  {term:"Hyperkalemia",sub:"Concept · emergency",oneLiner:"Stabilize the membrane, shift potassium in, then eliminate it.",mech:"High extracellular K+ destabilizes cardiac membranes; calcium stabilizes the myocyte while insulin/dextrose and beta-agonists shift K+ intracellularly.",points:["Give IV calcium first if ECG changes are present.","Insulin + dextrose and albuterol shift; they do not remove K+.","Eliminate with diuretics, binders, or dialysis; recheck serially."]},
+  {term:"High-alert medication safety",sub:"Concept · systems",oneLiner:"Error-prone drugs need system safeguards, not vigilance alone.",mech:"Narrow-margin agents (insulin, heparin, chemo, concentrated electrolytes) cause outsized harm, so barriers are built into the process rather than relying on memory.",points:["Independent double checks where the institution requires them.","Remove concentrated KCl from floor stock; standardize concentrations.","Use smart-pump libraries and barcode verification."]}
+];
+const DRUGS=[
+  {term:"Vancomycin",sub:"Glycopeptide antibiotic",moa:"Inhibits cell-wall synthesis by binding the D-Ala-D-Ala peptidoglycan terminus.",use:"Serious gram-positive infections including MRSA.",watch:"AUC/MIC 400–600, renal function/SCr, level timing."},
+  {term:"Apixaban",sub:"Factor Xa inhibitor (DOAC)",moa:"Direct, selective inhibition of factor Xa.",use:"Stroke prevention in nonvalvular AFib; VTE treatment and prevention.",watch:"Renal function, signs of bleeding, CBC; no routine coagulation monitoring."},
+  {term:"Insulin",sub:"Antidiabetic hormone",moa:"Activates the insulin receptor to drive glucose uptake and shift K+ intracellularly.",use:"Type 1 DM, DKA/HHS, inpatient glycemic control, hyperkalemia (with dextrose).",watch:"Blood glucose, signs of hypoglycemia, serum potassium."}
+];
+let deck="concept", idx=0, flipped=false;
+function data(){return deck==="concept"?CONCEPTS:DRUGS;}
+function render(){
+  const c=data()[idx]; const f=document.getElementById('flash');
+  f.classList.toggle('back',flipped);
+  if(!flipped){
+    f.innerHTML='<span class="deck-badge">'+(deck==="concept"?"Concept":"Drug")+'</span><div class="kick">'+(deck==="concept"?"Define it":"Study the drug")+'</div><div class="term">'+c.term+'</div><div class="sub">'+c.sub+'</div><div class="flip-hint">Tap to reveal &rarr;</div>';
+  } else if(deck==="concept"){
+    f.innerHTML='<span class="deck-badge">Concept</span><div class="term">'+c.term+'</div><h5>Definition</h5><p>'+c.oneLiner+'</p><h5>Why it happens</h5><p>'+c.mech+'</p><h5>Key points</h5><ul>'+c.points.map(p=>'<li>'+p+'</li>').join('')+'</ul><div class="flip-hint">Tap to flip back</div>';
+  } else {
+    f.innerHTML='<span class="deck-badge">Drug</span><div class="term">'+c.term+'</div><div class="sub">'+c.sub+'</div><div class="pt"><b>MOA</b><p>'+c.moa+'</p></div><div class="pt"><b>Use</b><p>'+c.use+'</p></div><div class="pt"><b>Watch</b><p>'+c.watch+'</p></div><div class="flip-hint">Tap to flip back</div>';
+  }
+  const dots=document.getElementById('dots');
+  dots.innerHTML=data().map((_,i)=>'<i class="'+(i===idx?'on':'')+'"></i>').join('');
+}
+function flip(){flipped=!flipped;render();}
+function next(){idx=(idx+1)%data().length;flipped=false;render();}
+function prev(){idx=(idx-1+data().length)%data().length;flipped=false;render();}
+document.getElementById('deckToggle').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;deck=b.dataset.deck;idx=0;flipped=false;document.querySelectorAll('#deckToggle button').forEach(x=>x.classList.toggle('on',x===b));render();});
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById(t.dataset.tab).classList.add('on');}));
+render();
+</script>
+</body>
+</html>
