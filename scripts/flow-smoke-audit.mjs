@@ -18,7 +18,7 @@ const audit=`
  setReturnCase({moduleId:curM.id,caseIdx});RETURN_TO_CASE=null;ok('Paused case persists for Map return',storedReturnCase().moduleId===curM.id&&storedReturnCase().caseIdx===caseIdx);setReturnCase(null);
  MODULES.forEach(m=>G.results[m.id]=(m.cases||[]).map(()=>true));const criticalModule=MODULES.find(m=>(m.cases||[]).some(c=>c.critical||c.type==='code'));const criticalIndex=criticalModule.cases.findIndex(c=>c.critical||c.type==='code');G.results[criticalModule.id][criticalIndex]=false;graduate();view=document.getElementById('app').innerHTML;ok('Critical miss blocks readiness',view.includes('Remediation Required — Critical Safety Checkoff'));
  G.results[criticalModule.id][criticalIndex]=true;graduate();view=document.getElementById('app').innerHTML;ok('Perfect completion shows noncredentialing readiness',view.includes('Simulation Complete — Advanced Readiness')&&view.includes('does not confer residency completion'));
- showCompetencyReport();view=document.getElementById('app').innerHTML;ok('Preceptor Review renders',view.includes('Preceptor Review')&&view.includes('Download practice record')&&view.includes('Study cards available'));
+ showCompetencyReport();view=document.getElementById('app').innerHTML;ok('Preceptor Review renders',view.includes('Preceptor Review')&&view.includes('Study cards available'));
  const total=MODULES.reduce((n,m)=>n+(m.cases||[]).length,0);ok('Runtime case count is curated',total===457,'total='+total);
  fs.writeFileSync('/tmp/cp-flow-smoke.json',JSON.stringify(out,null,2));if(out.some(x=>!x.pass))process.exitCode=1;
 })();`;

@@ -25,7 +25,7 @@ add('Informatics module present', demo.includes('informatics_surveillance'));
 add('Equity/reflection module present', demo.includes('communication_equity_reflection'));
 add('Hub guard prevents no-game trap', demo.includes("if(typeof G==='undefined'||!G||!G.results){showTitle();return;}"));
 add('Study Cards back label is context-aware', demo.includes("?'Back to year map':'Back to title'"));
-add('Practice-record download menu is user-facing', demo.includes('Download practice record') && demo.includes('Spreadsheet file') && demo.includes('Structured data file'));
+add('Practice-record download menu removed (per product decision)', !demo.includes('Download practice record'));
 add('Competency CSV export wired to UI', demo.includes('exportCompetencyCSV()'));
 add('Competency JSON export wired to UI', demo.includes('exportCompetencyJSON()'));
 add('CSV export includes critical-miss column', demo.includes("'critical_misses'"));
