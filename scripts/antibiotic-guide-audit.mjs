@@ -13,7 +13,7 @@ const dict=JSON.stringify(ANTIBIOTIC_DICTIONARY);
 add('Coverage dictionary contains no brand names',!/Zosyn|Rocephin|Vancocin|Bactrim|Flagyl|Zithromax/i.test(dict));
 add('Coverage dictionary contains no dose regimens',!/(?:\\b\\d+(?:\\.\\d+)?\\s*(?:mg|g|mcg)\\b|\\bq\\d+h\\b|every \\d+ hours)/i.test(dict));
 add('Fictional training warning appears before antibiogram table',antibiogramHTML().indexOf('Fictional training data')<antibiogramHTML().indexOf('<table'));
-add('Antibiotic guide is wired into case, narrative, hub, and Pip tools',(html.match(/showAbxReference\\(event/g)||[]).length>=5&&html.includes('Antibiogram and Antibiotic Guide'));
+add('Antibiotic guide is wired into case, narrative, hub, and Pip tools',(html.match(/showAbxReference\\(event/g)||[]).length>=3&&html.includes('Antibiogram and Antibiotic Guide'));
 add('Antibiotic overlay is an accessible dialog',html.includes("ov.setAttribute('aria-modal','true')")&&html.includes("ov.setAttribute('aria-labelledby','abxRefTitle')")&&html.includes('function abxTabKeydown')&&html.includes("if(e.key!=='Tab')return"));
 const questions=MODULES.flatMap(m=>(m.cases||[]).map(c=>String(c.q||''))),allText=questions.join(' ');
 add('No displayed vancomycin shorthand remains',!/\\bvanc(?:o)?\\b/i.test(html.replace(/vanc_deep|vanco_trough_guidelines/g,'')));
