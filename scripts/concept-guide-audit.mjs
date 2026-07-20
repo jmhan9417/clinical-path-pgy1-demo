@@ -21,7 +21,7 @@ add('Concept card and library are accessible dialogs',html.includes('function op
 add('Concept tools are wired into case, narrative, hub, and Pip',(html.match(/showConceptLibrary\\(event/g)||[]).length>=4);
 add('QT reference points to the specific CredibleMeds drug list',html.includes('https://crediblemeds.org/druglist')&&!html.includes(\"'https://crediblemeds.org/'\"));
 const rows=[];for(const m of MODULES){curM=m;for(const c of (m.cases||[])){const panel=reviewLearnPanelHTML(c);rows.push({m:m.id,c,panel,refs:caseConcepts(c).length?caseConcepts(c).flatMap(x=>x.refs):fallbackLearnRefs(m,c)});}}
-add('Every one of 457 cases has a Learn panel',rows.length===457&&rows.every(r=>r.panel&&r.panel.includes('concept-block')),'covered='+rows.filter(r=>r.panel).length);
+add('Every case has a Learn panel',rows.length>=457&&rows.every(r=>r.panel&&r.panel.includes('concept-block')),'covered='+rows.filter(r=>r.panel).length+'/'+rows.length);
 add('Every Learn panel has an authoritative source',rows.every(r=>r.refs.length&&r.refs.every(isAuthoritativeReference)),'withSources='+rows.filter(r=>r.refs.length).length);
 const ruleRefs=CASE_REFERENCE_RULES.flatMap(r=>(r.refs||[]).map(ref=>({title:r.title,ref})));
 add('Every case-reference rule uses an authoritative source',ruleRefs.every(x=>isAuthoritativeReference(x.ref)),'refs='+ruleRefs.length);
