@@ -130,7 +130,7 @@
     border-radius:8px 22px 22px 22px;padding:20px 28px 22px;min-height:128px;max-width:960px;margin:0 auto;
     box-shadow:0 18px 46px rgba(120,50,90,.32),inset 0 2px 0 rgba(255,255,255,.7);position:relative;cursor:pointer}
   .vn-box.nameless{border-radius:22px}
-  .vn-text{font-size:calc(19px * var(--font-scale,1));line-height:1.6;font-weight:700;color:#4a3540;min-height:52px}
+  .vn-text{font-size:calc(19px * var(--font-scale,1));line-height:1.6;font-weight:700;color:#4a3540;min-height:52px;text-wrap:pretty;overflow-wrap:break-word}
   .vn-ctrl{position:absolute;top:-15px;right:22px;display:flex;gap:6px}
   .vn-ctrl button{font-family:"Jua";font-size:11px;color:#fff;background:rgba(84,64,92,.76);
     border:1px solid rgba(255,255,255,.45);padding:3px 13px;border-radius:12px;letter-spacing:1px;
@@ -820,6 +820,7 @@
 .rail-label{padding:4px 7px 9px;color:#8c7184;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
 .rail-stop{width:100%;display:grid;grid-template-columns:28px 1fr;gap:0 8px;align-items:center;text-align:left;border:0;border-top:1px solid #eee5ed;background:transparent;padding:10px 7px;color:#55424f;cursor:pointer}
 .rail-stop span{grid-row:1/3;font-size:11px;color:#a58e9d;font-weight:900}.rail-stop b{font-size:13px;line-height:1.2}.rail-stop small{font-size:10.5px;color:#978391;font-weight:700;margin-top:2px}
+.year-legend{margin-top:12px;border-top:1px solid #eadfea;padding:11px 7px 4px}.year-legend .yl-label{color:#8c7184;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.yl-row{display:flex;gap:8px;align-items:flex-start;padding:5px 0}.yl-dot{width:11px;height:11px;border-radius:4px;margin-top:3px;flex:0 0 auto}.yl-t b{display:block;font-size:12px;color:#55424f;font-weight:900}.yl-t small{display:block;font-size:10.5px;color:#978391;font-weight:700;line-height:1.3}
 .rail-stop:hover{background:#fff}.rail-stop.on{background:#fff;border-radius:11px;box-shadow:0 4px 14px rgba(70,40,65,.08);color:#a82f61}.rail-stop.on span{color:#d14778}
 .rail-all{width:100%;border:0;border-top:1px solid #eee5ed;background:transparent;color:#765d70;font-size:11px;font-weight:900;text-align:left;padding:11px 7px 5px;cursor:pointer}.rail-all.on{color:#a82f61}
 .rotation-board{min-width:0}.board-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-end;border-bottom:1px solid #eadfea;padding:2px 2px 13px;margin-bottom:12px}.board-head-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.board-kicker{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#a07b91}.board-head h3{font-family:"Jua";font-size:25px;font-weight:400;color:#583b52;margin:3px 0}.board-head p{font-size:12.5px;line-height:1.45;color:#806c79;font-weight:700;margin:0;max-width:650px}
@@ -1119,7 +1120,7 @@ function arcStageEnd(a){
   }
   goHub();
 }
-function showJourneys(){
+function showJourneys(){navPush("journeys");
   document.getElementById("app").innerHTML=`
     <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div>
     <div class="fx" id="fx2"></div>
@@ -1140,7 +1141,7 @@ function showJourneys(){
                :state==='next'?`<button class="btn sm" onclick="sfx('click');openModule('${st.module}')">Open rotation</button>`
                :`<span class="jb-lock">Later</span>`}</div>`;}).join('')}</div>`;}).join('')}
         <div style="display:flex;gap:9px;justify-content:center;margin-top:14px">
-          <button class="btn ghost sm" onclick="sfx('click');goHub()">Back to year map</button>
+          <button class="btn ghost sm" onclick="sfx('click');goBack()">Back</button>
         </div>
       </div>
     </div>`;
@@ -1179,7 +1180,7 @@ function startFaceoff(){
   if(src.length<3) src=attempted;
   if(src.length<3){
     drawScene('core','neutral',RIVAL.name, `Not yet, ${G.name}. Clear a few more rotations and I'll quiz you on what you've actually seen — no previews.`, {advance:false, who:'elliot', pop:true});
-    const cc=document.createElement('div'); cc.className='choices'; cc.innerHTML=`<button class="btn ghost" onclick="sfx('click');goHub()">Back to the year map</button>`;
+    const cc=document.createElement('div'); cc.className='choices'; cc.innerHTML=`<button class="btn ghost" onclick="sfx('click');goBack()">Back</button>`;
     document.getElementById('choiceLayer').appendChild(cc); return;
   }
   const chosen=shuffle(src).slice(0,3);
@@ -1249,7 +1250,7 @@ function faceoffVerdict(){
     below:`<div class="rank-banner"><span class="rk-k">Rounds face-off</span><span class="rk-v">${res==='win'?'You win':res==='loss'?'Elliot wins':'Draw'} · ${recordLine()}</span></div>`});
   if(res==='win'){ burst('good'); sfx('rank'); }
   const c=document.createElement('div'); c.className='choices';
-  c.innerHTML=`<button class="btn mint" onclick="sfx('click');goHub()">Back to the year map</button>`;
+  c.innerHTML=`<button class="btn mint" onclick="sfx('click');goBack()">Back</button>`;
   document.getElementById('choiceLayer').appendChild(c);
 }
 /* ===== Break room stories (bond-tier unlocks) ===== */
@@ -1287,7 +1288,7 @@ const STORIES={
 function storiesForRoute(){ const id=(G&&G.preceptor)||'female'; return STORIES[id]||STORIES.female; }
 function storyUnlocked(st){ return bondTier()>=st.tier; }
 function storiesSeen(){ if(!G)return []; G.storiesSeen=G.storiesSeen||[]; return G.storiesSeen; }
-function showBreakRoom(){
+function showBreakRoom(){navPush("break");
   const list=storiesForRoute(); const seen=storiesSeen();
   document.getElementById("app").innerHTML=`
     <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div>
@@ -1305,7 +1306,7 @@ function showBreakRoom(){
             </button>`;}).join('')}
         </div>
         <div style="display:flex;gap:9px;justify-content:center;margin-top:14px">
-          <button class="btn ghost sm" onclick="sfx('click');goHub()">Back to year map</button>
+          <button class="btn ghost sm" onclick="sfx('click');goBack()">Back</button>
         </div>
       </div>
     </div>`;
@@ -1542,12 +1543,12 @@ function pipAnswer(raw){
   var gKey=Object.keys(GLOSSARY).find(function(k){return k.toLowerCase()===ql;});
   if(!gKey){ var defM=ql.match(/^(?:what(?:'s| is| does)? |define |meaning of |explain )([a-z0-9&/\- ]{2,24}?)(?: stand for| mean)?$/); if(defM){ var cand=defM[1].trim(); gKey=Object.keys(GLOSSARY).find(function(k){return k.toLowerCase()===cand;}); } }
   if(gKey){ var info=GLOSSARY[gKey]; var extra=(gKey==='MAP'&&inGame)?('<br>'+pipGoBtn('Open year map',"togglePip(false);openYearMap()")):''; return '<b>'+gKey+'</b> = '+info[0]+'<br>'+info[1]+extra; }
-  if(/(^| )(hint|stuck|help)( |$)/.test(ql)&&!/help me (find|with)/.test(ql)){ var hc=pipCurrentCase(); if(hc) return pipHint(hc); return 'Open a case first, then ask me for a hint.'+(inGame?'<br>'+pipGoBtn('Year map','togglePip(false);openYearMap()'):''); }
+  if(/(^| )(hint|stuck|help)( |$)/.test(ql)&&!/help me (find|with)/.test(ql)){ var hc=pipCurrentCase(); if(hc) return pipHint(hc); return 'Open a case first, then ask me for a hint.'+(inGame?'<br>'+pipGoBtn('Roadmap','togglePip(false);openYearMap()'):''); }
   if(/^why\b|rationale|explain (the )?(answer|why)|why (is|was|did)/.test(ql)) return pipWhy(pipCurrentCase());
   if(/drug info|medication (info|focus)|about (the|this) (drug|med)\b/.test(ql)) return pipDrugInfo(pipCurrentCase());
   if(/\brefs?\b|references?|\bguidelines?\b|\bsources?\b/.test(ql)) return pipRefs(pipCurrentCase());
   if(/explain (this )?screen|where am i|what is this/.test(ql)){ var t=pipTip(); return '<b>'+t.h+'</b><br>'+t.b; }
-  if(/what next|what should i do|where should i go|next rotation|recommend/.test(ql)){ if(!inGame)return 'Start a resident first — choose "New resident" on the title screen.'; var nm=nextRecommendedModule(); return nm?('Your recommended next rotation is <b>'+nm.title+'</b>.<br>'+pipGoBtn('Open '+pipEsc(nm.title),"togglePip(false);openModule('"+nm.id+"')")+pipGoBtn('Year map','togglePip(false);openYearMap()')):'All rotations are complete — run the Readiness Review from the year map.'; }
+  if(/what next|what should i do|where should i go|next rotation|recommend/.test(ql)){ if(!inGame)return 'Start a resident first — choose "New resident" on the title screen.'; var nm=nextRecommendedModule(); return nm?('Your recommended next rotation is <b>'+nm.title+'</b>.<br>'+pipGoBtn('Open '+pipEsc(nm.title),"togglePip(false);openModule('"+nm.id+"')")+pipGoBtn('Roadmap','togglePip(false);openYearMap()')):'All rotations are complete — run the Readiness Review from the year map.'; }
   if(/volume|mute|too loud|quieter|louder|^sound$/.test(ql)) return 'Sound and volume live in Settings, separate from Pip.<br>'+pipGoBtn('Open Settings','showSettings()');
   if(/quizlet|export|flashcard|anki|study card/.test(ql)) return 'Study Cards already includes every clinical case. Add the drug references you want, then export the full deck to Quizlet from that page.'+(inGame?'<br>'+pipGoBtn('Open Study Cards','togglePip(false);showStudyCards()'):'');
   if(/antibiogram|susceptibilit|antibiotic (coverage|spectrum|guide|dictionary)|\babx\b/.test(ql)) return 'Use the fictional antibiogram to practice local susceptibility decisions, or open the coverage guide to compare common inpatient antibiotics.<br>'+pipGoBtn('Open Antibiogram','showAbxReference(event)')+pipGoBtn('Open Coverage and Use','showAbxReference(event,\'coverage\')');
@@ -1578,11 +1579,11 @@ function pipContextActions(sc){
     case:[['Brief','brief me'],['Hint','hint'],['References','refs']],
     feedback:[['Why','why'],['Drug info','drug info'],['References','refs']],
     hub:[['R1–R4 / Core','rotation labels'],['What next','what next'],['Study plan','study plan']],
-    cards:[['Study plan','study plan'],['Progress','my progress'],['Year map','year map']],
-    review:[['Progress','my progress'],['Study plan','study plan'],['Year map','year map']],
-    shift:[['This board','explain screen'],['What next','what next'],['Year map','year map']],
-    scene:[['This scene','explain screen'],['Year map','year map'],['What next','what next']],
-    faceoff:[['This round','explain screen'],['Study plan','study plan'],['Year map','year map']],
+    cards:[['Study plan','study plan'],['Progress','my progress'],['Roadmap','year map']],
+    review:[['Progress','my progress'],['Study plan','study plan'],['Roadmap','year map']],
+    shift:[['This board','explain screen'],['What next','what next'],['Roadmap','year map']],
+    scene:[['This scene','explain screen'],['Roadmap','year map'],['What next','what next']],
+    faceoff:[['This round','explain screen'],['Study plan','study plan'],['Roadmap','year map']],
     title:[['How to start','explain screen'],['What next','what next']],
     create:[['This page','explain screen'],['What next','what next']],
     saves:[['This page','explain screen'],['What next','what next']],
@@ -1593,7 +1594,7 @@ function pipContextActions(sc){
   return byScreen[sc]||[['This page','explain screen'],['What next','what next']];
 }
 function pipContextMeta(sc){
-  const labels={case:'Current case',feedback:'Answer review',hub:'Resident Year Map',cards:'Study Cards',review:'Preceptor Review',shift:'Simulated Shift',scene:'Story scene',faceoff:'Rounds face-off',title:'Title screen',create:'Resident setup',saves:'Residency files',cast:'Care team',journeys:'Patient journeys',chapter:'New rotation'};
+  const labels={case:'Current case',feedback:'Answer review',hub:'Residency Roadmap',cards:'Study Cards',review:'Preceptor Review',shift:'Simulated Shift',scene:'Story scene',faceoff:'Rounds face-off',title:'Title screen',create:'Resident setup',saves:'Residency files',cast:'Care team',journeys:'Patient journeys',chapter:'New rotation'};
   const prompts={case:'Ask about this case',feedback:'Ask about the answer',hub:'Ask what to do next',cards:'Ask what to review',review:'Ask about your progress',shift:'Ask how to prioritize',scene:'Ask about this scene'};
   return {label:labels[sc]||'This page',placeholder:prompts[sc]||'Ask about this page'};
 }
@@ -1648,6 +1649,7 @@ function keyboardPrimaryAction(){
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){if(document.getElementById('notesOv')){closeNotes();return;}if(document.getElementById('vnLogOv')){closeVNLog();return;}if(PIP.open){togglePip(false);return;}}
   const tag=(e.target&&e.target.tagName||'').toLowerCase();
+  if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.closest&&e.target.closest('#choiceLayer .choice')){if(keyboardPrimaryAction()){e.preventDefault();return;}}
   if(tag==='input'||tag==='textarea'||tag==='select'||tag==='button'||(e.target&&e.target.isContentEditable)||e.metaKey||e.ctrlKey||e.altKey)return;
   const list=Array.prototype.slice.call(document.querySelectorAll('#choiceLayer .choice:not([disabled])'));
   let idx=-1;
@@ -3621,7 +3623,7 @@ function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 /* ==================================================================
    STATE + engine
    ================================================================== */
-let G=null, pickedAv="";
+let G=null, pickedAv=""; var NAV_STACK=[];
 const AVS=["","","","","",""];
 const SAVE_BASE="clinicalPathPGY1Save.v2";
 const SLOT_PTR="clinicalPathActiveSlot.v1";
@@ -3793,7 +3795,7 @@ function uiIcon(name){
 }
 function hudUtilityHTML(){
   const canNote=typeof curM!=='undefined'&&!!curM;
-  return `<nav class="hud-nav" aria-label="Residency tools"><button type="button" class="hud-tool" ${canNote?'':"disabled"} onclick="sfx('click');openNotes()" title="Open rotation notes">${uiIcon('notes')}<span>Notes</span></button><button type="button" class="hud-tool" onclick="sfx('click');openYearMap()" title="Open residency year">${uiIcon('year')}<span>Year</span></button><button type="button" class="hud-tool" onclick="sfx('click');showSettings()" title="Settings">${uiIcon('gear')}<span>Settings</span></button></nav>`;
+  return `<nav class="hud-nav" aria-label="Residency tools"><button type="button" class="hud-tool" ${canNote?'':"disabled"} onclick="sfx('click');openNotes()" title="Open rotation notes">${uiIcon('notes')}<span>Notes</span></button><button type="button" class="hud-tool" onclick="sfx('click');openYearMap()" title="Open residency roadmap">${uiIcon('year')}<span>Roadmap</span></button><button type="button" class="hud-tool" onclick="sfx('click');showSettings()" title="Settings">${uiIcon('gear')}<span>Settings</span></button></nav>`;
 }
 function hudHTML(area,opts={}){
   const b=bond(),t=bondTier(),shiftNo=Math.max(1,attemptedCount());
@@ -3959,7 +3961,7 @@ function sceneDeco(){ return '<div class="scene-tint"></div><div class="scene-vi
 /* ==================================================================
    TITLE
    ================================================================== */
-function showTitle(){
+function showTitle(){navPush("title");
   document.getElementById("app").innerHTML=`
     <div class="stage bg-title" id="stage">${bokehHTML()}</div>
     <div class="fx" id="fx2"></div>
@@ -4012,7 +4014,7 @@ function slotSummaryHTML(n){
       <button class="btn ghost sm slot-del" onclick="sfx('click');deleteSlot(${n})">Delete</button>
     </div></div>`;
 }
-function showSaves(){
+function showSaves(){navPush("saves");
   document.getElementById("app").innerHTML=`
     <div class="stage bg-title" id="stage">${bokehHTML()}</div><div class="fx" id="fx2"></div>
     <div class="center-layer" style="justify-content:center;padding:4vh 18px">
@@ -4021,7 +4023,7 @@ function showSaves(){
         <p class="break-sub">Three residents can live on this device. Progress saves automatically while you play.</p>
         <div class="slot-grid">${[1,2,3].map(slotSummaryHTML).join('')}</div>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px">
-          <button class="btn ghost" onclick="sfx('click');showTitle()">Back to title</button>
+          <button class="btn ghost" onclick="sfx('click');goBack()">Back</button>
         </div>
       </div>
     </div>`;
@@ -4035,7 +4037,7 @@ function deleteSlot(n){
   try{ localStorage.removeItem(saveKeyFor(n)); }catch(e){}
   showSaves();
 }
-function showCast(){
+function showCast(){navPush("cast");
   const rWho=playerWho();
   const cast=[
     {img:SPRITE_URLS.harlin.happy,name:CLINICAL_TEAM.harlin.name,role:CLINICAL_TEAM.harlin.role,bio:CLINICAL_TEAM.harlin.bio},
@@ -4058,7 +4060,7 @@ function showCast(){
         <p class="cast-note">A multidisciplinary, fictional care team. Each character now owns a different clinical lens and appears in the rotations that match it.</p>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px">
           <button class="btn" onclick="sfx('click');showIntro()">Start your year</button>
-          <button class="btn ghost" onclick="sfx('click');showTitle()">Back to title</button>
+          <button class="btn ghost" onclick="sfx('click');goBack()">Back</button>
         </div>
       </div>
     </div>`;
@@ -4145,19 +4147,26 @@ function studyOrderedModules(){
   return order.map(id=>MODULES.find(m=>m.id===id)).filter(Boolean).concat(MODULES.filter(m=>!seen.has(m.id)));
 }
 
+function navPush(id){NAV_STACK=NAV_STACK.filter(function(x){return x!==id;});NAV_STACK.push(id);if(NAV_STACK.length>30)NAV_STACK.shift();}
+function navRender(id){switch(id){case "title":return showTitle();case "hub":return goHub();case "shift":return showShiftBoard();case "journeys":return showJourneys();case "break":return showBreakRoom();case "cards":return showStudyCards();case "review":return showCompetencyReport();case "cast":return showCast();case "saves":return showSaves();default:return (typeof G!=="undefined"&&G&&G.results)?goHub():showTitle();}}
+function goBack(){NAV_STACK.pop();var prev=NAV_STACK.length?NAV_STACK[NAV_STACK.length-1]:null;if(!prev){(typeof G!=="undefined"&&G&&G.results)?goHub():showTitle();return;}navRender(prev);}
+function nextStoryBeat(){try{if(typeof curM==="undefined"||!curM||!G)return null;var sid=stageOfModule(curM.id);if(!sid)return null;var rk=(typeof roundsForStage==="function")?roundsForStage(sid):null;if(!rk)return null;G.storyBeats=G.storyBeats||{};if(G.storyBeats["rounds_"+sid])return null;var mods=hubStageModules(sid);if(!mods.length||!mods.every(function(m){return modDone(m);}))return null;return {type:"rounds",k:rk,sid:sid};}catch(e){return null;}}
+function showStoryContinue(beat){G.storyBeats=G.storyBeats||{};if(beat&&beat.type==="rounds"){G.storyBeats["rounds_"+beat.sid]=1;saveProgress("hub");window.__storyBeat=beat;var ov=document.createElement("div");ov.className="chapter-ov";ov.id="storyBeatOv";ov.innerHTML='<div class="chapter-card" style="--c:#5cb8ff"><span class="ch-stage">The block wraps up</span><span class="ch-no">Team rounds</span><h2>Round with the team</h2><span class="ch-tap">The team is gathering &mdash; join rounds</span><div style="display:flex;gap:9px;justify-content:center;margin-top:16px"><button class="btn tmain" onclick="storyBeatJoin()">Join rounds</button><button class="btn ghost" onclick="storyBeatSkip()">Skip to roadmap</button></div></div>';document.body.appendChild(ov);}else{goHub();}}
+function storyBeatJoin(){var b=window.__storyBeat;var o=document.getElementById("storyBeatOv");if(o)o.remove();if(b&&b.k)startRounds(b.k);else goHub();}
+function storyBeatSkip(){var o=document.getElementById("storyBeatOv");if(o)o.remove();goHub();}
 function goHub(){
   document.body.classList.remove('case-active');
   updateBGM();
   if(typeof G==='undefined'||!G||!G.results){showTitle();return;}
-  storedReturnCase();saveProgress("hub");setBG("core");
+  storedReturnCase();saveProgress("hub");setBG("core");navPush("hub");
   const activeStage=window.__clinicalPathStage||'orientation',visibleModules=hubStageModules(activeStage),nextMod=nextRecommendedModule(),done=modulesDoneCount();
   const paused=storedReturnCase();
   document.getElementById("app").innerHTML=`
     <div class="stage bg-core" id="stage">${bokehHTML()}</div><div class="fx" id="fx2"></div>${hudHTML("core",{stage:activeStage,tools:false})}
     <div class="center-layer" style="justify-content:flex-start;padding-top:64px"><div class="hub-panel"><div class="map-shell">
-      <div class="map-head"><div class="map-title"><h2>Resident Year Map</h2><div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with ${preceptorName()}</div></div><div class="map-head-actions">${paused?`<button class="btn mint" data-space-primary onclick="resumeCurrentCase()">${pausedReturnLabel(paused)}</button>`:''}<button class="btn ghost" onclick="showTitle()">Back to title</button></div></div>
+      <div class="map-head"><div class="map-title"><h2>Residency Roadmap</h2><div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with ${preceptorName()}</div></div><div class="map-head-actions">${paused?`<button class="btn mint" data-space-primary onclick="resumeCurrentCase()">${pausedReturnLabel(paused)}</button>`:''}<button class="btn ghost" onclick="goBack()">Back</button></div></div>
       <div class="map-progress"><strong>${done}/${MODULES.length}</strong><span>rotations complete · next: ${nextMod?nextMod.title:'year complete'}</span></div>
-      ${(function(){const defs=hubStageDefs(),def=defs.find(x=>x.id===activeStage)||defs[0];return `<div class="hub-workspace"><aside class="year-rail"><div class="rail-label">Residency year</div>${defs.filter(d=>d.id!=='all').map((d,i)=>`<button class="rail-stop ${d.id===activeStage?'on':''}" onclick="setHubStage('${d.id}')"><span>${String(i+1).padStart(2,'0')}</span><b>${d.title.replace(/^.*·\s*/, '')}</b><small>${hubStageModules(d.id).length} rotations</small></button>`).join('')}<button class="rail-all ${activeStage==='all'?'on':''}" onclick="setHubStage('all')">View all ${MODULES.length} rotations</button></aside><section class="rotation-board"><div class="board-head"><div><span class="board-kicker">${def.title}</span><h3>${def.title.replace(/^.*·\s*/, '')}</h3><p>${def.why}</p></div><div class="board-head-actions">${nextMod?`<button class="btn mint sm" data-space-primary onclick="openModule('${nextMod.id}')">Continue next rotation</button>`:''}<button class="btn ghost sm" onclick="showShiftBoard()">Simulated shift</button>${roundsForStage(def.id)?('<button class="btn ghost sm" onclick="startRounds(\''+roundsForStage(def.id)+'\')">Round with the team</button>'):''}<button class="btn ghost sm" onclick="showJourneys()">Patient journeys</button><button class="btn ghost sm" onclick="showBreakRoom()">Break room</button>${faceoffAvailable()?`<button class="btn ghost sm" onclick="startFaceoff()">Rounds face-off</button>`:``}</div></div><div class="mcards">${visibleModules.map(m=>{const meta=AREA[m.area],isDone=modDone(m),nc=modCorrect(m),seq=String(studyOrderedModules().indexOf(m)+1).padStart(2,'0');return `<button class="mc ${isDone?'done':''}" onclick="openModule('${m.id}')"><span class="mc-seq">${seq}</span><span class="mc-copy"><b>${m.title}</b><small>${m.blurb}</small></span><span class="mc-meta"><i style="background:${meta.c}">${m.area==='core'?'CORE':m.area}</i><em>${isDone?nc+'/'+m.cases.length+' complete':m.cases.length+' cases'}</em></span></button>`;}).join('')}</div></section></div>`;})()}
+      ${(function(){const defs=hubStageDefs(),def=defs.find(x=>x.id===activeStage)||defs[0];return `<div class="hub-workspace"><aside class="year-rail"><div class="rail-label">Rotation blocks</div>${defs.filter(d=>d.id!=='all').map((d,i)=>`<button class="rail-stop ${d.id===activeStage?'on':''}" onclick="setHubStage('${d.id}')"><span>${String(i+1).padStart(2,'0')}</span><b>${d.title.replace(/^.*·\s*/, '')}</b><small>${hubStageModules(d.id).length} rotations</small></button>`).join('')}<button class="rail-all ${activeStage==='all'?'on':''}" onclick="setHubStage('all')">View all ${MODULES.length} rotations</button><div class="year-legend"><div class="yl-label">Competency areas</div>${['core','R1','R2','R3','R4'].map(k=>{const a=AREA[k];const ex=AREA_EXPLANATIONS[k==='core'?'CORE':k];return `<div class="yl-row"><span class="yl-dot" style="background:${a.c}"></span><span class="yl-t"><b>${k==='core'?'Core':k}</b><small>${ex}</small></span></div>`;}).join('')}</div></aside><section class="rotation-board"><div class="board-head"><div><span class="board-kicker">${def.title}</span><h3>${def.title.replace(/^.*·\s*/, '')}</h3><p>${def.why}</p></div><div class="board-head-actions">${nextMod?`<button class="btn mint sm" data-space-primary onclick="openModule('${nextMod.id}')">Continue next rotation</button>`:''}</div></div><div class="mcards">${visibleModules.map(m=>{const meta=AREA[m.area],isDone=modDone(m),nc=modCorrect(m),seq=String(studyOrderedModules().indexOf(m)+1).padStart(2,'0');return `<button class="mc ${isDone?'done':''}" onclick="openModule('${m.id}')"><span class="mc-seq">${seq}</span><span class="mc-copy"><b>${m.title}</b><small>${m.blurb}</small></span><span class="mc-meta"><i style="background:${meta.c}">${m.area==='core'?'CORE':m.area}</i><em>${isDone?nc+'/'+m.cases.length+' complete':m.cases.length+' cases'}</em></span></button>`;}).join('')}</div></section></div>`;})()}
       <div class="hub-actions"><button class="btn ghost" onclick="showStudyCards()">Study Cards</button><button class="btn ghost" onclick="showCompetencyReport()">Preceptor Review</button><button class="btn ghost" onclick="showResidentTools()">Resident Tools</button><button class="btn ghost" onclick="showSettings()">Settings</button><button class="btn" onclick="graduate()">Readiness Review</button></div>
     </div></div></div>`;}
 
@@ -4175,14 +4184,14 @@ function hubStageModules(stage){ const def=hubStageDefs().find(x=>x.id===stage)|
 function setHubStage(stage){ window.__clinicalPathStage=stage; goHub(); }
 function nextRecommendedModule(){ return studyOrderedModules().find(m=>!modDone(m))||studyOrderedModules()[0]; }
 function hubJourneyHTML(active,nextMod){ const defs=hubStageDefs(); const def=defs.find(x=>x.id===active)||defs[0]; return `<div class="hub-journey"><div class="next-card"><h3>Next shift</h3><p>${nextMod?`Your next best rotation is <b>${nextMod.title}</b>. Start there if you want the guided path.`:'All rotations are complete.'}</p>${nextMod?`<button class="btn mint sm" onclick="openModule('${nextMod.id}')">Start next rotation</button>`:''}<button class="btn ghost sm" style="margin-left:6px" onclick="showShiftBoard()">Simulated shift</button>${roundsForStage(def.id)?('<button class="btn ghost sm" onclick="startRounds(\''+roundsForStage(def.id)+'\')">Round with the team</button>'):''}</div><div class="stage-map"><h3>Rotation blocks</h3><p>${def.why}</p><div class="stage-tabs">${defs.map(d=>`<button class="stage-tab ${d.id===active?'on':''}" onclick="setHubStage('${d.id}')"><b>${d.title}</b><span>${hubStageModules(d.id).length} rotations</span></button>`).join('')}</div></div></div>`; }
-function showResidentTools(){ const ov=document.createElement('div'); ov.className='hub-tools'; ov.id='hubTools'; ov.innerHTML=`<div class="hub-tools-card"><div class="tools-head"><div><h3>Resident Tools</h3><p>References and math you can open during a case.</p></div><button class="btn ghost sm" onclick="document.getElementById('hubTools').remove()">Close</button></div><div class="tools-group"><span class="tools-group-label">References</span><div class="hub-tools-grid"><button class="btn ghost" onclick="showLabValues(event)">Lab Values</button><button class="btn ghost" onclick="showAbxReference(event)">Antibiogram &amp; Antibiotic Guide</button><button class="btn ghost" onclick="showConceptLibrary(event)">Clinical Concepts</button></div></div><div class="tools-group"><span class="tools-group-label">Calculators</span><div class="hub-tools-grid"><button class="btn ghost" onclick="openClinicalCalculator(event)">Clinical Calculators</button><button class="btn ghost" onclick="openBasicCalculator(event)">Basic Calculator</button></div></div><div class="tools-foot"><button class="btn ghost sm" onclick="showAchievements()">Achievements</button><span class="tools-foot-note">Sound, music, and font are in <b>Settings</b> on the year map. Start over from <b>Residency files</b> on the title screen.</span></div></div>`; document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();}; }
+function showResidentTools(){ const ov=document.createElement('div'); ov.className='hub-tools'; ov.id='hubTools'; ov.innerHTML=`<div class="hub-tools-card"><div class="tools-head"><div><h3>Resident Tools</h3><p>References and math you can open during a case.</p></div><button class="btn ghost sm" onclick="document.getElementById('hubTools').remove()">Close</button></div><div class="tools-group"><span class="tools-group-label">References</span><div class="hub-tools-grid"><button class="btn ghost" onclick="showLabValues(event)">Lab Values</button><button class="btn ghost" onclick="showAbxReference(event)">Antibiogram &amp; Antibiotic Guide</button><button class="btn ghost" onclick="showConceptLibrary(event)">Clinical Concepts</button></div></div><div class="tools-group"><span class="tools-group-label">Calculators</span><div class="hub-tools-grid"><button class="btn ghost" onclick="openClinicalCalculator(event)">Clinical Calculators</button><button class="btn ghost" onclick="openBasicCalculator(event)">Basic Calculator</button></div></div><div class="tools-group"><span class="tools-group-label">Story &amp; simulation</span><div class="hub-tools-grid"><button class="btn ghost" onclick="document.getElementById('hubTools').remove();showShiftBoard()">Simulated shift</button><button class="btn ghost" onclick="document.getElementById('hubTools').remove();showJourneys()">Patient journeys</button><button class="btn ghost" onclick="document.getElementById('hubTools').remove();showBreakRoom()">Break room</button>${faceoffAvailable()?`<button class="btn ghost" onclick="document.getElementById('hubTools').remove();startFaceoff()">Rounds face-off</button>`:''}</div></div><div class="tools-foot"><button class="btn ghost sm" onclick="showAchievements()">Achievements</button><span class="tools-foot-note">Sound, music, and font are in <b>Settings</b> on the year map. Start over from <b>Residency files</b> on the title screen.</span></div></div>`; document.getElementById('app').appendChild(ov); ov.onclick=e=>{if(e.target===ov)ov.remove();}; }
 const SHIFT_PATIENTS=[
  {name:'Mr. Alvarez',unit:'ED to ICU',risk:'Septic shock',module:'icu_hemo',task:'Review cultures, renal function, pressors, and broad-spectrum antibiotic timing before rounds.'},
  {name:'Ms. Chen',unit:'Oncology floor',risk:'Febrile neutropenia',module:'onco_emerg',task:'Check ANC, fever timing, allergy history, antipseudomonal coverage, and hazardous-drug precautions.'},
  {name:'Mr. Williams',unit:'Cardiology',risk:'HF plus AKI',module:'cardiology_core',task:'Reconcile GDMT, renal labs, diuretics, anticoagulation, and discharge monitoring needs.'},
  {name:'Baby Kim',unit:'NICU',risk:'Weight-based dosing',module:'nicu_picu',task:'Verify weight, postnatal age, renal maturity, concentration, route, and caregiver instructions.'}
 ];
-function showShiftBoard(){ saveProgress('shift'); setBG('core'); document.getElementById('app').innerHTML=`<div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('R1')}')">${sceneDeco()}</div>${hudHTML('core')}<div class="shift-wrap"><div class="shift-panel"><div class="report-head"><div><h2>Simulated Shift</h2><div class="report-sub">A pre-rounding board for your hospital pharmacist shift. Choose the patient you want to work up first.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="goHub()">Back to year map</button></div></div><div class="shift-grid">${SHIFT_PATIENTS.map(p=>`<div class="shift-card"><h3>${p.name}</h3><p>${p.unit}</p><div class="shift-meta"><span>${p.risk}</span><span>Medication review</span></div><div class="shift-task">${p.task}</div><button class="btn mint sm" style="margin-top:10px" onclick="award('shiftboard');openModule('${p.module}')">Review this patient</button></div>`).join('')}</div><div class="report-note"><b>Preceptor note:</b> Use this board like your pre-round huddle: identify the highest-risk patient, name the medication problem, then practice the matching rotation.</div></div></div>`; }
+function showShiftBoard(){ navPush("shift");saveProgress('shift'); setBG('core'); document.getElementById('app').innerHTML=`<div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('R1')}')">${sceneDeco()}</div>${hudHTML('core')}<div class="shift-wrap"><div class="shift-panel"><div class="report-head"><div><h2>Simulated Shift</h2><div class="report-sub">A pre-rounding board for your hospital pharmacist shift. Choose the patient you want to work up first.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="goBack()">Back</button></div></div><div class="shift-grid">${SHIFT_PATIENTS.map(p=>`<div class="shift-card"><h3>${p.name}</h3><p>${p.unit}</p><div class="shift-meta"><span>${p.risk}</span><span>Medication review</span></div><div class="shift-task">${p.task}</div><button class="btn mint sm" style="margin-top:10px" onclick="award('shiftboard');openModule('${p.module}')">Review this patient</button></div>`).join('')}</div><div class="report-note"><b>Preceptor note:</b> Use this board like your pre-round huddle: identify the highest-risk patient, name the medication problem, then practice the matching rotation.</div></div></div>`; }
 
 
 
@@ -4321,7 +4330,7 @@ function roundsNeed(k){return roundsPatients(k).filter(roundsKeyIsCatch).length;
 function roundsForStage(id){return ({acute:'acute',critical:'icu',id_onc:'onc',ambulatory:'amb'})[id]||null;}
 function startRounds(k){if(typeof G==='undefined'||!G){goHub();return;}RS.rot=(k&&ROUNDS[k])?k:(RS.rot||'icu');RS.pIdx=0;RS.sIdx=0;RS.answered=false;RS.caught=0;RS.need=roundsNeed(RS.rot);saveProgress('hub');setBG('core');sfx('chart');renderRounds();}
 function roundsChartHTML(p){var c=p.chart||{};function row(k,v){return '<div class="rc-block"><span class="rc-k">'+k+'</span><p>'+escapeReviewText(v)+'</p></div>';}function blk(k,v){return '<div class="rc-block"><span class="rc-k">'+k+'</span><p>'+escapeReviewText(v)+'</p></div>';}function meds(k,arr){return '<div class="rc-block"><span class="rc-k">'+k+'</span><ul class="rc-medlist">'+arr.map(function(m){return '<li><b>'+escapeReviewText(m.name||m)+'</b>'+(m.note?'<span>'+escapeReviewText(m.note)+'</span>':'')+'</li>';}).join('')+'</ul></div>';}var out='';if(c.oneliner)out+=blk('One-liner',c.oneliner);else if(c.dx)out+=row('Assessment',c.dx);if(c.hpi)out+=blk('History of present illness',c.hpi);if(c.pmh)out+=row('Past medical history',c.pmh);if(c.allergies)out+=row('Allergies',c.allergies);if(c.vitals)out+=row('Today',c.vitals);if(c.homeMeds)out+=meds('Home medications',c.homeMeds);if(c.inpatientMeds)out+=meds('Inpatient medications',c.inpatientMeds);else if(c.meds)out+=meds('Active medications',c.meds);if(c.progressNote)out+=blk('Progress note',c.progressNote);var dayHead=(p.labs&&p.labs[0])?p.labs[0].trend.map(function(t){return '<th>'+escapeReviewText(t.d)+'</th>';}).join(''):'';var labRows=(p.labs||[]).map(function(l){return '<tr><td class="ltl">'+escapeReviewText(l.label)+'</td>'+l.trend.map(function(t){return '<td class="'+(t.flag||'')+'">'+escapeReviewText(t.v)+'</td>';}).join('')+'</tr>';}).join('');if(labRows)out+='<div class="rc-block"><span class="rc-k">Monitoring</span><div class="rnd-trend-wrap"><table class="rnd-trend"><thead><tr><th></th>'+dayHead+'</tr></thead><tbody>'+labRows+'</tbody></table></div></div>';return '<div class="rnd-chart">'+out+'</div>';}
-function renderRounds(){var R=ROUNDS[RS.rot],P=R.patients;var tabs='';var pct=Math.round((RS.pIdx/P.length)*100);var head='<div class="report-head" style="margin-bottom:6px"><div><h2>Floor Rounds</h2><div class="report-sub">Read the chart and the monitoring trends, then walk the team through a stepwise plan.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="goHub()">Back to year map</button></div></div><div class="rnd-tabs">'+tabs+'</div><div class="rnd-progress-row"><span class="rnd-team">'+escapeReviewText(R.team)+'</span><div class="rnd-progress"><i style="width:'+pct+'%"></i></div><span class="rnd-count">'+(RS.pIdx>=P.length?'Rounds complete':'Patient '+(RS.pIdx+1)+' of '+P.length)+'</span></div>';var body;if(RS.pIdx>=P.length){body='<div class="rnd-card rnd-summary"><span class="rnd-bed">Rounds complete</span><div class="rnd-big">'+RS.caught+' / '+RS.need+'</div><p>key drug-therapy problems caught on rounds.</p><div class="rnd-line"><span>Patients rounded</span><b>'+P.length+'</b></div><div class="rnd-line"><span>Rolls into</span><b>R1 patient-care evidence</b></div><div class="report-actions" style="margin-top:14px"><button class="btn mint sm" onclick="startRounds(\''+RS.rot+'\')">Round again</button><button class="btn ghost sm" onclick="goHub()">Back to year map</button></div></div>';}else{var p=P[RS.pIdx],step=p.steps[RS.sIdx];body='<div class="rnd-card"><span class="rnd-bed'+(p.journey?' journey':'')+'">'+escapeReviewText(p.bed)+(p.journey?' \u00b7 Journey patient':'')+'</span><h3>'+escapeReviewText(p.name)+'</h3>'+roundsChartHTML(p)+'<div class="rnd-present"><span class="who">'+escapeReviewText(R.team)+'</span>'+escapeReviewText(p.present)+'</div><div class="rnd-step-tag">Step '+(RS.sIdx+1)+' of '+p.steps.length+'</div><div class="rnd-qh">'+escapeReviewText(step.q)+'</div><div id="rndOpts">'+step.opts.map(function(o,i){return '<div class="rnd-opt" onclick="roundsPick('+i+')">'+escapeReviewText(o.t)+'</div>';}).join('')+'</div><div id="rndFb"></div><div id="rndAct"></div></div>';}document.getElementById('app').innerHTML='<div class="stage scene-photo bg-core" id="stage" style="background-image:url(\''+bgFor('R1')+'\')">'+sceneDeco()+'</div><div class="rnd-wrap"><div class="rnd-panel">'+head+body+'</div></div>';}
+function renderRounds(){var R=ROUNDS[RS.rot],P=R.patients;var tabs='';var pct=Math.round((RS.pIdx/P.length)*100);var head='<div class="report-head" style="margin-bottom:6px"><div><h2>Floor Rounds</h2><div class="report-sub">Read the chart and the monitoring trends, then walk the team through a stepwise plan.</div></div><div class="report-actions"><button class="btn ghost sm" onclick="goBack()">Back</button></div></div><div class="rnd-tabs">'+tabs+'</div><div class="rnd-progress-row"><span class="rnd-team">'+escapeReviewText(R.team)+'</span><div class="rnd-progress"><i style="width:'+pct+'%"></i></div><span class="rnd-count">'+(RS.pIdx>=P.length?'Rounds complete':'Patient '+(RS.pIdx+1)+' of '+P.length)+'</span></div>';var body;if(RS.pIdx>=P.length){body='<div class="rnd-card rnd-summary"><span class="rnd-bed">Rounds complete</span><div class="rnd-big">'+RS.caught+' / '+RS.need+'</div><p>key drug-therapy problems caught on rounds.</p><div class="rnd-line"><span>Patients rounded</span><b>'+P.length+'</b></div><div class="rnd-line"><span>Rolls into</span><b>R1 patient-care evidence</b></div><div class="report-actions" style="margin-top:14px"><button class="btn mint sm" onclick="startRounds(\''+RS.rot+'\')">Round again</button><button class="btn ghost sm" onclick="goBack()">Back</button></div></div>';}else{var p=P[RS.pIdx],step=p.steps[RS.sIdx];body='<div class="rnd-card"><span class="rnd-bed'+(p.journey?' journey':'')+'">'+escapeReviewText(p.bed)+(p.journey?' \u00b7 Journey patient':'')+'</span><h3>'+escapeReviewText(p.name)+'</h3>'+roundsChartHTML(p)+'<div class="rnd-present"><span class="who">'+escapeReviewText(R.team)+'</span>'+escapeReviewText(p.present)+'</div><div class="rnd-step-tag">Step '+(RS.sIdx+1)+' of '+p.steps.length+'</div><div class="rnd-qh">'+escapeReviewText(step.q)+'</div><div id="rndOpts">'+step.opts.map(function(o,i){return '<div class="rnd-opt" onclick="roundsPick('+i+')">'+escapeReviewText(o.t)+'</div>';}).join('')+'</div><div id="rndFb"></div><div id="rndAct"></div></div>';}document.getElementById('app').innerHTML='<div class="stage scene-photo bg-core" id="stage" style="background-image:url(\''+bgFor('R1')+'\')">'+sceneDeco()+'</div><div class="rnd-wrap"><div class="rnd-panel">'+head+body+'</div></div>';}
 function roundsPick(i){if(RS.answered)return;RS.answered=true;var P=ROUNDS[RS.rot].patients,p=P[RS.pIdx],step=p.steps[RS.sIdx],o=step.opts[i];document.querySelectorAll('#rndOpts .rnd-opt').forEach(function(el,j){el.classList.add('dim');if(step.opts[j].ok){el.classList.remove('dim');el.classList.add('right');}if(j===i&&!o.ok){el.classList.remove('dim');el.classList.add('wrong');}el.setAttribute('onclick','');});if(o.ok){sfx('ok');if(typeof burst==='function')burst('good');}else{sfx('bad');if(typeof burst==='function')burst('bad');}if(RS.sIdx===0){if(o.ok&&roundsKeyIsCatch(p))RS.caught++;if(p.arc){G.journeyFlag=G.journeyFlag||{};G.journeyFlag[p.arc]=o.ok?'good':'consequence';}}document.getElementById('rndFb').innerHTML='<div class="rnd-fb '+(o.ok?'good':'bad')+'"><span class="team">'+escapeReviewText(ROUNDS[RS.rot].team)+' and team</span>'+escapeReviewText(o.why)+((o.ok&&step.teach)?' <b>'+escapeReviewText(step.teach)+'</b>':'')+'</div>';var lastStep=RS.sIdx>=p.steps.length-1,lastPt=RS.pIdx>=P.length-1;var label=lastStep?(lastPt?'Finish rounds':'Next patient \u2192'):'Next step \u2192';document.getElementById('rndAct').innerHTML='<div class="report-actions" style="margin-top:12px"><button class="btn mint sm" onclick="roundsNext()">'+label+'</button></div>';}
 function roundsNext(){var P=ROUNDS[RS.rot].patients,p=P[RS.pIdx];RS.answered=false;if(RS.sIdx<p.steps.length-1){RS.sIdx++;renderRounds();return;}RS.pIdx++;RS.sIdx=0;if(RS.pIdx>=P.length){G.rounds=G.rounds||{};G.rounds[RS.rot]={caught:RS.caught,need:RS.need,ts:Date.now()};award('rounds');saveProgress('hub');}renderRounds();}
 
@@ -4741,10 +4750,12 @@ function rankUpScene(t){
 }
 function nextCase(){if(pendingRank>0&&!REVIEW_MODE){const t=pendingRank;pendingRank=-1;rankUpScene(t);return;}nextCaseCore();}
 function nextCaseCore(){const m=curM;if(REVIEW_MODE){if(REVIEW_MODE.pos<REVIEW_MODE.indices.length-1){REVIEW_MODE.pos++;G.reviewMode=REVIEW_MODE;caseIdx=REVIEW_MODE.indices[REVIEW_MODE.pos];G.results[m.id][caseIdx]=null;m.cases[caseIdx]._attempts=0;saveProgress('case');runCase();return;}REVIEW_MODE=null;G.reviewMode=null;REVIEW_FINISHED_MODULE=m.id;saveProgress('complete');moduleComplete();return;}if(caseIdx<m.cases.length-1){caseIdx++;saveProgress("case");runCase();}else moduleComplete();}
-function moduleComplete(){saveProgress("complete");const m=curM,nc=modCorrect(m),meta=AREA[m.area],missed=moduleReviewItems(m);if(missed.length&&REVIEW_FINISHED_MODULE!==m.id){drawScene(m.area,preceptorExpr('think'),preceptorName(),`Before we close <b>${m.title}</b>, review the decisions that caused trouble. Only missed objectives return here.`,{advance:false,pop:true});const box=document.createElement('div');box.className='rotation-review-ov';box.innerHTML=`<div class="review-summary" role="dialog" aria-modal="true"><h3>End-of-rotation review</h3><p>${missed.length} missed decision${missed.length===1?' is':'s are'} ready. Your first attempt remains recorded; review answers are stored separately as mastery practice.</p><div class="actions"><button class="btn mint" onclick="startMissedReview()">Review ${missed.length} missed decision${missed.length===1?'':'s'}</button><button class="btn ghost" onclick="goHub()">Return to year map</button></div></div>`;document.getElementById('app').appendChild(box);return;}REVIEW_FINISHED_MODULE=null;const perfect=nc===m.cases.length;award('first_shift');if(perfect)award('perfect');const arcHit=arcStageFor(m.id);window.__arcHit=arcHit?{id:arcHit.arc.id,idx:arcHit.idx}:null;const arcLine=arcHit?`<br><span class="unlock-line">${arcHit.arc.patient}'s story continues…</span>`:'';drawScene(m.area,preceptorExpr(perfect?'wink':'smile'),preceptorName(),(perfect?`Rotation complete. You demonstrated mastery across all ${m.cases.length} decisions.`:`Rotation complete. You mastered ${nc} of ${m.cases.length} decisions; unresolved misses stay in your review queue.`)+arcLine,{advance:true,onBox:'afterModuleComplete()',pop:true,below:`<div style="position:absolute;top:66px;left:0;right:0;text-align:center;z-index:18"><span class="area-pill" style="color:${meta.c};font-size:15px">${m.title} · ${nc}/${m.cases.length}</span></div>`});if(perfect)burst('good');}
+function moduleComplete(){saveProgress("complete");const m=curM,nc=modCorrect(m),meta=AREA[m.area],missed=moduleReviewItems(m);if(missed.length&&REVIEW_FINISHED_MODULE!==m.id){drawScene(m.area,preceptorExpr('think'),preceptorName(),`Before we close <b>${m.title}</b>, review the decisions that caused trouble. Only missed objectives return here.`,{advance:false,pop:true});const box=document.createElement('div');box.className='rotation-review-ov';box.innerHTML=`<div class="review-summary" role="dialog" aria-modal="true"><h3>End-of-rotation review</h3><p>${missed.length} missed decision${missed.length===1?' is':'s are'} ready. Your first attempt remains recorded; review answers are stored separately as mastery practice.</p><div class="actions"><button class="btn mint" onclick="startMissedReview()">Review ${missed.length} missed decision${missed.length===1?'':'s'}</button><button class="btn ghost" onclick="goHub()">Return to roadmap</button></div></div>`;document.getElementById('app').appendChild(box);return;}REVIEW_FINISHED_MODULE=null;const perfect=nc===m.cases.length;award('first_shift');if(perfect)award('perfect');const arcHit=arcStageFor(m.id);window.__arcHit=arcHit?{id:arcHit.arc.id,idx:arcHit.idx}:null;const arcLine=arcHit?`<br><span class="unlock-line">${arcHit.arc.patient}'s story continues…</span>`:'';drawScene(m.area,preceptorExpr(perfect?'wink':'smile'),preceptorName(),(perfect?`Rotation complete. You demonstrated mastery across all ${m.cases.length} decisions.`:`Rotation complete. You mastered ${nc} of ${m.cases.length} decisions; unresolved misses stay in your review queue.`)+arcLine,{advance:true,onBox:'afterModuleComplete()',pop:true,below:`<div style="position:absolute;top:66px;left:0;right:0;text-align:center;z-index:18"><span class="area-pill" style="color:${meta.c};font-size:15px">${m.title} · ${nc}/${m.cases.length}</span></div>`});if(perfect)burst('good');}
 function afterModuleComplete(){
   const hit=window.__arcHit; window.__arcHit=null;
   if(hit){ playArcStage(hit.id, hit.idx); return; }
+  const beat=(typeof nextStoryBeat==='function')?nextStoryBeat():null;
+  if(beat){ showStoryContinue(beat); return; }
   goHub();
 }
 
@@ -5008,14 +5019,14 @@ function dueCards(){const q=new Set(STUDY.queueIds||[]);return studyDueCandidate
 
 function filteredCards(){const f=STUDY.filter;return STUDY.cards.filter(function(c){return !f||f==='all'||c.deck===f;});}
 
-function showStudyCards(filter){ STUDY.cards=buildStudyCards(); STUDY.filter=filter||STUDY.filter||'concept'; STUDY.queueIds=studyDueCandidates().slice(0,20).map(c=>c.id); STUDY.idx=0; STUDY.flipped=false; renderStudyCards(); }
+function showStudyCards(filter){navPush("cards"); STUDY.cards=buildStudyCards(); STUDY.filter=filter||STUDY.filter||'concept'; STUDY.queueIds=studyDueCandidates().slice(0,20).map(c=>c.id); STUDY.idx=0; STUDY.flipped=false; renderStudyCards(); }
 function renderStudyCards(){
   const pool=dueCards(); const all=filteredCards(); const c=pool[STUDY.idx%Math.max(pool.length,1)]; const mods=MODULES;
   document.getElementById('app').innerHTML=`
     <div class="stage scene-photo bg-core" id="stage" style="background-image:url('${bgFor('core')}')">${sceneDeco()}</div><div class="fx" id="fx2"></div>
     <div class="center-layer" style="justify-content:flex-start;padding:34px 18px 48px"><div class="study-panel">
       <div class="study-head"><div><h2>Study Cards</h2><div class="study-sub">A focused queue of up to 20 review cards</div><div class="download-help"><b>${STUDY.cards.length} study cards.</b> Concept definitions and drug references &mdash; flip to learn, not a quiz.</div></div>
-        <div class="study-actions"><button class="btn ghost sm" onclick="goHub()">${(typeof G!=='undefined'&&G&&G.results)?'Back to year map':'Back to title'}</button><button class="btn ghost sm" onclick="exportQuizletTXT()">Export to Quizlet</button><button class="btn ghost sm" onclick="resetCardProgress()">Reset card progress</button></div></div>
+        <div class="study-actions"><button class="btn ghost sm" onclick="goBack()">Back</button><button class="btn ghost sm" onclick="exportQuizletTXT()">Export to Quizlet</button><button class="btn ghost sm" onclick="resetCardProgress()">Reset card progress</button></div></div>
       <div class="study-grid"><div>${c?cardHTML(c):'<div class="flash-empty">No cards due right now. Switch decks or reset card progress.</div>'}</div><div class="study-side">
         <div class="study-stat"><div class="statbox"><b>${pool.length}</b><span>Today</span></div><div class="statbox"><b>${all.length}</b><span>In deck</span></div><div class="statbox"><b>${STUDY.cards.length}</b><span>All cards</span></div><div class="statbox"><b>${Math.round((STUDY.cards.filter(x=>x.seen).length/Math.max(STUDY.cards.length,1))*100)}%</b><span>Seen</span></div></div>
         <div class="due-note">Every card is a <b>concept definition</b> or a <b>drug reference</b> &mdash; study by flipping, no scoring. Finish this short queue, then return tomorrow.</div>
@@ -7817,7 +7828,7 @@ function reportReadinessCards(){
 function typeMixHTML(types){ return Object.entries(types).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span class="report-pill">${caseTypeName(t)} ${n}</span>`).join(''); }
 function reportAreaName(area){ return area==='core'?'Orientation':String((AREA[area]&&AREA[area].name)||area).replace(/^R\d\s*·\s*/,''); }
 function reportNextFocus(area,mods){ const next=mods.find(r=>r.area===area&&r.status!=='Completed'); return next?`<button class="report-next-focus" onclick="openModule('${next.id}')">${next.title}</button>`:'<span class="report-area-complete">Area complete</span>'; }
-function showCompetencyReport(){
+function showCompetencyReport(){navPush("review");
   if(!G){ G={name:'Joey Han',avatar:pickedAv,results:initResults()}; }
   saveProgress('report'); setBG('core');
   const s=reportSummary(), areas=areaReportRows(), mods=moduleReportRows();

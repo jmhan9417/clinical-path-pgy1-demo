@@ -18,13 +18,13 @@ add('Current DKA potassium threshold', demo.includes('K⁺ &lt; 3.5') && !demo.i
 add('Keyboard skip links', demo.includes('Skip to simulation content') && home.includes('Skip to main content'));
 add('Visible keyboard focus', demo.includes(':focus-visible') && home.includes(':focus-visible'));
 add('No remote character CDN dependency', !demo.includes('d8j0ntlcm91z4.cloudfront.net') && !home.includes('d8j0ntlcm91z4.cloudfront.net'));
-add('69-rotation map present', demo.includes('Resident Year Map') && demo.includes('View all ${MODULES.length} rotations'));
+add('69-rotation map present', demo.includes('Residency Roadmap') && demo.includes('View all ${MODULES.length} rotations'));
 add('Code Stroke validation present', demo.includes('code_stroke_validation'));
 add('P&T committee module present', demo.includes('pt_med_safety_committee'));
 add('Informatics module present', demo.includes('informatics_surveillance'));
 add('Equity/reflection module present', demo.includes('communication_equity_reflection'));
 add('Hub guard prevents no-game trap', demo.includes("if(typeof G==='undefined'||!G||!G.results){showTitle();return;}"));
-add('Study Cards back label is context-aware', demo.includes("?'Back to year map':'Back to title'"));
+add('Back navigation returns to previous screen', demo.includes('function goBack(') && demo.includes('function navPush('));
 add('Practice-record download menu removed (per product decision)', !demo.includes('Download practice record'));
 add('Competency CSV export wired to UI', demo.includes('exportCompetencyCSV()'));
 add('Competency JSON export wired to UI', demo.includes('exportCompetencyJSON()'));
