@@ -1028,12 +1028,12 @@ const ARCS=[
  {id:'alvarez',patient:'Mr. Alvarez',line:'Septic shock, all the way home',
   stages:[
    {module:'critcare',title:'Night one in the ICU',beats:[
-     {who:'attending',name:'Dr. Chen, ICU Attending',expr:'think',t:"Alvarez, 62 — septic shock, urinary source. Pressors up, first antibiotic dose hung twenty minutes ago. Pharmacy, own the timing tonight."},
+     {who:'attending',name:'Dr. Vasquez, ICU Attending',expr:'think',t:"Alvarez, 62 — septic shock, urinary source. Pressors up, first antibiotic dose hung twenty minutes ago. Pharmacy, own the timing tonight."},
      {who:'patient',name:'Mr. Alvarez',expr:'neutral',t:"You're the medication one? My wife keeps my pill list in her purse… and don't give me that one that made my kidneys angry last year. The nurse wrote it down somewhere."},
      {who:'preceptor',expr:'think',t:"Good instinct going to the bedside, ${NAME}. A home med list and a renal history — that one conversation just changed how we dose everything tonight."}]},
    {module:'id',title:'Culture day',beats:[
      {who:'nurse',name:'Nurse Vance',expr:'neutral',t:"Your ICU friend Mr. Alvarez is on your list again — floor bed now, and his cultures finalized overnight."},
-     {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',t:"E. coli, pan-sensitive. Off pressors since yesterday. Rounds will ask one simple question: why is he still on the broad-spectrum?"},
+     {who:'attending',name:'Dr. Vasquez, ICU Attending',expr:'neutral',t:"E. coli, pan-sensitive. Off pressors since yesterday. Rounds will ask one simple question: why is he still on the broad-spectrum?"},
      {who:'preceptor',expr:'happy',t:"De-escalation is a decision, not a default, ${NAME}. Make the recommendation out loud and put your name on it."}]},
    {module:'toc',title:'Going home',beats:[
      {who:'patient',name:'Mr. Alvarez',expr:'neutral',t:"They say I go home tomorrow. Fourteen days of the antibiotic… or was it ten? And do I keep the water pill, or was that just a hospital thing?"},
@@ -1046,7 +1046,7 @@ const ARCS=[
      {who:'patient',name:'Ms. Chen',expr:'neutral',t:"Twelve pages, actually. My daughter highlights things. Just — tell me which side effects mean I call someone, and which ones I just… have."},
      {who:'preceptor',expr:'encourage',t:"That's the perfect question, ${NAME} — teach the red flags, then have her teach them back. If she can say it, she'll do it at home."}]},
    {module:'onco_emerg',title:'Day ten fever',beats:[
-     {who:'attending',name:'Dr. Chen, ICU Attending',expr:'think',t:"Ms. Chen, day ten post cycle one. 38.4 at home, ANC 300 in triage. You know what the clock says."},
+     {who:'attending',name:'Dr. Vasquez, ICU Attending',expr:'think',t:"Ms. Chen, day ten post cycle one. 38.4 at home, ANC 300 in triage. You know what the clock says."},
      {who:'preceptor',expr:'stern',t:"Febrile neutropenia is a timing diagnosis, ${NAME}. Antibiotics within the hour — everything else can politely wait."},
      {who:'patient',name:'Ms. Chen',expr:'neutral',t:"It's just a little fever… isn't it? My daughter said to come in anyway. She was right again, wasn't she."}]},
    {module:'pain',title:'Sleeping through the night',beats:[
@@ -1056,7 +1056,7 @@ const ARCS=[
  {id:'kim',patient:'Baby Kim',line:'NICU to first vaccines',
   stages:[
    {module:'nicu_picu',title:'Two kilograms of trust',beats:[
-     {who:'attending',name:'Dr. Chen, ICU Attending',expr:'neutral',t:"Baby Kim, born at 31 weeks, now two kilograms of very loud opinions. Every dose on this unit is weight-based and double-checked. Pharmacy is the second check."},
+     {who:'attending',name:'Dr. Vasquez, ICU Attending',expr:'neutral',t:"Baby Kim, born at 31 weeks, now two kilograms of very loud opinions. Every dose on this unit is weight-based and double-checked. Pharmacy is the second check."},
      {who:'nurse',name:'Nurse Vance',expr:'neutral',t:"Mom is at the bedside doing kangaroo care. She asks what every syringe is. Honestly? Keep answering — it keeps us all honest."},
      {who:'preceptor',expr:'think',t:"In the NICU, ${NAME}, a decimal point is a clinical event. Slow is smooth, smooth is safe."}]},
    {module:'peds',title:'Graduation to the floor',beats:[
@@ -1719,7 +1719,7 @@ const CLINICAL_TEAM={
   amina:{who:'amina',name:'Dr. Amina Shah',role:'ID and oncology pharmacist',short:'Amina',specialty:'antimicrobial, transplant, and oncology pharmacotherapy',bio:'She follows cultures, immune status, organ function, and toxicity until the whole treatment story makes sense.'},
   ortega:{who:'ortega',name:'Dr. Mateo Ortega',role:'Ambulatory care pharmacist',short:'Mateo',specialty:'transitions, adherence, access, and chronic care',bio:'He asks whether the plan will still work after discharge, in the patient’s real life.'},
   nurse:{who:'nurse',name:'Nurse Vance',role:'RN · Medication administration partner',short:'Nurse Vance',specialty:'MAR reality, bedside workflow, and feasibility',bio:'She knows what was actually given, held, refused, delayed, or impossible at the bedside.'},
-  attending:{who:'attending',name:'Dr. Chen',role:'ICU attending physician',short:'Dr. Chen',specialty:'decisive recommendations and team communication',bio:'She expects a concise recommendation, the evidence behind it, and a clear trigger to reassess.'},
+  attending:{who:'attending',name:'Dr. Vasquez',role:'ICU attending physician',short:'Dr. Vasquez',specialty:'decisive recommendations and team communication',bio:'She expects a concise recommendation, the evidence behind it, and a clear trigger to reassess.'},
   elliot:{who:'elliot',name:'Dr. Elliot Kang',role:'PGY-1 co-resident',short:'Elliot',specialty:'rapid recall and friendly competition',bio:'He moves fast, challenges your recall, and makes you defend why your answer is better.'}
 };
 function selectedPreceptor(){ const id=(G&&G.preceptor)||localStorage.getItem('clinicalPathPreceptor')||'female'; return PRECEPTORS[id]||PRECEPTORS.female; }
@@ -4242,7 +4242,7 @@ function showShiftBoard(){ saveProgress('shift'); setBG('core'); document.getEle
    FLOOR ROUNDS \u2014 board-level, multi-step, chart + monitoring
    ================================================================== */
 const ROUNDS={
- icu:{label:'ICU rounds',team:'Dr. Chen, ICU attending',patients:[
+ icu:{label:'ICU rounds',team:'Dr. Vasquez, ICU attending',patients:[
   {bed:'Bed 3',journey:true,arc:'alvarez',name:'Mr. Alvarez, 62M',
    chart:{dx:'Septic shock, urinary source \u2014 ICU day 3, off norepinephrine since 06:00',pmh:'CKD stage 3 (baseline SCr 1.4), type 2 diabetes, hypertension',allergies:'No known drug allergies',vitals:'MAP 74, afebrile 26h, making urine',meds:['Piperacillin-tazobactam 4.5 g IV q8h (extended infusion)','Vancomycin 1.25 g IV q12h (empiric MRSA)','Insulin sliding scale','Pantoprazole 40 mg IV daily']},
    labs:[{label:'WBC (K/\u00b5L)',trend:[{d:'D1',v:'18.2',flag:'hi'},{d:'D2',v:'13.5'},{d:'D3',v:'8.9'}]},{label:'SCr (mg/dL)',trend:[{d:'D1',v:'1.5'},{d:'D2',v:'1.9',flag:'hi'},{d:'D3',v:'2.4',flag:'hi'}]},{label:'Vancomycin trough',trend:[{d:'\u2014',v:'\u2014'},{d:'\u2014',v:'\u2014'},{d:'D3',v:'22',flag:'hi'}]},{label:'Cultures',trend:[{d:'D2 blood',v:'E. coli, pan-S'},{d:'MRSA nares',v:'Negative'},{d:'',v:''}]}],
@@ -4433,7 +4433,7 @@ function caseGuide(m,c,introLine,introExpr){
   if(c.type==='chartHunt' || m.id==='chart'){const surface=chartSurface(c),label=surface==='mar'?'medication administration record':surface==='orders'?'active-order list':surface==='labs'?'patient chart':'quality review dashboard';if(surface==='mar')return {who:'nurse',name:CLINICAL_TEAM.nurse.name,expr:'neutral',text:`Nurse Vance opens the <b>${label}</b>. <b>${c.kick}</b> — separate what was ordered from what actually happened at the bedside.`};return {who:mentor.who,name:mentor.name,expr:'think',text:`${mentor.name} opens the <b>${label}</b>. <b>${c.kick}</b> — identify the actionable signal and who owns follow-up.`};}
   if(c.type==='code' || m.id==='seizure') return {who:'dpark',name:CLINICAL_TEAM.dpark.name,expr:'stern',text:`Dr. Park looks up from the monitor. <b>${c.kick}</b>. Confirm the emergency, choose the right drug and dose, and close the loop.`};
   if(c.type==='journal') return {who:mentor.who,name:mentor.name,expr:'think',text:`${mentor.name} hands you the paper. <b>${c.kick}</b> — define PICO, find the validity threat, then decide whether it changes this patient’s care.`};
-  if(c.type==='sbar') return {who:'attending',name:CLINICAL_TEAM.attending.name,expr:'neutral',text:`Dr. Chen gives you one minute. <b>${c.kick}</b>. State the problem, the decisive data, and one recommendation with monitoring.`};
+  if(c.type==='sbar') return {who:'attending',name:CLINICAL_TEAM.attending.name,expr:'neutral',text:`Dr. Vasquez gives you one minute. <b>${c.kick}</b>. State the problem, the decisive data, and one recommendation with monitoring.`};
   if(c.patient) return {who:'patient',name:'Patient Case',expr:'neutral',text:`The chart includes a patient vignette. <b>${c.kick}</b> — use only the stated facts and answer clearly.`};
   return {who:mentor.who,name:mentor.name,expr:mentor.who===preceptorWho()?preceptorExpr(introExpr):'neutral',text:mentorCaseLine(mentor,c,introLine)};
 }
@@ -4791,7 +4791,7 @@ function showCredits(){
     {img:SPRITE_URLS.belle.warm,name:'Dr. Belle Deans',role:'Residency Program Director'},
     {img:SPRITE_URLS.elliot?SPRITE_URLS.elliot.happy:'',name:'Dr. Elliot Kang',role:'Co-resident · Rival · Coffee defender'},
     {img:SPRITE_URLS.nurse?SPRITE_URLS.nurse.neutral:'',name:'Nurse Vance',role:'The one who catches things'},
-    {img:SPRITE_URLS.attending?SPRITE_URLS.attending.neutral:'',name:'Dr. Chen',role:'ICU Attending'},
+    {img:SPRITE_URLS.attending?SPRITE_URLS.attending.neutral:'',name:'Dr. Vasquez',role:'ICU Attending'},
     {img:SPRITE_URLS.patient?SPRITE_URLS.patient.neutral:'',name:'Mr. Alvarez',role:'and the patients of St. Aurelia'},
     {img:SPRITE_URLS.pip?SPRITE_URLS.pip.neutral:'',name:'Pip',role:'Rounds Bot · always on shift'}
   ];
