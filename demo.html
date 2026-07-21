@@ -3763,6 +3763,7 @@ function heartsHTML(){
 }
 function attemptedCount(){ let c=0; MODULES.forEach(m=>G.results[m.id].forEach(r=>{if(r!==null)c++;})); return c; }
 var RETURN_TO_CASE=null;
+var ROADMAP_RETURN_VIEW=null;
 function storedReturnCase(){if(RETURN_TO_CASE)return RETURN_TO_CASE;try{RETURN_TO_CASE=JSON.parse(localStorage.getItem('clinicalPathPausedCase')||'null');}catch(e){RETURN_TO_CASE=null;}return RETURN_TO_CASE;}
 function setReturnCase(value){RETURN_TO_CASE=value||null;try{if(RETURN_TO_CASE)localStorage.setItem('clinicalPathPausedCase',JSON.stringify(RETURN_TO_CASE));else localStorage.removeItem('clinicalPathPausedCase');}catch(e){}}
 function openYearMap(){
@@ -3770,11 +3771,28 @@ function openYearMap(){
   if(curM){
     const inCase=document.body.classList.contains('case-active');
     const inLesson=!inCase&&!!document.getElementById('vnText');
-    if(inCase||inLesson)setReturnCase({kind:inCase?'case':'learn',moduleId:curM.id,caseIdx,learnIdx});
+    if(inCase||inLesson){
+      setReturnCase({kind:inCase?'case':'learn',moduleId:curM.id,caseIdx,learnIdx});
+      const app=document.getElementById('app');
+      if(app&&app.childNodes&&typeof app.replaceChildren==='function'){
+        ROADMAP_RETURN_VIEW={nodes:Array.from(app.childNodes),bodyClass:document.body.className};
+        app.replaceChildren();
+      }
+    }
   }
   goHub();
 }
 function resumeCurrentCase(){
+  if(ROADMAP_RETURN_VIEW&&ROADMAP_RETURN_VIEW.nodes){
+    const view=ROADMAP_RETURN_VIEW,app=document.getElementById('app');
+    ROADMAP_RETURN_VIEW=null;
+    app.replaceChildren(...view.nodes);
+    document.body.className=view.bodyClass||'';
+    setReturnCase(null);
+    window.fx=document.getElementById('fx2')||window.fx;
+    updateBGM();
+    return;
+  }
   const ret=storedReturnCase();if(!ret)return;
   curM=MODULES.find(m=>m.id===ret.moduleId);
   if(!curM){setReturnCase(null);goHub();return;}
@@ -4164,7 +4182,7 @@ function goHub(){
   document.getElementById("app").innerHTML=`
     <div class="stage bg-core" id="stage">${bokehHTML()}</div><div class="fx" id="fx2"></div>${hudHTML("core",{stage:activeStage,tools:false})}
     <div class="center-layer" style="justify-content:flex-start;padding-top:64px"><div class="hub-panel"><div class="map-shell">
-      <div class="map-head"><div class="map-title"><h2>Residency Roadmap</h2><div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with ${preceptorName()}</div></div><div class="map-head-actions">${paused?`<button class="btn mint" data-space-primary onclick="resumeCurrentCase()">${pausedReturnLabel(paused)}</button>`:''}<button class="btn ghost" onclick="goBack()">Back</button></div></div>
+      <div class="map-head"><div class="map-title"><h2>Residency Roadmap</h2><div class="hub-sub">Dr. ${G.name} · PGY-1 onboarding with ${preceptorName()}</div></div><div class="map-head-actions"><button class="btn ghost" onclick="${paused?'resumeCurrentCase()':'goBack()'}">Back</button></div></div>
       <div class="map-progress"><strong>${done}/${MODULES.length}</strong><span>rotations complete · next: ${nextMod?nextMod.title:'year complete'}</span></div>
       ${(function(){const defs=hubStageDefs(),def=defs.find(x=>x.id===activeStage)||defs[0];return `<div class="hub-workspace"><aside class="year-rail"><div class="rail-label">Rotation blocks</div>${defs.filter(d=>d.id!=='all').map((d,i)=>`<button class="rail-stop ${d.id===activeStage?'on':''}" onclick="setHubStage('${d.id}')"><span>${String(i+1).padStart(2,'0')}</span><b>${d.title.replace(/^.*·\s*/, '')}</b><small>${hubStageModules(d.id).length} rotations</small></button>`).join('')}<button class="rail-all ${activeStage==='all'?'on':''}" onclick="setHubStage('all')">View all ${MODULES.length} rotations</button><div class="year-legend"><div class="yl-label">Competency areas</div>${['core','R1','R2','R3','R4'].map(k=>{const a=AREA[k];const ex=AREA_EXPLANATIONS[k==='core'?'CORE':k];return `<div class="yl-row"><span class="yl-dot" style="background:${a.c}"></span><span class="yl-t"><b>${k==='core'?'Core':k}</b><small>${ex}</small></span></div>`;}).join('')}</div></aside><section class="rotation-board"><div class="board-head"><div><span class="board-kicker">${def.title}</span><h3>${def.title.replace(/^.*·\s*/, '')}</h3><p>${def.why}</p></div><div class="board-head-actions">${nextMod?`<button class="btn mint sm" data-space-primary onclick="openModule('${nextMod.id}')">Continue next rotation</button>`:''}</div></div><div class="mcards">${visibleModules.map(m=>{const meta=AREA[m.area],isDone=modDone(m),nc=modCorrect(m),seq=String(studyOrderedModules().indexOf(m)+1).padStart(2,'0');return `<button class="mc ${isDone?'done':''}" onclick="openModule('${m.id}')"><span class="mc-seq">${seq}</span><span class="mc-copy"><b>${m.title}</b><small>${m.blurb}</small></span><span class="mc-meta"><i style="background:${meta.c}">${m.area==='core'?'CORE':m.area}</i><em>${isDone?nc+'/'+m.cases.length+' complete':m.cases.length+' cases'}</em></span></button>`;}).join('')}</div></section></div>`;})()}
       <div class="hub-actions"><button class="btn ghost" onclick="showStudyCards()">Study Cards</button><button class="btn ghost" onclick="showCompetencyReport()">Preceptor Review</button><button class="btn ghost" onclick="showResidentTools()">Resident Tools</button><button class="btn ghost" onclick="showSettings()">Settings</button><button class="btn" onclick="graduate()">Readiness Review</button></div>
