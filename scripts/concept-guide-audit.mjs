@@ -20,9 +20,9 @@ add('Learn tab is wired into the review panel',html.includes('reviewLearnPanelHT
 add('Concept card and library are accessible dialogs',html.includes('function openConceptCard')&&html.includes('function showConceptLibrary')&&html.includes("ov.setAttribute('aria-modal','true')")&&html.includes('function conceptOverlayKeydown'));
 add('Concept tools are wired into case, narrative, hub, and Pip',(html.match(/showConceptLibrary\\(event/g)||[]).length>=4);
 add('QT reference points to the specific CredibleMeds drug list',html.includes('https://crediblemeds.org/druglist')&&!html.includes(\"'https://crediblemeds.org/'\"));
-const rows=[];for(const m of MODULES){curM=m;for(const c of (m.cases||[])){const panel=reviewLearnPanelHTML(c);rows.push({m:m.id,c,panel,refs:caseConcepts(c).length?caseConcepts(c).flatMap(x=>x.refs):fallbackLearnRefs(m,c)});}}
-add('Every case has a Learn panel',rows.length>=457&&rows.every(r=>r.panel&&r.panel.includes('concept-block')),'covered='+rows.filter(r=>r.panel).length+'/'+rows.length);
-add('Every Learn panel has an authoritative source',rows.every(r=>r.refs.length&&r.refs.every(isAuthoritativeReference)),'withSources='+rows.filter(r=>r.refs.length).length);
+const rows=[];for(const m of MODULES){curM=m;for(const c of (m.cases||[])){const concepts=caseConcepts(c),panel=reviewLearnPanelHTML(c);rows.push({m:m.id,c,panel,concepts,refs:concepts.flatMap(x=>x.refs)});}}
+add('Learn panel appears only for genuinely mapped concepts',rows.length>=457&&rows.every(r=>r.concepts.length?!!(r.panel&&r.panel.includes('concept-block')):!r.panel),'mapped='+rows.filter(r=>r.concepts.length).length+'/'+rows.length);
+add('Every displayed Learn panel has an authoritative source',rows.filter(r=>r.panel).every(r=>r.refs.length&&r.refs.every(isAuthoritativeReference)),'withSources='+rows.filter(r=>r.panel&&r.refs.length).length);
 const ruleRefs=CASE_REFERENCE_RULES.flatMap(r=>(r.refs||[]).map(ref=>({title:r.title,ref})));
 add('Every case-reference rule uses an authoritative source',ruleRefs.every(x=>isAuthoritativeReference(x.ref)),'refs='+ruleRefs.length);
 const foundationRefs=Object.values(LEARN_FOUNDATION_REFS).flat();
