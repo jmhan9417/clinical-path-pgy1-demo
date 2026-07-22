@@ -17,6 +17,7 @@ const audit=`
  ok('Roadmap uses named required-rotation clearance and horizontal competencies',stageUnlocked('orientation')&&!stageUnlocked('acute')&&view.includes('competency-strip')&&view.includes('Clearance: 0/5 required Orientation rotations')&&view.includes('Required'));
  ok('Study Cards is routed through global Tools only',html.includes("showResidentTools()")&&html.includes("showStudyCards()")&&html.includes('<b>Study Cards</b>')&&!html.includes('Open Study Cards</button>')&&!view.includes('>Study Cards</button>'));
  ok('Tools uses aligned Study, Look up, and Calculate rows',html.includes('class="tools-rows"')&&html.includes('<h4>Study</h4>')&&html.includes('<h4>Look up</h4>')&&html.includes('<h4>Calculate</h4>')&&html.includes('<b>Drug Reference</b>'));
+ ok('Tools is a focus-managed accessible dialog',html.includes("ov.setAttribute('aria-labelledby','residentToolsTitle')")&&html.includes("document.addEventListener('keydown',residentToolsKeydown)")&&html.includes('trapModalFocus(e,ov)'));
  ok('Achievements stay in Progress Review, not Tools',html.includes('achievementReviewHTML()')&&!html.includes('onclick="showAchievements()">Achievements'));
  ok('Roadmap omits the redundant continue-next CTA',!html.includes('Continue next rotation'));
  ok('Pip drawer and Floor Rounds scrolling contracts exist',html.includes('#pipPanel.on{display:flex;flex-direction:column}')&&html.includes('.rnd-wrap{position:absolute;inset:0')&&html.includes('overflow-y:auto;overscroll-behavior:contain'));
