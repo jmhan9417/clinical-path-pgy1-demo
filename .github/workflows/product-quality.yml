@@ -1,0 +1,36 @@
+name: Product quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify documentation currentness
+        run: node scripts/docs-currentness-audit.mjs
+
+      - name: Verify product flows
+        run: |
+          node scripts/flow-smoke-audit.mjs
+          node scripts/rpd-audit.mjs
+          node scripts/concept-guide-audit.mjs
+          node scripts/antibiotic-guide-audit.mjs
+          node scripts/clinical-accuracy-audit.mjs
+          node scripts/review-quality-audit.mjs
+          node scripts/drug-monograph-audit.mjs
+          node scripts/pip-assistant-audit.mjs
