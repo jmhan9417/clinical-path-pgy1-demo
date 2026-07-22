@@ -51,7 +51,7 @@ This is an **educational simulation and a design prototype**, not a certified tr
 - The whole game is a single self-contained `demo.html` (no build step, no dependencies) plus a sprite folder
 - Character sprites are AI-generated anime-style art created for this project; hospital backgrounds are Unsplash photography
 - The landing page is a single `index.html`
-- Local audit scripts cover catalog integrity, clinical accuracy, full interaction flow, all 1,026 terminal-review paths, and documentation currentness
+- Local audit scripts cover exact and near-duplicate stems, generic distractor reuse, answer-length cues, feedback depth, catalog integrity, clinical accuracy, full interaction flow, all 1,026 terminal-review paths, and documentation currentness
 
 ## Product documentation
 

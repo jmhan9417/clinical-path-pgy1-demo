@@ -24,8 +24,9 @@ jobs:
       - name: Verify documentation currentness
         run: node scripts/docs-currentness-audit.mjs
 
-      - name: Verify product flows
+      - name: Verify product flows and item quality
         run: |
+          node scripts/content-quality-audit.mjs
           node scripts/flow-smoke-audit.mjs
           node scripts/rpd-audit.mjs
           node scripts/concept-guide-audit.mjs

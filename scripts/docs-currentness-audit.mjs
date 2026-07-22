@@ -42,7 +42,8 @@ ok('Institution Pack implementation and documentation stay paired',all(html,['fu
 ok('Formative and no-PHI boundaries are documented',all(spec,['No patient data, PHI, real resident records','not residency completion, credentialing'])&&all(roadmap,['Keep this formative','real resident records']));
 ok('Historical clinical report is not presented as current scale',all(clinicalReport,['historical snapshot','dated content architecture','PRODUCT-SPEC.md']));
 ok('Same-PR documentation rule is explicit',all(spec,['### Same-PR rule','same pull request','product-quality GitHub Action'])&&all(readme,['same pull request','product-quality GitHub Action']));
-ok('GitHub Action enforces documentation and product audits',all(workflow,['pull_request:','branches: [main]','node scripts/docs-currentness-audit.mjs','node scripts/flow-smoke-audit.mjs','node scripts/pip-assistant-audit.mjs']));
+ok('GitHub Action enforces documentation and product audits',all(workflow,['pull_request:','branches: [main]','node scripts/docs-currentness-audit.mjs','node scripts/content-quality-audit.mjs','node scripts/flow-smoke-audit.mjs','node scripts/pip-assistant-audit.mjs']));
+ok('Product documentation names the enforced item-quality gate',all(spec,['| Content quality | 30/30 |','exact and high-similarity question stems','repeated six-word option phrases','strong correct-answer length cues'])&&all(readme,['exact and near-duplicate stems','answer-length cues','feedback depth']));
 
 for(const x of checks)console.log(`${x.pass?'PASS':'FAIL'}  ${x.name}${x.detail?' — '+x.detail:''}`);
 console.log(`\n${checks.filter(x=>x.pass).length}/${checks.length} documentation checks passed`);
