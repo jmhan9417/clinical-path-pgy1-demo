@@ -130,7 +130,7 @@
     border-radius:8px 22px 22px 22px;padding:20px 28px 22px;min-height:128px;max-width:960px;margin:0 auto;
     box-shadow:0 18px 46px rgba(120,50,90,.32),inset 0 2px 0 rgba(255,255,255,.7);position:relative;cursor:pointer}
   .vn-box.nameless{border-radius:22px}
-  .vn-text{font-size:calc(19px * var(--font-scale,1));line-height:1.6;font-weight:700;color:#4a3540;min-height:52px;text-wrap:pretty;overflow-wrap:break-word}
+  .vn-text{font-size:calc(19px * var(--font-scale,1));line-height:1.6;font-weight:700;color:#4a3540;min-height:52px;text-wrap:pretty;overflow-wrap:break-word}.vn-text .vn-beat{display:block;height:.45em}
   .vn-ctrl{position:absolute;top:-15px;right:22px;display:flex;gap:6px}
   .vn-ctrl button{font-family:"Jua";font-size:11px;color:#fff;background:rgba(84,64,92,.76);
     border:1px solid rgba(255,255,255,.45);padding:3px 13px;border-radius:12px;letter-spacing:1px;
@@ -4034,6 +4034,7 @@ const SPEAKER_PROFILES={
   preceptor_female:{name:'Dr. Amina Shah',role:'ID and oncology pharmacist'},
   preceptor_male:{name:'Dr. Mateo Ortega',role:'Ambulatory care pharmacist'}
 };
+function normalizeVNDialogueHTML(html){return String(html||'').replace(/<br\s*\/?>(?=\s*<span class="unlock-line")/gi,'<br class="vn-beat">').replace(/<br\s*\/?>/gi,' ').replace(/\s{2,}/g,' ').trim();}
 function speakerProfile(who,requested){
   const player=(typeof playerWho==='function')?playerWho():'';
   if(who&&who===player){const n=(typeof G!=='undefined'&&G&&G.name)||localStorage.getItem('clinicalPathName')||String(requested||'Resident').replace(/\s*\(you\)\s*$/i,'');return {name:n+' (you)',role:'PGY-1 pharmacy resident'};}
@@ -4085,9 +4086,10 @@ function drawScene(area, expr, name, textHTML, opts={}){
       </div>
     </div>`;
   window.fx=document.getElementById("fx2");
+  const dialogueHTML=normalizeVNDialogueHTML(textHTML);
   VNTYPE.onBox = opts.onBox||null; VNTYPE.done=false;
-  recordVNLog(area,speakerName,textHTML,opts.note||'');
-  typeHTML(document.getElementById("vnText"), textHTML);
+  recordVNLog(area,speakerName,dialogueHTML,opts.note||'');
+  typeHTML(document.getElementById("vnText"), dialogueHTML);
   updateCtrlState();
   enhanceGlossary(document.getElementById("app"));
 }
