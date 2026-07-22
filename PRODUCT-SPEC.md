@@ -249,6 +249,7 @@ Used for the Roadmap, case workspace, EHR exercises, Study Cards, Clinical Revie
 - Clinical rationale must distinguish universal evidence from local policy.
 - Every terminal case path must produce a complete review.
 - Medication safety statements, calculations, monitoring, and references remain audit targets.
+- CI rejects exact and high-similarity question stems, repeated generic distractors, repeated six-word option phrases, strong correct-answer length cues, malformed option sets, and short feedback rationales.
 - Any institutional adaptation requires licensed-pharmacist and local-policy review.
 
 ### Institutional rules
@@ -269,6 +270,7 @@ The current release gate includes:
 
 | Audit | Current expected result |
 |---|---:|
+| Content quality | 30/30 |
 | Flow smoke | 33/33 |
 | RPD | 62/62 |
 | Concept guide | 30/30 |
