@@ -6,22 +6,22 @@ const stub=()=>new Proxy(function(){},{get:(t,p)=>p==='style'?stub():p==='classL
 globalThis.window=globalThis;globalThis.document={documentElement:{style:{setProperty(){}}},body:stub(),addEventListener(){},removeEventListener(){},getElementById(){return stub()},querySelector(){return null},querySelectorAll(){return[]},createElement(){let raw='';return{style:{},classList:{add(){},remove(){}},setAttribute(){},set innerHTML(v){raw=String(v||'')},get innerHTML(){return raw},get textContent(){return raw.replace(/<[^>]*>/g,' ')},get innerText(){return raw.replace(/<[^>]*>/g,' ')},appendChild(){},remove(){},click(){}}}};globalThis.localStorage={getItem(){return null},setItem(){},removeItem(){}};Object.defineProperty(globalThis,'navigator',{value:{},configurable:true});globalThis.location={reload(){}};globalThis.Image=class{};globalThis.Audio=class{};globalThis.requestAnimationFrame=()=>0;globalThis.cancelAnimationFrame=()=>{};globalThis.setTimeout=()=>0;globalThis.confirm=()=>false;globalThis.URL={createObjectURL(){return''},revokeObjectURL(){}};
 const audit=`(()=>{const checks=[],add=(name,pass,detail='')=>checks.push({name,pass:Boolean(pass),detail});
 const keys=Object.keys(CONCEPT_CONTENT);
-add('Concept library covers 39 concepts',keys.length===39,'count='+keys.length);
-const ruleTitles=CASE_REFERENCE_RULES.map(r=>r.title);
-add('Every concept maps to a reference rule',keys.every(k=>ruleTitles.includes(k)));
+add('Concept library covers 68 canonical concepts',keys.length===68,'count='+keys.length);
+add('Every concept resolves to an authoritative source',keys.every(k=>conceptRefsFor(k).length&&conceptRefsFor(k).every(isAuthoritativeReference)));
 const monoKeys=Object.keys(DRUG_MONOGRAPHS);
 add('Every concept drug key is a real monograph',keys.every(k=>(CONCEPT_CONTENT[k].drugs||[]).every(d=>monoKeys.includes(d))));
 add('Every related concept resolves',keys.every(k=>(CONCEPT_CONTENT[k].related||[]).every(r=>keys.includes(r))));
 add('Concepts carry mechanism, key points, monitoring, pitfalls',keys.every(k=>{const v=CONCEPT_CONTENT[k];return v.oneLiner&&v.mechanism&&v.keyPoints.length>=3&&v.monitoring.length>=2&&v.pitfalls.length>=2;}));
 let qt=null;for(const m of MODULES){for(let i=0;i<(m.cases||[]).length;i++){const c=m.cases[i];if(/QT-stacking/i.test(String(c.q||''))||/haloperidol.*ondansetron.*azithromycin/i.test(caseText(c))){qt={m,i,c};break;}}if(qt)break;}
 add('QT stacking case found for verification',!!qt);
-if(qt){const cs=caseConcepts(qt.c);add('QT case maps to the QT prolongation concept',cs.some(x=>x.title==='QT prolongation'));const panel=reviewLearnPanelHTML(qt.c);add('Learn panel renders mechanism and related drugs',panel.includes('Why it happens')&&panel.includes('Related drugs')&&panel.includes('Open full concept'));add('QT concept surfaces an authoritative source',conceptRefsFor('QT prolongation').some(r=>/crediblemeds\\.org/.test(r[1])));}
+if(qt){const cs=caseConcepts(qt.c);add('QT case maps to the QT prolongation concept',cs.some(x=>x.title==='QT prolongation'));const panel=reviewLearnPanelHTML(qt.c),full=conceptBodyHTML('QT prolongation',CONCEPT_CONTENT['QT prolongation'],conceptRefsFor('QT prolongation'));add('Learn panel stays concise while the full card keeps clinical depth',panel.includes('Open concept')&&!panel.includes('Related drugs')&&full.includes('Core principle')&&full.includes('Related drugs'));add('QT concept surfaces an authoritative source',conceptRefsFor('QT prolongation').some(r=>/crediblemeds\\.org/.test(r[1])));}
 add('Learn tab is wired into the review panel',html.includes('reviewLearnPanelHTML(c)')&&html.includes("switchReviewTab(this,'learn')")&&html.includes('data-rpanel="learn"'));
 add('Concept card and library are accessible dialogs',html.includes('function openConceptCard')&&html.includes('function showConceptLibrary')&&html.includes("ov.setAttribute('aria-modal','true')")&&html.includes('function conceptOverlayKeydown'));
 add('Concept tools are wired into case, narrative, hub, and Pip',(html.match(/showConceptLibrary\\(event/g)||[]).length>=4);
 add('QT reference points to the specific CredibleMeds drug list',html.includes('https://crediblemeds.org/druglist')&&!html.includes(\"'https://crediblemeds.org/'\"));
 const rows=[];for(const m of MODULES){curM=m;for(const c of (m.cases||[])){const concepts=caseConcepts(c),panel=reviewLearnPanelHTML(c);rows.push({m:m.id,c,panel,concepts,refs:concepts.flatMap(x=>x.refs)});}}
 add('Learn panel appears only for genuinely mapped concepts',rows.length>=457&&rows.every(r=>r.concepts.length?!!(r.panel&&r.panel.includes('concept-block')):!r.panel),'mapped='+rows.filter(r=>r.concepts.length).length+'/'+rows.length);
+add('Every patient-care case maps to a clinical concept',rows.every(r=>learningDomain(MODULES.find(m=>m.id===r.m),r.c)!=='patient'||r.concepts.length),'patient-unmapped='+rows.filter(r=>learningDomain(MODULES.find(m=>m.id===r.m),r.c)==='patient'&&!r.concepts.length).length);
 add('Every displayed Learn panel has an authoritative source',rows.filter(r=>r.panel).every(r=>r.refs.length&&r.refs.every(isAuthoritativeReference)),'withSources='+rows.filter(r=>r.panel&&r.refs.length).length);
 const ruleRefs=CASE_REFERENCE_RULES.flatMap(r=>(r.refs||[]).map(ref=>({title:r.title,ref})));
 add('Every case-reference rule uses an authoritative source',ruleRefs.every(x=>isAuthoritativeReference(x.ref)),'refs='+ruleRefs.length);
@@ -41,12 +41,9 @@ add('Toxicology matching avoids LAST and generic overdose false positives',!case
 const _cds=[...new Set(Object.values(CONCEPT_CONTENT).flatMap(function(v){return v.drugs||[];}))];
 add('Every concept drug has an MOA entry',_cds.every(function(d){return DRUG_MOA[d]&&DRUG_MOA[d].length>10;}),(_cds.filter(function(d){return !DRUG_MOA[d];}).join(',')||'all covered'));
 const _card=conceptDrugMiniHTML('insulin');
-add('Drug card shows MOA and an MLA source list with reputable NIH/FDA hosts',_card.indexOf('cd-tag">MOA')>=0&&_card.indexOf('cd-refs')>=0&&_card.indexOf('pubchem.ncbi.nlm.nih.gov')>=0&&_card.indexOf('ncbi.nlm.nih.gov/books')>=0&&_card.indexOf('medlineplus.gov')>=0&&_card.indexOf('dailymed.nlm.nih.gov')>=0);
-const _all=_cds.map(conceptDrugMiniHTML).join('');
-const _hrefs=_all.split('href="').slice(1).map(function(s){return s.split('"')[0];}).filter(function(u){return u.indexOf('http')===0;});
-const _rep=['pubchem.ncbi.nlm.nih.gov','www.ncbi.nlm.nih.gov','medlineplus.gov','dailymed.nlm.nih.gov'];
-add('All drug-card source links use reputable NIH or FDA hosts',_hrefs.length>=_cds.length*4&&_hrefs.every(function(u){return _rep.some(function(h){return u.indexOf('https://'+h)===0;});}),'links='+_hrefs.length);
-const _ck=Object.keys(CONCEPT_CONTENT)[0],_cbody=conceptBodyHTML(_ck,CONCEPT_CONTENT[_ck],[]);
-add('Full concept card includes an MLA Source list with reputable hosts',_cbody.indexOf('cd-refs')>=0&&_cbody.indexOf('ncbi.nlm.nih.gov/books')>=0&&_cbody.indexOf('medlineplus.gov')>=0&&_cbody.indexOf('pubmed.ncbi.nlm.nih.gov')>=0);
+add('Drug card stays clinical and does not repeat source lists',_card.indexOf('cd-tag">MOA')>=0&&_card.indexOf('cd-tag">Use')>=0&&_card.indexOf('cd-tag">Watch')>=0&&_card.indexOf('cd-refs')<0);
+const _ck=Object.keys(CONCEPT_CONTENT)[0],_refs=conceptRefsFor(_ck),_cbody=conceptBodyHTML(_ck,CONCEPT_CONTENT[_ck],_refs);
+add('Full concept card ends with one compact MLA source list',_cbody.indexOf('concept-mla')>=0&&(_cbody.match(/concept-mla/g)||[]).length===1&&_refs.slice(0,3).every(function(r){return _cbody.includes(r[1]);}));
+add('Inline Learn preview omits the full source and drug sections',rows.filter(r=>r.panel).every(r=>!r.panel.includes('concept-mla')&&!r.panel.includes('Related drugs')));
 for(const c of checks)console.log((c.pass?'PASS':'FAIL')+'  '+c.name+(c.detail?' — '+c.detail:''));const failed=checks.filter(c=>!c.pass);console.log('\\n'+(checks.length-failed.length)+'/'+checks.length+' concept checks passed');if(failed.length)process.exitCode=1;})();`;
 try{eval(app+'\n'+audit)}catch(e){console.error(e.stack);process.exit(1)}
