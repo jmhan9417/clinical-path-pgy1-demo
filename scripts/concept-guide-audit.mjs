@@ -41,7 +41,7 @@ add('Toxicology matching avoids LAST and generic overdose false positives',!case
 const _cds=[...new Set(Object.values(CONCEPT_CONTENT).flatMap(function(v){return v.drugs||[];}))];
 add('Every concept drug has an MOA entry',_cds.every(function(d){return DRUG_MOA[d]&&DRUG_MOA[d].length>10;}),(_cds.filter(function(d){return !DRUG_MOA[d];}).join(',')||'all covered'));
 const _card=conceptDrugMiniHTML('insulin');
-add('Drug card stays clinical and does not repeat source lists',_card.indexOf('cd-tag">MOA')>=0&&_card.indexOf('cd-tag">Use')>=0&&_card.indexOf('cd-tag">Watch')>=0&&_card.indexOf('cd-refs')<0);
+add('Related drug control stays compact and opens Drug Reference',_card.includes('class="concept-drug"')&&_card.includes('openConceptDrugReference')&&_card.includes('cd-head')&&!_card.includes('cd-tag')&&!_card.includes('cd-refs')&&html.includes('scroll-snap-type:x proximity'));
 const _ck=Object.keys(CONCEPT_CONTENT)[0],_refs=conceptRefsFor(_ck),_cbody=conceptBodyHTML(_ck,CONCEPT_CONTENT[_ck],_refs);
 add('Full concept card ends with one compact MLA source list',_cbody.indexOf('concept-mla')>=0&&(_cbody.match(/concept-mla/g)||[]).length===1&&_refs.slice(0,3).every(function(r){return _cbody.includes(r[1]);}));
 add('Inline Learn preview omits the full source and drug sections',rows.filter(r=>r.panel).every(r=>!r.panel.includes('concept-mla')&&!r.panel.includes('Related drugs')));
