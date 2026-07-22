@@ -1,8 +1,10 @@
-# Clinical Path PGY-1 Clinical Content Audit
+# Clinical Path PGY-1 Clinical Content Audit — historical snapshot
 
-**Version:** 2026.07-RPD2  
-**Audit date:** July 11, 2026  
-**Scope:** 69 learning experiences, 457 curated cases, 1,495 study cards
+> This report preserves the July 11, 2026 RPD2 audit baseline. Its figures describe that dated content architecture, not the current runtime catalog. See [`../PRODUCT-SPEC.md`](../PRODUCT-SPEC.md) for current product scale and the executable audits for the active release gate.
+
+- **Version:** 2026.07-RPD2
+- **Audit date:** July 11, 2026
+- **Historical scope:** 69 learning experiences, 457 curated cases, 1,495 generated study cards
 
 ## Release checks
 
