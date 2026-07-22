@@ -903,10 +903,17 @@ body.case-active .vn-choices{max-width:none;width:100%}.case-workspace{width:100
 .orientation-board .mcards{grid-template-columns:repeat(2,minmax(260px,420px));justify-content:center}
 .rotation-kind{display:inline-flex;align-items:center;margin-top:5px;color:#64748b;font-size:9.5px;font-style:normal;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
 .rotation-board .mc.locked .rotation-kind{opacity:1}
-#pipPanel{top:auto;right:12px;bottom:76px;height:auto;max-height:min(72dvh,640px);overflow:hidden}
+/* Orientation is centered within the rotation board, independent of the left rail. */
+.orientation-board .board-head{display:block;text-align:center}
+.orientation-board .board-head p{margin-left:auto;margin-right:auto}
+.orientation-board .board-head-actions{justify-content:center}
+
+/* Pip remains a fixed, capped tray. Long content scrolls inside the tray. */
+body:has(#pipPanel.on) #globalUtilities{right:12px}
+#pipPanel{top:auto;right:0;bottom:0;left:auto;width:min(420px,100vw);height:auto;max-height:min(72dvh,640px);overflow:hidden;border-radius:18px 0 0 0}
 #pipPanel.on{display:flex;flex-direction:column}
-.pip-body{flex:none;max-height:180px;overflow-y:auto}
-.pip-chat{flex:none;max-height:min(34dvh,300px);min-height:0}
+.pip-body{flex:none;max-height:min(24dvh,200px);overflow-y:auto;overscroll-behavior:contain}
+.pip-chat{flex:1;max-height:min(34dvh,300px);min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .pip-chat:not(.has){display:none}
 .pip-chips,.pip-ask,.pip-vol,.pip-team{flex:none}
 .notes-ov{position:fixed!important;inset:0!important;z-index:190!important;align-items:stretch;justify-content:flex-end;padding:12px 0 12px 12px!important}
@@ -950,7 +957,7 @@ body.case-active .vn-choices{max-width:none;width:100%}.case-workspace{width:100
 .achievement-review-head p{margin:0;color:#64748b;font-size:12px;font-weight:750}
 @media(max-width:900px){.global-utility.label-pill{width:38px;padding:0}.global-utility.label-pill span{display:none}.hud{padding-right:140px}.orientation-board .mcards{grid-template-columns:1fr}.notes-ov{padding:0!important}.notes-card.reference-drawer{width:100vw;height:100dvh;max-height:100dvh;border-radius:0}.drug-ref-card{width:100%;height:100%;max-height:100%;border-radius:0}}
 @media(max-width:620px){.tools-row{grid-template-columns:1fr;gap:6px}.tools-row-label{padding:2px 2px 0}.tools-row-label p{display:none}.tool-actions{grid-template-columns:1fr!important}.tool-row{min-height:54px}.drug-ref-search-wrap{padding:11px 13px 10px}.drug-ref-list{grid-template-columns:1fr;max-height:46dvh}.drug-ref-detail{padding:14px}.drug-ref-head{padding:13px 14px}.drug-ref-save-row{justify-content:flex-start;padding-bottom:8px}.drug-ref-az{gap:1px}.drug-ref-letter{width:28px;height:32px}}
-@media(max-width:520px){.global-utility.label-pill{width:34px}.hud{padding-right:118px}.hud-note{width:32px;height:30px;padding:0;justify-content:center}.hud-note span{display:none}.orientation-board .mcards{grid-template-columns:1fr}#pipPanel{left:8px;right:8px;bottom:56px;max-height:min(68dvh,580px)}.pip-chat{max-height:30dvh}.hub-tools-card.tools-clean{padding:17px 15px}}
+@media(max-width:520px){.global-utility.label-pill{width:34px}.hud{padding-right:118px}.hud-note{width:32px;height:30px;padding:0;justify-content:center}.hud-note span{display:none}.orientation-board .mcards{grid-template-columns:1fr}body:has(#pipPanel.on) #globalUtilities{right:7px}#pipPanel{left:auto;right:0;bottom:0;width:calc(100vw - 8px);max-height:min(68dvh,580px);border-radius:18px 0 0 0}.pip-chat{max-height:30dvh}.hub-tools-card.tools-clean{padding:17px 15px}}
 
 </style>
 </head>
