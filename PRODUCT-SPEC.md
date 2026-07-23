@@ -205,7 +205,9 @@ Used for the Roadmap, case workspace, EHR exercises, Study Cards, Clinical Revie
 - Spaced review and Quizlet-compatible export
 - Pinned concepts and drug monographs
 - Related-drug navigation inside concept pages
-- Clinical calculator and reference tools
+- Five guideline-current advanced calculators covering PREVENT-ASCVD with statin decision flow, ADA 2026 type 2 diabetes and insulin teaching, vancomycin AUC plus trough workflows, creatinine clearance/2021 CKD-EPI plus KDIGO AKI staging, and opioid dosing scope/MME/limited rotation teaching
+- 25 original calculator-linked cases, five per advanced calculator, with choice-specific rationales, formula walkthroughs, and direct authoritative references
+- Supporting quick calculators for anion gap, corrected calcium, corrected phenytoin, heparin infusion rate, and BMI
 - Pip, a local clinical copilot that briefs the current case without revealing answers, offers role-specific consult framing, builds a missed-case study plan, tracks progress, saves notes, finds references, and opens the relevant tool
 
 ### Preceptor Dashboard
@@ -249,6 +251,8 @@ Used for the Roadmap, case workspace, EHR exercises, Study Cards, Clinical Revie
 - Clinical rationale must distinguish universal evidence from local policy.
 - Every terminal case path must produce a complete review.
 - Medication safety statements, calculations, monitoring, and references remain audit targets.
+- Advanced calculator guidance is governed by `docs/clinical-calculator-evidence.md`; ClinCalc is a secondary comparison source, never the controlling authority.
+- Vancomycin education covers both operational trough and AUC workflows while clearly identifying AUC-guided monitoring as preferred for serious invasive MRSA.
 - CI rejects exact and high-similarity question stems, repeated generic distractors, repeated six-word option phrases, strong correct-answer length cues, malformed option sets, and short feedback rationales.
 - Any institutional adaptation requires licensed-pharmacist and local-policy review.
 

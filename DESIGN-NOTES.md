@@ -29,6 +29,8 @@ Do not flatten character scenes into enterprise software. Do not reintroduce pin
 - Reserve yellow and red for review-due and remediation states.
 - Keep progress and coaching language formative. Never imply credentialing or independent-practice validation.
 - Use horizontal scrolling only inside the control that owns it, such as Related drugs or a wide admin table. The document itself must not overflow.
+- Advanced calculator cards span the workstation width, keep formulas and evidence in native disclosure sections, and open linked practice cases in a focused nested dialog. Current-status labels use a full outline, never a one-sided accent rail.
+- Guideline decision trees use a quiet ordered path with circular step markers, hairline dividers, and one active teal step. They respond to calculator inputs without reproducing copyrighted society figures or using decorative accent rails.
 
 ## Responsive behavior
 

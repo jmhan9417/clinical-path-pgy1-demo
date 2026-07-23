@@ -32,6 +32,7 @@ jobs:
           node scripts/concept-guide-audit.mjs
           node scripts/antibiotic-guide-audit.mjs
           node scripts/clinical-accuracy-audit.mjs
+          node scripts/clinical-calculator-audit.mjs
           node scripts/review-quality-audit.mjs
           node scripts/drug-monograph-audit.mjs
           node scripts/pip-assistant-audit.mjs

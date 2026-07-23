@@ -14,6 +14,8 @@ You are a new PGY-1 resident at the fictional **St. Aurelia Medical Center**. Pi
 - 69 guided rotations that mirror a real PGY-1 year, from Badge Day to precepting a student
 - 1,026 original clinical cases across nine formats: case decisions, chart review, SBAR building, verification queues, dose calculations, code blue, journal club, sequencing, and consult-style essays
 - 168 concept and drug study cards with spaced review and Quizlet-compatible export; case stems, dialogue, and individual distractors are excluded
+- Five guideline-current clinical calculators: PREVENT-ASCVD with a statin decision tree, ADA 2026 type 2 diabetes and insulin teaching, vancomycin AUC plus trough workflows, Cockcroft-Gault/2021 CKD-EPI with KDIGO AKI staging, and opioid dosing-scope/MME/limited rotation support
+- 25 original calculator-linked practice cases with choice-specific rationales, calculation walkthroughs, and direct guideline references
 - A mock EHR chart-review window: patient banner, Orders/MAR, Labs, and Snapshot tabs, with flag-based pharmacist verification; every MAR exercise includes patient context and explicit review criteria
 - An engine-specific Clinical Review after every case, including the full context, correct principle, patient reasoning when applicable, monitoring/follow-up, and references
 
@@ -48,10 +50,10 @@ This is an **educational simulation and a design prototype**, not a certified tr
 
 ## Tech notes
 
-- The whole game is a single self-contained `demo.html` (no build step, no dependencies) plus a sprite folder
+- The game remains dependency-free and needs no build step: `demo.html` contains the core simulation, while `calculator-tools.js` isolates the guideline-calculator logic and its 25 practice cases for independent auditability
 - Character sprites are AI-generated anime-style art created for this project; hospital backgrounds are Unsplash photography
 - The landing page is a single `index.html`
-- Local audit scripts cover exact and near-duplicate stems, generic distractor reuse, answer-length cues, feedback depth, catalog integrity, clinical accuracy, full interaction flow, all 1,026 terminal-review paths, and documentation currentness
+- Local audit scripts cover exact and near-duplicate stems, generic distractor reuse, answer-length cues, feedback depth, catalog integrity, clinical accuracy, full interaction flow, all 1,026 terminal-review paths, calculator formula fixtures, all 25 calculator cases, and documentation currentness
 
 ## Product documentation
 
