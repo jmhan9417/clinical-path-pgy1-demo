@@ -6,7 +6,7 @@ const checks = [];
 const add = (name, pass, detail='') => checks.push({name, pass:Boolean(pass), detail});
 
 add('Marketing rotation count is current', home.includes('<b>69</b>&nbsp;guided rotations'));
-add('Marketing case count is current', home.includes('<b>1,026</b>&nbsp;clinical cases'));
+add('Marketing case count is current', home.includes('<b>1,051</b>&nbsp;clinical cases'));
 add('Persistent simulation disclaimer', demo.includes('No medical advice, residency credit, credentialing, or independent-practice validation') && demo.includes('body.case-active #app{height:calc(100dvh - 52px)') && demo.includes('@media(max-width:900px)'));
 add('No credential-conferring result label', !/PGY-1 Graduate|Ready for BCPS \/ PGY-2/.test(demo));
 add('Critical-response remediation gate', demo.includes('criticalMisses().length'));

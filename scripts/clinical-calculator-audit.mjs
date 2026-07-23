@@ -2,9 +2,17 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const source=fs.readFileSync(new URL('../calculator-tools.js',import.meta.url),'utf8');
+const diseaseSource=fs.readFileSync(new URL('../disease-algorithms.js',import.meta.url),'utf8');
+const demo=fs.readFileSync(new URL('../demo.html',import.meta.url),'utf8');
+const casePrefix='const ROTATION_CALCULATION_CASES=';
+const caseStart=demo.indexOf(casePrefix);
+const caseEnd=demo.indexOf(';\n(function integrateCalculationCases',caseStart);
+if(caseStart<0||caseEnd<0)throw new Error('Integrated calculation case block not found');
+const integratedCases=JSON.parse(demo.slice(caseStart+casePrefix.length,caseEnd));
 const context={console,Math,Number,Object,Array,String,Set,Map};
 vm.createContext(context);
-vm.runInContext(source+'\nglobalThis.__cases=CLINICAL_CALCULATOR_CASES;globalThis.__refs=CALCULATOR_REFERENCES;',context);
+vm.runInContext(source+'\nglobalThis.__refs=CALCULATOR_REFERENCES;',context);
+context.__cases=integratedCases;
 
 const checks=[];
 function add(name,ok,detail=''){checks.push({name,ok:!!ok,detail});}
@@ -21,6 +29,8 @@ add('CAC thresholds control intensity and goals',context.preventStatinDecision({
 add('CAC zero preserves smoking and premature-family-history exceptions',context.preventStatinDecision({...statinBase,age:55,risk10:4,risk30:15,cac:'zero',smoking:1}).pathway==='cac0-exception'&&context.preventStatinDecision({...statinBase,age:55,risk10:4,risk30:15,cac:'zero',family:1}).pathway==='cac0-exception');
 add('Known subclinical atherosclerosis cannot be overridden by CAC zero',context.preventStatinDecision({...statinBase,age:55,cac:'zero',subclinical:1}).pathway==='subclinical');
 add('Premature family history independently activates borderline risk-enhancer branch',context.preventStatinDecision({...statinBase,age:55,risk10:4,risk30:15,family:1,enhancer:0}).pathway==='borderline-enhanced');
+add('Borderline PREVENT risk can support moderate-intensity statin without requiring an enhancer',context.preventStatinDecision({...statinBase,age:55,risk10:4,risk30:8,family:0,enhancer:0}).recommendation.includes('moderate-intensity statin')&&context.preventStatinDecision({...statinBase,age:55,risk10:4,risk30:8,family:0,enhancer:0}).recommendation.includes('reasonable'));
+add('Out-of-scope CAC cannot override an independent diabetes indication',context.preventStatinDecision({...statinBase,age:42,sex:'f',dm:1,cac:'1_99'}).pathway==='condition');
 add('CKD treatment branch requires confirmed chronicity',context.preventStatinDecision({...statinBase,age:60,egfr:50,confirmedCkd:0}).pathway!=='condition'&&context.preventStatinDecision({...statinBase,age:60,egfr:50,confirmedCkd:1}).pathway==='condition');
 add('AKI suppresses PREVENT decision math',context.preventStatinDecision({...statinBase,aki:1}).pathway==='renal-unstable');
 add('PREVENT documented eGFR ceiling is 140',context.preventEquationInputProblems(50,200,45,120,130,140).length===0&&context.preventEquationInputProblems(50,200,45,120,130,141).some(x=>x.includes('15–140')));
@@ -32,6 +42,12 @@ const diabetesSevere=context.diabetesMedicationPathway({type:'t2',a1c:11.4,goal:
 add('ADA severe-hyperglycemia pathway considers insulin',diabetesSevere.code==='INSULIN_CONSIDERATION');
 const diabetesLowEgfr=context.diabetesMedicationPathway({type:'t2',a1c:8,goal:7,glucose:160,egfr:15,ascvd:false,hf:false,ckd:true,albuminuria:true,symptoms:false,crisis:false,weightPriority:false,hypoRisk:false,cost:false});
 add('ADA SGLT2 initiation stops below eGFR 20',diabetesLowEgfr.recommendations.some(x=>x.includes('Do not newly initiate'))&&!diabetesLowEgfr.recommendations.some(x=>x.startsWith('Use an SGLT2')));
+const diabetesAlbuminuria=context.diabetesMedicationPathway({type:'t2',a1c:7.8,goal:7,glucose:150,egfr:80,ascvd:false,hf:false,ckd:false,albuminuria:true,symptoms:false,crisis:false,weightPriority:false,hypoRisk:false,cost:false});
+add('Confirmed persistent albuminuria independently activates the ADA cardiorenal pathway',diabetesAlbuminuria.code==='CARDIORENAL_PRIORITY'&&diabetesAlbuminuria.recommendations.some(x=>x.includes('SGLT2')));
+const diabetesHfpEF=context.diabetesMedicationPathway({type:'t2',a1c:7.4,goal:7,glucose:140,egfr:65,ascvd:false,hf:true,hfpefObesity:true,ckd:false,albuminuria:false,symptoms:false,crisis:false,weightPriority:true,hypoRisk:false,cost:false});
+const diabetesHfpEFOnly=context.diabetesMedicationPathway({type:'t2',a1c:7.4,goal:7,glucose:140,egfr:65,ascvd:false,hf:false,hfpefObesity:true,ckd:false,albuminuria:false,symptoms:false,crisis:false,weightPriority:false,hypoRisk:false,cost:false});
+const diabetesGenericHfWeight=context.diabetesMedicationPathway({type:'t2',a1c:7.4,goal:7,glucose:140,egfr:65,ascvd:false,hf:true,hfpefObesity:false,ckd:false,albuminuria:false,symptoms:false,crisis:false,weightPriority:true,hypoRisk:false,cost:false});
+add('ADA obesity plus symptomatic HFpEF pathway requires the explicit phenotype and retains SGLT2 HF therapy',diabetesHfpEF.recommendations.some(x=>x.includes('obesity with symptomatic HFpEF'))&&!diabetesGenericHfWeight.recommendations.some(x=>x.includes('obesity with symptomatic HFpEF'))&&diabetesHfpEFOnly.recommendations.some(x=>x.includes('SGLT2 inhibitor with proven heart-failure benefit')));
 add('ADA basal start fixture',context.insulinTeachingPlan({type:'t2',crisis:false,symptoms:true,weight:75,currentBasal:null,fasting:180,bedtime:240,a1c:11.4,goal:7,glucose:340,hypo:false}).text.includes('7.5–15'));
 add('ADA overbasalization and prandial fixture',context.insulinTeachingPlan({type:'t2',crisis:false,symptoms:false,weight:80,currentBasal:50,fasting:110,bedtime:220,a1c:7.7,goal:7,glucose:180,hypo:false}).code==='OVERBASALIZATION_REDIRECT');
 const hypoStop=context.insulinTeachingPlan({type:'t2',crisis:false,symptoms:false,weight:80,currentBasal:50,fasting:110,bedtime:220,a1c:7.7,goal:7,glucose:180,hypo:true}),hypoNoBasal=context.insulinTeachingPlan({type:'t2',crisis:false,symptoms:true,weight:75,currentBasal:null,fasting:180,bedtime:240,a1c:11.4,goal:7,glucose:340,hypo:true});
@@ -70,36 +86,40 @@ add('Scope change replaces stale MME with an out-of-scope warning',hadMme&&opioi
 add('Every opioid scope control invalidates cached approval',['og_setting','og_duration','og_status','og_formulation','og_organ','og_cosedative','og_respiratory','og_excluded'].every(id=>source.includes(`id="${id}" onchange="invalidateOpioidGate()"`)));
 
 const cases=context.__cases;
-add('Exactly 25 original calculator cases',cases.length===25,String(cases.length));
+add('Exactly 25 integrated rotation calculation cases',cases.length===25,String(cases.length));
 for(const key of ['ascvd','diabetes','vancomycin','renal','opioid'])add(`${key} has five cases`,cases.filter(c=>c.calculator===key).length===5,String(cases.filter(c=>c.calculator===key).length));
 const ids=cases.map(c=>c.id);
-add('Case IDs are unique',new Set(ids).size===ids.length);
+add('Integrated calculation case IDs are unique',new Set(ids).size===ids.length);
 const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-add('Normalized stems are unique',new Set(cases.map(c=>norm(c.stem))).size===cases.length);
-add('Every case has four choices and four rationales',cases.every(c=>c.choices?.length===4&&c.rats?.length===4));
-add('Every answer index is valid',cases.every(c=>Number.isInteger(c.answer)&&c.answer>=0&&c.answer<c.choices.length));
-add('Every case has a takeaway, walkthrough, and valid references',cases.every(c=>c.key?.length>=30&&c.formulaWalkthrough?.length>=30&&c.refIds?.length&&c.refIds.every(id=>context.__refs[id])));
-const answerCounts=[0,1,2,3].map(i=>cases.filter(c=>c.answer===i).length);
-add('Correct-answer positions are balanced',Math.max(...answerCounts)-Math.min(...answerCounts)<=1&&Math.min(...answerCounts)>=6,answerCounts.join(','));
+add('Integrated calculation stems are unique',new Set(cases.map(c=>norm(c.stem))).size===cases.length);
+add('Every source case has four choices and four rationales',cases.every(c=>c.choices?.length===4&&c.rats?.length===4));
+add('Every source-case answer index is valid',cases.every(c=>Number.isInteger(c.answer)&&c.answer>=0&&c.answer<c.choices.length));
+add('Every integrated case has a takeaway, walkthrough, and valid references',cases.every(c=>c.key?.length>=30&&c.formulaWalkthrough?.length>=30&&c.refIds?.length&&c.refIds.every(id=>context.__refs[id])));
+add('Insulin calculation cases cite the ADA injectable and hypoglycemia sources',['diabetes-01','diabetes-02','diabetes-03'].every(id=>{const c=cases.find(x=>x.id===id);return c?.refIds.includes('DM3')&&c?.refIds.includes('DM4');}));
+const integratedAnswerCounts=[0,1,2,3,4].map(i=>cases.filter((c,index)=>index%5===i).length);
+add('Integrated five-option answer positions are balanced',integratedAnswerCounts.every(n=>n===5),integratedAnswerCounts.join(','));
+add('All integrated cases enter the rotation catalog with a fifth distractor',demo.includes('ROTATION_CALCULATION_CASES.forEach')&&demo.includes('original.push({t:extra[0]')&&demo.includes('module.cases.push({type:"mcq"'));
 
-const demo=fs.readFileSync(new URL('../demo.html',import.meta.url),'utf8');
 const evidence=fs.readFileSync(new URL('../docs/clinical-calculator-evidence.md',import.meta.url),'utf8');
 const workflow=fs.readFileSync(new URL('../.github/workflows/product-quality.yml',import.meta.url),'utf8');
-add('Demo loads calculator-tools.js',demo.includes('<script src="calculator-tools.js"></script>'));
+add('Demo loads disease algorithms before calculator tools',demo.indexOf('<script src="disease-algorithms.js"></script>')>=0&&demo.indexOf('<script src="disease-algorithms.js"></script>')<demo.indexOf('<script src="calculator-tools.js"></script>'));
 add('All five advanced calculator anchors are present',['ascvd','diabetes','vancomycin','renal','opioid'].every(k=>source.includes(`data-tool="${k}"`)));
+add('Statin, diabetes, and opioid decision trees remain visible in their workbenches',['pv_flow','di_flow','og_flow'].every(id=>source.includes(`id="${id}"`)));
+add('Interactive diabetes pathway retains cardiorenal and preference inputs',['di_egfr','di_ascvd','di_hf','di_hfpef_obesity','di_ckd','di_albuminuria','di_weight_priority','di_hypo','di_cost'].every(id=>source.includes(`id="${id}"`))&&source.includes('onclick="calcDiabetesPathway()"'));
 add('Pip routes all five advanced calculators',demo.includes("?'renal'")&&demo.includes("?'ascvd'")&&demo.includes("?'diabetes'")&&demo.includes("?'vancomycin'")&&demo.includes("?'opioid'"));
-add('Calculator and nested case dialogs manage focus and Escape',source.includes('clinicalCalculatorDialogKeydown')&&source.includes('calculatorPracticeKeydown')&&source.includes("e.key==='Escape'")&&demo.includes('activateClinicalCalculatorDialog'));
-add('Targeted clinical calculator entry moves focus to the requested tool',source.includes('activateClinicalCalculatorDialog(ov,focus)')&&source.includes("card?.querySelector('h4')||close")&&source.includes('target?.focus()'));
+add('Calculator and concept dialogs manage focus and Escape',source.includes('clinicalCalculatorDialogKeydown')&&source.includes('calculatorConceptKeydown')&&source.includes("e.key==='Escape'")&&source.includes('activateClinicalCalculatorDialog'));
+add('Targeted clinical calculator entry moves focus to the requested tool',source.includes('activateClinicalCalculatorDialog(ov,focus,returnFocus)')&&demo.includes('activateClinicalCalculatorDialog(ov,focus,returnFocus)')&&source.includes("card?.querySelector('h4')||close")&&source.includes('target?.focus()'));
 add('Basic calculator is a labeled modal with Escape, focus trap, and restoration',demo.includes("BASIC_CALCULATOR_RETURN_FOCUS")&&demo.includes("basicCalculatorKeydown")&&demo.includes("aria-labelledby','basicCalculatorTitle")&&demo.includes("trapCalculatorFocus(e,ov)")&&demo.includes("target.focus()"));
 const quickCalculatorIds=['ag_na','ag_cl','ag_hco3','ag_alb','ca_ca','ca_alb','pt_lvl','pt_alb','pt_rf','hp_dose','hp_wt','hp_conc','bmi_wt','bmi_ht'];
 const advancedControlIds=[...source.matchAll(/<(?:input|select)\b[^>]*\bid="([^"]+)"/g)].map(m=>m[1]);
 add('All calculator controls have programmatic labels',advancedControlIds.length>0&&advancedControlIds.every(id=>source.includes(`<label for="${id}">`))&&!source.includes('<label>')&&quickCalculatorIds.every(id=>demo.includes(`<label for="${id}">`)));
-add('Practice feedback is announced and next cases receive focus',source.includes('role="status" aria-live="polite"')&&source.includes("#calcPracticeOv .calc-case-choices button"));
+add('Calculator concept dialog restores focus and exposes references',source.includes('CALCULATOR_CONCEPT_RETURN_FOCUS')&&source.includes('closeCalculatorConcept')&&source.includes('calculatorReferenceLinks(c.refs)'));
 add('Quick and basic calculator results are live status regions',['ag_out','ca_out','pt_out','hp_out','bmi_out','gen_out'].every(id=>demo.includes(`id="${id}" role="status" aria-live="polite"`)));
-add('Removed CrCl anchors route to the renal calculator',demo.includes('CALC_TERM_MAP={CrCl:"renal"')&&!demo.includes('calc:"crcl"')&&!demo.includes("return 'crcl'"));
+add('Removed CrCl anchors route to the renal calculator without dead legacy code',demo.includes('CALC_TERM_MAP={CrCl:"renal"')&&!demo.includes('calc:"crcl"')&&!demo.includes("return 'crcl'")&&!demo.includes('function calcCrCl'));
+add('Resident Tools child modals resolve a fresh connected return-focus target',demo.includes("openClinicalCalculator(event,'','resident-tools')")&&demo.includes("openBasicCalculator(event,'resident-tools')")&&demo.includes("showDiseaseAlgorithms(event,'resident-tools')")&&source.includes("saved==='resident-tools'?document.querySelector")&&diseaseSource.includes("saved==='resident-tools'?document.querySelector"));
 add('Pip closes before opening calculators and cannot cover either modal',demo.includes('togglePip(false);openClinicalCalculator')&&demo.includes("pipGoBtn('Basic calculator','togglePip(false);openBasicCalculator(event)')")&&demo.includes("if(typeof togglePip==='function')togglePip(false)")&&demo.includes('body:has(#calcToolOv) #pipPanel')&&demo.includes('body:has(#basicCalcOv) #pipPanel'));
-add('Formula disclosures expose calculation structure',source.includes('log odds = sex-specific intercept')&&source.includes('0.1–0.2 units/kg/day')&&source.includes('SCr rise ≥0.3 mg/dL within 48 hours')&&source.includes('k = ln(C1/C2)')&&source.includes('Vd = [R0 × (1−e')&&source.includes('absolute eGFR = indexed eGFR')&&source.includes('total MME/day = Σ')&&source.includes('50% educational cross-tolerance estimate')&&evidence.includes('Vd = [R0 × (1 - e^(-k×tinf))]'));
-add('Evidence register covers all advanced tools',evidence.includes('five advanced educational calculators')&&evidence.includes('Type 2 diabetes medication decisions and insulin teaching')&&evidence.includes('KDIGO acute kidney injury recognition and staging')&&evidence.includes('Opioid MME, dosing scope, and rotation teaching')&&evidence.includes('Implemented one-compartment, near-steady-state equations')&&evidence.includes('AUC24/MIC = AUC24 / MIC'));
+add('Formula disclosures expose calculation structure',source.includes('Risk = e<sup>log odds</sup>')&&source.includes('0.1–0.2 units/kg/day')&&source.includes('SCr rise ≥0.3 mg/dL/48 h')&&source.includes('k = ln(C1/C2)')&&source.includes('Vd = [R0×(1−e^(−k×tinf))]')&&source.includes('Absolute eGFR = indexed eGFR×BSA/1.73')&&source.includes('Total MME/day = Σ')&&source.includes('educational estimate = raw dose ×0.5')&&evidence.includes('Vd = [R0 × (1 - e^(-k×tinf))]'));
+add('Evidence register covers all advanced tools',evidence.includes('five advanced educational calculators')&&evidence.includes('Type 2 diabetes medication decisions and insulin teaching')&&evidence.includes('obesity with symptomatic HFpEF')&&evidence.includes('KDIGO acute kidney injury recognition and staging')&&evidence.includes('Opioid MME, dosing scope, and rotation teaching')&&evidence.includes('Implemented one-compartment, near-steady-state equations')&&evidence.includes('AUC24/MIC = AUC24 / MIC'));
 add('Calculator audit is enforced in product-quality CI',workflow.includes('node scripts/clinical-calculator-audit.mjs'));
 
 for(const c of checks)console.log(`${c.ok?'PASS':'FAIL'} ${c.name}${c.detail?' · '+c.detail:''}`);

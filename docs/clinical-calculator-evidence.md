@@ -51,6 +51,7 @@ The browser equation is translated from the published PREVENT base-model coeffic
 
 - Established ASCVD/high risk supports a GLP-1 RA and/or SGLT2 inhibitor with demonstrated cardiovascular benefit irrespective of A1C or metformin use.
 - HFrEF or HFpEF supports an SGLT2 inhibitor with proven HF benefit irrespective of A1C; TZDs are avoided in HF.
+- Confirmed obesity with symptomatic HFpEF also supports a GLP-1 RA or dual GIP/GLP-1 RA with demonstrated benefit; the calculator requires that phenotype explicitly rather than inferring it from a generic weight goal.
 - Confirmed CKD with eGFR 20–60 and/or albuminuria supports a proven-benefit SGLT2 inhibitor or GLP-1 RA. SGLT2 initiation is supported at eGFR ≥20, while glycemic effect is reduced below 45. At eGFR <30, an appropriate nonrenally cleared GLP-1 RA is preferred for additional glucose lowering.
 - Insulin is considered for symptomatic or catabolic hyperglycemia, A1C >10%, glucose ≥300 mg/dL, or suspected marked insulin deficiency. Without severe hyperglycemia or crisis, GLP-1–based therapy is preferred to insulin as the initial injectable when appropriate.
 - Basal initiation is displayed as 10 units/day or 0.1–0.2 units/kg/day. Example titration is +2 units every 3 days only when unexplained hypoglycemia is absent.
@@ -139,10 +140,10 @@ Primary sources:
 **Current status:** CDC 2022 controls outpatient opioid principles and MME risk context; current FDA labels control product-specific use. MME must not be reversed into a rotation dose.
 
 - Opioid-naive initiation is never auto-dosed. Acute pain routes to immediate-release, lowest-effective-dose, shortest-necessary-duration principles; subacute or chronic pain routes to a manual benefit–risk and functional-goal process.
-- ER/LA initiation, methadone, fentanyl, buprenorphine, OUD, parenteral/PCA/neuraxial therapy, pediatrics, pregnancy, cancer/sickle-cell/palliative pain, co-sedatives, respiratory red flags, organ impairment, and unstable use stop automated dose math.
+- ER/LA initiation, methadone, fentanyl, buprenorphine, OUD, parenteral/PCA/neuraxial therapy, pediatrics, pregnancy, cancer/sickle-cell/palliative pain, co-sedatives, respiratory red flags, organ impairment, and unstable use stop automated initiation and rotation dose math. Retrospective MME may remain visible only as current-exposure risk context when the product, route, setting, and clinical state are otherwise supported; it never authorizes a regimen.
 - ≥50 MME/day is a reassessment, follow-up, overdose-education, and naloxone guidepost, not a rigid ceiling or forced-taper trigger.
 - The bounded rotation worksheet accepts only one stable oral immediate-release morphine, oxycodone, or hydromorphone source. It uses actual representative 24-hour consumption, the Merck oral single-dose table, and a 50% educational cross-tolerance estimate.
-- Every scope-control change invalidates prior approval, replaces any stale MME display, and the rotation function re-evaluates current scope again at execution time. MME output is blocked for excluded populations, non-outpatient settings, unsupported routes, or unstable organ function.
+- Every scope-control change invalidates prior approval, replaces any stale MME display, and the rotation function re-evaluates current scope again at execution time. MME output is blocked for excluded populations, non-outpatient settings, unsupported routes, or unstable organ function; co-sedative and stable-organ-impairment pathways may show exposure context while still blocking all rotation arithmetic.
 - No final tablet schedule, interval, rescue dose, quantity, taper, or prescription is generated.
 
 Primary sources:

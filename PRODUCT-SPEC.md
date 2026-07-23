@@ -39,7 +39,7 @@ The Clinical Path is an English-language, pharmacy-only PGY-1 residency onboardi
 | Element | Current value |
 |---|---:|
 | Guided rotations | 69 |
-| Original clinical cases | 1,026 |
+| Original clinical cases | 1,051 |
 | Study cards | 168 |
 | Canonical clinical concepts | 68 |
 | Drug monographs | 100 |
@@ -51,7 +51,7 @@ The Clinical Path is an English-language, pharmacy-only PGY-1 residency onboardi
 
 ### Case-engine distribution
 
-- 828 multiple-choice decisions
+- 853 multiple-choice decisions
 - 53 sequencing exercises
 - 68 chart-hunt exercises
 - 40 SBAR builders

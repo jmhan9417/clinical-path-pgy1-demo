@@ -2,7 +2,7 @@ import fs from 'node:fs';
 const demo=fs.readFileSync(new URL('../demo.html',import.meta.url),'utf8');
 const home=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const checks=[];const add=(name,pass)=>checks.push({name,pass:Boolean(pass)});
-add('Published catalog count is 1,026',home.includes('<b>1,026</b>&nbsp;clinical cases')&&!/692 (?:clinical cases|decisions)/.test(home));
+add('Published catalog count is 1,051',home.includes('<b>1,051</b>&nbsp;clinical cases')&&!/692 (?:clinical cases|decisions)/.test(home));
 add('DKA dextrose threshold is below 250',demo.includes('glucose falls below 250 mg/dL')&&!demo.includes('add dextrose when glucose ~200'));
 add('DKA resolution uses ketonemia and acidosis',demo.includes('ketonemia and acidosis resolve')&&!demo.includes('anion gap is still open'));
 add('DKA potassium threshold is 3.5',demo.includes('K⁺ &lt; 3.5')&&!demo.includes('K⁺ &lt; 3.3')&&!demo.includes('K⁺ ≥ 3.3'));
